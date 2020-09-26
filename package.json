@@ -12,14 +12,17 @@
 	"dependencies": {
 		"@emotion/core": "^10.0.35",
 		"@emotion/styled": "^10.0.27",
-		"datx": "^2.0.0-beta.4",
-		"datx-network": "^2.0.0-beta.7",
+		"datx": "^2.0.0-beta.6",
+		"datx-network": "^2.0.0-beta.8",
 		"mobx": "4",
+		"mobx-react": "^6.3.0",
 		"next": "9.5.3",
 		"react": "16.13.1",
-		"react-dom": "16.13.1"
+		"react-dom": "16.13.1",
+		"react-hook-form": "^6.8.6"
 	},
 	"devDependencies": {
+		"@babel/plugin-proposal-decorators": "^7.10.5",
 		"@infinumjs/eslint-config-react": "^2.0.0",
 		"@types/node": "^14.11.2",
 		"@types/react": "^16.9.49",

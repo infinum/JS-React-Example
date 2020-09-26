@@ -366,6 +366,15 @@
     "@babel/helper-create-class-features-plugin" "^7.10.4"
     "@babel/helper-plugin-utils" "^7.10.4"
 
+"@babel/plugin-proposal-decorators@^7.10.5":
+  version "7.10.5"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-decorators/-/plugin-proposal-decorators-7.10.5.tgz#42898bba478bc4b1ae242a703a953a7ad350ffb4"
+  integrity sha512-Sc5TAQSZuLzgY0664mMDn24Vw2P8g/VhyLyGPaWiHahhgLqeZvcGeyBZOrJW0oSKIK2mvQ22a1ENXBIQLhrEiQ==
+  dependencies:
+    "@babel/helper-create-class-features-plugin" "^7.10.5"
+    "@babel/helper-plugin-utils" "^7.10.4"
+    "@babel/plugin-syntax-decorators" "^7.10.4"
+
 "@babel/plugin-proposal-dynamic-import@^7.10.4":
   version "7.10.4"
   resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-dynamic-import/-/plugin-proposal-dynamic-import-7.10.4.tgz#ba57a26cb98b37741e9d5bca1b8b0ddf8291f17e"
@@ -474,6 +483,13 @@
   version "7.10.4"
   resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-class-properties/-/plugin-syntax-class-properties-7.10.4.tgz#6644e6a0baa55a61f9e3231f6c9eeb6ee46c124c"
   integrity sha512-GCSBF7iUle6rNugfURwNmCGG3Z/2+opxAMLs1nND4bhEG5PuxTIggDBoeYYSujAlLtsupzOHYJQgPS3pivwXIA==
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.10.4"
+
+"@babel/plugin-syntax-decorators@^7.10.4":
+  version "7.10.4"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-decorators/-/plugin-syntax-decorators-7.10.4.tgz#6853085b2c429f9d322d02f5a635018cdeb2360c"
+  integrity sha512-2NaoC6fAk2VMdhY1eerkfHV+lVYC1u8b+jmRJISqANCJlTxYy19HGdIkkQtix2UtkcPuPu+IlDgrVseZnU03bw==
   dependencies:
     "@babel/helper-plugin-utils" "^7.10.4"
 
@@ -3050,24 +3066,24 @@ data-urls@^2.0.0:
     whatwg-mimetype "^2.3.0"
     whatwg-url "^8.0.0"
 
-datx-network@^2.0.0-beta.7:
-  version "2.0.0-beta.7"
-  resolved "https://registry.yarnpkg.com/datx-network/-/datx-network-2.0.0-beta.7.tgz#91a405eb1c113c7201a3397e3df5ff26fbec1c5b"
-  integrity sha512-Hh8pei3hA+xxRh8ilJpwEsrZT1IMpbBcEgX6XmS3+p2I3WPqkj0A67fIoqN3R3df1zVHiV4TrrDw9mAABb2kfA==
+datx-network@^2.0.0-beta.8:
+  version "2.0.0-beta.8"
+  resolved "https://registry.yarnpkg.com/datx-network/-/datx-network-2.0.0-beta.8.tgz#f9e52a1628dfe149a57daf7eb4dceb856898ad68"
+  integrity sha512-b0hypYG5u9AnFzvCCo3AirkPJ4oq+7AxnTi+8RYtA+4sVtyup5ZTfNCQqbuQLIzziIy5dSJ2paqZ6pyOr9O6yw==
   dependencies:
-    datx "^2.0.0-beta.4"
+    datx "^2.0.0-beta.7"
 
-datx-utils@^2.0.0-beta.4:
-  version "2.0.0-beta.4"
-  resolved "https://registry.yarnpkg.com/datx-utils/-/datx-utils-2.0.0-beta.4.tgz#f1dfbd5dd542280bca155fa5d35eb9f3dff737a3"
-  integrity sha512-ambp8bhjmn+S9CxD6hjj90CoOUpCDl8GMseHODY3gdrPONi/gi9NXlE/bboZbtAtPvIfdKR1tT8V7lGg/qhXTA==
+datx-utils@^2.0.0-beta.6:
+  version "2.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/datx-utils/-/datx-utils-2.0.0-beta.6.tgz#2ce0b47eb933f645b0b397e1de5c52ded05f5edb"
+  integrity sha512-m6mPJCG6s01qIyVqUDNvs6XcRTYrUg+wOO8x6r2m3ECA8eMrumti1nkYgA6CvzUk2hMhwBA4cWZVSSK5QDnLYQ==
 
-datx@^2.0.0-beta.4:
-  version "2.0.0-beta.4"
-  resolved "https://registry.yarnpkg.com/datx/-/datx-2.0.0-beta.4.tgz#6104bfd1c8cb3da62829743fac926299e878a0c4"
-  integrity sha512-Je7lfGIWbPDpdXgnDghKgmmv09kQ3MlUHlkhbTJ7PR5flwoD4cirvNzA2Gn3FHQTglDAEKpi6kvdkaCR1Aqarw==
+datx@^2.0.0-beta.6, datx@^2.0.0-beta.7:
+  version "2.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/datx/-/datx-2.0.0-beta.6.tgz#b1ccb27711317e98286c91f1e34951cf5c6d51e4"
+  integrity sha512-QIREiyquc73QTBGBQj0a4Nb7Ki6jRo/mQAr6jOMpQIo6GFMSql2a6eTBE5xrYhaZJ8PtXi8AqZWpRfDZR+uqeQ==
   dependencies:
-    datx-utils "^2.0.0-beta.4"
+    datx-utils "^2.0.0-beta.6"
 
 debug@4, debug@^4.0.1, debug@^4.1.0, debug@^4.1.1:
   version "4.2.0"
@@ -5590,6 +5606,18 @@ mkdirp@^0.5.1, mkdirp@^0.5.3:
   dependencies:
     minimist "^1.2.5"
 
+mobx-react-lite@>=2.2.0:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/mobx-react-lite/-/mobx-react-lite-2.2.2.tgz#87c217dc72b4e47b22493daf155daf3759f868a6"
+  integrity sha512-2SlXALHIkyUPDsV4VTKVR9DW7K3Ksh1aaIv3NrNJygTbhXe2A9GrcKHZ2ovIiOp/BXilOcTYemfHHZubP431dg==
+
+mobx-react@^6.3.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-6.3.0.tgz#7d11799f988bbdadc49e725081993b18baa20329"
+  integrity sha512-C14yya2nqEBRSEiJjPkhoWJLlV8pcCX3m2JRV7w1KivwANJqipoiPx9UMH4pm6QNMbqDdvJqoyl+LqNu9AhvEQ==
+  dependencies:
+    mobx-react-lite ">=2.2.0"
+
 mobx@4:
   version "4.15.7"
   resolved "https://registry.yarnpkg.com/mobx/-/mobx-4.15.7.tgz#933281268c3b4658b6cf2526e872cf78ea48ab95"
@@ -6470,6 +6498,11 @@ react-dom@16.13.1:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
     scheduler "^0.19.1"
+
+react-hook-form@^6.8.6:
+  version "6.8.6"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-6.8.6.tgz#c82b38b01e0a77689214c3ceb873eab9405d27a0"
+  integrity sha512-ZCp7Y+IrlsQma08uy3H6l/qF7dZWqAWMkZ4vVbHVfh1EHjsO1SwU7aYVHgJSQpriHtEdGszCW8NS/aujGsLk0g==
 
 react-is@16.13.1, react-is@^16.12.0, react-is@^16.8.1:
   version "16.13.1"
