@@ -1,15 +1,67 @@
 {
-  "name": "js-react-example",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
-  "dependencies": {
-    "next": "9.5.3",
-    "react": "16.13.1",
-    "react-dom": "16.13.1"
-  }
+	"name": "js-react-example",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"test": "jest --coverage",
+		"watch": "jest --watch --coverage"
+	},
+	"dependencies": {
+		"@emotion/core": "^10.0.35",
+		"@emotion/styled": "^10.0.27",
+		"datx": "^2.0.0-beta.4",
+		"datx-network": "^2.0.0-beta.7",
+		"mobx": "4",
+		"next": "9.5.3",
+		"react": "16.13.1",
+		"react-dom": "16.13.1"
+	},
+	"devDependencies": {
+		"@infinumjs/eslint-config-react": "^2.0.0",
+		"@types/node": "^14.11.2",
+		"@types/react": "^16.9.49",
+		"eslint": "^7.9.0",
+		"husky": "^4.3.0",
+		"jest": "^26.4.2",
+		"lint-staged": "^10.4.0",
+		"prettier": "^2.1.2",
+		"ts-jest": "^26.4.0",
+		"typescript": "^4.0.3"
+	},
+	"husky": {
+		"hooks": {
+			"pre-push": "npm test",
+			"pre-commit": "prettier --write"
+		}
+	},
+	"lint-staged": {
+		"{src,tests}/**/*.{js,ts,tsx}": [
+			"eslint",
+			"prettier --write"
+		]
+	},
+	"jest": {
+		"coveragePathIgnorePatterns": [
+			"/tests/",
+			"/node_modules/"
+		],
+		"moduleFileExtensions": [
+			"ts",
+			"js",
+			"tsx"
+		],
+		"testRegex": "tests/(.*).test.tsx?$",
+		"globals": {
+			"ts-jest": {
+				"diagnostics": {
+					"warnOnly": true
+				}
+			}
+		},
+		"preset": "ts-jest",
+		"testMatch": null
+	}
 }

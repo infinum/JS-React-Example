@@ -1,30 +1,32 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# React Example project
 
-## Getting Started
+- Setup: https://www.notion.so/darko/Project-Spine-5742bc5ea22e419fbd71cd7ae217afd1
 
-First, run the development server:
+## Project setup
 
 ```bash
-npm run dev
-# or
+# Install dependencies
+yarn install
+
+# Start the dev server
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deployment
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+TBD
 
-## Learn More
+## Git workflow
 
-To learn more about Next.js, take a look at the following resources:
+TBD
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Styleguide
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+This project is using the styleguide as defined in the [Infinum Handbook v2020.09](link_to_tag) and [Styleguide Project v2020.09](link_to_tagged_project).
 
-## Deploy on Vercel
+## Team
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Once you're onboarded to the project add your self to the list and mention in
+short what you worked on:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Darko Kukovec (project setup; 2020)
