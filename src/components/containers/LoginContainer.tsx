@@ -1,16 +1,21 @@
-import React, { ReactElement } from 'react';
+import { useRouter } from 'next/router';
+import { ReactElement, useState } from 'react';
 
 import { LoginForm } from 'components/ui/LoginForm';
 import { login } from 'utils/fetchers';
 
 export const LoginContainer = (): ReactElement => {
-	const [apiErrors, setApiErrors] = React.useState<string>();
+	const router = useRouter();
+	const [apiErrors, setApiErrors] = useState<string>();
 
-	const onSubmit = ({ email, password }: { email: string; password: string }): void => {
-		login.fetch(null, { email, password }).then(
-			() => setApiErrors(null),
-			(e) => setApiErrors(e.error?.message)
-		);
+	const onSubmit = async ({ email, password }: { email: string; password: string }): Promise<void> => {
+		try {
+			await login.fetch(null, { email, password });
+			setApiErrors(null);
+			router.push('/');
+		} catch (e) {
+			setApiErrors(e.error?.message);
+		}
 	};
 
 	return (

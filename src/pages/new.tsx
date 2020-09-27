@@ -1,16 +1,16 @@
 import Head from 'next/head';
 import { ReactElement } from 'react';
 
-import { HomeContainer } from 'components/containers/HomeContainer';
+import { NewListContainer } from 'components/containers/NewListContainer';
 import { withAuth } from 'components/withAuth';
 
 function Home(): ReactElement {
 	return (
 		<>
 			<Head>
-				<title>Todos</title>
+				<title>New list</title>
 			</Head>
-			<HomeContainer />
+			<NewListContainer />
 		</>
 	);
 }

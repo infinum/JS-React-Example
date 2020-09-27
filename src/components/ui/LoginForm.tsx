@@ -10,7 +10,7 @@ const Error = styled.p`
 `;
 
 interface ILoginFormProps {
-	onSubmit({ email, password }: { email: string; password: string }): void;
+	onSubmit({ email, password }: { email: string; password: string }): Promise<void>;
 	apiErrors?: string;
 }
 

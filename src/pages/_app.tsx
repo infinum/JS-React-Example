@@ -1,15 +1,11 @@
 import { Global, css } from '@emotion/core';
 import { Provider } from 'mobx-react';
 import { AppProps } from 'next/app';
-import { ReactElement } from 'react';
+import { ReactElement, useEffect } from 'react';
 
-import { User } from 'models/User';
+import { HeaderContainer } from 'components/containers/HeaderContainer';
 import { initializeStore, useStore } from 'store';
-import { debug } from 'utils/debugger';
-import * as fetchers from 'utils/fetchers';
-import Link from 'next/link';
-
-debug('fetchers', fetchers);
+import { getCurrentUser } from 'utils/fetchers';
 
 const globalStyles = css`
 	html,
@@ -37,24 +33,17 @@ const globalStyles = css`
 function MyApp({ Component, pageProps }: AppProps): ReactElement {
 	const store = useStore(pageProps.initialState);
 
-	const isLoggedIn = store.findAll(User).length !== 0;
+	// TODO: Fix the datx-network useHook
+	// TODO: This needs to be done before render
+	useEffect(() => {
+		getCurrentUser.fetch();
+	}, []);
 
 	return (
 		<Provider store={store}>
 			<Global styles={globalStyles} />
 			<div>
-				<header>
-					<Link href="/">
-						<a>Home</a>
-					</Link>
-					{isLoggedIn ? (
-						'Logout'
-					) : (
-						<Link href="/login">
-							<a>Log in</a>
-						</Link>
-					)}
-				</header>
+				<HeaderContainer />
 				<main>
 					<Component {...pageProps} />
 				</main>
@@ -63,16 +52,11 @@ function MyApp({ Component, pageProps }: AppProps): ReactElement {
 	);
 }
 
-export default MyApp;
-
-export async function getInitialProps(): Promise<object> {
+MyApp.getServerSideProps = async (): Promise<object> => {
 	const store = initializeStore();
+	await getCurrentUser.fetch();
 
-	try {
-		await fetchers.getCurrentUser.fetch();
-	} catch {
-		// Nothing to do here
-	}
+	return { initialState: store.snapshot };
+};
 
-	return { props: { initialState: store.snapshot } };
-}
+export default MyApp;

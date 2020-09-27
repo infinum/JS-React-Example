@@ -1,7 +1,8 @@
 import { BaseRequest, HttpMethod, method, setUrl } from 'datx-network';
+import { TodoList } from '../models/TodoList';
 import { User } from '../models/User';
 
-const base = new BaseRequest('http://localhost:8080');
+const base = new BaseRequest('http://localhost:3000');
 
 /**
  * Register an user
@@ -31,3 +32,17 @@ export const logout = base.pipe<null, null>(setUrl('/auth/logout'), method(HttpM
  */
 type IRelations = 'todoLists' | 'todoLists.todos' | 'demographicProfile' | 'newsletterPreferences';
 export const getCurrentUser = base.pipe<User, { relations: Array<IRelations> }>(setUrl('/auth/user', User));
+
+/**
+ * Get TODO lists
+ * Params: null
+ * Body: null
+ */
+export const getTodoLists = base.pipe<Array<TodoList>, null>(setUrl('/todo-lists?relations=todos', TodoList));
+
+/**
+ * Create a new TODO list
+ * Params: null
+ * Body: { title: string; done: boolean }
+ */
+export const createNewList = base.pipe<TodoList, null>(setUrl('/todo-lists', TodoList), method(HttpMethod.Post));
