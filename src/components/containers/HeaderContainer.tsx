@@ -2,15 +2,18 @@ import Link from 'next/link';
 import React, { ReactElement } from 'react';
 import { observer } from 'mobx-react';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'react-i18next';
 
 import { User } from 'models/User';
 import { useStore } from 'store';
 import { logout } from 'utils/fetchers';
+import { LanguagePicker } from '../ui/LanguagePicker';
 
 export const HeaderContainer = observer(
 	(): ReactElement => {
 		const store = useStore();
 		const router = useRouter();
+		const { t } = useTranslation();
 
 		const isLoggedIn = Boolean(store.user);
 
@@ -23,15 +26,16 @@ export const HeaderContainer = observer(
 		return (
 			<header>
 				<Link href="/">
-					<a>Home</a>
+					<a>{t('home')}</a>
 				</Link>
 				{isLoggedIn ? (
-					<button onClick={onLogout}>Logout</button>
+					<button onClick={onLogout}>{t('logout')}</button>
 				) : (
 					<Link href="/login">
-						<a>Log in</a>
+						<a>{t('logIn')}</a>
 					</Link>
 				)}
+				<LanguagePicker/>
 			</header>
 		);
 	}

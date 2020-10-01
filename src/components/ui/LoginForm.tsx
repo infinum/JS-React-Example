@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 const Title = styled.h1``;
 
@@ -16,10 +17,11 @@ interface ILoginFormProps {
 
 export const LoginForm = ({ onSubmit, apiErrors }: ILoginFormProps): ReactElement => {
 	const { handleSubmit, register, errors } = useForm();
+	const { t } = useTranslation();
 
 	return (
 		<>
-			<Title>Login</Title>
+			<Title>{t('logIn')}</Title>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				{apiErrors && <Error>{apiErrors}</Error>}
 
@@ -46,7 +48,7 @@ export const LoginForm = ({ onSubmit, apiErrors }: ILoginFormProps): ReactElemen
 
 				{errors.password && <Error>{errors.password.message}</Error>}
 
-				<button type="submit">Log in</button>
+				<button type="submit">{t('logIn')}</button>
 			</form>
 		</>
 	);

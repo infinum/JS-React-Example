@@ -8,19 +8,22 @@
 		"build": "next build",
 		"start": "next start",
 		"test": "jest --coverage",
-		"watch": "jest --watch --coverage"
+		"watch": "jest --watch --coverage",
+	    "polyglot:pull": "polyglot pull -c .polyglot.json"
 	},
 	"dependencies": {
 		"@emotion/core": "^10.0.35",
 		"@emotion/styled": "^10.0.27",
 		"datx": "^2.0.0-beta.6",
 		"datx-network": "^2.0.0-beta.8",
+		"i18next": "^19.7.0",
 		"mobx": "4",
 		"mobx-react": "^6.3.0",
 		"next": "9.5.3",
 		"react": "16.13.1",
 		"react-dom": "16.13.1",
-		"react-hook-form": "^6.8.6"
+		"react-hook-form": "^6.8.6",
+		"react-i18next": "^11.7.3"
 	},
 	"devDependencies": {
 		"@babel/plugin-proposal-decorators": "^7.10.5",

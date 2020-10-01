@@ -6,6 +6,7 @@ import { ReactElement, useEffect } from 'react';
 import { HeaderContainer } from 'components/containers/HeaderContainer';
 import { initializeStore, useStore } from 'store';
 import { getCurrentUser } from 'utils/fetchers';
+import '../localisation/Localisation';
 
 const globalStyles = css`
 	html,

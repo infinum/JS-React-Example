@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 const Title = styled.h1``;
 
@@ -16,10 +17,11 @@ interface INewListFormProps {
 
 export const NewListForm = ({ onSubmit, apiErrors }: INewListFormProps): ReactElement => {
 	const { handleSubmit, register, errors } = useForm();
+	const { t } = useTranslation();
 
 	return (
 		<>
-			<Title>Add new TODO List</Title>
+			<Title>{t('addNewTodoList')}</Title>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				{apiErrors && <Error>{apiErrors}</Error>}
 
@@ -32,7 +34,7 @@ export const NewListForm = ({ onSubmit, apiErrors }: INewListFormProps): ReactEl
 
 				{errors.title && <Error>{errors.title.message}</Error>}
 
-				<button type="submit">Add list</button>
+				<button type="submit">{t('addList')}</button>
 			</form>
 		</>
 	);

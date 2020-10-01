@@ -1,0 +1,19 @@
+{
+  "name": "React Example",
+  "id": "200",
+  "path": "src/localisation/locales",
+  "serializer": "nested",
+  "filetype": "2",
+  "initialized": "2020-10-01T07:42:48.390Z",
+  "lastUpdatedAt": "2020-10-01T08:54:47.910Z",
+  "placeholder": {
+    "named": "mustache"
+  },
+  "locale": {
+    "language": true,
+    "country": true,
+    "languageCodeSeparator": "_",
+    "lowerCaseLanguageCode": false
+  },
+  "version": "1.10.1"
+}
