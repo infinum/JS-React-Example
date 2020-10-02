@@ -9,7 +9,7 @@
 		"start": "next start",
 		"test": "jest --coverage",
 		"watch": "jest --watch --coverage",
-	    "polyglot:pull": "polyglot pull -c .polyglot.json"
+		"polyglot:pull": "polyglot pull -c .polyglot.json"
 	},
 	"dependencies": {
 		"@emotion/core": "^10.0.35",
@@ -28,6 +28,10 @@
 	"devDependencies": {
 		"@babel/plugin-proposal-decorators": "^7.10.5",
 		"@infinumjs/eslint-config-react": "^2.0.0",
+		"@testing-library/jest-dom": "^5.11.4",
+		"@testing-library/react": "^11.0.4",
+		"@testing-library/user-event": "^12.1.6",
+		"@types/jest": "^26.0.14",
 		"@types/node": "^14.11.2",
 		"@types/react": "^16.9.49",
 		"eslint": "^7.9.0",
@@ -35,7 +39,7 @@
 		"jest": "^26.4.2",
 		"lint-staged": "^10.4.0",
 		"prettier": "^2.1.2",
-		"ts-jest": "^26.4.0",
+		"ts-jest": "^26.4.1",
 		"typescript": "^4.0.3"
 	},
 	"husky": {
@@ -69,6 +73,9 @@
 			}
 		},
 		"preset": "ts-jest",
+		"transform": {
+			"^.+\\.tsx?$": "babel-jest"
+		},
 		"testMatch": null
 	}
 }

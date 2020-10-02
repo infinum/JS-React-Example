@@ -10,11 +10,13 @@ export const LanguagePicker = (): ReactElement => {
 
 	return (
 		// eslint-disable-next-line jsx-a11y/no-onchange
-		<select onChange={handleLanguageChange}>
-			<option selected value={'en_US'}>
+		<select data-testid="language-picker" onChange={handleLanguageChange}>
+			<option data-testid="option1" value="en_US">
 				{t('english')}
 			</option>
-			<option value={'hr_HR'}>{t('croatian')}</option>
+			<option data-testid="option2" value="hr_HR">
+				{t('croatian')}
+			</option>
 		</select>
 	);
 };
