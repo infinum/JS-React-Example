@@ -16,6 +16,8 @@
 		"@emotion/styled": "^10.0.27",
 		"datx": "^2.0.0-beta.6",
 		"datx-network": "^2.0.0-beta.8",
+		"emotion-normalize": "^10.1.0",
+		"emotion-theming": "^10.0.27",
 		"i18next": "^19.7.0",
 		"mobx": "4",
 		"mobx-react": "^6.3.0",
@@ -63,6 +65,9 @@
 			"ts",
 			"js",
 			"tsx"
+		],
+		"modulePaths": [
+		  "<rootDir>/src/"
 		],
 		"testRegex": "tests/(.*).test.tsx?$",
 		"globals": {

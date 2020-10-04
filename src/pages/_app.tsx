@@ -1,35 +1,13 @@
-import { Global, css } from '@emotion/core';
 import { Provider } from 'mobx-react';
 import { AppProps } from 'next/app';
 import { ReactElement, useEffect } from 'react';
+import { ThemeProvider } from 'emotion-theming';
 
 import { HeaderContainer } from 'components/containers/HeaderContainer';
 import { initializeStore, useStore } from 'store';
 import { getCurrentUser } from 'utils/fetchers';
 import '../localisation/Localisation';
-
-const globalStyles = css`
-	html,
-	body {
-		padding: 0;
-		margin: 0;
-		font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
-			Helvetica Neue, sans-serif;
-	}
-
-	a {
-		color: inherit;
-		text-decoration: none;
-	}
-
-	* {
-		box-sizing: border-box;
-	}
-
-	header a {
-		margin-right: 10px;
-	}
-`;
+import { GlobalStyles, theme } from 'theming/Theme';
 
 function MyApp({ Component, pageProps }: AppProps): ReactElement {
 	const store = useStore(pageProps.initialState);
@@ -41,15 +19,18 @@ function MyApp({ Component, pageProps }: AppProps): ReactElement {
 	}, []);
 
 	return (
-		<Provider store={store}>
-			<Global styles={globalStyles} />
-			<div>
-				<HeaderContainer />
-				<main>
-					<Component {...pageProps} />
-				</main>
-			</div>
-		</Provider>
+		<ThemeProvider theme={theme}>
+			<GlobalStyles />
+
+			<Provider store={store}>
+				<div>
+					<HeaderContainer />
+					<main>
+						<Component {...pageProps} />
+					</main>
+				</div>
+			</Provider>
+		</ThemeProvider>
 	);
 }
 
