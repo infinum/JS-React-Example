@@ -6,7 +6,7 @@ import { ThemeProvider } from 'emotion-theming';
 import { HeaderContainer } from 'components/containers/HeaderContainer';
 import { initializeStore, useStore } from 'store';
 import { getCurrentUser } from 'utils/fetchers';
-import '../localisation/Localisation';
+import '../localisation/localisation';
 import { GlobalStyles, theme } from 'theming/Theme';
 
 function MyApp({ Component, pageProps }: AppProps): ReactElement {

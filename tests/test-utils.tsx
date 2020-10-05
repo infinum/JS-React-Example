@@ -7,7 +7,7 @@ import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider } from 'emotion-theming';
 
-import localisation from 'localisation/Localisation';
+import localisation from 'localisation/localisation';
 import { theme } from 'theming/Theme';
 
 export const testYoloEnUsValue = 'You only live once';
