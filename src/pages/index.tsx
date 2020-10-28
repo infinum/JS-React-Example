@@ -132,7 +132,7 @@ export default function Home(): ReactElement {
 				</Title>
 
 				<Description>
-					Get started by editing <Code>pages/index.js</Code>
+					Get started by editing <Code>pages/index.ts</Code>
 				</Description>
 
 				<Grid>
