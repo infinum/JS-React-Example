@@ -15,7 +15,7 @@
 		"datx-network": "^2.0.0-beta.7",
 		"framer-motion": "^2.9.4",
 		"mobx": "4",
-		"next": "10.0.0",
+		"next-seo": "^4.15.0",
 		"react": "16.13.1",
 		"react-dom": "16.13.1"
 	},
