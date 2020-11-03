@@ -5,23 +5,25 @@ import { ColorModeSwitch } from '@/components/ui/molecules/ColorModeSwitch/Color
 
 export const HeroSection: FC = (props) => {
 	return (
-		<Section py="10" minH="100vh" {...props}>
+		<Section pt={48} pb={24} {...props}>
 			<Container maxW="lg">
 				<Flex>
-					<Box flex={1}>
-						<Heading>Landing page template</Heading>
-						<Text color="gray.500">
+					<Box flex={1} pr={6}>
+						<Heading mb={5}>Landing page template</Heading>
+						<Text mb={5} color="gray.500">
 							Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
 							et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
 						</Text>
-						<Flex>
-							<Button colorScheme="blue" size="lg">
+						<Flex justifyContent="flex-start" alignItems="center">
+							<Button colorScheme="blue" size="lg" px="40px" minW={0}>
 								CLICK ME NOW
 							</Button>
-							<ColorModeSwitch />
+							<Box ml={4}>
+								<ColorModeSwitch />
+							</Box>
 						</Flex>
 					</Box>
-					<Box flex={1}>
+					<Box flex={1} pl={6}>
 						<Image src="/images/undraw_Collection_re_4h7d.svg" />
 					</Box>
 				</Flex>

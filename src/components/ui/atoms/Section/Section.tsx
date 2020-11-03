@@ -2,16 +2,16 @@ import { chakra, forwardRef, omitThemingProps, ThemingProps, useStyleConfig, HTM
 import { cx, __DEV__ } from '@chakra-ui/utils';
 import React from 'react';
 
-export interface ISectionProps extends HTMLChakraProps<'div'>, ThemingProps {}
+export interface ISectionProps extends HTMLChakraProps<'section'>, ThemingProps {}
 
-export const Section = forwardRef<ISectionProps, 'div'>(function Section(props, ref) {
+export const Section = forwardRef<ISectionProps, 'section'>(function Section(props, ref) {
 	const styles = useStyleConfig('Section', props);
 
 	const { className, ...rest } = omitThemingProps(props);
 
 	const _className = cx('Section', className);
 
-	return <chakra.div ref={ref} className={_className} {...rest} __css={styles} />;
+	return <chakra.section ref={ref} className={_className} {...rest} __css={styles} />;
 });
 
 if (__DEV__) {
