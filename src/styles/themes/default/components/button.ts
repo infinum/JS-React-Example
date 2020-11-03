@@ -61,6 +61,12 @@ type AccessibleColor = {
 
 /** Accessible color overrides for less accessible colors. */
 const accessibleColorMap: { [key: string]: AccessibleColor } = {
+	blue: {
+		bg: 'blue.700',
+		color: 'white',
+		hoverBg: 'blue.800',
+		activeBg: 'blue.900',
+	},
 	yellow: {
 		bg: 'yellow.400',
 		color: 'black',
