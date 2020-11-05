@@ -79,6 +79,8 @@ src
         |   └── UserCardSection
 				|       └── UserCardSection.tsx
         └── templates
+            └── Default
+				        └── Default.tsx
 ```
 
 ## Team
