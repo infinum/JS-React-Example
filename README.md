@@ -75,14 +75,14 @@ src
 ├── components
     └── ui
         ├── atoms
-        |   └── Card
-        |       └── Card.tsx
+        │   └── Card
+        │       └── Card.tsx
         ├── molecules
-        |   └── UserCard
-        |       └── UserCard.tsx
+        │   └── UserCard
+        │       └── UserCard.tsx
         ├── organisms
-        |   └── UserCardSection
-        |       └── UserCardSection.tsx
+        │   └── UserCardSection
+        │       └── UserCardSection.tsx
         └── templates
             └── Default
                 └── Default.tsx
