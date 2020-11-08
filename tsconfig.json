@@ -19,8 +19,10 @@
 		"jsx": "preserve",
 		"baseUrl": "./src",
 		"paths": {
-			"@/components/*": ["components/*"],
-			"@/themes/*": ["styles/themes/*"],
+			"@components/*": ["components/*"],
+			"@ui/*": ["components/ui/*"],
+			"@layouts/*": ["components/layouts/*"],
+			"@themes/*": ["styles/themes/*"],
     }
   },
   "include": [

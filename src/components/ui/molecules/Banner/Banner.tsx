@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Box, Button, ChakraProps, Heading, Spacer, Text } from '@chakra-ui/core';
-import { Card } from '@/components/ui/atoms/Card/Card';
+import { Card } from '@ui/atoms/Card/Card';
 
 interface IBannerProps extends ChakraProps {
 	title?: string;

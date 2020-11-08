@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Container, Heading } from '@chakra-ui/core';
-import { Section } from '@/components/ui/atoms/Section/Section';
+import { Section } from '@ui/atoms/Section/Section';
 
 export const ContactSection: FC = (props) => {
 	return (

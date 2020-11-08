@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Container, Heading, Image, Text } from '@chakra-ui/core';
-import { Section } from '@/components/ui/atoms/Section/Section';
-import { Banner } from '@/components/ui/molecules/Banner/Banner';
+import { Section } from '@ui/atoms/Section/Section';
+import { Banner } from '@ui/molecules/Banner/Banner';
 
 export const ShowcaseSection: FC = (props) => {
 	return (
@@ -14,7 +14,7 @@ export const ShowcaseSection: FC = (props) => {
 					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
 					dolore magna aliquyam erat, sed diam voluptua.
 				</Text>
-				<Image src="/images/undraw_features_overview_jg7a.svg" />
+				<Image src="/images/undraw_features_overview_jg7a.svg" maxW="xl" mx="auto" />
 				<Banner
 					mt={10}
 					title="Lorem ipsum dolor sit amet, consetetur sadipscing elitr"

@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 
-import { DashboardLayout } from '@/components/layouts/DashboardLayout/DashboardLayout';
-import { Seo } from '@/components/ui/organisms/Seo/Seo';
+import { DashboardLayout } from '@layouts/DashboardLayout/DashboardLayout';
+import { Seo } from '@ui/organisms/Seo/Seo';
 
 export default function Dashboard(): ReactElement {
 	return (
