@@ -1,6 +1,9 @@
 # React Example project
 
-- Setup: https://www.notion.so/darko/Project-Spine-5742bc5ea22e419fbd71cd7ae217afd1
+## Docs
+
+- [Folder structure (Atomic Design)](./docs/atomic-design.md)
+- [Hygen code generators](./docs/code-generators.md)
 
 ## Project setup
 
@@ -24,7 +27,6 @@ TBD
 
 This project is using the styleguide as defined in the [Infinum Handbook v2020.09](link_to_tag) and [Styleguide Project v2020.09](link_to_tagged_project).
 
-- [Folder structure (Atomic Design)](./docs/atomic-design.md)
 
 ## Team
 
