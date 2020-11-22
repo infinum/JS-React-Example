@@ -22,7 +22,9 @@
 ### Project initialization
 
 To start a new project use following [create-next-app](https://nextjs.org/docs/api-reference/create-next-app) CLI command:
-`yarn create next-app -e https://github.com/infinum/JS-React-Example/tree/chakra`
+```
+yarn create next-app -e https://github.com/infinum/JS-React-Example/tree/chakra
+```
 
 ### Project setup
 ```bash
