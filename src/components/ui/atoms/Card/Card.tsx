@@ -1,4 +1,4 @@
-import { chakra, forwardRef, omitThemingProps, ThemingProps, useStyleConfig, HTMLChakraProps } from '@chakra-ui/core';
+import { chakra, forwardRef, omitThemingProps, ThemingProps, useStyleConfig, HTMLChakraProps } from '@chakra-ui/react';
 import { cx, __DEV__ } from '@chakra-ui/utils';
 import React from 'react';
 

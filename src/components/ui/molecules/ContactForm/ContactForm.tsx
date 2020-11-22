@@ -1,4 +1,4 @@
-import { FormControl, FormLabel, Input, FormHelperText, Textarea, chakra, Button } from '@chakra-ui/core';
+import { FormControl, FormLabel, Input, FormHelperText, Textarea, chakra, Button } from '@chakra-ui/react';
 import React, { FC } from 'react';
 
 export const ContactForm: FC = () => {
@@ -7,7 +7,7 @@ export const ContactForm: FC = () => {
 			<FormControl id="email" mb={5}>
 				<FormLabel>Email address</FormLabel>
 				<Input type="email" />
-				<FormHelperText>We'll never share your email.</FormHelperText>
+				<FormHelperText>We&#39;ll never share your email.</FormHelperText>
 			</FormControl>
 			<FormControl id="subject" mb={5}>
 				<FormLabel>Subject</FormLabel>

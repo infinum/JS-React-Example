@@ -1,4 +1,4 @@
-import { chakra, forwardRef, HTMLChakraProps, ThemingProps, useColorModeValue } from '@chakra-ui/core';
+import { chakra, forwardRef, HTMLChakraProps, ThemingProps, useColorModeValue } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 

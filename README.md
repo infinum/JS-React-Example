@@ -1,12 +1,29 @@
 # React Example project
 
+## Technology
+
+- [Next.js](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Datx](https://datx.dev/)
+- [React Hook Form](https://react-hook-form.com/)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) and [Jest](https://jestjs.io/) for unit and API request tests
+- [Storybook](https://storybook.js.org/)
+- [Hygen Templates](https://www.hygen.io/)
+
 ## Docs
 
 - [Folder structure (Atomic Design)](./docs/atomic-design.md)
 - [Hygen code generators](./docs/code-generators.md)
+- [Testing](./docs/testings.md)
 
-## Project setup
+## Getting started
 
+### Project initialization
+
+To start a new project use following [create-next-app](https://nextjs.org/docs/api-reference/create-next-app) CLI command:
+`yarn create next-app -e https://github.com/infinum/JS-React-Example/tree/chakra`
+
+### Project setup
 ```bash
 # Install dependencies
 yarn install

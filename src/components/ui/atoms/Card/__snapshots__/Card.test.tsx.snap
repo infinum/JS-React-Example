@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card matches snapshot 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  border: 1px solid;
+  border-color: #E2E8F0;
+  border-radius: 0.375rem;
+  padding: 0.75rem;
+}
+
+<div
+    class="card emotion-0"
+  />
+</DocumentFragment>
+`;

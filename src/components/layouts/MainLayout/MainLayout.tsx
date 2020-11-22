@@ -1,7 +1,7 @@
-import { chakra } from '@chakra-ui/core';
+import { chakra } from '@chakra-ui/react';
 import React, { FC } from 'react';
-import { Footer } from '@ui/organisms/Footer/Footer';
-import { Navigation } from '@ui/organisms/Navigation/Navigation';
+import { Footer } from '@organisms/Footer/Footer';
+import { Navigation } from '@organisms/Navigation/Navigation';
 
 export const MainLayout: FC = ({ children }) => {
 	return (

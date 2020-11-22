@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { Container, Heading, Image, Text } from '@chakra-ui/core';
-import { Section } from '@ui/atoms/Section/Section';
-import { Banner } from '@ui/molecules/Banner/Banner';
+import { Container, Heading, Image, Text } from '@chakra-ui/react';
+import { Section } from '@atoms/Section/Section';
+import { Banner } from '@molecules/Banner/Banner';
 
 export const ShowcaseSection: FC = (props) => {
 	return (

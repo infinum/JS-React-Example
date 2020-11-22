@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -16,21 +12,21 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-		"jsx": "preserve",
-		"baseUrl": "./src",
-		"paths": {
-			"@components/*": ["components/*"],
-			"@ui/*": ["components/ui/*"],
-			"@layouts/*": ["components/layouts/*"],
-			"@themes/*": ["styles/themes/*"],
+    "jsx": "preserve",
+    "experimentalDecorators": true,
+    "typeRoots": ["./typings", "./node_modules/@types"],
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@layouts/*": ["src/components/layouts/*"],
+      "@atoms/*": ["src/components/ui/atoms/*"],
+      "@molecules/*": ["src/components/ui/molecules/*"],
+      "@organisms/*": ["src/components/ui/organisms/*"],
+      "@themes/*": ["src/styles/themes/*"],
+      "@utils/*": ["src/utils/*"],
+      "@test-utils": ["__tests__/test-utils.tsx"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

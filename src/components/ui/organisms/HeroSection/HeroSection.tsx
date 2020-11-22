@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { Flex, Box, Text, Button, Container, Heading, Image } from '@chakra-ui/core';
-import { Section } from '@ui/atoms/Section/Section';
-import { ColorModeSwitch } from '@ui/molecules/ColorModeSwitch/ColorModeSwitch';
+import { Flex, Box, Text, Button, Container, Heading, Image } from '@chakra-ui/react';
+import { Section } from '@atoms/Section/Section';
+import { ColorModeSwitch } from '@molecules/ColorModeSwitch/ColorModeSwitch';
 
 export const HeroSection: FC = (props) => {
 	return (

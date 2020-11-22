@@ -1,3 +1,9 @@
 {
-  "extends": "@infinumjs/eslint-config-react"
+	"extends": "@infinumjs/eslint-config-react",
+	"rules":{
+		"@typescript-eslint/interface-name-prefix": ["error", {
+			"prefixWithI": "always"
+		}],
+		"@typescript-eslint/ban-ts-ignore": ["warn"]
+	}
 }

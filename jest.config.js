@@ -1,0 +1,31 @@
+module.exports = {
+	roots: ['<rootDir>/src/', '<rootDir>/__tests__/'],
+	moduleFileExtensions: ['ts', 'js', 'tsx'],
+	modulePaths: ['<rootDir>'],
+	moduleDirectories: ['node_modules', '<rootDir>'],
+	testRegex: '(.*).(test|spec).[jt]sx?$',
+	setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+	testPathIgnorePatterns: ['<rootDir>[/\\\\](node_modules|.next)[/\\\\]'],
+	transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(ts|tsx)$'],
+	transform: {
+		'^.+\\.tsx?$': 'babel-jest',
+		'^.+\\.svg$': 'jest-svg-transformer',
+	},
+	snapshotSerializers: ['@emotion/jest/serializer'],
+	collectCoverageFrom: [
+		'src/**/*.{js,jsx,ts,tsx}',
+		'!src/**/*.test.{js,jsx,ts,tsx}',
+		'!src/**/*.stroy.{js,jsx,ts,tsx}',
+	],
+	moduleNameMapper: {
+		'^@components/(.*)$': '<rootDir>/src/components/$1',
+		'^@layouts/(.*)$': '<rootDir>/src/components/layouts/$1',
+		'^@atoms/(.*)$': '<rootDir>/src/components/ui/atoms/$1',
+		'^@molecules/(.*)$': '<rootDir>/src/components/ui/molecules/$1',
+		'^@organisms/(.*)$': '<rootDir>/src/components/ui/organisms/$1',
+		'^@themes/(.*)$': '<rootDir>/src/styles/themes/$1',
+		'^@test-utils$': '<rootDir>/__tests__/test-utils',
+		'\\.(css|less|sass|scss)$': 'identity-obj-proxy',
+		'\\.(gif|ttf|eot|svg|png)$': '<rootDir>/__mocks__/fileMock.js',
+	},
+};

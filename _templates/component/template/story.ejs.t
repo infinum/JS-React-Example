@@ -1,17 +1,24 @@
 ---
-to: src/components/ui/atoms/<%= h.changeCase.pascal(name) %>/<%= h.changeCase.pascal(name) %>.story.tsx
+to: src/components/ui/templates/<%= h.changeCase.pascal(name) %>/<%= h.changeCase.pascal(name) %>.stories.tsx
 ---
 <%
-  pascalName = h.changeCase.pascal(name)
+  ComponentName = h.changeCase.pascal(name)
+  ComponentNameHeader = h.changeCase.pascal(name) + 'Header'
+  ComponentNameContent = h.changeCase.pascal(name) + 'Content'
+  ComponentNameFooter = h.changeCase.pascal(name) + 'Footer'
 -%>
 import React, { FC } from 'react';
-import { withKnobs } from '@storybook/addon-knobs';
 
-import { <%= pascalName %> } from './<%= pascalName %>';
+import { <%= ComponentName %>, <%= ComponentNameHeader %>, <%= ComponentNameContent %>, <%= ComponentNameFooter %> } from './<%= ComponentName %>';
 
 export default {
-  title: '<%= pascalName %>',
-  decorators: [withKnobs],
+  title: 'UI/Templates/<%= ComponentName %>',
 };
 
-export const example: FC = () => <<%= pascalName %>><%= pascalName %></<%= pascalName %>>;
+export const Example: FC = () => (
+  <<%= ComponentName %>>
+    <<%= ComponentNameHeader %>>header</<%= ComponentNameHeader %>>
+    <<%= ComponentNameContent %>>content</<%= ComponentNameContent %>>
+    <<%= ComponentNameFooter %>>footer</<%= ComponentNameFooter %>>
+  </<%= ComponentName %>>
+);

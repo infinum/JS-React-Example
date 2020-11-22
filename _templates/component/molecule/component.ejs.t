@@ -2,13 +2,13 @@
 to: src/components/ui/atoms/<%= h.changeCase.pascal(name) %>/<%= h.changeCase.pascal(name) %>.tsx
 ---
 <%
-  pascalName = h.changeCase.pascal(name)
+  ComponentName = h.changeCase.pascal(name)
 -%>
 import React, { FC } from 'react';
 
-interface I<%= pascalName %>Props {
+interface I<%= ComponentName %>Props {
 }
 
-export const <%= pascalName %>: FC<I<%= pascalName %>Props> = ({ children }) => {
+export const <%= ComponentName %>: FC<I<%= ComponentName %>Props> = ({ children }) => {
   return <div>{children}</div>;
 };

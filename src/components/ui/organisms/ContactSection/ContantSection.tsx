@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { Container, Heading } from '@chakra-ui/core';
-import { Section } from '@ui/atoms/Section/Section';
-import { ContactForm } from '@ui/molecules/ContactForm/ContactForm';
+import { Container, Heading } from '@chakra-ui/react';
+import { Section } from '@atoms/Section/Section';
+import { ContactForm } from '@molecules/ContactForm/ContactForm';
 
 export const ContactSection: FC = (props) => {
 	return (

@@ -1,14 +1,34 @@
 ---
-to: src/components/ui/atoms/<%= h.changeCase.pascal(name) %>/<%= h.changeCase.pascal(name) %>.tsx
+to: src/components/ui/templates/<%= h.changeCase.pascal(name) %>/<%= h.changeCase.pascal(name) %>.tsx
 ---
 <%
-  pascalName = h.changeCase.pascal(name)
+  ComponentName = h.changeCase.pascal(name)
+  ComponentNameHeader = h.changeCase.pascal(name) + 'Header'
+  ComponentNameContent = h.changeCase.pascal(name) + 'Content'
+  ComponentNameFooter = h.changeCase.pascal(name) + 'Footer'
 -%>
 import React, { FC } from 'react';
 
-interface I<%= pascalName %>Props {
-}
+interface I<%= ComponentName %>Props {}
 
-export const <%= pascalName %>: FC<I<%= pascalName %>Props> = ({ children }) => {
+export const <%= ComponentName %>: FC<I<%= ComponentName %>Props> = ({ children }) => {
+  return <div>{children}</div>;
+};
+
+interface I<%= ComponentNameHeader %>Props {}
+
+export const <%= ComponentNameHeader %>: FC<I<%= ComponentNameHeader %>Props> = ({ children }) => {
+  return <div>{children}</div>;
+};
+
+interface I<%= ComponentNameContent %>Props {}
+
+export const <%= ComponentNameContent %>: FC<I<%= ComponentNameContent %>Props> = ({ children }) => {
+  return <div>{children}</div>;
+};
+
+interface I<%= ComponentNameFooter %>Props {}
+
+export const <%= ComponentNameFooter %>: FC<I<%= ComponentNameFooter %>Props> = ({ children }) => {
   return <div>{children}</div>;
 };

@@ -2,18 +2,18 @@
 to: src/components/ui/atoms/<%= h.changeCase.pascal(name) %>/<%= h.changeCase.pascal(name) %>.test.tsx
 ---
 <%
-  pascalName = h.changeCase.pascal(name)
+  ComponentName = h.changeCase.pascal(name)
 -%>
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { <%= pascalName %> } from './<%= pascalName %>';
+import { <%= ComponentName %> } from './<%= ComponentName %>';
 
-describe('<%= pascalName %>', () => {
+describe('<%= ComponentName %>', () => {
   it('Is rendered', () => {
-    const testMessage = '<%= pascalName %>';
+    const testMessage = '<%= ComponentName %>';
 
-    render(<<%= pascalName %>>{testMessage}</<%= pascalName %>>);
+    render(<<%= ComponentName %>>{testMessage}</<%= ComponentName %>>);
 
     expect(screen.queryByText(testMessage)).toBeDefined();
   });

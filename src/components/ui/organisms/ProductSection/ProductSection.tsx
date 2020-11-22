@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { Container, Heading, Image, Text } from '@chakra-ui/core';
-import { Section } from '@ui/atoms/Section/Section';
+import { Container, Heading, Image, Text } from '@chakra-ui/react';
+import { Section } from '@atoms/Section/Section';
 
 export const ProductSection: FC = (props) => {
 	return (

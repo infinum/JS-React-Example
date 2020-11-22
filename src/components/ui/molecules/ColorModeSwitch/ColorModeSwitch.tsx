@@ -1,4 +1,4 @@
-import { Flex, FormControl, FormControlProps, FormLabel, Switch, useColorMode } from '@chakra-ui/core';
+import { Flex, FormControl, FormControlProps, FormLabel, Switch, useColorMode } from '@chakra-ui/react';
 import React, { FC } from 'react';
 
 export const ColorModeSwitch: FC<FormControlProps> = (props) => {

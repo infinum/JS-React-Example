@@ -1,5 +1,5 @@
 import React from 'react';
-import { chakra, ChakraComponent, Container, Text } from '@chakra-ui/core';
+import { chakra, ChakraComponent, Container, Text } from '@chakra-ui/react';
 
 export const Footer: ChakraComponent<'div', {}> = (props) => (
 	<chakra.div

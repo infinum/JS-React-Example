@@ -1,20 +1,27 @@
 ---
-to: src/components/ui/atoms/<%= h.changeCase.pascal(name) %>/<%= h.changeCase.pascal(name) %>.test.tsx
+to: src/components/ui/templates/<%= h.changeCase.pascal(name) %>/<%= h.changeCase.pascal(name) %>.test.tsx
 ---
 <%
-  pascalName = h.changeCase.pascal(name)
+  ComponentName = h.changeCase.pascal(name)
+  ComponentNameHeader = h.changeCase.pascal(name) + 'Header'
+  ComponentNameContent = h.changeCase.pascal(name) + 'Content'
+  ComponentNameFooter = h.changeCase.pascal(name) + 'Footer'
 -%>
 import React from 'react';
-import { render, screen } from '@testing-library/react';
 
-import { <%= pascalName %> } from './<%= pascalName %>';
+import { <%= ComponentName %>, <%= ComponentNameHeader %>, <%= ComponentNameContent %>, <%= ComponentNameFooter %> } from './<%= ComponentName %>';
+import { render } from '@test-utils';
 
-describe('<%= pascalName %>', () => {
-  it('Is rendered', () => {
-    const testMessage = '<%= pascalName %>';
+describe('<%= ComponentName %>', () => {
+  it('matches snapshot', () => {
+    const { asFragment } = render(
+      <<%= ComponentName %>>
+        <<%= ComponentNameHeader %>>header</<%= ComponentNameHeader %>>
+        <<%= ComponentNameContent %>>content</<%= ComponentNameContent %>>
+        <<%= ComponentNameFooter %>>footer</<%= ComponentNameFooter %>>
+      </<%= ComponentName %>>,
+    );
 
-    render(<<%= pascalName %>>{testMessage}</<%= pascalName %>>);
-
-    expect(screen.queryByText(testMessage)).toBeDefined();
+    expect(asFragment()).toMatchSnapshot();
   });
 });
