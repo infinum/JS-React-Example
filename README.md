@@ -15,7 +15,8 @@
 - [Folder structure (Atomic Design)](./docs/atomic-design.md)
 - [Hygen code generators](./docs/code-generators.md)
 - [Testing](./docs/testing.md) 
-- [Conventional Commits](./docs/conventional-commits.md) 
+- [Conventional Commits](./docs/conventional-commits.md)
+- [Auth](./docs/auth.md)
 
 ## Getting started
 
