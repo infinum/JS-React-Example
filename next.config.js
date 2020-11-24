@@ -4,8 +4,6 @@ require('dotenv-flow').config({
 	default_node_env: 'development',
 });
 
-console.log(process.env.NEXT_APP_ENV);
-
 module.exports = {
 	poweredByHeader: false,
 	compress: false,
