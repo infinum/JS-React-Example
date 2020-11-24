@@ -4,6 +4,7 @@
 		"@typescript-eslint/interface-name-prefix": ["error", {
 			"prefixWithI": "always"
 		}],
-		"@typescript-eslint/ban-ts-ignore": ["warn"]
+		"@typescript-eslint/ban-ts-ignore": ["warn"],
+		"@typescript-eslint/camelcase": ["warn"]
 	}
 }
