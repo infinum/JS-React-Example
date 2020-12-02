@@ -1,5 +1,5 @@
 ---
-to: src/components/ui/atoms/<%= h.changeCase.pascal(name) %>/<%= h.changeCase.pascal(name) %>.tsx
+to: src/components/ui/molecules/<%= h.changeCase.pascal(name) %>/<%= h.changeCase.pascal(name) %>.tsx
 ---
 <%
   ComponentName = h.changeCase.pascal(name)
