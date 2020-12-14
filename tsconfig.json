@@ -24,6 +24,7 @@
       "@organisms/*": ["src/components/ui/organisms/*"],
       "@themes/*": ["src/styles/themes/*"],
       "@utils/*": ["src/utils/*"],
+      "@models/*": ["src/models/*"],
       "@test-utils": ["__tests__/test-utils.tsx"]
     }
   },

@@ -1,12 +1,14 @@
 import { ReactElement } from 'react';
 
-import { DashboardLayout } from '@layouts/DashboardLayout/DashboardLayout';
 import { Seo } from '@organisms/Seo/Seo';
+import { AdminLayout } from '@components/layouts/AdminLayout/AdminLayout';
+import { Books } from '@components/ui/organisms/Books/Books';
 
 export default function Dashboard(): ReactElement {
 	return (
-		<DashboardLayout>
+		<AdminLayout>
 			<Seo title="Dashboard Page" description="JS-React-Example dashboard page" />
-		</DashboardLayout>
+			<Books />
+		</AdminLayout>
 	);
 }
