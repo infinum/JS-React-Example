@@ -13,12 +13,15 @@ interface IBooksProps {
 export const Books: FC<IBooksProps> = ({ initialData }) => {
 	const [count, setCount] = useState(0);
 
-	const { data: booksResponse, error } = useSWR<Response<Book>, Response<Book>>(BOOKS_URL, { initialData });
+	const { data: booksResponse, error: errorResponse } = useSWR<Response<Book>, Response<Book>>(BOOKS_URL, {
+		initialData,
+	});
 
-	if (error) {
+	if (errorResponse) {
+		console.log(errorResponse.error);
 		return (
 			<div>
-				<h2>Error:</h2> {JSON.stringify(error)}
+				<h2>Error:</h2> {JSON.stringify(errorResponse)}
 			</div>
 		);
 	}

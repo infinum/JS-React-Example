@@ -3,11 +3,11 @@ import { config, ICollectionFetchOpts, IRawResponse, CachingStrategy } from 'dat
 
 import { apify, deapify } from '../utils/apify';
 
-config.fetchReference = fetch;
+// config.fetchReference = globalThis.fetch;
 
 config.cache = CachingStrategy.NetworkOnly;
 
-config.baseUrl = 'https://jncho.sse.codesandbox.io/api/';
+config.baseUrl = '/api/';
 
 // config.defaultFetchOptions = {
 //   credentials: "include",
