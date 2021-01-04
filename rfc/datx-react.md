@@ -585,7 +585,7 @@ function Books() {
 
 ### Enhancements
 
-#### Array of expressions
+#### Array of operations
 
 Inspired with atomic operations we could also implement array of `QueryExpressions` and trigger multiple API calls in parallel.
 https://jsonapi.org/ext/atomic/
@@ -620,3 +620,8 @@ TODO:
 - result signature
 - pagination
 - dependable operations ???
+
+
+## TODO
+- [ ] React Server Components example
+- [ ] Pagination examples
