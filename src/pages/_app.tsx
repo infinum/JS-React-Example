@@ -4,6 +4,7 @@ import { ReactElement } from 'react';
 import theme from '@themes/default';
 import { SWRConfig } from 'swr';
 
+import 'datx/disable-mobx';
 import '../datx/config';
 
 import { DatxProvider, compare } from '../libs/datx';
