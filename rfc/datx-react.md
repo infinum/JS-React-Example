@@ -273,7 +273,8 @@ function Books() {
 
 ## `useMutation`
 
-### Example
+TODO
+<!-- ### Example
 
 ```jsx
 import { gql, useMutation } from '@apollo/client';
@@ -331,11 +332,7 @@ function useMutation<TData = any, TVariables = OperationVariables>(
 
 #### `options`
 
-<MutationOptions />
-
-### Result
-
-<MutationResult />
+### Result -->
 
 ## `useDatxClient`
 
