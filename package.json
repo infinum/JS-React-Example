@@ -13,22 +13,22 @@
 		"storybook:build": "build-storybook -s ./public"
 	},
 	"dependencies": {
-		"@chakra-ui/react": "^1.0.3",
-		"@emotion/react": "^11.1.2",
+		"@chakra-ui/react": "^1.0.4",
+		"@emotion/react": "^11.1.4",
 		"@emotion/styled": "^11.0.0",
 		"datx": "^2.0.0-beta.12",
 		"datx-jsonapi": "^2.0.0-beta.13",
 		"dequal": "^2.0.2",
 		"dotenv-flow": "^3.2.0",
-		"framer-motion": "^2.9.5",
+		"framer-motion": "^3.1.1",
 		"lodash": "^4.17.20",
-		"mobx": "4",
-		"next": "^10.0.0",
-		"next-seo": "^4.15.0",
-		"react": "16.13.1",
-		"react-dom": "16.13.1",
-		"react-icons": "^3.11.0",
-		"swr": "^0.3.9"
+		"mobx": "6.0.4",
+		"next": "^10.0.4",
+		"next-seo": "^4.17.0",
+		"react": "17.0.1",
+		"react-dom": "17.0.1",
+		"react-icons": "^4.1.0",
+		"swr": "^0.3.11"
 	},
 	"devDependencies": {
 		"@babel/plugin-proposal-decorators": "^7.12.1",

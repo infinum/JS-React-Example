@@ -168,13 +168,26 @@ query(q => q.findRecords('authors')).filter({ relation: 'books', record: related
 
 ```ts
 const queryBookFn = query({
-	op: "fetchRecord",
-	record: (variables) => ({ type: 'books', id: variables.id }),
+  op: "findRecord",
+  record: (variables) => ({ type: 'books', id: variables.id }),
 });
 
 // This fetches from /books/1
 queryBookFn({ id: '1' });
 
+```
+
+### OperationProcessor
+
+`OperationProcessor` knows how to transform expression to actual API call.
+
+#### Example `JsonApiOperationProcessor`
+
+```jsx{7-9}
+const client = new DatxClient({
+  uri: "http://localhost:4000/api/v1",
+  operationProcessor: JsonApiOperationProcessor,
+});
 ```
 
 ## `useQuery`
@@ -186,23 +199,23 @@ import { query, useQuery } from '@datx/react';
 
 // This fetches from /books?filter[language]=english
 const QUERY_BOOKS = query({
-	op: "fetchRecords",
-	type: 'books',
-	filter: (variables) => ({
-		kind: 'attribute',
-		attribute: 'language',
-		value: variables.language,
-	})
+  op: "findRecords",
+  type: 'books',
+  filter: (variables) => ({
+    kind: 'attribute',
+    attribute: 'language',
+    value: variables.language,
+  })
 });
 
 function Books() {
   const { data: books } = useQuery(QUERY_BOOKS, {
     variables: { language: 'english' },
-	});
+  });
 
-	if (!books) {
-		return <p>Loading ...</p>;
-	}
+  if (!books) {
+    return <p>Loading ...</p>;
+  }
 
   return books.map((book) => <p>Name: {book.title}</p>;
 }
@@ -248,21 +261,21 @@ import { query, useQuery } from '@datx/react';
 
 // This fetches from /books?filter[language]=english
 const QUERY_BOOKS = query({
-	op: "fetchRecords",
-	type: 'books',
-	filter: (variables) => ({
-		kind: 'attribute',
-		attribute: 'language',
-		value: variables.language,
-	})
+  op: "findRecords",
+  type: 'books',
+  filter: (variables) => ({
+    kind: 'attribute',
+    attribute: 'language',
+    value: variables.language,
+  })
 });
 
 function Books() {
   const [loadBooks, { called, loading, data }] = useLazyQuery(QUERY_BOOKS, {
-		variables: { language: 'english' },
-	});
+    variables: { language: 'english' },
+  });
 
-	if (called && loading) return <p>Loading ...</p>
+  if (called && loading) return <p>Loading ...</p>
 
   if (!called) {
     return <button onClick={() => loadBooks()}>Load books</button>
@@ -366,28 +379,28 @@ function useDatxClient(): DatxClient<object> {}
 
 ```tsx
 export async function getStaticProps() {
-	const client = new DatxClient();
+  const client = new DatxClient();
 
-	try {
-		/**
-		 * fetchQuery is an asynchronous method that can be used to fetch and cache a query. It will either
-		 * resolve with the data or throw with the error. Use the prefetchQuery method if you just want to fetch a
-		 * query without needing the result.
-		 */
-		const books = await client.fetchQuery(QUERY_BOOKS)
-	} catch (error) {
-		console.log(error)
-	}
+  try {
+    /**
+     * fetchQuery is an asynchronous method that can be used to fetch and cache a query. It will either
+     * resolve with the data or throw with the error. Use the prefetchQuery method if you just want to fetch a
+     * query without needing the result.
+     */
+    const books = await client.fetchQuery(QUERY_BOOKS)
+  } catch (error) {
+    console.log(error)
+  }
 
    return { props: { books } }
  }
 
 function Books(props) {
   const { data: books } = useQuery(QUERY_BOOKS, {
-		initialData: props.books
-	});
+    initialData: props.books
+  });
 
-	// ...
+  // ...
 }
 ```
 
@@ -402,13 +415,13 @@ import { Hydrate } from '@datx/hydration';
 const client = new DatxClient();
 
 export default function MyApp({ Component, pageProps }) {
-	return (
-		<DatxProvider client={client}>
-			<Hydrate state={pageProps.dehydratedState}>
-				<Component {...pageProps} />
-			</Hydrate>
-		</DatxProvider>
-	)
+  return (
+    <DatxProvider client={client}>
+      <Hydrate state={pageProps.dehydratedState}>
+        <Component {...pageProps} />
+      </Hydrate>
+    </DatxProvider>
+  )
 }
 ```
 
@@ -419,31 +432,69 @@ import { useQuery } from '@datx/react';
 import { dehydrate } from '@datx/hydration';
 
 export async function getStaticProps() {
-	const client = new DatxClient();
+  const client = new DatxClient();
 
-	/**
-	*	prefetchQuery is an asynchronous method that can be used to prefetch a query before it is needed or
-	* rendered with useQuery and friends. The method works the same as fetchQuery except that is will not throw
-	* or return any data.
-	*/
-	await client.prefetchQuery(QUERY_BOOKS)
+  /**
+  * prefetchQuery is an asynchronous method that can be used to prefetch a query before it is needed or
+  * rendered with useQuery and friends. The method works the same as fetchQuery except that is will not throw
+  * or return any data.
+  */
+  await client.prefetchQuery(QUERY_BOOKS)
 
-	return {
-		props: {
-			dehydratedState: dehydrate(queryClient),
-		},
-	}
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  }
 }
 
 function Books() {
-	// This useQuery could just as well happen in some deeper child to
-	// the "Books"-page, data will be available immediately either way
-	const { data } = useQuery(QUERY_BOOKS);
+  // This useQuery could just as well happen in some deeper child to
+  // the "Books"-page, data will be available immediately either way
+  const { data } = useQuery(QUERY_BOOKS);
 
-	// This query was not prefetched on the server and will not start
-	// fetching until on the client, both patterns are fine to mix
-	const { data: otherData } = useQuery(QUERY_OTHER_DATA);
+  // This query was not prefetched on the server and will not start
+  // fetching until on the client, both patterns are fine to mix
+  const { data: otherData } = useQuery(QUERY_OTHER_DATA);
 
-	// ...
+  // ...
 }
  ```
+
+### Enhancements
+
+#### Array of expressions
+
+Inspired with atomic operations we could also implement array of `QueryExpressions` and trigger multiple API calls in parallel.
+https://jsonapi.org/ext/atomic/
+
+
+```jsx
+const QUERY_BOOK = query([
+  {
+    op: "findRecord",
+    record: {
+      type: 'book',
+      id: '1'
+    }
+  },
+  {
+    op: 'findRecords',
+    type: 'authors',
+    filter: {
+      kind: 'attribute',
+      attribute: 'book',
+      value: '1',
+    }
+  }
+]);
+```
+
+This `query` will make two requests in the background:
+1. `/books/1`
+1. `/authors?filter[books]=1`
+
+TODO:
+- result signature
+- pagination
+- dependable operations ???
