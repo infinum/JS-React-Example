@@ -625,3 +625,4 @@ TODO:
 ## TODO
 - [ ] React Server Components example
 - [ ] Pagination examples
+- [ ] Suspense
