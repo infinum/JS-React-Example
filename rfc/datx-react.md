@@ -19,7 +19,7 @@ import { DatxProvider } from '@datx/react';
 
 ### Example
 
-```jsx{7-9}
+```jsx
 const client = new DatxClient({
   uri: "http://localhost:4000/api/v1"
 });
