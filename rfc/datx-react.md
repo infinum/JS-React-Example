@@ -49,7 +49,7 @@ const WithClientClient = () => (
 );
 ```
 
-## query
+## Query data
 
 TODO - description
 - memoized
@@ -61,11 +61,11 @@ TODO - description
 ### QueryExpression
 
 ```ts
-type Operation = 'findRecord' | 'findRecords' | 'findRelatedRecord' | 'findRelatedRecords';
+type QueryOperation = 'findRecord' | 'findRecords' | 'findRelatedRecord' | 'findRelatedRecords';
 type RecordIdentity = Record | { type: string, id: string };
 
 interface QueryExpression {
-  op: Operation;
+  op: QueryOperation;
 }
 
 interface FindRecord extends QueryExpression {
@@ -284,22 +284,92 @@ function Books() {
 }
 ```
 
-## `useMutation`
+## Mutate data
 
-TODO
-<!-- ### Example
+### Operations
+
+Operations each represent a single change to a record or relationship (e.g. adding a record, updating a field, deleting a relationship, etc.).
+
+```ts
+type MutateOperation = 'addRecord' | 'updateRecord' | 'removeRecord' | 'replaceKey' | 'replaceAttribute' | 'addToRelatedRecords' | 'removeFromRelatedRecords' | 'replaceRelatedRecords' | 'replaceRelatedRecord';
+
+interface Operation {
+  op: MutateOperation;
+}
+
+interface AddRecordOperation extends Operation {
+  op: "addRecord";
+  record: Record;
+}
+
+interface UpdateRecordOperation extends Operation {
+  op: "updateRecord";
+  record: Record;
+}
+
+interface RemoveRecordOperation extends Operation {
+  op: "removeRecord";
+  record: RecordIdentity;
+}
+
+interface ReplaceKeyOperation extends Operation {
+  op: "replaceKey";
+  record: RecordIdentity;
+  key: string;
+  value: string;
+}
+
+interface ReplaceAttributeOperation extends Operation {
+  op: "replaceAttribute";
+  record: RecordIdentity;
+  attribute: string;
+  value: any;
+}
+
+interface AddToRelatedRecordsOperation extends Operation {
+  op: "addToRelatedRecords";
+  record: RecordIdentity;
+  relationship: string;
+  relatedRecord: RecordIdentity;
+}
+
+interface RemoveFromRelatedRecordsOperation extends Operation {
+  op: "removeFromRelatedRecords";
+  record: RecordIdentity;
+  relationship: string;
+  relatedRecord: RecordIdentity;
+}
+
+interface ReplaceRelatedRecordsOperation extends Operation {
+  op: "replaceRelatedRecords";
+  record: RecordIdentity;
+  relationship: string;
+  relatedRecords: RecordIdentity[];
+}
+
+interface ReplaceRelatedRecordOperation extends Operation {
+  op: "replaceRelatedRecord";
+  record: RecordIdentity;
+  relationship: string;
+  relatedRecord: RecordIdentity;
+}
+```
+
+### `useMutate`
 
 ```jsx
-import { gql, useMutation } from '@apollo/client';
+import { mutate, useMutation } from '@datx/client';
 
-const ADD_TODO = gql`
-  mutation AddTodo($type: String!) {
-    addTodo(type: $type) {
-      id
-      type
+const ADD_TODO = mutate({
+  op: 'addRecord',
+  record: {
+    type: "todo",
+    id: "1",
+    attributes: {
+      title: (variables) => variables.title,
     }
   }
-`;
+});
 
 function AddTodo() {
   let input;
@@ -310,7 +380,7 @@ function AddTodo() {
       <form
         onSubmit={e => {
           e.preventDefault();
-          addTodo({ variables: { type: input.value } });
+          addTodo({ variables: { title: input.value } });
           input.value = '';
         }}
       >
@@ -326,26 +396,81 @@ function AddTodo() {
 }
 ```
 
-### Function Signature
+### Mutation builder
 
-```ts
-function useMutation<TData = any, TVariables = OperationVariables>(
-  mutation: DocumentNode,
-  options?: MutationHookOptions<TData, TVariables>,
-): MutationTuple<TData, TVariables> {}
+```jsx
+const ADD_TODO = mutate((mutation, variables) => mutation.addRecord({
+  type: "todo",
+  id: "1",
+  attributes: {
+    title: variables.title,
+  }
+});
 ```
 
-### Params
+To perform more than one operation in a single mutation, just return an array of operations:
 
-#### `mutation`
+```jsx
+const ADD_MULTIPLE_TODOS = mutate((m) => [m.addRecord(todoOne), m.addRecord(todoTwo)]);
+```
 
-| Param      | Type         | Description                                                      |
-| ---------- | ------------ | ---------------------------------------------------------------- |
-| `mutation` | DocumentNode | A GraphQL mutation document parsed into an AST by `gql`. |
+### Bound mutation form `useQuery`
 
-#### `options`
+```jsx
+import { mutate, query, useQuery } from '@datx/client';
 
-### Result -->
+const QUERY_BOOK = query({
+  op: "findRecord",
+  record: { type: 'book', id: '1' }
+});
+
+const UPDATE_BOOK = mutate({
+  op: "updateRecord",
+  record: {
+    type: 'book',
+    id: '1',
+    attributes: {
+      title: (variables) => variables.title,
+    },
+  }
+});
+
+function Books() {
+  const { data: book, mutate: updateBook } = useQuery(QUERY_BOOK);
+
+  if (!book) {
+    return <p>Loading ...</p>;
+  }
+
+  return (
+    <div>
+      <p>Book Title: {book.title}</p>
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          updateBook(
+            UPDATE_BOOK,
+            {
+              variables: {
+                title: input.value
+              },
+              optimisticResponse: true // optimistically update the UI
+            }
+          );
+          input.value = '';
+        }}
+      >
+        <input
+          ref={node => {
+            input = node;
+          }}
+        />
+        <button type="submit">Add Todo</button>
+      </form>
+    </div>
+  );
+}
+```
 
 ## `useDatxClient`
 
