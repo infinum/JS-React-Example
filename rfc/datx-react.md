@@ -51,13 +51,6 @@ const WithClientClient = () => (
 
 ## Query data
 
-TODO - description
-- memoized
-- returns function similar to emotion `css`
-
-```ts
-```
-
 ### QueryExpression
 
 ```ts
@@ -183,7 +176,7 @@ queryBookFn({ id: '1' });
 
 #### Example `JsonApiOperationProcessor`
 
-```jsx{7-9}
+```jsx
 const client = new DatxClient({
   uri: "http://localhost:4000/api/v1",
   operationProcessor: JsonApiOperationProcessor,
@@ -233,6 +226,10 @@ function useQuery<TData = any, TVariables = OperationVariables>(
 ### Params
 
 #### `query`
+
+TODO - description
+- memoized
+- returns function similar to emotion `css`
 
 | Param   | Type         | Description                                                   |
 | ------- | ------------ | ------------------------------------------------------------- |
