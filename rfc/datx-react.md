@@ -616,13 +616,11 @@ This `query` will make two requests in the background:
 1. `/books/1`
 1. `/authors?filter[books]=1`
 
-TODO:
-- result signature
-- pagination
-- dependable operations ???
-
+### Result
+TODO: result signature
 
 ## TODO
+- [ ] Dependable operations ???
 - [ ] React Server Components example
 - [ ] Pagination examples
 - [ ] Suspense
