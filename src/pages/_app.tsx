@@ -1,30 +1,21 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import type { AppProps } from 'next/app';
-import { ReactElement } from 'react';
+import { ReactElement, useMemo } from 'react';
 import theme from '@themes/default';
-import { SWRConfig } from 'swr';
+import { DatxProvider } from '@datx/jsonapi-react';
 
-import 'datx/disable-mobx';
-import '../datx/config';
+import { createClient } from '../network/client';
 
-import { DatxProvider, compare } from '../libs/datx';
-import { createDatx } from '../datx/createDatx';
+// const client = createClient();
 
 function App({ Component, pageProps }: AppProps): ReactElement {
-	const datx = createDatx();
+	const client = useMemo(createClient, []);
 
 	return (
-		<DatxProvider value={datx}>
-			<SWRConfig
-				value={{
-					fetcher: datx.fetcher,
-					compare,
-				}}
-			>
-				<ChakraProvider theme={theme} resetCSS>
-					<Component {...pageProps} />
-				</ChakraProvider>
-			</SWRConfig>
+		<DatxProvider client={client}>
+			<ChakraProvider theme={theme} resetCSS>
+				<Component {...pageProps} />
+			</ChakraProvider>
 		</DatxProvider>
 	);
 }

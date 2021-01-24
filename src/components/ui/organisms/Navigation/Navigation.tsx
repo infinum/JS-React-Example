@@ -1,12 +1,12 @@
 import React from 'react';
-import { chakra, ChakraComponent, Container, Flex, Text, Icon, Circle } from '@chakra-ui/react';
+import { chakra, Container, Flex, Text, Icon, Circle } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { AiFillGithub } from 'react-icons/ai';
 import { FaReact } from 'react-icons/fa';
 
 import { NavLink } from '@atoms/NavLink/NavLink';
 
-export const Navigation: ChakraComponent<'div', {}> = (props) => (
+export const Navigation = (props) => (
 	<chakra.div
 		as="header"
 		sx={{

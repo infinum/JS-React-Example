@@ -1,9 +1,8 @@
-import { config, ICollectionFetchOpts, IRawResponse, CachingStrategy } from 'datx-jsonapi';
-// import fetch from "isomorphic-unfetch";
+import { config, ICollectionFetchOpts, IRawResponse, CachingStrategy } from '@datx/jsonapi';
 
-import { apify, deapify } from '../utils/apify';
-
-// config.fetchReference = globalThis.fetch;
+import { Client, apify, deapify } from '@datx/jsonapi-react';
+import { AuthorResource } from '../resources/AuthorResource';
+import { BookResource } from '../resources/BookResource';
 
 config.cache = CachingStrategy.NetworkOnly;
 
@@ -24,3 +23,11 @@ config.transformResponse = (opts: IRawResponse) => {
 config.transformRequest = (opts: ICollectionFetchOpts) => {
 	return { ...opts, data: apify(opts.data) };
 };
+
+export class DatxClient extends Client {
+	static types = [AuthorResource, BookResource];
+}
+
+export function createClient() {
+	return new DatxClient();
+}

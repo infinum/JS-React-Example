@@ -24,8 +24,9 @@
       "@organisms/*": ["src/components/ui/organisms/*"],
       "@themes/*": ["src/styles/themes/*"],
       "@utils/*": ["src/utils/*"],
-      "@models/*": ["src/models/*"],
-      "@test-utils": ["__tests__/test-utils.tsx"]
+      "@resources/*": ["src/resources/*"],
+			"@test-utils": ["__tests__/test-utils.tsx"],
+			"@datx/jsonapi-react": ["src/libs/@datx/jsonapi-react"]
     }
   },
   "exclude": ["node_modules"],

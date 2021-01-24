@@ -5,6 +5,8 @@ import map from 'lodash/map';
 import mapKeys from 'lodash/mapKeys';
 import mapValues from 'lodash/mapValues';
 import snakeCase from 'lodash/snakeCase';
+import { dequal } from 'dequal/lite';
+import { Response } from '@datx/jsonapi';
 
 /**
  * Deep iteration trough an object and transformation
@@ -48,3 +50,14 @@ export function apify(obj?: object) {
 export function deapify(obj?: object) {
 	return iterator(obj, camelCase);
 }
+
+/**
+ * SWR compare
+ */
+export const compare = (a: any, b: any): boolean => {
+	if (a instanceof Response && b instanceof Response) {
+		return dequal(a.snapshot.response.data, b.snapshot.response.data);
+	}
+
+	return dequal(a, b);
+};

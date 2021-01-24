@@ -1,44 +1,61 @@
 import { FC, useState } from 'react';
-import useSWR from 'swr';
-import { Response } from 'datx-jsonapi';
+import { Response } from '@datx/jsonapi';
+import { BookResource } from '@resources/BookResource';
+import { Button, Skeleton } from '@chakra-ui/react';
+import { useResources, QueryResources } from '@datx/jsonapi-react';
 
-import { Book } from '@models/Book';
-
-export const BOOKS_URL = 'books?filter[date_published][since]=1900-01-01&filter[date_published][until]=2020-01-01';
+export const BOOKS_QUERY: QueryResources<BookResource> = [
+	BookResource,
+	{
+		queryParams: {
+			custom: [
+				{
+					key: 'filter[date_published][since]',
+					value: '1900-01-01',
+				},
+				{
+					key: 'filter[date_published][until]',
+					value: '2020-01-01',
+				},
+			],
+		},
+	},
+];
 
 interface IBooksProps {
-	initialData?: Response<Book>;
+	initialData?: Response<BookResource>;
 }
 
 export const Books: FC<IBooksProps> = ({ initialData }) => {
 	const [count, setCount] = useState(0);
 
-	const { data: booksResponse, error: errorResponse } = useSWR<Response<Book>, Response<Book>>(BOOKS_URL, {
+	const { data, error } = useResources(BOOKS_QUERY, {
 		initialData,
+		suspense: true,
 	});
 
-	if (errorResponse) {
-		console.log(errorResponse.error);
+	if (error) {
+		console.log(error);
 		return (
 			<div>
-				<h2>Error:</h2> {JSON.stringify(errorResponse)}
+				<h2>Error:</h2> {JSON.stringify(error)}
 			</div>
 		);
 	}
 
-	if (!booksResponse) {
-		return <div>Loading</div>;
-	}
-
 	return (
 		<div>
-			{(booksResponse?.data as Array<Book>).map((book, index) => (
+			{data?.map((book, index) => (
 				<div key={book.meta.id}>
 					{index + 1}) {book.title}
 				</div>
 			))}
 
-			<button onClick={() => setCount(count + 1)}>{count}</button>
+			<Button onClick={() => setCount(count + 1)}>{count}</Button>
 		</div>
 	);
+};
+
+export const BookFallback: FC = () => {
+	return <Skeleton />;
 };

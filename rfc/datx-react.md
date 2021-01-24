@@ -2,6 +2,13 @@
 
 We can build this lib upon `stale-while-revalidate` pattern and [SWR](https://swr.vercel.app/).
 
+Inspired by:
+- [Apollo Cleant Hooks](https://www.apollographql.com/docs/react/api/react/hooks/)
+- [React Query](https://react-query.tanstack.com/guides/ssr)
+- [Kurier](https://kurier.readthedocs.io/en/latest/#kurier)
+- [Orbit.js](https://orbitjs.com/v0.16/guide/querying-data.html)
+- [REst Hooks](https://resthooks.io/)
+
 ## The `DatxProvider` component
 
 The `DatxProvider` component leverages [React's Context API](https://reactjs.org/docs/context.html) to make a configured Datx Client instance available throughout a React component tree. This component can be imported directly from the `@datx/react` package.
