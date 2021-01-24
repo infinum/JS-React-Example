@@ -1,7 +1,15 @@
 import React, { useEffect } from 'react';
 import { callOnPin, callOnUnpin, callOnFix, callOnUnfix } from './utils';
 
-export default ({ onPin, onUnpin, fixAt = 0, onFix, onUnfix }) => {
+interface IUseHeadroomProps {
+	onPin?: () => void;
+	onUnpin?: () => void;
+	fixAt?: number;
+	onFix?: (fixedAt: number) => void;
+	onUnfix?: (fixedAt: number) => void;
+}
+
+export default ({ onPin, onUnpin, fixAt = 0, onFix, onUnfix }: IUseHeadroomProps = {}) => {
 	const [scroll, setScroll] = React.useState(0);
 
 	// Tracking scroll value

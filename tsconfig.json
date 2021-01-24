@@ -24,6 +24,7 @@
       "@organisms/*": ["src/components/ui/organisms/*"],
       "@themes/*": ["src/styles/themes/*"],
       "@utils/*": ["src/utils/*"],
+      "use-headroom": ["src/libs/use-headroom"],
       "@test-utils": ["__tests__/test-utils.tsx"]
     }
   },
