@@ -26,7 +26,8 @@
       "@utils/*": ["src/utils/*"],
       "@resources/*": ["src/resources/*"],
 			"@test-utils": ["__tests__/test-utils.tsx"],
-			"@datx/jsonapi-react": ["src/libs/@datx/jsonapi-react"]
+			"@datx/jsonapi-react": ["src/libs/@datx/jsonapi-react"],
+      "use-headroom": ["src/libs/use-headroom"]
     }
   },
   "exclude": ["node_modules"],
