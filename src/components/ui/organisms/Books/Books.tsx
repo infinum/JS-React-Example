@@ -29,19 +29,10 @@ interface IBooksProps {
 export const Books: FC<IBooksProps> = ({ initialData }) => {
 	const [count, setCount] = useState(0);
 
-	const { data, error } = useResources(BOOKS_QUERY, {
+	const { data } = useResources(BOOKS_QUERY, {
 		initialData,
 		suspense: true,
 	});
-
-	if (error) {
-		console.log(error);
-		return (
-			<div>
-				<h2>Error:</h2> {JSON.stringify(error)}
-			</div>
-		);
-	}
 
 	return (
 		<div>
@@ -56,6 +47,6 @@ export const Books: FC<IBooksProps> = ({ initialData }) => {
 	);
 };
 
-export const BookFallback: FC = () => {
+export const BooksSkeleton: FC = () => {
 	return <Skeleton />;
 };

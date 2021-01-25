@@ -1,29 +1,18 @@
 import React from 'react';
-import { chakra, Container, Flex, Text, Icon, Circle, ChakraComponent } from '@chakra-ui/react';
+import { Container, Flex, Text, Icon, Circle, ChakraComponent } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { AiFillGithub } from 'react-icons/ai';
 import { FaReact } from 'react-icons/fa';
 import useHeadroom from 'use-headroom';
 
 import { NavLink } from '@atoms/NavLink/NavLink';
+import { NavigationContainer } from './elements';
 
 export const Navigation: ChakraComponent<'div', {}> = (props) => {
 	const isPinned = useHeadroom({ fixAt: 81 });
 
 	return (
-		<chakra.div
-			as="header"
-			sx={{
-				bg: 'whiteAlpha.900',
-				backdropFilter: 'saturate(180%) blur(5px)',
-				borderBottom: '1px solid',
-				borderBottomColor: 'gray.200',
-				position: 'fixed',
-				width: '100%',
-				top: 0,
-				zIndex: 20000,
-				transition: 'transform 0.2s',
-			}}
+		<NavigationContainer
 			{...props}
 			style={{
 				transform: isPinned ? `translate3d(0,0px,0)` : `translate3d(0,-100px,0)`,
@@ -54,6 +43,6 @@ export const Navigation: ChakraComponent<'div', {}> = (props) => {
 					<Icon as={AiFillGithub} boxSize={8} />
 				</Flex>
 			</Container>
-		</chakra.div>
+		</NavigationContainer>
 	);
 };
