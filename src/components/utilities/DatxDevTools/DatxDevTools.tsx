@@ -1,40 +1,80 @@
-import { Button, chakra, VStack } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import {
+	VStack,
+	Heading,
+	Accordion,
+	AccordionItem,
+	AccordionButton,
+	AccordionIcon,
+	AccordionPanel,
+	Text,
+	Icon,
+} from '@chakra-ui/react';
+import { useEffect, useState, memo } from 'react';
+import { GrMultiple, GrCheckbox } from 'react-icons/gr';
+import { config } from '@datx/jsonapi';
 import { cache } from 'swr';
+import { CacheKeyWrapper, Wrapper } from './elements';
+import { isDataKey } from './utils';
 
-const Wrapper = chakra('div', {
-	baseStyle: {
-		position: 'absolute',
-		top: 2,
-		right: 2,
-		bg: 'white',
-		border: 'solid',
-		minW: 100,
-		minH: 100,
-	},
+if (typeof window !== 'undefined') {
+	window['__SWR_CACHE__'] = cache;
+}
+
+interface ICacheKeyProps {
+	cacheKey?: string;
+}
+
+const CacheKey = memo<ICacheKeyProps>(({ cacheKey }) => {
+	const query = cacheKey.replace(config.baseUrl, '');
+	const [resource, params] = query.split('?');
+	const isMany = !resource.includes('/');
+	const response = cache.get(cacheKey);
+
+	console.log(response.data[0]);
+
+	return (
+		<CacheKeyWrapper>
+			<Text>
+				<Icon as={isMany ? GrMultiple : GrCheckbox} display="inline-block" mr={2} />
+				{resource}
+			</Text>
+			<Text>{params}</Text>
+		</CacheKeyWrapper>
+	);
 });
 
 export const DatxDevTools = () => {
-	const [data, setData] = useState(() => cache.keys());
+	const [keys, setKeys] = useState(() => cache.keys().filter(isDataKey));
 
 	useEffect(() => {
-		console.log(cache, data);
 		const unsubscribe = cache.subscribe(() => {
-			setData(cache.keys());
+			setKeys(cache.keys().filter(isDataKey));
 		});
 
 		return () => {
 			unsubscribe();
 		};
-	}, [data]);
+	}, []);
 
 	return (
 		<Wrapper>
-			<VStack>
-				{data.map((key) => (
-					<Button key={key}>{key}</Button>
-				))}
-			</VStack>{' '}
+			<Accordion allowMultiple allowToggle defaultIndex={0} size="xs">
+				<AccordionItem border="0">
+					<AccordionButton>
+						<Heading as="div" size="sm" flex="1" textAlign="left">
+							Cache
+						</Heading>
+						<AccordionIcon />
+					</AccordionButton>
+					<AccordionPanel>
+						<VStack align="stretch" spacing={1}>
+							{keys.map((key) => (
+								<CacheKey key={key} cacheKey={key} />
+							))}
+						</VStack>
+					</AccordionPanel>
+				</AccordionItem>
+			</Accordion>
 		</Wrapper>
 	);
 };
