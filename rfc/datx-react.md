@@ -288,6 +288,69 @@ function Books() {
 }
 ```
 
+## useResource
+For fetching single resource
+
+Example
+```ts
+function useResources<TModel extends Resource = Resource, TMeta extends object = object>(
+	queryResources: QueryResources<TModel>,
+	config?: ConfigInterface<Response<TModel>, Response<TModel>, fetcherFn<Response<TModel>>>
+): {
+	data: TModel;
+	error: IError[] | Error;
+	isValidating: boolean;
+	meta: TMeta;
+	links: Record<string, ILink> | undefined;
+}
+```
+
+## useResources
+For fetching resource list
+
+Example:
+```ts
+function useResources<TModel extends Resource = Resource, TMeta extends object = object>(
+	queryResources: QueryResources<TModel>,
+	config?: ConfigInterface<Response<TModel>, Response<TModel>, fetcherFn<Response<TModel>>>
+): {
+	data: TModel[];
+	error: IError[] | Error;
+	isValidating: boolean;
+	meta: TMeta;
+	links: Record<string, ILink> | undefined;
+	first?: () => Promise<Response>;
+	prev?: () => Promise<Response>;
+	next?: () => Promise<Response>;
+	last?: () => Promise<Response>;
+}
+```
+
+## useCache
+
+Excellent to use data in the normalized cache without fetching.
+
+- On Error (404, 500, etc):
+  - Returns previously cached if exists
+  - null otherwise
+- While loading:
+  - Returns previously cached if exists
+  - null otherwise
+
+Example:
+```ts
+function useCache<TModel extends Resource = Resource, TMeta extends object = object>(
+	queryResources: QueryResources<TModel>,
+	config?: ConfigInterface<Response<TModel>, Response<TModel>, fetcherFn<Response<TModel>>>
+): {
+	data: TModel | TModel[];
+	error: IError[] | Error;
+	isValidating: boolean;
+	meta: TMeta;
+	links: Record<string, ILink> | undefined;
+}
+```
+
 ## Mutate data
 
 ### Operations
