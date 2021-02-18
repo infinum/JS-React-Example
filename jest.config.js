@@ -24,6 +24,7 @@ module.exports = {
 		'^@molecules/(.*)$': '<rootDir>/src/components/ui/molecules/$1',
 		'^@organisms/(.*)$': '<rootDir>/src/components/ui/organisms/$1',
 		'^@themes/(.*)$': '<rootDir>/src/styles/themes/$1',
+		'^@/resources/(.*)$': '<rootDir>/src/resources/$1',
 		'^@test-utils$': '<rootDir>/__tests__/test-utils',
 		'\\.(css|less|sass|scss)$': 'identity-obj-proxy',
 		'\\.(gif|ttf|eot|svg|png)$': '<rootDir>/__mocks__/fileMock.js',

@@ -10,4 +10,12 @@ module.exports = {
 	publicRuntimeConfig: {
 		DUMMY: process.env.DUMMY,
 	},
+	async rewrites() {
+		return [
+			{
+				source: '/jsonapi/:path*',
+				destination: 'http://localhost:4000/api/:path*',
+			},
+		];
+	},
 };

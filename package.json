@@ -10,7 +10,8 @@
 		"test:coverage": "jest --coverage",
 		"test:watch": "jest --watch --coverage",
 		"storybook": "start-storybook -p 6006 -s ./public",
-		"storybook:build": "build-storybook -s ./public"
+		"storybook:build": "build-storybook -s ./public",
+		"api:dev": "tsnd --pretty --project ./api/tsconfig.json ./api"
 	},
 	"dependencies": {
 		"@chakra-ui/react": "^1.1.6",
@@ -22,6 +23,9 @@
 		"dequal": "^2.0.2",
 		"dotenv-flow": "^3.2.0",
 		"framer-motion": "^3.2.1",
+		"knex": "^0.21.17",
+		"koa": "^2.13.1",
+		"kurier": "^1.1.0-alpha1",
 		"lodash": "^4.17.20",
 		"mobx": "^6.0.5",
 		"next": "^10.0.5",
@@ -48,6 +52,7 @@
 		"@testing-library/react": "^11.2.3",
 		"@testing-library/react-hooks": "^5.0.3",
 		"@testing-library/user-event": "^12.6.2",
+		"@types/koa": "^2.11.8",
 		"@types/node": "^14.14.22",
 		"@types/react": "^17.0.0",
 		"@types/react-icons": "^3.0.0",
@@ -58,7 +63,9 @@
 		"jest-svg-transformer": "^1.0.0",
 		"lint-staged": "^10.5.3",
 		"prettier": "^2.2.1",
+		"sqlite3": "^5.0.2",
 		"storybook-addon-performance": "^0.14.0",
+		"ts-node-dev": "^1.1.1",
 		"tsconfig-paths-webpack-plugin": "^3.3.0",
 		"typescript": "^4.1.3"
 	}

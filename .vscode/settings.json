@@ -11,5 +11,13 @@
   "files.insertFinalNewline": false,
   "files.trimTrailingWhitespace": true,
 	"files.trimFinalNewlines": true,
-	"typescript.tsdk": "node_modules/typescript/lib"
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"sqltools.connections": [
+		{
+			"previewLimit": 50,
+			"driver": "SQLite",
+			"name": "todo",
+			"database": "${workspaceFolder:JS-React-Example}/api/data/dev.sqlite3"
+		}
+	]
 }

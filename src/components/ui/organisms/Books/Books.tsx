@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { Response } from '@datx/jsonapi';
-import { BookResource } from '@resources/BookResource';
+import { BookResource } from '@/resources/BookResource';
 import { Button, Skeleton } from '@chakra-ui/react';
 import { useResources, QueryResources } from '@datx/jsonapi-react';
 

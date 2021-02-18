@@ -5,7 +5,7 @@ import theme from '@themes/default';
 import { DatxProvider } from '@datx/jsonapi-react';
 
 import { createClient } from '../network/client';
-import { DatxDevTools } from '../components/utilities/DatxDevTools/DatxDevTools';
+// import { DatxDevTools } from '../components/utilities/DatxDevTools/DatxDevTools';
 
 // const client = createClient();
 
@@ -16,7 +16,7 @@ function App({ Component, pageProps }: AppProps): ReactElement {
 		<DatxProvider client={client}>
 			<ChakraProvider theme={theme} resetCSS>
 				<Component {...pageProps} />
-				<DatxDevTools />
+				{/* <DatxDevTools /> */}
 			</ChakraProvider>
 		</DatxProvider>
 	);

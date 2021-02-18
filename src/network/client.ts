@@ -3,10 +3,11 @@ import { config, ICollectionFetchOpts, IRawResponse, CachingStrategy } from '@da
 import { Client, apify, deapify } from '@datx/jsonapi-react';
 import { AuthorResource } from '../resources/AuthorResource';
 import { BookResource } from '../resources/BookResource';
+import { TodoResource } from '../resources/TodoResource';
 
 config.cache = CachingStrategy.NetworkOnly;
 
-config.baseUrl = '/api/';
+config.baseUrl = '/jsonapi/';
 
 // config.defaultFetchOptions = {
 //   credentials: "include",
@@ -25,7 +26,7 @@ config.transformRequest = (opts: ICollectionFetchOpts) => {
 };
 
 export class DatxClient extends Client {
-	static types = [AuthorResource, BookResource];
+	static types = [AuthorResource, BookResource, TodoResource];
 }
 
 export function createClient() {
