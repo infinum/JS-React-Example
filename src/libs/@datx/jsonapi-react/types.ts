@@ -21,10 +21,12 @@ export interface IQueryHookOptions extends ConfigInterface {
 	client?: Client;
 }
 
-export type QueryResource<TModel> = [IType | IModelConstructor<TModel>, string, IRequestOptions?];
+export type QueryResource<TModel> = [IModelConstructor<TModel>, string, IRequestOptions?];
 
 export type QueryResourceFn<TModel> = (variables: object) => QueryResource<TModel>;
 
-export type QueryResources<TModel> = [IType | IModelConstructor<TModel>, IRequestOptions?];
+export type QueryResources<TModel> = [IModelConstructor<TModel>, IRequestOptions?];
 
 export type QueryResourcesFn<TModel> = (variables: object) => QueryResources<TModel>;
+
+export type MutateResource<TModel> = IModelConstructor<TModel>;

@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { Response, IResponse } from '@datx/jsonapi';
+import { Response, IResponse, IRequestOptions } from '@datx/jsonapi';
 import { useContext, useMemo } from 'react';
-import useSWR, { ConfigInterface } from 'swr';
+import useSWR, { ConfigInterface, mutate } from 'swr';
 import { fetcherFn } from 'swr/dist/types';
 
 import { DatxContext } from './context';
 import { Resource } from './Resource';
-import { QueryKeyFunction, IQueryHookOptions, QueryResource, QueryResources } from './types';
+import { QueryKeyFunction, IQueryHookOptions, QueryResource, QueryResources, MutateResource } from './types';
 
 export function useDatxClient() {
 	const client = useContext(DatxContext);
@@ -18,6 +18,11 @@ export function useDatxClient() {
 	return client;
 }
 
+/**
+ * @deprecated
+ * @param queryKeyFunction
+ * @param options
+ */
 export function useQuery(queryKeyFunction: QueryKeyFunction, options: IQueryHookOptions) {
 	const { variables, skip, client, ...rest } = options;
 
@@ -90,4 +95,16 @@ export function useServerSideResponse(data?: IResponse) {
 	}, [data, client]);
 
 	return response;
+}
+
+export function useMutation<TModel extends Resource = Resource>(Resource: MutateResource<TModel>) {
+	const client = useDatxClient();
+
+	const baseUrl = `/${Resource.type}`;
+
+	const create = (data: object, options?: Omit<IRequestOptions, 'queryParams'>) => mutate(baseUrl, () => client.request(baseUrl, 'POST', data, options);
+
+	return {
+		create,
+	};
 }

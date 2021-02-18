@@ -7,8 +7,6 @@ import Todo from './resources/todo';
 const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
 
-console.log(configuration);
-
 const app = new Application({
 	namespace: 'api',
 	types: [Todo],
@@ -16,7 +14,6 @@ const app = new Application({
 });
 
 // @ts-ignore
-
 app.services.knex = Knex(configuration);
 
 const api = new Koa();

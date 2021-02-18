@@ -5,7 +5,7 @@ import { FaSun, FaMoon } from 'react-icons/fa';
 
 import { Seo } from '@organisms/Seo/Seo';
 import { TodoList } from '../components/todo/TodoList/TodoList';
-// import { AddTodo } from '../components/todo/AddTodo/AddTodo';
+import { AddTodo } from '../components/todo/AddTodo/AddTodo';
 
 export default function LandingPage(): ReactElement {
 	const { colorMode, toggleColorMode } = useColorMode();
@@ -31,7 +31,7 @@ export default function LandingPage(): ReactElement {
 				>
 					Todo Application
 				</Heading>
-				{/* <AddTodo /> */}
+				<AddTodo />
 				<TodoList />
 			</VStack>
 		</Fragment>
