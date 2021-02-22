@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Response, IResponse, IRequestOptions } from '@datx/jsonapi';
 import { useContext, useMemo } from 'react';
-import useSWR, { ConfigInterface, mutate } from 'swr';
+import useSWR, { ConfigInterface } from 'swr';
 import { fetcherFn } from 'swr/dist/types';
 
 import { DatxContext } from './context';
@@ -34,6 +34,7 @@ export function useQuery(queryKeyFunction: QueryKeyFunction, options: IQueryHook
 		throw `client override is not implemented!`;
 	}
 
+	// @ts-ignore
 	const swr = useSWR(queryKeyFunction(variables), rest);
 
 	return swr;
@@ -97,14 +98,21 @@ export function useServerSideResponse(data?: IResponse) {
 	return response;
 }
 
-export function useMutation<TModel extends Resource = Resource>(Resource: MutateResource<TModel>) {
+export function useMutation<TModel extends Resource = Resource>(
+	Resource: MutateResource<TModel>,
+	config?: ConfigInterface<Response<TModel>, Response<TModel>, fetcherFn<Response<TModel>>>
+) {
 	const client = useDatxClient();
+	const baseUrl = `${Resource.type}`;
 
-	const baseUrl = `/${Resource.type}`;
+	const { data, error, mutate } = useSWR(baseUrl, null, config);
 
-	const create = (data: object, options?: Omit<IRequestOptions, 'queryParams'>) => mutate(baseUrl, () => client.request(baseUrl, 'POST', data, options);
+	const create = (data: object, options?: Omit<IRequestOptions, 'queryParams'>) =>
+		mutate(() => client.request(baseUrl, 'POST', { data: { type: Resource.type, attributes: data } }, options));
 
 	return {
+		data,
+		error,
 		create,
 	};
 }

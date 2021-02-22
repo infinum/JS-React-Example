@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { Button, HStack, Input, useToast } from '@chakra-ui/react';
 import { useState } from 'react';
-// import { nanoid } from 'nanoid';
-import { mutate } from 'swr';
+import { useMutation } from '../../../libs/@datx/jsonapi-react/hooks';
+import { TodoResource } from '../../../resources/TodoResource';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface IAddTodoProps {}
@@ -11,8 +11,11 @@ export const AddTodo: FC<IAddTodoProps> = () => {
 	const toast = useToast();
 	const [content, setContent] = useState('');
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
+	const { create } = useMutation(TodoResource);
+
+	const handleSubmit = async (event) => {
+		event.preventDefault();
+
 		if (!content) {
 			toast({
 				title: 'No content',
@@ -23,12 +26,9 @@ export const AddTodo: FC<IAddTodoProps> = () => {
 			return;
 		}
 
-		// const todo = {
-		// 	id: nanoid(),
-		// 	body: content,
-		// };
+		await create({ body: content });
 
-		mutate('/jsonapi/todos');
+		// mutate('/jsonapi/todos');
 		setContent('');
 	};
 

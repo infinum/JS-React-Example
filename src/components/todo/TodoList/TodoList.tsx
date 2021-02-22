@@ -31,6 +31,7 @@ export const TodoList: FC<ITodoListProps> = () => {
 		>
 			{todos.map((todo) => (
 				<HStack key={todo.id}>
+					{console.log(todo)}
 					<Text>{todo.body}</Text>
 					<Spacer />
 					<IconButton aria-label="delete todo" icon={<FaTrash />} isRound onClick={() => console.log(todo.id)} />
