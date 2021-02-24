@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Button, HStack, Input, useToast } from '@chakra-ui/react';
 import { useState } from 'react';
-import { useMutation } from '../../../libs/@datx/jsonapi-react/hooks';
+import { useMutation } from '@datx/jsonapi-react';
 import { TodoResource } from '../../../resources/TodoResource';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

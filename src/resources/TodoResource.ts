@@ -2,7 +2,9 @@ import { Attribute } from '@datx/core';
 import { Resource } from '@datx/jsonapi-react';
 
 export class TodoResource extends Resource {
-	static type = 'todos';
+	static type = 'todo';
+
+	static endpoint = 'todos';
 
 	public id!: string;
 	public body!: string;

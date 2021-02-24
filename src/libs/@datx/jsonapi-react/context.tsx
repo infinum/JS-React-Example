@@ -4,7 +4,7 @@ import { Client } from './Client';
 
 import { compare } from './utils';
 
-export const DatxContext = createContext<Client>(null);
+export const DatxContext = createContext<Client | null>(null);
 
 interface IDatxProviderProps {
 	client: Client;
