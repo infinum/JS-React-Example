@@ -6,8 +6,8 @@ export const styles = {
 			boxSizing: 'border-box',
 		},
 		'html, body': {
-			bg: mode('white', 'black')(props),
-			color: mode('black', 'white')(props),
+			bg: mode('white', 'dark')(props),
+			color: mode('dark', 'white')(props),
 		},
 	}),
 };
