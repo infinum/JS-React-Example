@@ -21,6 +21,7 @@
 		"paths": {
 			"@components/*": ["src/components/*"],
 			"@shared/*": ["src/components/shared/*"],
+			"@utilities/*": ["src/components/utilities/*"],
 
 		},
 	},

@@ -1,15 +1,19 @@
 import React, { ReactElement } from 'react';
-import { Heading } from '@chakra-ui/react';
+import { Container, Heading } from '@chakra-ui/react';
 
-import { Head } from '@shared/Head/Head';
+import { Meta } from '@utilities/Meta/Meta';
+import { Navigation } from '@shared/Navigation/Navigation';
 
 function Home(): ReactElement {
 	return (
 		<>
-			<Head />
-			<section>
-				<Heading>Infinum todo list</Heading>
-			</section>
+			<Meta />
+			<Navigation />
+			<Container>
+				<section>
+					<Heading>Infinum todo list</Heading>
+				</section>
+			</Container>
 		</>
 	);
 }
