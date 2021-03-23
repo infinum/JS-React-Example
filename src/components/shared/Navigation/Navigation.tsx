@@ -1,8 +1,10 @@
 import React, { FC } from 'react';
 import { Box, Flex, Image, useColorMode, IconButton, Button } from '@chakra-ui/react';
-import { SunIcon, MoonIcon } from '@chakra-ui/icons';
 
 import { NavigationWrapper } from './Navigation.elements';
+
+import MoonIcon from '@assets/icons/ic-moon.svg';
+import SunIcon from '@assets/icons/ic-sun.svg';
 
 export const Navigation: FC = () => {
 	const { colorMode, toggleColorMode } = useColorMode();
@@ -18,7 +20,7 @@ export const Navigation: FC = () => {
 					<IconButton
 						aria-label="Toggle color mode"
 						onClick={toggleColorMode}
-						icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+						icon={colorMode === 'light' ? <Box w="16px" as={MoonIcon} /> : <Box w="16px" as={SunIcon} />}
 					/>
 				</Box>
 			</Flex>
