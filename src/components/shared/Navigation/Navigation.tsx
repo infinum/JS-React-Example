@@ -12,7 +12,9 @@ export const Navigation: FC = () => {
 			<Flex justifyContent="space-between">
 				<Image src="/images/logo.png" htmlWidth="80px" />
 				<Box>
-					<Button mr={2}>Logout</Button>
+					<Button disabled mr={2}>
+						Logout
+					</Button>
 					<IconButton
 						aria-label="Toggle color mode"
 						onClick={toggleColorMode}
