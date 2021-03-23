@@ -1,10 +1,11 @@
+import { NextPage } from 'next';
 import React, { ReactElement } from 'react';
 import { Container, Heading } from '@chakra-ui/react';
 
 import { Meta } from '@utilities/Meta/Meta';
 import { Navigation } from '@shared/Navigation/Navigation';
 
-function Home(): ReactElement {
+const Home: NextPage = () => {
 	return (
 		<>
 			<Meta />
@@ -16,6 +17,6 @@ function Home(): ReactElement {
 			</Container>
 		</>
 	);
-}
+};
 
 export default Home;
