@@ -22,7 +22,7 @@ TBD
 
 ## Styleguide
 
-This project is using the styleguide as defined in the [Infinum Handbook v2020.09](link_to_tag) and [Styleguide Project v2020.09](link_to_tagged_project).
+This project is using the styleguide as defined in the [Infinum Handbook v2020.09](https://infinum.com/handbook/books/frontend/react/css-in-js/chakra).
 
 ## Team
 

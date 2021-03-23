@@ -1,31 +1,17 @@
-import { Global, css } from '@emotion/core';
+import React, { ReactElement } from 'react';
 import type { AppProps } from 'next/app';
-import { ReactElement } from 'react';
+import { ChakraProvider } from '@chakra-ui/react';
 
-const globalStyles = css`
-	html,
-	body {
-		padding: 0;
-		margin: 0;
-		font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
-			Helvetica Neue, sans-serif;
-	}
-
-	a {
-		color: inherit;
-		text-decoration: none;
-	}
-
-	* {
-		box-sizing: border-box;
-	}
-`;
+import theme from '../styles/theme';
+import { Fonts } from '../styles/Fonts';
 
 function MyApp({ Component, pageProps }: AppProps): ReactElement {
 	return (
 		<>
-			<Global styles={globalStyles} />
-			<Component {...pageProps} />
+			<ChakraProvider theme={theme}>
+				<Fonts />
+				<Component {...pageProps} />
+			</ChakraProvider>
 		</>
 	);
 }
