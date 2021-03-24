@@ -12,9 +12,9 @@ const overrides = {
 		heading: 'GT Haptik',
 	},
 	sizes: {
-		s: '400px',
-		m: '560px',
-		l: '800px',
+		sm: '400px',
+		md: '560px',
+		lg: '800px',
 	},
 	components: {
 		Container,

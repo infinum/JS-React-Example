@@ -1,16 +1,16 @@
 export const Container = {
 	sizes: {
-		s: {
-			maxWidth: 's',
+		sm: {
+			maxWidth: 'sm',
 		},
-		m: {
-			maxWidth: 'm',
+		md: {
+			maxWidth: 'md',
 		},
-		l: {
-			maxWidth: 'l',
+		lg: {
+			maxWidth: 'lg',
 		},
 	},
 	defaultProps: {
-		size: 'l',
+		size: 'lg',
 	},
 };

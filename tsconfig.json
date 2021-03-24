@@ -19,10 +19,8 @@
     "jsx": "preserve",
 		"baseUrl": ".",
 		"paths": {
-			"@components/*": ["src/components/*"],
-			"@shared/*": ["src/components/shared/*"],
-			"@utilities/*": ["src/components/utilities/*"],
-			"@assets/*": ["src/assets/*"]
+			"@/components/*": ["src/components/*"],
+			"@/assets/*": ["src/assets/*"]
 		},
 	},
 
