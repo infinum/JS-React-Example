@@ -21,6 +21,7 @@
 		"baseUrl": ".",
 		"paths": {
 			"@/components/*": ["src/components/*"],
+			"@/models/*": ["src/models/*"],
 			"@/assets/*": ["src/assets/*"],
 			"@datx/jsonapi-react": ["src/libs/@datx/jsonapi-react"]
 		},

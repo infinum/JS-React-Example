@@ -6,7 +6,7 @@ import mapKeys from 'lodash/mapKeys';
 import mapValues from 'lodash/mapValues';
 import snakeCase from 'lodash/snakeCase';
 import { dequal } from 'dequal/lite';
-import { Response } from '@datx/jsonapi';
+import { IRequestOptions, Response } from '@datx/jsonapi';
 
 /**
  * Deep iteration trough an object and transformation

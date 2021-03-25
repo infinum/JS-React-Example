@@ -1,6 +1,7 @@
 import { IModelConstructor, IType } from '@datx/core';
-import { IRequestOptions } from '@datx/jsonapi';
+import { IJsonapiModel, IRequestOptions, Response } from '@datx/jsonapi';
 import { ConfigInterface, keyInterface } from 'swr';
+import { Fetcher } from 'swr/dist/types';
 import { Client } from './Client';
 import { Resource } from './Resource';
 
@@ -30,3 +31,16 @@ export type QueryResources<TModel> = [IType | IModelConstructor<TModel>, IReques
 export type QueryResourcesFn<TModel> = (variables: object) => QueryResources<TModel>;
 
 export type Meta = Record<string, unknown>;
+
+export type QuerySelectFn<TModel> = (data: TModel) => any;
+
+type QuerySelectConfig<TModel> = {
+	select?: QuerySelectFn<TModel>;
+};
+
+export type QueryConfig<TModel extends IJsonapiModel> = ConfigInterface<
+	Response<TModel>,
+	Response<TModel>,
+	Fetcher<Response<TModel>>
+> &
+	QuerySelectConfig<TModel>;
