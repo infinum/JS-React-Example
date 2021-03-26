@@ -13,7 +13,7 @@ interface ITodoListProps extends StackProps {
 
 export const TodoList: FC<ITodoListProps> = ({ todoList, ...rest }) => {
 	return (
-		<VStack spacing={4} align="stretch" divider={<StackDivider borderColor="gray.200" />} {...rest}>
+		<VStack spacing={4} align="stretch" {...rest}>
 			{todoList.length ? (
 				todoList.map((todo) => (
 					<Box p={5} shadow="md" borderWidth="1px" key={todo.id}>

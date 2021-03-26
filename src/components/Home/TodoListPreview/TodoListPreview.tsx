@@ -30,7 +30,7 @@ export const TodoListPreview: FC = () => {
 					</NextLink>
 				</Heading>
 
-				<Divider />
+				<Divider mb={10} />
 				<TodoList todoList={data} />
 			</Box>
 		</Container>

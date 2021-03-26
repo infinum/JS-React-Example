@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Container, Heading, Text } from '@chakra-ui/react';
+import { Container, Divider, Heading, Text } from '@chakra-ui/react';
 import { useResource } from '@datx/jsonapi-react';
 import { useRouter } from 'next/dist/client/router';
 
@@ -21,6 +21,7 @@ export const TodoSinglePreview: FC = () => {
 	return (
 		<Container>
 			<Heading my={10}>{data.title}</Heading>
+			<Divider mb={10} />
 			<Text>{data.body}</Text>
 		</Container>
 	);

@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 
 import { Navigation } from '@/components/shared/Navigation/Navigation';
 import { Meta } from '@/components/utilities/Meta/Meta';
-import { TodoSinglePreview } from '@/components/Todo/TodoSinglePreview';
+import { TodoSinglePreview } from '@/components/Todo/TodoSinglePreview/TodoSinglePreview';
 
 const SingleTodo: NextPage = () => {
 	return (
