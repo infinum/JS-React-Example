@@ -4,7 +4,7 @@ import { prepareQuery, Response } from '@datx/jsonapi';
 import isFunction from 'lodash/isFunction';
 import useSWR from 'swr';
 
-import { Meta, QueryConfig, QueryResource, QueryResources } from './types';
+import { Meta, QueryConfig, QueryResourceFn, QueryResourceListFn } from './types';
 import { Resource } from './Resource';
 import { DatxContext } from './context';
 
@@ -19,13 +19,13 @@ export function useDatxClient() {
 }
 
 export function useResource<TModel extends Resource = Resource, TMeta extends Meta = Meta>(
-	queryResource: QueryResource<TModel>,
+	queryResource: QueryResourceFn<TModel>,
 	config?: QueryConfig<TModel>
 ) {
 	const client = useDatxClient();
 
 	const getKey = () => {
-		const [type, id, options] = isFunction(queryResource) ? queryResource() : queryResource;
+		const [type, id, options] = queryResource();
 		const modelType = getModelType(type);
 
 		const query = prepareQuery(modelType, id, undefined, undefined);
@@ -34,8 +34,7 @@ export function useResource<TModel extends Resource = Resource, TMeta extends Me
 	};
 
 	const fetcher = (url: string) => {
-		// TODO: this is suboptimal because we are doing the same thing in getKey
-		const [_, __, options] = isFunction(queryResource) ? queryResource() : queryResource;
+		const [_, __, options] = queryResource();
 
 		return client.request<TModel>(url, 'GET', null, options);
 	};
@@ -51,8 +50,8 @@ export function useResource<TModel extends Resource = Resource, TMeta extends Me
 	};
 }
 
-export function useResources<TModel extends Resource = Resource, TMeta extends Meta = Meta>(
-	queryResources: QueryResources<TModel>,
+export function useResourceList<TModel extends Resource = Resource, TMeta extends Meta = Meta>(
+	queryResources: QueryResourceListFn<TModel>,
 	config?: QueryConfig<TModel>
 ) {
 	const client = useDatxClient();

@@ -23,6 +23,7 @@
 			"@/components/*": ["src/components/*"],
 			"@/models/*": ["src/models/*"],
 			"@/assets/*": ["src/assets/*"],
+			"@/interfaces/*": ["src/interfaces/*"],
 			"@datx/jsonapi-react": ["src/libs/@datx/jsonapi-react"]
 		},
 	},

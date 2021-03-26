@@ -7,10 +7,10 @@ const Error: NextComponentType = ({ statusCode }: any) => {
 	return (
 		<Container height="100%">
 			<Center height="100%" flexDirection="column">
-				<Heading my={8} size="4xl" color="red">
+				<Heading my={8} size="4xl" variant="tertiary">
 					{statusCode}
 				</Heading>
-				<Heading size="xl" color="red">
+				<Heading size="xl" variant="tertiary">
 					Error occurred!
 				</Heading>
 				<Image src="/images/infinum-contruction.png" alt="presentation" width="100%" />

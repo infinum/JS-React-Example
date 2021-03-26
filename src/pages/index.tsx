@@ -1,7 +1,7 @@
-import { NextPage } from 'next';
 import React from 'react';
-import { Container, Heading, Divider } from '@chakra-ui/react';
-import { useResources } from '@datx/jsonapi-react';
+import { NextPage } from 'next';
+import { Container } from '@chakra-ui/react';
+import { useResourceList } from '@datx/jsonapi-react';
 
 import { Meta } from '@/components/utilities/Meta/Meta';
 import { Navigation } from '@/components/shared/Navigation/Navigation';
@@ -10,7 +10,7 @@ import { TodoPreview } from '@/components/Home/TodoPreview/TodoPreview';
 import { Todo } from '@/models/Todo';
 
 const Home: NextPage = () => {
-	const { data, error } = useResources([Todo]);
+	const { data, error } = useResourceList(() => [Todo]);
 
 	if (error) {
 		throw { statusCode: 404 };
