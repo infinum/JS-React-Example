@@ -25,15 +25,8 @@ export interface IQueryHookOptions extends ConfigInterface {
 export type QueryResource<TModel> = [IType | IModelConstructor<TModel>, number | string, IRequestOptions?];
 export type QueryResourceFn<TModel> = () => QueryResource<TModel>;
 
-// export type QueryResource<TModel> = [IType | IModelConstructor<TModel>, string, IRequestOptions?];
-//
-// export type QueryResourceFn<TModel> = (variables: object) => QueryResource<TModel>;
-
 export type QueryResourceList<TModel> = [IType | IModelConstructor<TModel>, IRequestOptions?];
 export type QueryResourceListFn<TModel> = () => QueryResourceList<TModel>;
-// export type QueryResources<TModel> = _QueryResources<TModel> | _QueryResourcesFn<TModel>;
-
-// export type QueryResourcesFn<TModel> = (variables: object) => QueryResources<TModel>;
 
 export type Meta = Record<string, unknown>;
 

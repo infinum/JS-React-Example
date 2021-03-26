@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import { Box, Flex, Image, useColorMode, IconButton, Button, Heading } from '@chakra-ui/react';
+import { Box, Flex, Image, useColorMode, IconButton, Button, Heading, LinkBox, LinkOverlay } from '@chakra-ui/react';
+import NextLink from 'next/link';
 
 import { NavigationWrapper } from './Navigation.elements';
 
@@ -12,7 +13,13 @@ export const Navigation: FC = () => {
 	return (
 		<NavigationWrapper>
 			<Flex justifyContent="space-between" alignItems="center">
-				<Image src="/images/logo-infinum.png" htmlWidth="64px" />
+				<LinkBox>
+					<NextLink href="/" passHref>
+						<LinkOverlay>
+							<Image src="/images/logo-infinum.png" htmlWidth="64px" />
+						</LinkOverlay>
+					</NextLink>
+				</LinkBox>
 				<Heading size="lg">React example</Heading>
 				<Box>
 					<Button disabled mr={2}>

@@ -15,7 +15,6 @@ export const TodoForm: FC<ITodoFormProps> = ({ todo, onFormSubmit }) => {
 	const { register, handleSubmit, errors } = useForm<ITodoFormValues>({ defaultValues: todo });
 
 	async function onSubmit(values) {
-		console.log(values);
 		try {
 			await onFormSubmit(values);
 		} catch (e) {
