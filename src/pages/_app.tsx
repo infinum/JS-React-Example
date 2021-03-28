@@ -8,6 +8,7 @@ import { Fonts } from '../styles/Fonts';
 import client from '../store';
 
 import '../store/utils/config';
+import { Chat } from '@/components/chat/Chat/Chat';
 
 function MyApp({ Component, pageProps }: AppProps): ReactElement {
 	return (
@@ -15,6 +16,7 @@ function MyApp({ Component, pageProps }: AppProps): ReactElement {
 			<DatxProvider client={client}>
 				<ChakraProvider theme={theme}>
 					<Fonts />
+					<Chat />
 					<Component {...pageProps} />
 				</ChakraProvider>
 			</DatxProvider>

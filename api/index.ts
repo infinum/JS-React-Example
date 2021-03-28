@@ -1,7 +1,8 @@
 import * as Knex from 'knex';
-import { Application, jsonApiKoa, KnexProcessor } from 'kurier';
+import { Application, jsonApiKoa, KnexProcessor, jsonApiWebSocket } from 'kurier';
 import Koa from 'koa';
 import * as cors from '@koa/cors';
+import { Server as WebSocketServer } from 'ws';
 
 import Todo from './resources/todo';
 
@@ -21,5 +22,9 @@ const api = new Koa();
 
 api.use(cors());
 api.use(jsonApiKoa(app));
+
+// ws
+const ws = new WebSocketServer({ port: 8080, server: api });
+jsonApiWebSocket(ws, app);
 
 api.listen(4000);
