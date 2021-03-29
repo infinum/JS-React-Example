@@ -5,7 +5,7 @@ export const StyledWrapper = chakra('div', {
 });
 
 export const StyledMessagesList = chakra('div', {
-	baseStyle: { bg: 'gray.50' },
+	baseStyle: { bg: 'gray.50', p: 2 },
 });
 
 export const StyledActions = chakra('div', {

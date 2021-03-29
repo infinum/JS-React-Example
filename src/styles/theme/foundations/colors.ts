@@ -2,6 +2,18 @@ export const colors = {
 	white: '#FFFFFF',
 	dark: '#3E3D54',
 	red: '#D8262C',
+	infinum: {
+		50: '#ffe5e7',
+		100: '#f9bcbe',
+		200: '#ee9295',
+		300: '#e5666b',
+		400: '#dd3c41',
+		500: '#c32228',
+		600: '#99191e',
+		700: '#6d1015',
+		800: '#44070a',
+		900: '#1e0000',
+	},
 	primary: {
 		50: '#f6faff',
 		100: '#d7e9fd',

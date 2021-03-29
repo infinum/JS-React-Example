@@ -5,13 +5,14 @@ import * as cors from '@koa/cors';
 import { Server as WebSocketServer } from 'ws';
 
 import Todo from './resources/todo';
+import Message from './resources/message';
 
 const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
 
 const app = new Application({
 	namespace: 'api',
-	types: [Todo],
+	types: [Todo, Message],
 	defaultProcessor: KnexProcessor,
 });
 

@@ -4,16 +4,19 @@ import { ChatIcon, ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import { Textarea } from '@chakra-ui/textarea';
 import React, { FC, useCallback, useMemo, useRef } from 'react';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
+import { useResourceList } from '@datx/jsonapi-react';
+import { Message } from '@/models/Message';
 import { StyledActions, StyledMessagesList, StyledWrapper } from './Chat.elements';
 
 interface IChatProps {}
 
 export const Chat: FC<IChatProps> = () => {
+	const { data: messages } = useResourceList(() => [Message]);
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const messageHistory = useRef(null);
 
-	const { sendMessage, lastMessage, readyState } = useWebSocket('ws://localhost:8080');
+	const { sendMessage, lastMessage, readyState } = useWebSocket('ws://localhost:8080/api/bulk');
 
 	messageHistory.current = useMemo(() => {
 		if (!messageHistory.current) {
@@ -31,9 +34,12 @@ export const Chat: FC<IChatProps> = () => {
 						"ref": {
 							"type": "message"
 						},
-						"data": {
-							body: "test message",
-						}
+						"data": [{
+							"type": "message"
+							"attributes": {
+								"body": "test message",
+							}
+						}]
 					}
 				]
 			}`),
@@ -51,7 +57,7 @@ export const Chat: FC<IChatProps> = () => {
 	return (
 		<StyledWrapper minW="200px" h={isOpen ? '300px' : '32px'}>
 			<Button
-				colorScheme="facebook"
+				colorScheme="infinum"
 				onClick={isOpen ? onClose : onOpen}
 				leftIcon={<ChatIcon />}
 				rightIcon={isOpen ? <ChevronDownIcon /> : <ChevronUpIcon />}
@@ -60,11 +66,15 @@ export const Chat: FC<IChatProps> = () => {
 				iconSpacing="auto"
 				borderBottomRadius={0}
 				flex={0}
+				py={2}
 			>
 				Chat
 			</Button>
 			<StyledMessagesList flex={1}>
-				{connectionStatus}
+				<span>WS Status: {connectionStatus}</span>
+				{messages?.map((message) => (
+					<span key={message.id}>{message.body}</span>
+				))}
 				{messageHistory.current?.map((message, idx) => (
 					<span key={idx}>{message.data}</span>
 				))}
