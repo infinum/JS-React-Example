@@ -2,7 +2,7 @@ import { Button } from '@chakra-ui/button';
 import { useDisclosure } from '@chakra-ui/hooks';
 import { ChatIcon, ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import { Textarea } from '@chakra-ui/textarea';
-import React, { FC, useCallback, useMemo, useRef } from 'react';
+import React, { FC, useCallback, useMemo, useRef, useState } from 'react';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 import { useResourceList } from '@datx/jsonapi-react';
 import { Message } from '@/models/Message';
@@ -12,6 +12,7 @@ interface IChatProps {}
 
 export const Chat: FC<IChatProps> = () => {
 	const { data: messages } = useResourceList(() => [Message]);
+	const [newMessage, setNewMessage] = useState<string>();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const messageHistory = useRef(null);
@@ -25,26 +26,28 @@ export const Chat: FC<IChatProps> = () => {
 		messageHistory.current.concat(lastMessage);
 	}, [lastMessage]);
 
-	const handleClickSendMessage = useCallback(
-		() =>
-			sendMessage(`{
-				"operations": [
-					{
-						"op": "add",
-						"ref": {
-							"type": "message"
-						},
-						"data": [{
-							"type": "message"
-							"attributes": {
-								"body": "test message",
-							}
-						}]
+	const handleClickSendMessage = useCallback(() => {
+		if (!newMessage) {
+			return window.alert('Message is required!');
+		}
+		sendMessage(`{
+			"operations": [
+				{
+					"op": "add",
+					"ref": {
+						"type": "message"
+					},
+					"data": {
+						"type": "message",
+						"attributes": {
+							"body": "${newMessage}"
+						}
 					}
-				]
-			}`),
-		[]
-	);
+				}
+			],
+			"meta": {}
+		}`);
+	}, [newMessage]);
 
 	const connectionStatus = {
 		[ReadyState.CONNECTING]: 'Connecting',
@@ -73,14 +76,14 @@ export const Chat: FC<IChatProps> = () => {
 			<StyledMessagesList flex={1}>
 				<span>WS Status: {connectionStatus}</span>
 				{messages?.map((message) => (
-					<span key={message.id}>{message.body}</span>
+					<p key={message.id}>{message.body}</p>
 				))}
 				{messageHistory.current?.map((message, idx) => (
-					<span key={idx}>{message.data}</span>
+					<p key={idx}>{message.data}</p>
 				))}
 			</StyledMessagesList>
 			<StyledActions flex={0}>
-				<Textarea placeholder="Enter message" />
+				<Textarea value={newMessage} onChange={(e) => setNewMessage(e.target.value)} placeholder="Enter message" />
 				<Button size="sm" ml={2} onClick={handleClickSendMessage} disabled={readyState !== ReadyState.OPEN}>
 					Send
 				</Button>
