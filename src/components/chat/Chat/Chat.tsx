@@ -4,14 +4,11 @@ import { ChatIcon, ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import { Textarea } from '@chakra-ui/textarea';
 import React, { FC, useCallback, useMemo, useRef, useState } from 'react';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
-import { useResourceList } from '@datx/jsonapi-react';
-import { Message } from '@/models/Message';
 import { StyledActions, StyledMessagesList, StyledWrapper } from './Chat.elements';
 
 interface IChatProps {}
 
 export const Chat: FC<IChatProps> = () => {
-	const { data: messages } = useResourceList(() => [Message]);
 	const [newMessage, setNewMessage] = useState<string>();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -75,9 +72,6 @@ export const Chat: FC<IChatProps> = () => {
 			</Button>
 			<StyledMessagesList flex={1}>
 				<span>WS Status: {connectionStatus}</span>
-				{messages?.map((message) => (
-					<p key={message.id}>{message.body}</p>
-				))}
 				{messageHistory.current?.map((message, idx) => (
 					<p key={idx}>{message.data}</p>
 				))}
