@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo, useRef } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useRef } from 'react';
 import { ChatIcon, ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import { Button, Textarea, VStack, useDisclosure } from '@chakra-ui/react';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
@@ -7,6 +7,7 @@ import { StyledActions, StyledMessagesList, StyledMessage, StyledWrapper } from 
 interface IChatProps {}
 
 export const Chat: FC<IChatProps> = () => {
+	const scrollContainerRef = useRef<HTMLDivElement>(null);
 	const textareaRef = useRef<HTMLTextAreaElement>(null);
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -20,6 +21,14 @@ export const Chat: FC<IChatProps> = () => {
 		}
 		if (lastJsonMessage && !lastJsonMessage.errors) {
 			messageHistory.current = [...messageHistory.current, ...lastJsonMessage?.operations];
+		}
+	}, [lastJsonMessage]);
+
+	useEffect(() => {
+		if (scrollContainerRef.current) {
+			console.log('run');
+			const target = scrollContainerRef.current;
+			target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
 		}
 	}, [lastJsonMessage]);
 
@@ -71,7 +80,7 @@ export const Chat: FC<IChatProps> = () => {
 			>
 				Chat
 			</Button>
-			<StyledMessagesList as={VStack} flex={1} align="stretch">
+			<StyledMessagesList ref={scrollContainerRef} as={VStack} flex={1} align="stretch">
 				{messageHistory.current?.map((message) => (
 					<StyledMessage key={message.data.id}>{message.data.attributes.body}</StyledMessage>
 				))}
