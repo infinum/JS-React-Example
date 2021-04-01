@@ -1,50 +1,53 @@
-import { Button } from '@chakra-ui/button';
-import { useDisclosure } from '@chakra-ui/hooks';
+import React, { FC, useCallback, useMemo, useRef } from 'react';
 import { ChatIcon, ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons';
-import { Textarea } from '@chakra-ui/textarea';
-import React, { FC, useCallback, useMemo, useRef, useState } from 'react';
+import { Button, Textarea, VStack, useDisclosure } from '@chakra-ui/react';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
-import { StyledActions, StyledMessagesList, StyledWrapper } from './Chat.elements';
+import { StyledActions, StyledMessagesList, StyledMessage, StyledWrapper } from './Chat.elements';
 
 interface IChatProps {}
 
 export const Chat: FC<IChatProps> = () => {
-	const [newMessage, setNewMessage] = useState<string>();
+	const textareaRef = useRef<HTMLTextAreaElement>(null);
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
-	const messageHistory = useRef(null);
+	const messageHistory = useRef<Array<any>>(null);
 
-	const { sendMessage, lastMessage, readyState } = useWebSocket('ws://localhost:8080/api/bulk');
+	const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket('ws://localhost:8080/api/messages');
 
-	messageHistory.current = useMemo(() => {
+	useMemo(() => {
 		if (!messageHistory.current) {
 			messageHistory.current = [];
 		}
-		messageHistory.current.concat(lastMessage);
-	}, [lastMessage]);
+		if (lastJsonMessage) {
+			// debugger;
+			messageHistory.current = [...messageHistory.current, ...lastJsonMessage?.operations];
+			console.log(messageHistory.current);
+		}
+	}, [lastJsonMessage]);
 
 	const handleClickSendMessage = useCallback(() => {
-		if (!newMessage) {
-			return window.alert('Message is required!');
-		}
-		sendMessage(`{
-			"operations": [
+		const textarea = textareaRef.current;
+
+		sendJsonMessage({
+			operations: [
 				{
-					"op": "add",
-					"ref": {
-						"type": "message"
+					op: 'add',
+					ref: {
+						type: 'message',
 					},
-					"data": {
-						"type": "message",
-						"attributes": {
-							"body": "${newMessage}"
-						}
-					}
-				}
+					data: {
+						type: 'message',
+						attributes: {
+							body: textarea.value,
+						},
+					},
+				},
 			],
-			"meta": {}
-		}`);
-	}, [newMessage]);
+			meta: {},
+		});
+
+		textarea.value = '';
+	}, []);
 
 	const connectionStatus = {
 		[ReadyState.CONNECTING]: 'Connecting',
@@ -55,7 +58,7 @@ export const Chat: FC<IChatProps> = () => {
 	}[readyState];
 
 	return (
-		<StyledWrapper minW="200px" h={isOpen ? '300px' : '32px'}>
+		<StyledWrapper minW="200px" h="300px" style={{ bottom: !isOpen ? '-268px' : null }}>
 			<Button
 				colorScheme="infinum"
 				onClick={isOpen ? onClose : onOpen}
@@ -70,14 +73,13 @@ export const Chat: FC<IChatProps> = () => {
 			>
 				Chat
 			</Button>
-			<StyledMessagesList flex={1}>
-				<span>WS Status: {connectionStatus}</span>
-				{messageHistory.current?.map((message, idx) => (
-					<p key={idx}>{message.data}</p>
+			<StyledMessagesList as={VStack} flex={1} align="stretch">
+				{messageHistory.current?.map((message) => (
+					<StyledMessage key={message.data.id}>{message.data.attributes.body}</StyledMessage>
 				))}
 			</StyledMessagesList>
 			<StyledActions flex={0}>
-				<Textarea value={newMessage} onChange={(e) => setNewMessage(e.target.value)} placeholder="Enter message" />
+				<Textarea ref={textareaRef} placeholder="Enter message" />
 				<Button size="sm" ml={2} onClick={handleClickSendMessage} disabled={readyState !== ReadyState.OPEN}>
 					Send
 				</Button>
