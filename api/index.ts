@@ -1,7 +1,8 @@
 import * as Knex from 'knex';
-import { Application, jsonApiKoa, KnexProcessor, jsonApiWebSocket } from 'kurier';
+import { Application, jsonApiKoa, KnexProcessor } from 'kurier';
 import Koa from 'koa';
 import * as cors from '@koa/cors';
+import jsonApiWebSocket from './middlewares/json-api-websockets';
 import { Server as WebSocketServer } from 'ws';
 
 import Todo from './resources/todo';

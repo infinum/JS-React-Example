@@ -12,16 +12,14 @@ export const Chat: FC<IChatProps> = () => {
 
 	const messageHistory = useRef<Array<any>>(null);
 
-	const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket('ws://localhost:8080/api/messages');
+	const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket('ws://localhost:8080');
 
 	useMemo(() => {
 		if (!messageHistory.current) {
 			messageHistory.current = [];
 		}
-		if (lastJsonMessage) {
-			// debugger;
+		if (lastJsonMessage && !lastJsonMessage.errors) {
 			messageHistory.current = [...messageHistory.current, ...lastJsonMessage?.operations];
-			console.log(messageHistory.current);
 		}
 	}, [lastJsonMessage]);
 
