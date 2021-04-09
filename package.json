@@ -11,21 +11,26 @@
 		"api:dev": "tsnd --pretty --project ./api/tsconfig.json ./api"
 	},
 	"dependencies": {
-		"@emotion/core": "^10.0.35",
-		"@emotion/styled": "^10.0.27",
+		"@chakra-ui/react": "^1.4.1",
+		"@emotion/react": "^11.1.5",
+		"@emotion/styled": "^11.1.5",
 		"datx": "^2.0.0-beta.4",
 		"datx-network": "^2.0.0-beta.7",
+		"framer-motion": "^4.0.0",
 		"knex": "^0.95.2",
 		"koa": "^2.13.1",
 		"kurier": "^1.1.0-alpha1",
 		"mobx": "4",
 		"next": "9.5.3",
+		"next-compose-plugins": "^2.2.1",
+		"next-react-svg": "^1.1.2",
 		"react": "16.13.1",
 		"react-dom": "16.13.1",
 		"sqlite3": "^5.0.2"
 	},
 	"devDependencies": {
 		"@infinumjs/eslint-config-react": "^2.0.0",
+		"@types/jest": "^26.0.21",
 		"@types/node": "^14.11.2",
 		"@types/react": "^16.9.49",
 		"eslint": "^7.9.0",
