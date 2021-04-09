@@ -3,8 +3,8 @@ import { Box, Flex, Image, useColorMode, IconButton, Button } from '@chakra-ui/r
 
 import { NavigationWrapper } from './Navigation.elements';
 
-import MoonIcon from '@/assets/icons/ic-moon.svg';
-import SunIcon from '@/assets/icons/ic-sun.svg';
+// import MoonIcon from '@/assets/icons/ic-moon.svg';
+// import SunIcon from '@/assets/icons/ic-sun.svg';
 
 export const Navigation: FC = () => {
 	const { colorMode, toggleColorMode } = useColorMode();
@@ -17,11 +17,11 @@ export const Navigation: FC = () => {
 					<Button disabled mr={2}>
 						Logout
 					</Button>
-					<IconButton
+					{/* <IconButton
 						aria-label="Toggle color mode"
 						onClick={toggleColorMode}
 						icon={<Box w="16px" as={colorMode === 'light' ? MoonIcon : SunIcon} />}
-					/>
+					/> */}
 				</Box>
 			</Flex>
 		</NavigationWrapper>
