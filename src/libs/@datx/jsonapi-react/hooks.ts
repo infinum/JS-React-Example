@@ -19,16 +19,17 @@ export function useDatxClient() {
 }
 
 export function useResource<TModel extends Resource = Resource, TMeta extends Meta = Meta>(
-	queryResource: QueryResourceFn<TModel>,
+	queryResource: QueryResourceFn<TModel> | null,
 	config?: QueryConfig<TModel>
 ) {
 	const client = useDatxClient();
 
 	const getKey = () => {
 		const [type, id, options] = queryResource();
+
 		const modelType = getModelType(type);
 
-		const query = prepareQuery(modelType, id, undefined, undefined);
+		const query = prepareQuery(modelType, id, undefined, options);
 
 		return query.url;
 	};
@@ -51,7 +52,7 @@ export function useResource<TModel extends Resource = Resource, TMeta extends Me
 }
 
 export function useResourceList<TModel extends Resource = Resource, TMeta extends Meta = Meta>(
-	queryResources: QueryResourceListFn<TModel>,
+	queryResources: QueryResourceListFn<TModel> | null,
 	config?: QueryConfig<TModel>
 ) {
 	const client = useDatxClient();
