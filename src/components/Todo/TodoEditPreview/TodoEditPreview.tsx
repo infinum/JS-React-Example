@@ -11,13 +11,10 @@ import { ITodoFormValues } from '@/interfaces/ITodoFormValues';
 
 export const TodoEditPreview: FC = () => {
 	const router = useRouter();
-	const { data, error } = useResource(() => {
-		if (router.query?.id === 'new') {
-			throw null;
-		}
-
-		return [Todo, router.query?.id as string];
-	});
+	const { data, error } = useResource(() => [
+		Todo,
+		(router.query?.id as string) !== 'new' ? (router.query?.id as string) : null,
+	]);
 
 	const onSubmit = useCallback(
 		async (values: ITodoFormValues) => {
