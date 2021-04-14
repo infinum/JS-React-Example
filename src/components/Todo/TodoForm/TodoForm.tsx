@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { InputField } from '@/components/shared/InputField/InputField';
 import { ITodoFormValues } from '@/interfaces/ITodoFormValues';
 import { Todo } from '@/models/Todo';
+import { setApiErrors } from 'src/helpers/setApiErrors';
 
 interface ITodoFormProps {
 	todo?: Todo;
@@ -12,13 +13,13 @@ interface ITodoFormProps {
 }
 
 export const TodoForm: FC<ITodoFormProps> = ({ todo, onFormSubmit }) => {
-	const { register, handleSubmit, errors } = useForm<ITodoFormValues>({ defaultValues: todo });
+	const { register, handleSubmit, errors, setError } = useForm<ITodoFormValues>({ defaultValues: todo });
 
 	async function onSubmit(values) {
 		try {
 			await onFormSubmit(values);
-		} catch (e) {
-			console.log(e);
+		} catch (submitError) {
+			setApiErrors(submitError.error).forEach(({ name, type, message }) => setError(name, { type, message }));
 		}
 	}
 
