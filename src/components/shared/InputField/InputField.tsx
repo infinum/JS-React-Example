@@ -7,11 +7,9 @@ export const InputField = forwardRef<any, any>(function InputField({ errors, nam
 		<FormControl id={name} my={4} isInvalid={errors[name]}>
 			<FormLabel>{label}</FormLabel>
 			<Input name={name} ref={ref} errorBorderColor="red" />
-			{errors[name] && (
-				<FormErrorMessage color="red">
-					<ErrorMessage errors={errors} name={name} />
-				</FormErrorMessage>
-			)}
+			<FormErrorMessage color="red">
+				<ErrorMessage errors={errors} name={name} />
+			</FormErrorMessage>
 		</FormControl>
 	);
 });

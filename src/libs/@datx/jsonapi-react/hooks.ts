@@ -42,7 +42,6 @@ export function useResource<TModel extends Resource = Resource, TMeta extends Me
 
 	const swr = useSWR<Response<TModel>, Response<TModel>>(getKey, fetcher, config);
 
-	// TODO: implement data select with getters
 	return {
 		...swr,
 		data: swr.data?.data as TModel,
@@ -67,7 +66,6 @@ export function useResourceList<TModel extends Resource = Resource, TMeta extend
 	};
 
 	const fetcher = (url: string) => {
-		// TODO: this is suboptimal because we are doing the same thing in getKey
 		const [_, options] = isFunction(queryResources) ? queryResources() : queryResources;
 
 		return client.request<TModel>(url, 'GET', null, options);
@@ -75,7 +73,6 @@ export function useResourceList<TModel extends Resource = Resource, TMeta extend
 
 	const swr = useSWR<Response<TModel>, Response<TModel>>(getKey, fetcher, config);
 
-	// TODO: implement data select with getters
 	return {
 		...swr,
 		data: swr.data?.data as Array<TModel>,
