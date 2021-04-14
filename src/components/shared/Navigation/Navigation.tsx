@@ -28,7 +28,7 @@ export const Navigation: FC = () => {
 					<IconButton
 						aria-label="Toggle color mode"
 						onClick={toggleColorMode}
-						icon={colorMode === 'light' ? <Box w="16px" as={MoonIcon} /> : <Box w="16px" as={SunIcon} />}
+						icon={<Box w="16px" as={colorMode === 'light' ? MoonIcon : SunIcon} />}
 					/>
 				</Box>
 			</Flex>
