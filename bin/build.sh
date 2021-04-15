@@ -15,9 +15,6 @@ function main() {
   # npm run lint
   npm run test
   npm run build
-
-  # RUN SONAR ANALYSIS
-  # ./bin/analyze.sh
 }
 
 main "$@"
