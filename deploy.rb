@@ -11,8 +11,8 @@ task :staging do
 	set :deploy_to, '/home/js_react_example/www/react-example.byinfinum.co'
 	set :port, '229'
 	set :user, 'js_react_example'
-  set :branch, 'master'
-  set :next_app_env, 'staging'
+	set :branch, 'master'
+	set :next_app_env, 'staging'
 end
 
 task :build_app do
