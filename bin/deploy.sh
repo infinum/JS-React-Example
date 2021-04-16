@@ -16,6 +16,7 @@ function main() {
 
 	gem install mina-infinum
 	mina ${environment} ssh_keyscan_domain
+	mina ${environment} setup
 	mina "${environment}" deploy commit="${last_commit}"
 }
 
