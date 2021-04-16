@@ -16,7 +16,7 @@ function main() {
 	npm ci
 
 	gem install secrets_cli
-	secrets pull -e staging -y
+	# secrets pull -e staging -y
 
 	# npm run lint
 	npm run test
