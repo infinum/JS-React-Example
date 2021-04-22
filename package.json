@@ -8,12 +8,13 @@
 		"start": "next start",
 		"test": "jest --coverage",
 		"watch": "jest --watch --coverage",
-		"api:dev": "tsnd --pretty --project ./api/tsconfig.json ./api"
+		"api:dev": "SESSION_KEY=f0d87076b63d5c2732e282064fe6bebc tsnd --pretty --project ./api/tsconfig.json ./api"
 	},
 	"dependencies": {
 		"@chakra-ui/react": "^1.4.1",
 		"@emotion/react": "^11.1.5",
 		"@emotion/styled": "^11.1.5",
+		"crypto": "^1.0.1",
 		"datx": "^2.0.0-beta.4",
 		"datx-network": "^2.0.0-beta.7",
 		"framer-motion": "^4.0.0",
