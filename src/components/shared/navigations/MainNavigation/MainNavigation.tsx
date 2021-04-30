@@ -2,12 +2,12 @@ import React, { FC } from 'react';
 import { Box, Flex, Image, useColorMode, IconButton, Button, Heading, LinkBox, LinkOverlay } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
-import { NavigationWrapper } from './Navigation.elements';
+import { NavigationWrapper } from './MainNavigation.elements';
 
 import MoonIcon from '@/assets/icons/ic-moon.svg';
 import SunIcon from '@/assets/icons/ic-sun.svg';
 
-export const Navigation: FC = () => {
+export const MainNavigation: FC = () => {
 	const { colorMode, toggleColorMode } = useColorMode();
 
 	return (

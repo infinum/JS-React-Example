@@ -2,36 +2,37 @@ import React, { FC } from 'react';
 import { Button } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 
-import { InputField } from '@/components/shared/InputField/InputField';
+import { InputField } from '@/components/shared/inputs/InputField/InputField';
 import { ITodoFormValues } from '@/interfaces/ITodoFormValues';
-import { Todo } from '@/models/Todo';
-import { setApiErrors } from 'src/helpers/setApiErrors';
+import { Todo } from '@/resources/Todo';
+import { setApiErrors } from '@/helpers/setApiErrors';
+import { TextareaField } from '@/components/shared/inputs/TextareaField/TextareaField';
 
 interface ITodoFormProps {
 	todo?: Todo;
-	onFormSubmit(values: ITodoFormValues): Promise<void>;
+	onSubmit(values: ITodoFormValues): Promise<void>;
 }
 
-export const TodoForm: FC<ITodoFormProps> = ({ todo, onFormSubmit }) => {
+export const TodoForm: FC<ITodoFormProps> = ({ todo, onSubmit }) => {
 	const { register, handleSubmit, errors, setError } = useForm<ITodoFormValues>({ defaultValues: todo });
 
-	async function onSubmit(values) {
+	async function onInternalSubmit(values) {
 		try {
-			await onFormSubmit(values);
+			await onSubmit(values);
 		} catch (submitError) {
 			setApiErrors(submitError.error).forEach(({ name, type, message }) => setError(name, { type, message }));
 		}
 	}
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
+		<form onSubmit={handleSubmit(onInternalSubmit)}>
 			<InputField
 				name="title"
 				label="Enter todo title"
 				errors={errors}
 				ref={register({ required: 'This field is required' })}
 			/>
-			<InputField
+			<TextareaField
 				name="body"
 				label="Enter todo body"
 				errors={errors}

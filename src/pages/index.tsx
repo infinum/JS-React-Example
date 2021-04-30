@@ -1,17 +1,14 @@
 import React from 'react';
 import { NextPage } from 'next';
 
-import { Meta } from '@/components/utilities/Meta/Meta';
-import { Navigation } from '@/components/shared/Navigation/Navigation';
-import { TodoListPreview } from '@/components/Home/TodoListPreview/TodoListPreview';
+import { MainLayout } from '@/components/shared/layouts/MainLayout/MainLayout';
+import { TodoListSection } from '@/components/home/TodoListSection/TodoListSection';
 
 const Home: NextPage = () => {
 	return (
-		<>
-			<Meta />
-			<Navigation />
-			<TodoListPreview />
-		</>
+		<MainLayout>
+			<TodoListSection />
+		</MainLayout>
 	);
 };
 

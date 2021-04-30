@@ -1,5 +1,5 @@
 import { Collection, getModelType, IModelConstructor, IType } from '@datx/core';
-import { IRequestOptions, jsonapi } from '@datx/jsonapi';
+import { IRequestOptions, jsonapi, prepareQuery } from '@datx/jsonapi';
 import { Resource } from './Resource';
 
 export class Client extends jsonapi(Collection) {
@@ -15,8 +15,7 @@ export class Client extends jsonapi(Collection) {
 		options?: IRequestOptions
 	) {
 		const modelType = getModelType(type);
-		// @ts-ignore
-		const query = this.__prepareQuery(modelType, id, undefined, options);
+		const query = prepareQuery(modelType, id, undefined, options);
 
 		const fetcher = () => this.getOne<TModel>(type, id, options);
 
@@ -35,8 +34,7 @@ export class Client extends jsonapi(Collection) {
 		options?: IRequestOptions
 	) {
 		const modelType = getModelType(type);
-		// @ts-ignore
-		const query = this.__prepareQuery(modelType, undefined, undefined, options);
+		const query = prepareQuery(modelType, undefined, undefined, options);
 
 		const fetcher = () => this.getMany(type, options);
 

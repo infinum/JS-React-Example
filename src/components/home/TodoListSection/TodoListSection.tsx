@@ -3,13 +3,14 @@ import { Box, Container, Divider, Heading, IconButton } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { useResourceList } from '@datx/jsonapi-react';
 
-import { Todo } from '@/models/Todo';
-import { TodoList } from '../TodoList/TodoList';
-import { Loading } from '@/components/shared/Loading/Loading';
+import { Todo } from '@/resources/Todo';
+import { TodoList } from '@/components/shared/todo/TodoList/TodoList';
+import { LoadingMessage } from '@/components/shared/messages/LoadingMessage/LoadingMessage';
+import { EmptyListMessage } from '@/components/shared/messages/EmptyListMessage/EmptyListMessage';
 
 import PlusIcon from '@/assets/icons/ic-plus.svg';
 
-export const TodoListPreview: FC = () => {
+export const TodoListSection: FC = () => {
 	const { data, error } = useResourceList(() => [Todo]);
 
 	if (error) {
@@ -17,7 +18,7 @@ export const TodoListPreview: FC = () => {
 	}
 
 	if (!data) {
-		return <Loading />;
+		return <LoadingMessage />;
 	}
 
 	return (
@@ -31,7 +32,7 @@ export const TodoListPreview: FC = () => {
 				</Heading>
 
 				<Divider mb={10} />
-				<TodoList todoList={data} />
+				{data.length > 0 ? <TodoList todoList={data} /> : <EmptyListMessage />}
 			</Box>
 		</Container>
 	);

@@ -1,17 +1,14 @@
 import React from 'react';
 import { NextPage } from 'next';
 
-import { Meta } from '@/components/utilities/Meta/Meta';
-import { Navigation } from '@/components/shared/Navigation/Navigation';
-import { TodoEditPreview } from '@/components/Todo/TodoEditPreview/TodoEditPreview';
+import { MainLayout } from '@/components/shared/layouts/MainLayout/MainLayout';
+import { TodoEditSection } from '@/components/todo/TodoEditSection/TodoEditSection';
 
 const TodoEdit: NextPage = () => {
 	return (
-		<>
-			<Meta />
-			<Navigation />
-			<TodoEditPreview />
-		</>
+		<MainLayout>
+			<TodoEditSection />
+		</MainLayout>
 	);
 };
 

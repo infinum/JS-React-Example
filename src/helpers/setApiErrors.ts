@@ -8,7 +8,7 @@ interface IApiError {
 
 export function setApiErrors(response: any): Array<IApiError> {
 	return response?.map((error: any) => ({
-		name: error.source.parameter.split('.').map(camelCase).join('.'),
+		name: error.source?.parameter.split('.').map(camelCase).join('.'),
 		type: 'apiError',
 		message: error.detail,
 	}));

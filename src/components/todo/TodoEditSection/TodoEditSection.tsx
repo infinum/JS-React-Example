@@ -4,15 +4,15 @@ import { updateModel } from '@datx/core';
 import { useResource } from '@datx/jsonapi-react';
 import { useRouter } from 'next/dist/client/router';
 
-import { TodoForm } from '../TodoForm/TodoForm';
-import { Loading } from '@/components/shared/Loading/Loading';
-import { Todo } from '@/models/Todo';
+import { TodoForm } from '@/components/shared/todo/TodoForm/TodoForm';
+import { LoadingMessage } from '@/components/shared/messages/LoadingMessage/LoadingMessage';
+import { Todo } from '@/resources/Todo';
 import { ITodoFormValues } from '@/interfaces/ITodoFormValues';
 
-export const TodoEditPreview: FC = () => {
+export const TodoEditSection: FC = () => {
 	const router = useRouter();
 	const isNew = router.query.id === undefined || router.query.id === 'new';
-	const { data, error } = useResource(!isNew ? () => [Todo, router.query.id as string] : null);
+	const { data, error } = useResource(() => (!isNew ? [Todo, router.query.id as string] : null));
 
 	const onSubmit = useCallback(
 		async (values: ITodoFormValues) => {
@@ -37,14 +37,14 @@ export const TodoEditPreview: FC = () => {
 		throw { statusCode: 404 };
 	}
 
-	if (!data && router.query?.id !== 'new') {
-		return <Loading />;
+	if (!isNew && !data) {
+		return <LoadingMessage />;
 	}
 
 	return (
 		<Container>
-			<Heading my={10}>Create new todo</Heading>
-			<TodoForm todo={data} onFormSubmit={onSubmit} />
+			<Heading my={10}>{isNew ? 'Create new' : 'Update'} todo</Heading>
+			<TodoForm todo={data} onSubmit={onSubmit} />
 		</Container>
 	);
 };

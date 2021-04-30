@@ -20,10 +20,7 @@
     "jsx": "preserve",
 		"baseUrl": ".",
 		"paths": {
-			"@/components/*": ["src/components/*"],
-			"@/models/*": ["src/models/*"],
-			"@/assets/*": ["src/assets/*"],
-			"@/interfaces/*": ["src/interfaces/*"],
+			"@/*": ["src/*"],
 			"@datx/jsonapi-react": ["src/libs/@datx/jsonapi-react"]
 		},
 	},

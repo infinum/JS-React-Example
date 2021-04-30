@@ -11,14 +11,12 @@ import '../store/utils/config';
 
 function MyApp({ Component, pageProps }: AppProps): ReactElement {
 	return (
-		<>
-			<DatxProvider client={client}>
-				<ChakraProvider theme={theme}>
-					<Fonts />
-					<Component {...pageProps} />
-				</ChakraProvider>
-			</DatxProvider>
-		</>
+		<DatxProvider client={client}>
+			<ChakraProvider theme={theme}>
+				<Fonts />
+				<Component {...pageProps} />
+			</ChakraProvider>
+		</DatxProvider>
 	);
 }
 

@@ -1,3 +1,8 @@
 {
-  "extends": "@infinumjs/eslint-config-react"
+  "extends": "@infinumjs/eslint-config-react",
+	"rules": {
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+		"@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+		"@typescript-eslint/explicit-function-return-type": "off"
+	}
 }
