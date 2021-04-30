@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+		"experimentalDecorators": true,
     "target": "es5",
     "lib": [
       "dom",
@@ -19,8 +20,8 @@
     "jsx": "preserve",
 		"baseUrl": ".",
 		"paths": {
-			"@/components/*": ["src/components/*"],
-			"@/assets/*": ["src/assets/*"]
+			"@/*": ["src/*"],
+			"@datx/jsonapi-react": ["src/libs/@datx/jsonapi-react"]
 		},
 	},
 

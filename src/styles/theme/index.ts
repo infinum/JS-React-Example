@@ -3,6 +3,7 @@ import { extendTheme } from '@chakra-ui/react';
 import { styles } from './styles';
 import { colors } from './foundations/colors';
 import { Container } from './components/container';
+import { Heading } from './components/heading';
 
 const overrides = {
 	styles,
@@ -18,6 +19,7 @@ const overrides = {
 	},
 	components: {
 		Container,
+		Heading,
 	},
 };
 

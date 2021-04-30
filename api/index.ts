@@ -1,6 +1,7 @@
 import * as Knex from 'knex';
 import { Application, jsonApiKoa, KnexProcessor } from 'kurier';
 import Koa from 'koa';
+import * as cors from '@koa/cors';
 
 import Todo from './resources/todo';
 
@@ -18,6 +19,7 @@ app.services.knex = Knex(configuration);
 
 const api = new Koa();
 
+api.use(cors());
 api.use(jsonApiKoa(app));
 
 api.listen(4000);
