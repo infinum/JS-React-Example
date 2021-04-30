@@ -1,13 +1,12 @@
-import React from 'react';
-import { NextComponentType } from 'next';
+import React, { FC } from 'react';
 import { Container, Heading, Image, Center } from '@chakra-ui/react';
 
-const Error: NextComponentType = ({ statusCode }: any) => {
+const NotFound: FC = () => {
 	return (
 		<Container height="100%">
 			<Center height="100%" flexDirection="column">
 				<Heading my={8} size="4xl" variant="tertiary">
-					{statusCode}
+					404
 				</Heading>
 				<Heading size="xl" variant="tertiary">
 					Error occurred!
@@ -18,11 +17,4 @@ const Error: NextComponentType = ({ statusCode }: any) => {
 	);
 };
 
-Error.getInitialProps = (ctx) => {
-	const { res, err } = ctx;
-	const statusCode = res ? res.statusCode : err ? err.statusCode : 500;
-
-	return { statusCode };
-};
-
-export default Error;
+export default NotFound;

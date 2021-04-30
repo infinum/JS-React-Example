@@ -1,7 +1,7 @@
 import { Client } from '@datx/jsonapi-react';
 
-import { Todo } from '@/models/Todo';
-import { Message } from '@/models/Message';
+import { Todo } from '@/resources/Todo';
+import { Message } from '@/resources/Message';
 
 class AppCollection extends Client {
 	public static types = [Todo, Message];

@@ -12,15 +12,13 @@ import { Chat } from '@/components/chat/Chat/Chat';
 
 function MyApp({ Component, pageProps }: AppProps): ReactElement {
 	return (
-		<>
-			<DatxProvider client={client}>
-				<ChakraProvider theme={theme}>
-					<Fonts />
-					<Chat />
-					<Component {...pageProps} />
-				</ChakraProvider>
-			</DatxProvider>
-		</>
+		<DatxProvider client={client}>
+			<ChakraProvider theme={theme}>
+				<Fonts />
+				<Chat />
+				<Component {...pageProps} />
+			</ChakraProvider>
+		</DatxProvider>
 	);
 }
 

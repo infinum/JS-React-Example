@@ -3,19 +3,19 @@ import { Container, Divider, Heading, Text } from '@chakra-ui/react';
 import { useResource } from '@datx/jsonapi-react';
 import { useRouter } from 'next/dist/client/router';
 
-import { Loading } from '@/components/shared/Loading/Loading';
-import { Todo } from '@/models/Todo';
+import { LoadingMessage } from '@/components/shared/messages/LoadingMessage/LoadingMessage';
+import { Todo } from '@/resources/Todo';
 
-export const TodoSinglePreview: FC = () => {
+export const TodoShowSection: FC = () => {
 	const router = useRouter();
-	const { data, error } = useResource(() => [Todo, router.query?.id as string]);
+	const { data, error } = useResource(() => [Todo, router.query.id as string]);
 
 	if (error) {
 		throw { statusCode: 404 };
 	}
 
 	if (!data) {
-		return <Loading />;
+		return <LoadingMessage />;
 	}
 
 	return (

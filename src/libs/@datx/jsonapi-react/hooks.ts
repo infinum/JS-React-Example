@@ -19,16 +19,17 @@ export function useDatxClient() {
 }
 
 export function useResource<TModel extends Resource = Resource, TMeta extends Meta = Meta>(
-	queryResource: QueryResourceFn<TModel>,
+	queryResource: QueryResourceFn<TModel> | null,
 	config?: QueryConfig<TModel>
 ) {
 	const client = useDatxClient();
 
 	const getKey = () => {
 		const [type, id, options] = queryResource();
+
 		const modelType = getModelType(type);
 
-		const query = prepareQuery(modelType, id, undefined, undefined);
+		const query = prepareQuery(modelType, id, undefined, options);
 
 		return query.url;
 	};
@@ -41,7 +42,6 @@ export function useResource<TModel extends Resource = Resource, TMeta extends Me
 
 	const swr = useSWR<Response<TModel>, Response<TModel>>(getKey, fetcher, config);
 
-	// TODO: implement data select with getters
 	return {
 		...swr,
 		data: swr.data?.data as TModel,
@@ -51,7 +51,7 @@ export function useResource<TModel extends Resource = Resource, TMeta extends Me
 }
 
 export function useResourceList<TModel extends Resource = Resource, TMeta extends Meta = Meta>(
-	queryResources: QueryResourceListFn<TModel>,
+	queryResources: QueryResourceListFn<TModel> | null,
 	config?: QueryConfig<TModel>
 ) {
 	const client = useDatxClient();
@@ -66,7 +66,6 @@ export function useResourceList<TModel extends Resource = Resource, TMeta extend
 	};
 
 	const fetcher = (url: string) => {
-		// TODO: this is suboptimal because we are doing the same thing in getKey
 		const [_, options] = isFunction(queryResources) ? queryResources() : queryResources;
 
 		return client.request<TModel>(url, 'GET', null, options);
@@ -74,7 +73,6 @@ export function useResourceList<TModel extends Resource = Resource, TMeta extend
 
 	const swr = useSWR<Response<TModel>, Response<TModel>>(getKey, fetcher, config);
 
-	// TODO: implement data select with getters
 	return {
 		...swr,
 		data: swr.data?.data as Array<TModel>,
