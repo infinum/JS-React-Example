@@ -1,44 +1,63 @@
 import { IModelConstructor, IType } from '@datx/core';
 import { IJsonapiModel, IRequestOptions, Response } from '@datx/jsonapi';
-import { ConfigInterface, keyInterface } from 'swr';
-import { Fetcher } from 'swr/dist/types';
-import { Client } from './Client';
-import { Resource } from './Resource';
-
-export type QueryOperation = 'findRecord' | 'findRecords' | 'findRelatedRecord' | 'findRelatedRecords';
-export type RecordIdentity = Resource | { type: string; id: string };
-
-export interface IQueryExpression {
-	op: QueryOperation;
-}
-
-export type QueryVariables = Record<string, any>;
-
-export type QueryKeyFunction = (variables: QueryVariables) => keyInterface;
-
-export interface IQueryHookOptions extends ConfigInterface {
-	variables?: Record<string, any>;
-	skip?: boolean;
-	client?: Client;
-}
+import { SWRConfiguration } from 'swr';
+import { Fetcher, SWRResponse } from 'swr/dist/types';
 
 export type QueryResource<TModel> = [IType | IModelConstructor<TModel>, number | string, IRequestOptions?];
-export type QueryResourceFn<TModel> = () => QueryResource<TModel>;
+export type ResourceQueryCallback<TModel> = () => QueryResource<TModel> | null;
 
 export type QueryResourceList<TModel> = [IType | IModelConstructor<TModel>, IRequestOptions?];
-export type QueryResourceListFn<TModel> = () => QueryResourceList<TModel>;
+export type ResourceListQueryCallback<TModel> = () => QueryResourceList<TModel> | null;
 
 export type Meta = Record<string, unknown>;
 
-export type QuerySelectFn<TModel> = (data: TModel) => any;
-
-type QuerySelectConfig<TModel> = {
-	select?: QuerySelectFn<TModel>;
-};
-
-export type QueryConfig<TModel extends IJsonapiModel> = ConfigInterface<
+export type QueryConfig<TModel extends IJsonapiModel> = SWRConfiguration<
 	Response<TModel>,
 	Response<TModel>,
 	Fetcher<Response<TModel>>
-> &
-	QuerySelectConfig<TModel>;
+>;
+
+export type Link =
+	| string
+	| {
+			href: string;
+			meta: Record<string, any>;
+	  };
+
+export type JsonApiError = {
+	id?: string | number;
+	links?: {
+		about: Link;
+	};
+	status?: number;
+	code?: string;
+	title?: string;
+	detail?: string;
+	source?: {
+		pointer?: string;
+		parameter?: string;
+	};
+	meta?: Meta;
+};
+
+export type ResponseError = Array<JsonApiError> | Error | undefined;
+
+export type ResourceResponse<TModel, TMeta, TError = ResponseError> = {
+	data?: TModel;
+	error: ResponseError;
+	mutate: SWRResponse<TModel, TError>['mutate'];
+	isValidating: boolean;
+	meta: TMeta;
+};
+
+export type ResourceListResponse<TModel, TMeta, TError = ResponseError> = {
+	data?: Array<TModel>;
+	error: ResponseError;
+	mutate: SWRResponse<TModel, TError>['mutate'];
+	isValidating: boolean;
+	meta: TMeta;
+	next: () => Promise<TModel>;
+	hasNext: boolean;
+	prev: () => Promise<TModel>;
+	hasPrev: boolean;
+};

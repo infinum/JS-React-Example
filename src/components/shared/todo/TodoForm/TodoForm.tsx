@@ -2,11 +2,11 @@ import React, { FC } from 'react';
 import { Button } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 
-import { InputField } from '@/components/shared/inputs/InputField/InputField';
+import { InputField } from '@/components/shared/fields/InputField/InputField';
 import { ITodoFormValues } from '@/interfaces/ITodoFormValues';
 import { Todo } from '@/resources/Todo';
 import { setApiErrors } from '@/helpers/setApiErrors';
-import { TextareaField } from '@/components/shared/inputs/TextareaField/TextareaField';
+import { TextareaField } from '@/components/shared/fields/TextareaField/TextareaField';
 
 interface ITodoFormProps {
 	todo?: Todo;
