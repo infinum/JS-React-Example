@@ -14,7 +14,12 @@ interface ITodoFormProps {
 }
 
 export const TodoForm: FC<ITodoFormProps> = ({ todo, onSubmit }) => {
-	const { register, handleSubmit, errors, setError } = useForm<ITodoFormValues>({ defaultValues: todo });
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+		setError,
+	} = useForm<ITodoFormValues>({ defaultValues: todo });
 
 	async function onInternalSubmit(values) {
 		try {
@@ -27,16 +32,14 @@ export const TodoForm: FC<ITodoFormProps> = ({ todo, onSubmit }) => {
 	return (
 		<form onSubmit={handleSubmit(onInternalSubmit)}>
 			<InputField
-				name="title"
 				label="Enter todo title"
 				errors={errors}
-				ref={register({ required: 'This field is required' })}
+				{...register('title', { required: 'This field is required' })}
 			/>
 			<TextareaField
-				name="body"
 				label="Enter todo body"
 				errors={errors}
-				ref={register({ required: 'This field is required' })}
+				{...register('body', { required: 'This field is required' })}
 			/>
 			<Button type="submit">Submit</Button>
 		</form>
