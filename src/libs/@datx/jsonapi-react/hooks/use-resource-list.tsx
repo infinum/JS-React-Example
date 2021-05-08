@@ -34,7 +34,9 @@ export function useResourceList<TModel extends Resource = Resource, TMeta extend
 			nextPage: () => swr.mutate((currentResponse) => currentResponse.next()),
 			prevPage: () => swr.mutate((currentResponse) => currentResponse.prev()),
 		}),
-		[swr]
+		// swr.mutate is always the same reference
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[]
 	);
 
 	const state = {

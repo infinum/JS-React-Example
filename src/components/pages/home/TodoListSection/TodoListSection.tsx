@@ -12,7 +12,7 @@ import PlusIcon from '@/assets/icons/ic-plus.svg';
 import { BasicPagination } from '@/components/shared/paginations/BasicPagination/BasicPagination';
 
 export const TodoListSection: FC = () => {
-	const { data, error, meta, hasNext, hasPrev } = useResourceList(() => [
+	const { data, error, hasNext, hasPrev, next, prev } = useResourceList(() => [
 		Todo,
 		{
 			queryParams: {
@@ -46,7 +46,7 @@ export const TodoListSection: FC = () => {
 				{data.length > 0 ? (
 					<Fragment>
 						<TodoList todoList={data} />
-						<BasicPagination hasNext={hasNext} hasPrev={hasPrev} />
+						<BasicPagination hasNext={hasNext} hasPrev={hasPrev} onNext={next} onPrev={prev} current={1} total={10} />
 					</Fragment>
 				) : (
 					<EmptyListMessage />
