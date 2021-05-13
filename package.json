@@ -8,7 +8,7 @@
 		"start": "next start",
 		"test": "jest --coverage",
 		"watch": "jest --watch --coverage",
-		"api:dev": "tsnd --pretty --project ./api/tsconfig.json ./api"
+		"api:dev": "tsnd --inspect --pretty --project ./api/tsconfig.json ./api"
 	},
 	"dependencies": {
 		"@chakra-ui/react": "^1.6.1",
