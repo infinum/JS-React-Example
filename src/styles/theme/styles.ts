@@ -5,9 +5,11 @@ export const styles = {
 		'*': {
 			boxSizing: 'border-box',
 		},
-		'html, body': {
+		'html, body, #__next': {
 			bg: mode('white', 'dark')(props),
 			color: mode('dark', 'white')(props),
+			width: '100%',
+			height: '100%',
 		},
 	}),
 };

@@ -4,5 +4,6 @@
 	"editor.insertSpaces": false,
 	"[scss]": {
 		"editor.formatOnSave": false
-	}
+	},
+	"typescript.preferences.importModuleSpecifier": "non-relative"
 }

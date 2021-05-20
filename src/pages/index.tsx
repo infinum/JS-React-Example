@@ -1,21 +1,14 @@
+import React from 'react';
 import { NextPage } from 'next';
-import React, { ReactElement } from 'react';
-import { Container, Heading } from '@chakra-ui/react';
 
-import { Meta } from '@/components/utilities/Meta/Meta';
-import { Navigation } from '@/components/shared/Navigation/Navigation';
+import { MainLayout } from '@/components/shared/layouts/MainLayout/MainLayout';
+import { TodoListSection } from '@/components/pages/home/TodoListSection/TodoListSection';
 
 const Home: NextPage = () => {
 	return (
-		<>
-			<Meta />
-			<Navigation />
-			<Container>
-				<section>
-					<Heading>Infinum todo list</Heading>
-				</section>
-			</Container>
-		</>
+		<MainLayout>
+			<TodoListSection />
+		</MainLayout>
 	);
 };
 
