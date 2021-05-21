@@ -2,12 +2,19 @@ import React from 'react';
 import { NextPage } from 'next';
 
 import { MainLayout } from '@/components/shared/layouts/MainLayout/MainLayout';
-import { TodoListSection } from '@/components/pages/home/TodoListSection/TodoListSection';
+import { FlightListSection } from '@/components/pages/home/FlightListSection/FlightListSection';
+import { useSession } from '@/hooks/useSession';
 
 const Home: NextPage = () => {
+	const { user } = useSession({ redirectTo: '/login' });
+
+	if (!user) {
+		return <div>loading</div>;
+	}
+
 	return (
 		<MainLayout>
-			<TodoListSection />
+			<FlightListSection />
 		</MainLayout>
 	);
 };

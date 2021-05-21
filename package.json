@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "next dev",
+		"dev": "PROXY_ENV=development next dev -p 4200",
 		"build": "next build",
 		"start": "next start",
 		"test": "jest --coverage",
@@ -20,6 +20,7 @@
 		"@koa/cors": "^3.1.0",
 		"dequal": "^2.0.2",
 		"framer-motion": "^4.1.11",
+		"http-proxy-middleware": "^2.0.0",
 		"knex": "^0.95.4",
 		"koa": "^2.13.1",
 		"kurier": "^1.1.0-alpha1",

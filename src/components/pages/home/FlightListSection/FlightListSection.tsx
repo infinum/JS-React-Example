@@ -3,17 +3,17 @@ import { Box, Container, Divider, Heading, IconButton } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { useResourceList } from '@datx/jsonapi-react';
 
-import { Todo } from '@/resources/Todo';
-import { TodoList } from '@/components/shared/todo/TodoList/TodoList';
+import { FlightList } from '@/components/shared/flight/FlightList/FlightList';
 import { LoadingMessage } from '@/components/shared/messages/LoadingMessage/LoadingMessage';
 import { EmptyListMessage } from '@/components/shared/messages/EmptyListMessage/EmptyListMessage';
+import { BasicPagination } from '@/components/shared/paginations/BasicPagination/BasicPagination';
+import { Flight } from '@/resources/Flight';
 
 import PlusIcon from '@/assets/icons/ic-plus.svg';
-import { BasicPagination } from '@/components/shared/paginations/BasicPagination/BasicPagination';
 
-export const TodoListSection: FC = () => {
+export const FlightListSection: FC = () => {
 	const { data, error, hasNext, hasPrev, next, prev } = useResourceList(() => [
-		Todo,
+		Flight,
 		{
 			queryParams: {
 				custom: [
@@ -36,7 +36,7 @@ export const TodoListSection: FC = () => {
 		<Container>
 			<Box as="section">
 				<Heading as="h1" my={10}>
-					Infinum todo list
+					All flights
 					<NextLink href="/todo/new/edit" passHref>
 						<IconButton ml={8} aria-label="Create new todo" icon={<Box width="16px" as={PlusIcon} />} />
 					</NextLink>
@@ -45,7 +45,7 @@ export const TodoListSection: FC = () => {
 				<Divider mb={10} />
 				{data.length > 0 ? (
 					<Fragment>
-						<TodoList todoList={data} />
+						<FlightList flightList={data} />
 						<BasicPagination hasNext={hasNext} hasPrev={hasPrev} onNext={next} onPrev={prev} current={1} total={10} />
 					</Fragment>
 				) : (

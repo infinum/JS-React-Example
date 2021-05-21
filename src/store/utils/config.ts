@@ -3,7 +3,15 @@ import { apify, deapify } from '@datx/jsonapi-react';
 
 config.cache = CachingStrategy.NetworkOnly;
 
-config.baseUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
+config.baseUrl = 'http://localhost:4200/api/v1/';
+
+config.defaultFetchOptions = {
+	headers: {
+		Accept: 'application/vnd.api+json',
+		'Content-Type': 'application/vnd.api+json',
+	},
+	credentials: 'include',
+};
 
 config.transformResponse = (opts: IRawResponse) => {
 	return { ...opts, data: deapify(opts.data) };
