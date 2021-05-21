@@ -37,9 +37,6 @@ export const FlightListSection: FC = () => {
 			<Box as="section">
 				<Heading as="h1" my={10}>
 					All flights
-					<NextLink href="/todo/new/edit" passHref>
-						<IconButton ml={8} aria-label="Create new todo" icon={<Box width="16px" as={PlusIcon} />} />
-					</NextLink>
 				</Heading>
 
 				<Divider mb={10} />

@@ -11,7 +11,7 @@ import { IError } from '@datx/jsonapi/dist/interfaces/JsonApi';
 
 async function createSession(store, loginData) {
 	try {
-		const res = await store.request('sessions?include=user', 'POST', loginData);
+		const res = await store.request('sessions', 'POST', loginData, { queryParams: { include: 'user' } });
 
 		return res.data as Session;
 	} catch (error) {
@@ -87,8 +87,7 @@ export const useSession = ({
 			logout: async () => {
 				try {
 					mutate(undefined, false);
-					await store.request('sessions/current?include=user', 'DELETE');
-					// store.removeOne(user);
+					await store.request('sessions', 'DELETE');
 					store.removeAll('sessions');
 					cache.clear();
 					mutate();
