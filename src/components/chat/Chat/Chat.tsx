@@ -26,7 +26,6 @@ export const Chat: FC<IChatProps> = () => {
 
 	useEffect(() => {
 		if (scrollContainerRef.current) {
-			console.log('run');
 			const target = scrollContainerRef.current;
 			target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
 		}
@@ -55,14 +54,6 @@ export const Chat: FC<IChatProps> = () => {
 
 		textarea.value = '';
 	}, []);
-
-	const connectionStatus = {
-		[ReadyState.CONNECTING]: 'Connecting',
-		[ReadyState.OPEN]: 'Open',
-		[ReadyState.CLOSING]: 'Closing',
-		[ReadyState.CLOSED]: 'Closed',
-		[ReadyState.UNINSTANTIATED]: 'Uninstantiated',
-	}[readyState];
 
 	return (
 		<StyledWrapper minW="200px" h="300px" style={{ bottom: !isOpen ? '-268px' : null }}>
