@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "next dev",
+		"dev": "PROXY_ENV=development next dev -p 4200",
 		"build": "next build",
 		"start": "next start",
 		"test": "jest --coverage",
@@ -18,11 +18,10 @@
 		"@emotion/styled": "^11.3.0",
 		"@hookform/error-message": "2.0.0",
 		"@koa/cors": "^3.1.0",
+		"date-fns": "^2.21.3",
 		"dequal": "^2.0.2",
 		"framer-motion": "^4.1.11",
-		"knex": "^0.95.4",
-		"koa": "^2.13.1",
-		"kurier": "^1.1.0-alpha1",
+		"http-proxy-middleware": "^2.0.0",
 		"mobx": "^4.15.7",
 		"next": "10.2.0",
 		"next-compose-plugins": "^2.2.1",
@@ -30,7 +29,6 @@
 		"react": "17.0.2",
 		"react-dom": "17.0.2",
 		"react-hook-form": "^7.4.2",
-		"sqlite3": "^5.0.2",
 		"swr": "^0.5.6"
 	},
 	"devDependencies": {
