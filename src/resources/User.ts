@@ -1,14 +1,14 @@
 import { Attribute } from '@datx/core';
 import { Resource } from '@datx/jsonapi-react';
 
-export class Todo extends Resource {
-	static type = 'todo';
+export class User extends Resource {
+	static type = 'user';
 
 	@Attribute()
-	public title!: string;
+	public firstName!: string;
 
 	@Attribute()
-	public body!: string;
+	public lastName!: string;
 
 	@Attribute({ isIdentifier: true })
 	public id!: string | number;

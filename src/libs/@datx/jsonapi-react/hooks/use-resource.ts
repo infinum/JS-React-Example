@@ -15,7 +15,9 @@ export function useResource<TModel extends Resource = Resource, TMeta extends Me
 	const getKey = () => {
 		const [type, id, options] = queryCallback();
 		const modelType = getModelType(type);
-		const query = prepareQuery(modelType, id, undefined, options);
+		const modelEndpoint = client.getModelEndpoint(modelType);
+
+		const query = prepareQuery(modelEndpoint, id, undefined, options);
 
 		return query.url;
 	};

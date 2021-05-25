@@ -43,4 +43,13 @@ export class Client extends jsonapi(Collection) {
 			fetcher,
 		};
 	}
+
+	public getModelEndpoint<TModel extends Resource = Resource>(type: IType | IModelConstructor<TModel>) {
+		const modelType = getModelType(type);
+
+		const modelConstructor = (this.constructor as typeof Collection).types.find((item) => item.type === modelType);
+
+		// this is a workaround for now because there is no endpoint
+		return modelConstructor?.['endpoint'] || type;
+	}
 }

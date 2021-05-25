@@ -6,7 +6,7 @@ import { Fetcher, SWRResponse } from 'swr/dist/types';
 export type QueryResource<TModel> = [IType | IModelConstructor<TModel>, number | string, IRequestOptions?];
 export type ResourceQueryCallback<TModel> = () => QueryResource<TModel> | null;
 
-export type QueryResourceList<TModel> = [IType | IModelConstructor<TModel>, IRequestOptions?];
+export type QueryResourceList<TModel> = [TModel | IModelConstructor<TModel>, IRequestOptions?];
 export type ResourceListQueryCallback<TModel> = () => QueryResourceList<TModel> | null;
 
 export type Meta = Record<string, unknown>;
