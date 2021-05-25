@@ -1,38 +1,30 @@
-import { useState } from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
-import { Provider } from 'mobx-react';
 import { withPerformance } from 'storybook-addon-performance';
 import { withNextRouter } from 'storybook-addon-next-router';
 import { initializeWorker, mswDecorator } from 'msw-storybook-addon';
-import { SWRConfig, cache } from 'swr';
+import { cache } from 'swr';
+import { DatxProvider } from '../src/libs/@datx/jsonapi-react';
 
-import { generateStore } from '@/utils/generateStore';
-import { swrComparator as compare } from '@/utils/swr';
+import theme from '../src/styles/theme';
+import { Fonts } from '../src/styles/Fonts';
+import client from '../src/store';
 
 import 'focus-visible/dist/focus-visible';
-import { chakraDefault } from '@/styles/themes/default';
-import { GlobalStyles } from '@/styles/global';
-import '../src/i18n';
 
 initializeWorker();
 
 const withProviders = (StoryFn: Function) => {
-	const [store] = useState(() => generateStore());
-
-	console.log('clear swr cache!!!');
 	cache.clear();
 
+	console.log('story');
+
 	return (
-		<Provider store={store}>
-			<SWRConfig value={{ fetcher: store?.fetcher, compare }}>
-				<ChakraProvider theme={chakraDefault}>
-					<GlobalStyles />
-					<div id="story-wrapper" style={{ minHeight: '100vh' }}>
-						<StoryFn />
-					</div>
-				</ChakraProvider>
-			</SWRConfig>
-		</Provider>
+		<DatxProvider client={client}>
+			<ChakraProvider theme={theme}>
+				<Fonts />
+				<StoryFn />
+			</ChakraProvider>
+		</DatxProvider>
 	);
 };
 
