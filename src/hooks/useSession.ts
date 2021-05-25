@@ -74,10 +74,14 @@ export const useSession = ({
 					if (onLoginSuccess) {
 						onLoginSuccess(sessionResponse?.user);
 					}
+
+					return sessionResponse;
 				} catch (e) {
 					if (e instanceof Response) {
 						onLoginError(e.error);
 					}
+
+					throw e;
 				}
 			},
 			logout: async () => {
