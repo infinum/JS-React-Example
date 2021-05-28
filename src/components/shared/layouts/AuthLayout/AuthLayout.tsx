@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Box, BoxProps, Container } from '@chakra-ui/react';
+import { BoxProps, Container } from '@chakra-ui/react';
 
 export const AuthLayout: FC<BoxProps> = ({ children }) => {
 	return (

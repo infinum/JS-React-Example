@@ -1,6 +1,5 @@
 import React, { FC, Fragment } from 'react';
-import { Box, Container, Divider, Heading, IconButton } from '@chakra-ui/react';
-import NextLink from 'next/link';
+import { Box, Container, Divider, Heading } from '@chakra-ui/react';
 import { useResourceList } from '@datx/jsonapi-react';
 
 import { FlightList } from '@/components/shared/flight/FlightList/FlightList';
@@ -9,20 +8,26 @@ import { EmptyListMessage } from '@/components/shared/messages/EmptyListMessage/
 import { BasicPagination } from '@/components/shared/paginations/BasicPagination/BasicPagination';
 import { Flight } from '@/resources/Flight';
 
-import PlusIcon from '@/assets/icons/ic-plus.svg';
+import { useSession } from '@/hooks/useSession';
 
 export const FlightListSection: FC = () => {
-	const { data, error, hasNext, hasPrev, next, prev } = useResourceList(() => [
-		Flight,
-		{
-			queryParams: {
-				custom: [
-					{ key: 'page[size]', value: '3' },
-					{ key: 'page[number]', value: '1' },
-				],
-			},
-		},
-	]);
+	const { user } = useSession();
+
+	const { data, error, hasNext, hasPrev, next, prev } = useResourceList(() =>
+		user
+			? [
+					Flight,
+					{
+						queryParams: {
+							custom: [
+								{ key: 'page[size]', value: '3' },
+								{ key: 'page[number]', value: '1' },
+							],
+						},
+					},
+			  ]
+			: null
+	);
 
 	if (error) {
 		throw { statusCode: 404 };

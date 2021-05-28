@@ -6,11 +6,7 @@ import { FlightListSection } from '@/components/pages/home/FlightListSection/Fli
 import { useSession } from '@/hooks/useSession';
 
 const Home: NextPage = () => {
-	const { user } = useSession({ redirectTo: '/login' });
-
-	if (!user) {
-		return <div>loading</div>;
-	}
+	useSession({ redirectTo: '/login' });
 
 	return (
 		<MainLayout>
