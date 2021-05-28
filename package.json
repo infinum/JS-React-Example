@@ -9,7 +9,7 @@
     "test": "jest --coverage",
     "watch": "jest --watch --coverage",
     "api:dev": "tsnd --pretty --project ./api/tsconfig.json ./api",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -p 6006 -s ./public",
     "build-storybook": "build-storybook"
   },
   "dependencies": {

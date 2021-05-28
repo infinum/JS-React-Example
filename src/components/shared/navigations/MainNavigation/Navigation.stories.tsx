@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import { MainNavigation } from './MainNavigation';
 
 export default {
-	title: 'shared/MainNavigation',
+	title: 'shared/navigations/MainNavigation',
 	component: MainNavigation,
 } as Meta;
 
