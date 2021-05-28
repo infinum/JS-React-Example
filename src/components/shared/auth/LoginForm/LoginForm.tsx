@@ -3,8 +3,13 @@ import { Box, BoxProps, Button } from '@chakra-ui/react';
 
 import { InputField } from '@/components/shared/fields/InputField/InputField';
 import { useForm } from 'react-hook-form';
-import { setApiErrors } from '@/helpers/setApiErrors';
+import { setApiErrors } from '@/utils/setApiErrors';
 import { useSession } from '@/hooks/useSession';
+
+type FormValues = {
+	email: string;
+	password: string;
+};
 
 export const LoginForm: FC<BoxProps> = () => {
 	const {
@@ -12,11 +17,11 @@ export const LoginForm: FC<BoxProps> = () => {
 		handleSubmit,
 		formState: { errors },
 		setError,
-	} = useForm<any>();
+	} = useForm<FormValues>();
 
 	const { login } = useSession({ redirectIfFound: true, redirectTo: '/' });
 
-	async function onSubmit(formData) {
+	async function onSubmit(formData: FormValues) {
 		try {
 			const data = {
 				type: 'session',
