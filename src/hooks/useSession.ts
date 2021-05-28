@@ -9,11 +9,8 @@ import { Session } from '@/resources/Session';
 import { User } from '@/resources/User';
 import { IError } from '@datx/jsonapi/dist/interfaces/JsonApi';
 
-async function createSession(store, loginData) {
-	const res = await store.request('sessions', 'POST', loginData, { queryParams: { include: 'user' } });
-
-	return res.data as Session;
-}
+const createSession = (store, attributes) =>
+	store.request('sessions', 'POST', attributes, { queryParams: { include: 'user' } });
 
 interface IOptions extends SWRConfiguration<Response<Session>> {
 	/**
@@ -43,20 +40,12 @@ interface IOptions extends SWRConfiguration<Response<Session>> {
 	onLoginError?: (error: Array<IError> | Error) => void;
 }
 
-export const useSession = ({
-	redirectTo,
-	redirectIfFound,
-	onLoginSuccess,
-	onLoginError,
-	onLogoutSuccess,
-	onLogoutError,
-	...rest
-}: IOptions = {}) => {
+export const useSession = ({ redirectTo, redirectIfFound, onLogoutSuccess, onLogoutError, ...rest }: IOptions = {}) => {
 	const store = useDatx();
 	const router = useRouter();
 
 	const { data: session, error, mutate, isValidating } = useResource<Session>(
-		() => ['sessions', 'current', { queryParams: { include: 'user' } }],
+		() => [Session, 'current', { queryParams: { include: 'user' } }],
 		{
 			shouldRetryOnError: false,
 			...rest,
@@ -67,23 +56,7 @@ export const useSession = ({
 
 	const handlers = useMemo(
 		() => ({
-			login: async (loginData) => {
-				try {
-					const sessionResponse = await mutate(() => createSession(store, loginData), false);
-
-					if (onLoginSuccess) {
-						onLoginSuccess(sessionResponse?.user);
-					}
-
-					return sessionResponse;
-				} catch (e) {
-					if (e instanceof Response) {
-						onLoginError(e.error);
-					}
-
-					throw e;
-				}
-			},
+			login: (attributes) => mutate(() => createSession(store, attributes)),
 			logout: async () => {
 				try {
 					mutate(undefined, false);
@@ -101,7 +74,10 @@ export const useSession = ({
 				}
 			},
 		}),
-		[store, mutate, onLoginSuccess, onLoginError]
+		// TODO!
+		// find a way to remove onLoginSuccess, onLoginError, onLogoutError, onLogoutSuccess from
+		// deps as they are new on each render!
+		[store, mutate, onLogoutError, onLogoutSuccess]
 	);
 
 	useEffect(() => {
@@ -124,11 +100,11 @@ export const useSession = ({
 
 	return {
 		session,
-		mutateSession: mutate,
-		sessionError: error,
-		isSessionValidating: isValidating,
+		mutate,
+		error,
+		isValidating,
 		user,
-		isSessionLoading: !session && !error,
+		isLoading: !session && !error,
 		...handlers,
 	};
 };

@@ -5,6 +5,7 @@ import { InputField } from '@/components/shared/fields/InputField/InputField';
 import { useForm } from 'react-hook-form';
 import { setApiErrors } from '@/utils/setApiErrors';
 import { useSession } from '@/hooks/useSession';
+import { Response } from '@datx/jsonapi';
 
 type FormValues = {
 	email: string;
@@ -19,7 +20,9 @@ export const LoginForm: FC<BoxProps> = () => {
 		setError,
 	} = useForm<FormValues>();
 
-	const { login } = useSession({ redirectIfFound: true, redirectTo: '/' });
+	const { error, login } = useSession({ redirectIfFound: true, redirectTo: '/' });
+
+	console.log(error);
 
 	async function onSubmit(formData: FormValues) {
 		try {
@@ -33,8 +36,8 @@ export const LoginForm: FC<BoxProps> = () => {
 
 			await login({ data });
 		} catch (errors) {
-			if (errors instanceof Array) {
-				setApiErrors(errors).forEach(({ name, type, message }) => setError(name, { type, message }));
+			if (errors instanceof Response) {
+				setApiErrors(errors.error).forEach(({ name, type, message }) => setError(name, { type, message }));
 			}
 		}
 	}
