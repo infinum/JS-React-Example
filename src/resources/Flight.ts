@@ -1,10 +1,12 @@
-import { User } from '@/resources/User';
 import { Attribute } from '@datx/core';
 import { Resource } from '@datx/jsonapi-react';
 
 export class Flight extends Resource {
 	static type = 'flight';
 	static endpoint = 'flights';
+
+	@Attribute({ isIdentifier: true })
+	public id!: string | number;
 
 	@Attribute()
 	public airplaneModel!: string;
@@ -23,7 +25,4 @@ export class Flight extends Resource {
 
 	@Attribute()
 	public name!: string;
-
-	@Attribute({ isIdentifier: true })
-	public id!: string | number;
 }

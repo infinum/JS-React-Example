@@ -36,7 +36,7 @@ const proxy = createProxyMiddleware({
 		proxyRes.headers['set-cookie'] = adaptCookiesForLocalhost;
 	},
 	onError: (err: Error) => console.error(err),
-});
+}) as (req, res) => any;
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<unknown>) {
 	// Don't allow requests to hit the proxy when not in development mode
@@ -45,7 +45,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<unknow
 		return res.status(404).json({ message: 'Not found' });
 	}
 
-	// @ts-ignore
 	return proxy(req, res);
 }
 

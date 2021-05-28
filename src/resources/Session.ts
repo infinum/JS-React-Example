@@ -5,6 +5,9 @@ import { Resource } from '@datx/jsonapi-react';
 export class Session extends Resource {
 	static type = 'session';
 
+	@Attribute({ isIdentifier: true })
+	public id!: string | number;
+
 	@Attribute()
 	public email!: string;
 
@@ -13,7 +16,4 @@ export class Session extends Resource {
 
 	@Attribute({ toOne: User })
 	public user!: User;
-
-	@Attribute({ isIdentifier: true })
-	public id!: string | number;
 }
