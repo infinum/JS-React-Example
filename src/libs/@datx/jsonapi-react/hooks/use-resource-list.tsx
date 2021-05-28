@@ -26,7 +26,10 @@ export function useResourceList<TModel extends Resource = Resource, TMeta extend
 	const fetcher = (url: string) => {
 		const [, options] = queryCallback();
 
-		return client.request<TModel>(url, 'GET', null, options);
+		// queryParams are already included in the url
+		delete options.queryParams;
+
+		return client.request<TModel>(url, 'GET', undefined, options);
 	};
 
 	const swr = useSWR<Response<TModel>, Response<TModel>>(getKey, fetcher, config);

@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import { Response } from '@datx/jsonapi';
-import { cache, ConfigInterface } from 'swr';
+import { cache, SWRConfiguration } from 'swr';
 import { useDatx, useResource } from '@/libs/@datx/jsonapi-react';
 import { UrlObject } from 'url';
 import { useRouter } from 'next/router';
@@ -10,16 +10,12 @@ import { User } from '@/resources/User';
 import { IError } from '@datx/jsonapi/dist/interfaces/JsonApi';
 
 async function createSession(store, loginData) {
-	try {
-		const res = await store.request('sessions', 'POST', loginData, { queryParams: { include: 'user' } });
+	const res = await store.request('sessions', 'POST', loginData, { queryParams: { include: 'user' } });
 
-		return res.data as Session;
-	} catch (error) {
-		throw error;
-	}
+	return res.data as Session;
 }
 
-interface IOptions extends ConfigInterface<Response<Session>> {
+interface IOptions extends SWRConfiguration<Response<Session>> {
 	/**
 	 * `href` param passed to Next.js `Router.push` method
 	 */
@@ -36,7 +32,7 @@ interface IOptions extends ConfigInterface<Response<Session>> {
 	/**
 	 * on logout error callback
 	 */
-	onLogoutError?: (error?: string) => void;
+	onLogoutError?: (error: Response<Session> | Error) => void;
 	/**
 	 * on login success callback
 	 */
@@ -44,7 +40,7 @@ interface IOptions extends ConfigInterface<Response<Session>> {
 	/**
 	 * on login error callback
 	 */
-	onLoginError?: (error?: Array<IError> | Error) => void;
+	onLoginError?: (error: Array<IError> | Error) => void;
 }
 
 export const useSession = ({
@@ -78,10 +74,14 @@ export const useSession = ({
 					if (onLoginSuccess) {
 						onLoginSuccess(sessionResponse?.user);
 					}
+
+					return sessionResponse;
 				} catch (e) {
 					if (e instanceof Response) {
 						onLoginError(e.error);
 					}
+
+					throw e;
 				}
 			},
 			logout: async () => {
@@ -120,7 +120,7 @@ export const useSession = ({
 		) {
 			router.push(redirectTo);
 		}
-	}, [session, redirectIfFound, redirectTo, error, isValidating]);
+	}, [session, redirectIfFound, redirectTo, error, isValidating, router]);
 
 	return {
 		session,

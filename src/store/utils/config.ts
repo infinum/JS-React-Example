@@ -3,7 +3,7 @@ import { apify, deapify } from '@datx/jsonapi-react';
 
 config.cache = CachingStrategy.NetworkOnly;
 
-config.baseUrl = 'http://localhost:4200/api/v1/';
+config.baseUrl = 'http://localhost:3000/api/v1/';
 
 config.defaultFetchOptions = {
 	headers: {

@@ -12,7 +12,7 @@ import {
 	useToast,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
-import { useRouter } from 'next/router';
+import { Response } from '@datx/jsonapi';
 
 import { NavigationWrapper } from './MainNavigation.elements';
 import { useSession } from '@/hooks/useSession';
@@ -23,17 +23,15 @@ import SunIcon from '@/assets/icons/ic-sun.svg';
 export const MainNavigation: FC = () => {
 	const { colorMode, toggleColorMode } = useColorMode();
 	const toast = useToast();
-	const router = useRouter();
 
-	async function onLogoutSuccess() {
-		await router.push('/login');
-	}
-
-	async function onLogoutError(error) {
-		toast({ title: error.error[0], status: 'error' });
-	}
-
-	const { logout } = useSession({ onLogoutSuccess, onLogoutError });
+	const { logout } = useSession({
+		redirectTo: '/login',
+		onLogoutError: (error) => {
+			if (error instanceof Response) {
+				toast({ title: error.error[0], status: 'error' });
+			}
+		},
+	});
 
 	return (
 		<NavigationWrapper>

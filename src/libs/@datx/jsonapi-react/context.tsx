@@ -10,16 +10,14 @@ interface IDatxProviderProps {
 	client: Client;
 }
 
-export const DatxProvider: FC<IDatxProviderProps> = ({ client, children }) => {
-	return (
-		<DatxContext.Provider value={client}>
-			<SWRConfig
-				value={{
-					compare,
-				}}
-			>
-				{children}
-			</SWRConfig>
-		</DatxContext.Provider>
-	);
-};
+export const DatxProvider: FC<IDatxProviderProps> = ({ client, children }) => (
+	<DatxContext.Provider value={client}>
+		<SWRConfig
+			value={{
+				compare,
+			}}
+		>
+			{children}
+		</SWRConfig>
+	</DatxContext.Provider>
+);

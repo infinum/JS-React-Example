@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { Box, BoxProps, Button } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
 
 import { InputField } from '@/components/shared/fields/InputField/InputField';
 import { useForm } from 'react-hook-form';
@@ -14,15 +13,8 @@ export const LoginForm: FC<BoxProps> = () => {
 		formState: { errors },
 		setError,
 	} = useForm<any>();
-	const router = useRouter();
 
-	async function onLoginSuccess() {
-		await router.push('/');
-	}
-
-	async function onLoginError(loginErrors: Array<any>) {
-		setApiErrors(loginErrors).forEach(({ name, type, message }) => setError(name, { type, message }));
-	}
+	const { login } = useSession({ redirectIfFound: true, redirectTo: '/' });
 
 	async function onSubmit(formData) {
 		try {
@@ -34,13 +26,13 @@ export const LoginForm: FC<BoxProps> = () => {
 				},
 			};
 
-			login({ data });
-		} catch (submitError) {
-			setApiErrors(submitError.error).forEach(({ name, type, message }) => setError(name, { type, message }));
+			await login({ data });
+		} catch (errors) {
+			if (errors instanceof Array) {
+				setApiErrors(errors).forEach(({ name, type, message }) => setError(name, { type, message }));
+			}
 		}
 	}
-
-	const { login } = useSession({ onLoginSuccess, onLoginError });
 
 	return (
 		<Box as="form" onSubmit={handleSubmit(onSubmit)}>

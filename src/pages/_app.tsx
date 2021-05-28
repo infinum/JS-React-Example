@@ -3,13 +3,14 @@ import type { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
 import { DatxProvider } from '@datx/jsonapi-react';
 
-import theme from '../styles/theme';
-import { Fonts } from '../styles/Fonts';
-import client from '../store';
+import theme from '@/styles/theme';
+import { Fonts } from '@/styles/Fonts';
+import client from '@/store';
 
-import '../store/utils/config';
+import 'focus-visible/dist/focus-visible';
+import '@/store/utils/config';
 
-function MyApp({ Component, pageProps }: AppProps): ReactElement {
+function ExampleApp({ Component, pageProps }: AppProps): ReactElement {
 	return (
 		<DatxProvider client={client}>
 			<ChakraProvider theme={theme}>
@@ -20,4 +21,4 @@ function MyApp({ Component, pageProps }: AppProps): ReactElement {
 	);
 }
 
-export default MyApp;
+export default ExampleApp;

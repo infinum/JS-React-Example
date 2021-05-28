@@ -6,7 +6,7 @@ export function useDatx() {
 	const client = useContext(DatxContext);
 
 	if (!client) {
-		throw new Error('useDatxClient must be used inside DatxProvider.');
+		throw new Error('useDatx must be used inside DatxProvider.');
 	}
 
 	return client;
