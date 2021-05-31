@@ -75,6 +75,8 @@ export const useSession = ({
 						onLoginSuccess(sessionResponse?.user);
 					}
 
+					await router.push('/');
+
 					return sessionResponse;
 				} catch (e) {
 					if (e instanceof Response) {
@@ -94,6 +96,8 @@ export const useSession = ({
 					if (onLogoutSuccess) {
 						onLogoutSuccess();
 					}
+
+					await router.push('/login');
 				} catch (logOutError) {
 					if (onLogoutError) {
 						onLogoutError(logOutError);
