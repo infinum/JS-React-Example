@@ -87,7 +87,7 @@ export const useSession = ({
 			logout: async () => {
 				try {
 					mutate(undefined, false);
-					await store.request('sessions', 'DELETE');
+					await store.request('sessions/current', 'DELETE');
 					store.removeAll('sessions');
 					cache.clear();
 					mutate();

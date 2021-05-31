@@ -3,27 +3,27 @@ import { NextPage } from 'next';
 import { Heading, Link, Text } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
-import { LoginForm } from '@/components/shared/auth/LoginForm/LoginForm';
 import { useSession } from '@/hooks/useSession';
 import { AuthLayout } from '@/components/shared/layouts/AuthLayout/AuthLayout';
+import { RegisterForm } from '@/components/shared/auth/RegisterForm/RegisterForm';
 
-const Login: NextPage = () => {
+const Register: NextPage = () => {
 	useSession({ redirectIfFound: true, redirectTo: '/' });
 
 	return (
 		<AuthLayout>
 			<Heading as="h1" mb={16}>
-				Login
+				Register
 			</Heading>
-			<LoginForm />
+			<RegisterForm />
 			<Text as="p" mt={8}>
-				Don't have an account?{' '}
-				<NextLink href="/register" passHref>
-					<Link>Register</Link>
+				Already have an account?{' '}
+				<NextLink href="/login" passHref>
+					<Link>Login</Link>
 				</NextLink>
 			</Text>
 		</AuthLayout>
 	);
 };
 
-export default Login;
+export default Register;
