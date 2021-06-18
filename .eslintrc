@@ -29,5 +29,14 @@
 		"@typescript-eslint/explicit-function-return-type": "off",
 		"@typescript-eslint/interface-name-prefix": "off",
 		"import/no-unresolved": ["error", { "ignore": ["^@", "@datx/jsonapi-react"] }],
-	}
+	},
+	"overrides": [
+    {
+      "files": ["*.js", "*.jsx"],
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/camelcase": "off"
+      }
+    }
+	]
 }
