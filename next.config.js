@@ -2,11 +2,7 @@ const path = require('path');
 const withPlugins = require('next-compose-plugins');
 const withReactSvg = require('next-react-svg');
 
-const config = {
-	future: {
-		webpack5: true,
-	},
-};
+const config = {};
 
 module.exports = withPlugins([
 	[
