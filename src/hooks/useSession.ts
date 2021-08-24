@@ -11,6 +11,9 @@ const createSession = (store, attributes) =>
 	store.request('sessions', 'POST', attributes, { queryParams: { include: 'user' } });
 
 interface IOptions extends SWRConfiguration<Response<Session>> {
+	/**
+	 * on logout success callback
+	 */
 	onLogoutSuccess?: () => void;
 	/**
 	 * on logout error callback
