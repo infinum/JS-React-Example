@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { Response } from '@datx/jsonapi';
 import { cache, SWRConfiguration } from 'swr';
 import { useDatx, useResource } from '@/libs/@datx/jsonapi-react';
@@ -40,19 +40,45 @@ interface IOptions extends SWRConfiguration<Response<Session>> {
 	onLoginError?: (error: Array<IError> | Error) => void;
 }
 
-export const useSession = ({ redirectTo, redirectIfFound, onLogoutSuccess, onLogoutError, ...rest }: IOptions = {}) => {
+export const useSession = ({
+	redirectTo,
+	redirectIfFound,
+	onLoginSuccess,
+	onLoginError,
+	onLogoutSuccess,
+	onLogoutError,
+	...rest
+}: IOptions = {}) => {
 	const store = useDatx();
 	const router = useRouter();
 
-	const { data: session, error, mutate, isValidating } = useResource<Session>(
-		() => [Session, 'current', { queryParams: { include: 'user' } }],
-		{
-			shouldRetryOnError: false,
-			...rest,
-		}
-	);
+	const {
+		data: session,
+		error,
+		mutate,
+		isValidating,
+	} = useResource<Session>(() => [Session, 'current', { queryParams: { include: 'user' } }], {
+		shouldRetryOnError: false,
+		...rest,
+	});
 
 	const user = session?.user;
+
+	const callbacksRef = useRef({
+		onLoginSuccess,
+		onLoginError,
+		onLogoutError,
+		onLogoutSuccess,
+	});
+
+	useEffect(() => {
+		callbacksRef.current = {
+			onLoginSuccess,
+			onLoginError,
+			onLogoutError,
+			onLogoutSuccess,
+		};
+	});
 
 	const handlers = useMemo(
 		() => ({
@@ -64,20 +90,17 @@ export const useSession = ({ redirectTo, redirectIfFound, onLogoutSuccess, onLog
 					store.removeAll('sessions');
 					cache.clear();
 					mutate();
-					if (onLogoutSuccess) {
-						onLogoutSuccess();
+					if (callbacksRef.current.onLogoutSuccess) {
+						callbacksRef.current.onLogoutSuccess();
 					}
 				} catch (logOutError) {
-					if (onLogoutError) {
-						onLogoutError(logOutError);
+					if (callbacksRef.current.onLogoutError) {
+						callbacksRef.current.onLogoutError(logOutError);
 					}
 				}
 			},
 		}),
-		// TODO!
-		// find a way to remove onLoginSuccess, onLoginError, onLogoutError, onLogoutSuccess from
-		// deps as they are new on each render!
-		[store, mutate, onLogoutError, onLogoutSuccess]
+		[store, mutate]
 	);
 
 	useEffect(() => {
