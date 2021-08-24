@@ -22,7 +22,7 @@ interface IAuthRedirectProps {
 	condition?(session: Session): boolean;
 }
 
-export const AuthRedirect: FC<IAuthRedirectProps> = ({ to, ifFound, condition, ...rest }) => {
+export const AuthRedirect: FC<IAuthRedirectProps> = ({ to, ifFound, condition }) => {
 	const { session, isValidating, error } = useSession();
 	const router = useRouter();
 
