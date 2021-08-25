@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { Session } from '@/resources/Session';
 import { User } from '@/resources/User';
 import { IError } from '@datx/jsonapi/dist/interfaces/JsonApi';
+import { useIsomorphicLayoutEffect } from '@/hooks/useIsomorphicLayoutEffect';
 
 const createSession = (store, attributes) =>
 	store.request('sessions', 'POST', attributes, { queryParams: { include: 'user' } });
@@ -71,7 +72,7 @@ export const useSession = ({
 		onLogoutSuccess,
 	});
 
-	useEffect(() => {
+	useIsomorphicLayoutEffect(() => {
 		callbacksRef.current = {
 			onLoginSuccess,
 			onLoginError,
