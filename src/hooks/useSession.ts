@@ -1,14 +1,14 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Response } from '@datx/jsonapi';
 import { cache, SWRConfiguration } from 'swr';
 import { useDatx, useResource } from '@/libs/@datx/jsonapi-react';
 import { UrlObject } from 'url';
 import { useRouter } from 'next/router';
+import { useCallbackRef } from '@chakra-ui/hooks';
 
 import { Session } from '@/resources/Session';
 import { User } from '@/resources/User';
 import { IError } from '@datx/jsonapi/dist/interfaces/JsonApi';
-import { useIsomorphicLayoutEffect } from '@/hooks/useIsomorphicLayoutEffect';
 
 const createSession = (store, attributes) =>
 	store.request('sessions', 'POST', attributes, { queryParams: { include: 'user' } });
@@ -65,43 +65,46 @@ export const useSession = ({
 
 	const user = session?.user;
 
-	const callbacksRef = useRef({
-		onLoginSuccess,
-		onLoginError,
-		onLogoutError,
-		onLogoutSuccess,
-	});
-
-	useIsomorphicLayoutEffect(() => {
-		callbacksRef.current = {
-			onLoginSuccess,
-			onLoginError,
-			onLogoutError,
-			onLogoutSuccess,
-		};
-	});
+	const onLoginSuccessRef = useCallbackRef(onLoginSuccess);
+	const onLoginErrorRef = useCallbackRef(onLoginError);
+	const onLogoutErrorRef = useCallbackRef(onLogoutError);
+	const onLogoutSuccessRef = useCallbackRef(onLogoutSuccess);
 
 	const handlers = useMemo(
 		() => ({
-			login: (attributes) => mutate(() => createSession(store, attributes)),
-			logout: async () => {
+			login: async (attributes) => {
+				let session = null;
+
 				try {
-					mutate(undefined, false);
-					await store.request('sessions', 'DELETE');
-					store.removeAll('sessions');
-					cache.clear();
-					mutate();
-					if (callbacksRef.current.onLogoutSuccess) {
-						callbacksRef.current.onLogoutSuccess();
-					}
-				} catch (logOutError) {
-					if (callbacksRef.current.onLogoutError) {
-						callbacksRef.current.onLogoutError(logOutError);
-					}
+					session = await createSession(store, attributes);
+				} catch (error) {
+					onLoginErrorRef?.(error);
+
+					return Promise.reject(error);
 				}
+
+				onLoginSuccessRef?.(session);
+
+				return mutate(session, false);
+			},
+			logout: async () => {
+				mutate(undefined, false);
+
+				try {
+					await store.request('sessions', 'DELETE');
+					store.reset();
+					cache.clear();
+					await mutate();
+				} catch (error) {
+					onLogoutErrorRef?.(error);
+
+					return Promise.reject(error);
+				}
+
+				onLogoutSuccessRef?.();
 			},
 		}),
-		[store, mutate]
+		[mutate, onLoginErrorRef, onLoginSuccessRef, onLogoutErrorRef, onLogoutSuccessRef, store]
 	);
 
 	useEffect(() => {
