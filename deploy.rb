@@ -16,7 +16,7 @@ task :staging do
 end
 
 task :build_app do
-  command 'npm install'
+  command 'npm ci'
   command "NEXT_APP_ENV=#{fetch(:next_app_env)} npm run build"
 end
 
