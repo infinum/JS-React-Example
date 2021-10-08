@@ -6,10 +6,10 @@
 
 ```bash
 # Install dependencies
-yarn install
+npm ci
 
 # Start the dev server
-yarn dev
+npm run dev
 ```
 
 
