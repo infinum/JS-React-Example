@@ -4,11 +4,8 @@ import { cache, SWRConfiguration } from 'swr';
 import { useDatx, useResource } from '@/libs/@datx/jsonapi-react';
 import { UrlObject } from 'url';
 import { useRouter } from 'next/router';
-import { useCallbackRef } from '@chakra-ui/hooks';
 
 import { Session } from '@/resources/Session';
-import { User } from '@/resources/User';
-import { IError } from '@datx/jsonapi/dist/interfaces/JsonApi';
 
 const createSession = (store, attributes) =>
 	store.request('sessions', 'POST', attributes, { queryParams: { include: 'user' } });
@@ -23,33 +20,9 @@ interface IOptions extends SWRConfiguration<Response<Session>> {
 	 * Useful when you don't want to show login page to already logged in users.
 	 */
 	redirectIfFound?: boolean;
-	/**
-	 * on logout success callback
-	 */
-	onLogoutSuccess?: () => void;
-	/**
-	 * on logout error callback
-	 */
-	onLogoutError?: (error: Response<Session> | Error) => void;
-	/**
-	 * on login success callback
-	 */
-	onLoginSuccess?: (user: User) => void;
-	/**
-	 * on login error callback
-	 */
-	onLoginError?: (error: Array<IError> | Error) => void;
 }
 
-export const useSession = ({
-	redirectTo,
-	redirectIfFound,
-	onLoginSuccess,
-	onLoginError,
-	onLogoutSuccess,
-	onLogoutError,
-	...rest
-}: IOptions = {}) => {
+export const useSession = ({ redirectTo, redirectIfFound, ...rest }: IOptions = {}) => {
 	const store = useDatx();
 	const router = useRouter();
 
@@ -65,46 +38,20 @@ export const useSession = ({
 
 	const user = session?.user;
 
-	const onLoginSuccessRef = useCallbackRef(onLoginSuccess);
-	const onLoginErrorRef = useCallbackRef(onLoginError);
-	const onLogoutErrorRef = useCallbackRef(onLogoutError);
-	const onLogoutSuccessRef = useCallbackRef(onLogoutSuccess);
-
 	const handlers = useMemo(
 		() => ({
-			login: async (attributes) => {
-				let session = null;
-
-				try {
-					session = await createSession(store, attributes);
-				} catch (error) {
-					onLoginErrorRef?.(error);
-
-					return Promise.reject(error);
-				}
-
-				onLoginSuccessRef?.(session);
-
-				return mutate(session, false);
-			},
+			login: async (attributes) => mutate(createSession(store, attributes), false),
 			logout: async () => {
 				mutate(undefined, false);
 
-				try {
-					await store.request('sessions', 'DELETE');
-					store.reset();
-					cache.clear();
-					await mutate();
-				} catch (error) {
-					onLogoutErrorRef?.(error);
+				await store.request('sessions', 'DELETE');
+				store.reset();
+				cache.clear();
 
-					return Promise.reject(error);
-				}
-
-				onLogoutSuccessRef?.();
+				return mutate();
 			},
 		}),
-		[mutate, onLoginErrorRef, onLoginSuccessRef, onLogoutErrorRef, onLogoutSuccessRef, store]
+		[mutate, store]
 	);
 
 	useEffect(() => {
