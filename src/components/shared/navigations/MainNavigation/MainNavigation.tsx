@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import {
 	HStack,
 	Flex,
@@ -25,15 +25,19 @@ export const MainNavigation: FC = () => {
 	const { colorMode, toggleColorMode } = useColorMode();
 	const toast = useToast();
 
-	const { user, logout } = useSession({
-		onLogoutError: (errorResponse) => {
+	const { user, logout } = useSession();
+
+	const handleLogout = useCallback(async () => {
+		try {
+			await logout();
+		} catch (errorResponse) {
 			if (errorResponse instanceof Response) {
 				const { error } = errorResponse;
 				const message = error instanceof Error ? error.message : error[0].detail;
 				toast({ title: message, status: 'error' });
 			}
-		},
-	});
+		}
+	}, [logout, toast]);
 
 	return (
 		<NavigationWrapper>
@@ -48,7 +52,7 @@ export const MainNavigation: FC = () => {
 				<Heading size="lg">React example</Heading>
 				<HStack>
 					{user ? (
-						<Button onClick={logout} aria-label="Log out from this page">
+						<Button onClick={handleLogout} aria-label="Log out from this page">
 							Logout
 						</Button>
 					) : (
