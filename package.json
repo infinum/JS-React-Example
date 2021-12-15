@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "PROXY_ENV=development next dev",
+    "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.7.3",
@@ -23,9 +24,8 @@
   "devDependencies": {
     "@types/node": "^16.11.12",
     "@types/react": "^17.0.37",
-    "eslint": "^8.4.1",
-    "eslint-config-next": "^12.0.7",
-    "eslint-plugin-import": "^2.25.3",
+    "eslint": "8.4.1",
+    "eslint-config-next": "12.0.7",
     "http-proxy-middleware": "^2.0.1",
     "husky": "^4.3.8",
     "lint-staged": "^12.1.2",
