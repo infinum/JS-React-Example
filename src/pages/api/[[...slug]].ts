@@ -2,13 +2,14 @@ import { IncomingMessage } from 'http';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-let apiUrl: string = process.env.NEXT_PUBLIC_API_ENDPOINT;
+let apiUrl: string = 'http://localhost:8080';
 
 const proxy = createProxyMiddleware({
 	target: apiUrl,
 	changeOrigin: true,
 	logLevel: 'debug',
 	cookieDomainRewrite: 'localhost',
+	pathRewrite: { '^/api': '/' },
 	onProxyRes: (proxyRes: IncomingMessage) => {
 		// You can manipulate the cookie here
 

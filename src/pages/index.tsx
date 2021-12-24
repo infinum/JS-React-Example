@@ -1,12 +1,12 @@
 import React from 'react';
 import { NextPage } from 'next';
-import { Todos } from '@/components/features/todos/Todos';
+import { TodoLists } from '@/components/features/todo-lists/TodoLists';
 import { Layout } from '@/components/shared/layouts/Layout/Layout';
 
 const Home: NextPage = () => {
 	return (
 		<Layout>
-			<Todos />
+			<TodoLists />
 		</Layout>
 	);
 };
