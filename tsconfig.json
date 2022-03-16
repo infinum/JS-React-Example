@@ -22,9 +22,6 @@
     "paths": {
       "@/*": [
         "src/*"
-      ],
-      "@datx/jsonapi-react": [
-        "src/libs/@datx/jsonapi-react"
       ]
     },
     "incremental": true
