@@ -1,10 +1,13 @@
 ## Summary
 
-**Task**: <!-- link to the task -->
+### Task: 
+<!-- link to the task -->
 
-**Associated design**: <!-- link to the design -->
+### Associated design: 
+<!-- link(s) to the design -->
 
-**Documentation**: <!-- other relevant documentation -->
+### Documentation: 
+<!-- other relevant documentation -->
 
 ## Description
 
