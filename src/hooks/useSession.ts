@@ -6,8 +6,6 @@ import { UrlObject } from 'url';
 import { useRouter } from 'next/router';
 
 import { Session } from '@/resources/Session';
-import { User } from '@/resources/User';
-import { IError } from '@datx/jsonapi/dist/interfaces/JsonApi';
 
 const createSession = (store, attributes) =>
 	store.request('sessions', 'POST', attributes, { queryParams: { include: 'user' } });
@@ -22,62 +20,38 @@ interface IOptions extends SWRConfiguration<Response<Session>> {
 	 * Useful when you don't want to show login page to already logged in users.
 	 */
 	redirectIfFound?: boolean;
-	/**
-	 * on logout success callback
-	 */
-	onLogoutSuccess?: () => void;
-	/**
-	 * on logout error callback
-	 */
-	onLogoutError?: (error: Response<Session> | Error) => void;
-	/**
-	 * on login success callback
-	 */
-	onLoginSuccess?: (user: User) => void;
-	/**
-	 * on login error callback
-	 */
-	onLoginError?: (error: Array<IError> | Error) => void;
 }
 
-export const useSession = ({ redirectTo, redirectIfFound, onLogoutSuccess, onLogoutError, ...rest }: IOptions = {}) => {
+export const useSession = ({ redirectTo, redirectIfFound, ...rest }: IOptions = {}) => {
 	const store = useDatx();
 	const router = useRouter();
 
-	const { data: session, error, mutate, isValidating } = useResource<Session>(
-		() => [Session, 'current', { queryParams: { include: 'user' } }],
-		{
-			shouldRetryOnError: false,
-			...rest,
-		}
-	);
+	const {
+		data: session,
+		error,
+		mutate,
+		isValidating,
+	} = useResource<Session>(() => [Session, 'current', { queryParams: { include: 'user' } }], {
+		shouldRetryOnError: false,
+		...rest,
+	});
 
 	const user = session?.user;
 
 	const handlers = useMemo(
 		() => ({
-			login: (attributes) => mutate(() => createSession(store, attributes)),
+			login: async (attributes) => mutate(createSession(store, attributes), false),
 			logout: async () => {
-				try {
-					mutate(undefined, false);
-					await store.request('sessions', 'DELETE');
-					store.removeAll('sessions');
-					cache.clear();
-					mutate();
-					if (onLogoutSuccess) {
-						onLogoutSuccess();
-					}
-				} catch (logOutError) {
-					if (onLogoutError) {
-						onLogoutError(logOutError);
-					}
-				}
+				mutate(undefined, false);
+
+				await store.request('sessions', 'DELETE');
+				store.reset();
+				cache.clear();
+
+				return mutate();
 			},
 		}),
-		// TODO!
-		// find a way to remove onLoginSuccess, onLoginError, onLogoutError, onLogoutSuccess from
-		// deps as they are new on each render!
-		[store, mutate, onLogoutError, onLogoutSuccess]
+		[mutate, store]
 	);
 
 	useEffect(() => {
