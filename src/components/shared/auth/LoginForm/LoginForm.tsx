@@ -20,9 +20,7 @@ export const LoginForm: FC<BoxProps> = () => {
 		setError,
 	} = useForm<FormValues>();
 
-	const { error, login } = useSession({ redirectIfFound: true, redirectTo: '/' });
-
-	console.log(error);
+	const { login } = useSession();
 
 	async function onSubmit(formData: FormValues) {
 		try {

@@ -3,13 +3,13 @@ import { NextPage } from 'next';
 
 import { MainLayout } from '@/components/shared/layouts/MainLayout/MainLayout';
 import { FlightListSection } from '@/components/pages/flights/FlightListSection/FlightListSection';
-import { useSession } from '@/hooks/useSession';
+import { AuthRedirect } from '@/components/shared/utilities/AuthRedirect/AuthRedirect';
 
 const Flights: NextPage = () => {
-	useSession({ redirectTo: '/login' });
-
 	return (
 		<MainLayout>
+			<AuthRedirect to="/login" />
+
 			<FlightListSection />
 		</MainLayout>
 	);
