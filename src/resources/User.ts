@@ -2,7 +2,7 @@ import { Attribute } from '@datx/core';
 import { Resource } from '@datx/jsonapi-react';
 
 export class User extends Resource {
-	static type = 'user';
+	public static type = 'user';
 
 	@Attribute({ isIdentifier: true })
 	public id!: string | number;

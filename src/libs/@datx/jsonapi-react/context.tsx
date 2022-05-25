@@ -1,4 +1,4 @@
-import { createContext, FC } from 'react';
+import { createContext, FC, ReactNode } from 'react';
 import { SWRConfig } from 'swr';
 import { Client } from './Client';
 
@@ -8,6 +8,7 @@ export const DatxContext = createContext<Client>(null);
 
 interface IDatxProviderProps {
 	client: Client;
+	children?: ReactNode;
 }
 
 export const DatxProvider: FC<IDatxProviderProps> = ({ client, children }) => (

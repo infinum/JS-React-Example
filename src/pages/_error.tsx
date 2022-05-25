@@ -1,8 +1,12 @@
 import React from 'react';
-import { NextComponentType } from 'next';
+import { NextPage, NextPageContext } from 'next';
 import { Container, Heading, Image, Center } from '@chakra-ui/react';
 
-const Error: NextComponentType = ({ statusCode }: any) => {
+interface IErrorProps {
+	statusCode?: number;
+}
+
+const Error: NextPage<IErrorProps> = ({ statusCode }) => {
 	return (
 		<Container height="100%">
 			<Center height="100%" flexDirection="column">
@@ -18,9 +22,17 @@ const Error: NextComponentType = ({ statusCode }: any) => {
 	);
 };
 
-Error.getInitialProps = (ctx) => {
+Error.getInitialProps = (ctx: NextPageContext) => {
 	const { res, err } = ctx;
-	const statusCode = res ? res.statusCode : err ? err.statusCode : 500;
+	let statusCode = undefined;
+
+	if (res) {
+		statusCode = res.statusCode;
+	} else if (err) {
+		statusCode = err.statusCode;
+	} else {
+		statusCode = 500;
+	}
 
 	return { statusCode };
 };

@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { Response } from '@datx/jsonapi';
-import { cache, SWRConfiguration } from 'swr';
+import { useSWRConfig, SWRConfiguration } from 'swr';
 import { useDatx, useResource } from '@/libs/@datx/jsonapi-react';
 
 import { Session } from '@/resources/Session';
@@ -10,6 +10,7 @@ const createSession = (store, attributes) =>
 
 export const useSession = (props: SWRConfiguration<Response<Session>> = {}) => {
 	const store = useDatx();
+	const { cache } = useSWRConfig();
 
 	const {
 		data: session,
@@ -31,12 +32,12 @@ export const useSession = (props: SWRConfiguration<Response<Session>> = {}) => {
 
 				await store.request('sessions', 'DELETE');
 				store.reset();
-				cache.clear();
+				cache.clear(); //TODO ??
 
 				return mutate();
 			},
 		}),
-		[mutate, store]
+		[mutate, store, cache]
 	);
 
 	return {

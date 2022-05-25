@@ -7,10 +7,10 @@ import { setApiErrors } from '@/utils/setApiErrors';
 import { useSession } from '@/hooks/useSession';
 import { Response } from '@datx/jsonapi';
 
-type FormValues = {
+interface IFormValues {
 	email: string;
 	password: string;
-};
+}
 
 export const LoginForm: FC<BoxProps> = () => {
 	const {
@@ -18,11 +18,11 @@ export const LoginForm: FC<BoxProps> = () => {
 		handleSubmit,
 		formState: { errors },
 		setError,
-	} = useForm<FormValues>();
+	} = useForm<IFormValues>();
 
 	const { login } = useSession();
 
-	async function onSubmit(formData: FormValues) {
+	async function onSubmit(formData: IFormValues) {
 		try {
 			const data = {
 				type: 'session',

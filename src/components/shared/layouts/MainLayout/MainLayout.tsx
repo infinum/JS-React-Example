@@ -1,10 +1,14 @@
-import { FC, Fragment } from 'react';
+import { FC, Fragment, ReactNode } from 'react';
 
 import { MainNavigation } from '@/components/shared/navigations/MainNavigation/MainNavigation';
 import { Meta } from '@/components/shared/utilities/Meta/Meta';
 import { MainFooter } from '@/components/shared/footers/MainFooter/MainFooter';
 
-export const MainLayout: FC = ({ children }) => (
+interface IMainLayoutProps {
+	children?: ReactNode;
+}
+
+export const MainLayout: FC<IMainLayoutProps> = ({ children }) => (
 	<Fragment>
 		<Meta />
 		<MainNavigation />
