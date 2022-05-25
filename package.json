@@ -60,7 +60,7 @@
 		"msw": "^0.40.0",
 		"msw-storybook-addon": "^1.6.3",
 		"prettier": "^2.6.2",
-		"storybook-addon-next-router": "^2.0.4",
+		"storybook-addon-next-router": "^4.0.0",
 		"storybook-addon-performance": "^0.16.0",
 		"ts-jest": "^28.0.2",
 		"ts-node-dev": "^1.1.8",
