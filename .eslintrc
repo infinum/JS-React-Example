@@ -1,5 +1,6 @@
 {
 	"extends": "@infinumjs/eslint-config-react-ts",
+	"plugins": ["chakra-ui"],
 	"overrides": [
 		{
 			"files": ["*.ts", "*.tsx"],
@@ -8,5 +9,10 @@
 			}
 		}
 	],
+	"rules": {
+		"chakra-ui/props-order": "error",
+		"chakra-ui/props-shorthand": "error",
+		"chakra-ui/require-specific-component": "error"
+	},
 	"parser": "@typescript-eslint/parser"
 }
