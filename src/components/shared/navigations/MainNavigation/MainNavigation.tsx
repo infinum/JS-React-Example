@@ -41,18 +41,18 @@ export const MainNavigation: FC = () => {
 
 	return (
 		<NavigationWrapper>
-			<Flex justifyContent="space-between" alignItems="center">
+			<Flex align="center" justify="space-between">
 				<LinkBox>
 					<NextLink href="/" passHref>
 						<LinkOverlay>
-							<Image src="/images/logo-infinum.png" htmlWidth="64px" />
+							<Image htmlWidth="64px" src="/images/logo-infinum.png" />
 						</LinkOverlay>
 					</NextLink>
 				</LinkBox>
 				<Heading size="lg">React example</Heading>
 				<HStack>
 					{user ? (
-						<Button onClick={handleLogout} aria-label="Log out from this page">
+						<Button aria-label="Log out from this page" onClick={handleLogout}>
 							Logout
 						</Button>
 					) : (
@@ -62,8 +62,8 @@ export const MainNavigation: FC = () => {
 					)}
 					<IconButton
 						aria-label="Toggle color mode"
+						icon={<Icon as={colorMode === 'light' ? MoonIcon : SunIcon} w="16px" />}
 						onClick={toggleColorMode}
-						icon={<Icon w="16px" as={colorMode === 'light' ? MoonIcon : SunIcon} />}
 					/>
 				</HStack>
 			</Flex>

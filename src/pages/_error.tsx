@@ -8,15 +8,15 @@ interface IErrorProps {
 
 const Error: NextPage<IErrorProps> = ({ statusCode }) => {
 	return (
-		<Container height="100%">
-			<Center height="100%" flexDirection="column">
+		<Container h="100%">
+			<Center flexDir="column" h="100%">
 				<Heading my={8} size="4xl" variant="tertiary">
 					{statusCode}
 				</Heading>
 				<Heading size="xl" variant="tertiary">
 					Error occurred!
 				</Heading>
-				<Image src="/images/infinum-contruction.png" alt="presentation" width="100%" />
+				<Image w="100%" alt="presentation" src="/images/infinum-contruction.png" />
 			</Center>
 		</Container>
 	);

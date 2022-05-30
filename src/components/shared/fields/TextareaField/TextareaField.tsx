@@ -4,9 +4,9 @@ import { ErrorMessage } from '@hookform/error-message';
 
 export const TextareaField = forwardRef<any, any>(function InputField({ errors, name, label, ...rest }, ref) {
 	return (
-		<FormControl id={name} my={4} isInvalid={errors[name]}>
+		<FormControl my={4} id={name} isInvalid={errors[name]}>
 			<FormLabel>{label}</FormLabel>
-			<Textarea name={name} ref={ref} errorBorderColor="red" {...rest} />
+			<Textarea ref={ref} errorBorderColor="red" name={name} {...rest} />
 			<FormErrorMessage color="red">
 				<ErrorMessage errors={errors} name={name} />
 			</FormErrorMessage>

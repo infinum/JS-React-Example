@@ -12,7 +12,7 @@ export interface IBasicPagination {
 
 export const BasicPagination: FC<IBasicPagination> = ({ hasPrev, hasNext, onPrev, onNext, current, total }) => {
 	return (
-		<HStack p={50} spacing={2} justify="center">
+		<HStack justify="center" p={50} spacing={2}>
 			<Button isDisabled={!hasPrev} onClick={onPrev}>
 				Previous
 			</Button>

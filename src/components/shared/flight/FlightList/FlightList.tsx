@@ -10,7 +10,7 @@ interface IFlightListProps extends StackProps {
 
 export const FlightList: FC<IFlightListProps> = ({ flightList, ...rest }) => {
 	return (
-		<VStack spacing={4} align="stretch" {...rest}>
+		<VStack align="stretch" spacing={4} {...rest}>
 			{flightList.map((item) => (
 				<FlightCard key={item.id} flight={item} />
 			))}
