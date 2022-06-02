@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "PROXY_ENV=development next dev",
+    "dev": "PROXY_ENV=development next dev  -p 3006",
     "build": "next build",
     "start": "next start",
     "test": "jest --coverage",
@@ -27,6 +27,7 @@
     "mobx": "^4.15.7",
     "next": "11.0.1-canary.6",
     "next-compose-plugins": "^2.2.1",
+    "next-i18next": "^11.0.0",
     "next-react-svg": "^1.1.3",
     "react": "17.0.2",
     "react-dom": "17.0.2",
