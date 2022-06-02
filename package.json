@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "PROXY_ENV=development next dev  -p 3006",
+    "dev": "PROXY_ENV=development next dev",
     "build": "next build",
     "start": "next start",
     "test": "jest --coverage",
