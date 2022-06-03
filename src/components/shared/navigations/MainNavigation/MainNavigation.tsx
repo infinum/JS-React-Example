@@ -54,7 +54,7 @@ export const MainNavigation: FC = () => {
 				<Heading size="lg">{t('mainNavigation:heading')}</Heading>
 				<HStack>
 					{user ? (
-						<Button onClick={handleLogout} aria-label="Log out from this page">
+						<Button aria-label="Log out from this page" onClick={handleLogout}>
 							{t('mainNavigation:auth.logout.label')}
 						</Button>
 					) : (

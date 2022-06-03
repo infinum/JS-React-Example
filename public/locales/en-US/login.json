@@ -1,7 +1,7 @@
 {
 	"heading": "Login",
 	"form": {
-		"submit": {"label": "Login"},
+		"submit": { "label": "Login" },
 		"required": "This field is required",
 		"email": {
 			"label": "Email"
