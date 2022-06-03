@@ -2,7 +2,9 @@ const path = require('path');
 const withPlugins = require('next-compose-plugins');
 const withReactSvg = require('next-react-svg');
 
-const config = {};
+const { i18n } = require('./next-i18next.config');
+
+const config = { i18n };
 
 module.exports = withPlugins([
 	[

@@ -20,8 +20,10 @@ import { useSession } from '@/hooks/useSession';
 
 import MoonIcon from '@/assets/icons/ic-moon.svg';
 import SunIcon from '@/assets/icons/ic-sun.svg';
+import { useTranslation } from 'next-i18next';
 
 export const MainNavigation: FC = () => {
+	const { t } = useTranslation(['common', 'mainNavigation']);
 	const { colorMode, toggleColorMode } = useColorMode();
 	const toast = useToast();
 
@@ -49,15 +51,15 @@ export const MainNavigation: FC = () => {
 						</LinkOverlay>
 					</NextLink>
 				</LinkBox>
-				<Heading size="lg">React example</Heading>
+				<Heading size="lg">{t('mainNavigation:heading')}</Heading>
 				<HStack>
 					{user ? (
-						<Button aria-label="Log out from this page" onClick={handleLogout}>
-							Logout
+						<Button onClick={handleLogout} aria-label="Log out from this page">
+							{t('mainNavigation:auth.logout.label')}
 						</Button>
 					) : (
 						<Button as="a" href="/login">
-							Login
+							{t('mainNavigation:auth.login.label')}
 						</Button>
 					)}
 					<IconButton

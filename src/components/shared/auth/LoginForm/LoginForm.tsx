@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { setApiErrors } from '@/utils/setApiErrors';
 import { useSession } from '@/hooks/useSession';
 import { Response } from '@datx/jsonapi';
+import { useTranslation } from 'next-i18next';
 
 interface IFormValues {
 	email: string;
@@ -13,6 +14,7 @@ interface IFormValues {
 }
 
 export const LoginForm: FC<BoxProps> = () => {
+	const { t } = useTranslation('login');
 	const {
 		register,
 		handleSubmit,
@@ -42,9 +44,17 @@ export const LoginForm: FC<BoxProps> = () => {
 
 	return (
 		<Box as="form" onSubmit={handleSubmit(onSubmit)}>
-			<InputField label="Emal" errors={errors} {...register('email', { required: 'This field is required' })} />
-			<InputField label="Password" errors={errors} {...register('password', { required: 'This field is required' })} />
-			<Button type="submit">Login</Button>
+			<InputField
+				label={t('form.email.label')}
+				errors={errors}
+				{...register('email', { required: t('form.required') })}
+			/>
+			<InputField
+				label={t('form.password.label')}
+				errors={errors}
+				{...register('password', { required: t('form.required') })}
+			/>
+			<Button type="submit">{t('form.submit.label')}</Button>
 		</Box>
 	);
 };
