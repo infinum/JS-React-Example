@@ -8,8 +8,8 @@ interface IFlightCardProps {
 }
 
 export const Todo: FC<IFlightCardProps> = ({ todo, ...rest }) => (
-	<Flex p={5} shadow="md" borderWidth="1px" align="flex-start" direction="column" {...rest}>
-		<Heading as="h2" size="lg" mb={2} w="50%">
+	<Flex align="flex-start" direction="column" p={5} borderWidth="1px" shadow="md" {...rest}>
+		<Heading as="h2" w="50%" mb={2} size="lg">
 			{todo.title}
 		</Heading>
 		<Text>{todo.body}</Text>

@@ -1,7 +1,5 @@
 # React Example project
 
-- Setup: https://www.notion.so/darko/Project-Spine-5742bc5ea22e419fbd71cd7ae217afd1
-
 ## Project setup
 
 ```bash
@@ -12,6 +10,31 @@ npm ci
 npm run dev
 ```
 
+Use one of the user credentials to log in into the application
+
+```
+# user1
+    email: 'user1@example.com'
+    password: 'pasword12345'
+
+# user2
+    email: 'user2@example.com'
+    password: 'pasword12345'
+
+# user3
+    email: 'user3@example.com'
+    password: 'pasword12345'
+```
+
+## API
+
+Documentation
+
+- https://cekila.byinfinum.co/api/v1/docs/index.html
+
+Project repository
+
+- https://github.com/infinum/rails-jsonapi-example-app
 
 ## Deployment
 
@@ -23,7 +46,7 @@ TBD
 
 ## Styleguide
 
-This project is using the styleguide as defined in the [Infinum Handbook v2020.09](https://infinum.com/handbook/books/frontend/react/css-in-js/chakra).
+This project is using the styleguide as defined in the [Infinum Handbook](https://infinum.com/handbook/frontend/react/chakra-ui).
 
 ## Team
 

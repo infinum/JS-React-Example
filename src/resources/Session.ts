@@ -3,7 +3,7 @@ import { Attribute } from '@datx/core';
 import { Resource } from '@datx/jsonapi-react';
 
 export class Session extends Resource {
-	static type = 'session';
+	public static type = 'session';
 
 	@Attribute({ isIdentifier: true })
 	public id!: string | number;

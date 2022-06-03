@@ -1,5 +1,5 @@
 import { withPerformance } from 'storybook-addon-performance';
-import { withNextRouter } from 'storybook-addon-next-router';
+import { RouterContext } from 'next/dist/shared/lib/router-context';
 import { initializeWorker, mswDecorator } from 'msw-storybook-addon';
 
 import { withThemeProvider } from './withThemeProvider';
@@ -9,19 +9,7 @@ import 'focus-visible/dist/focus-visible';
 
 initializeWorker();
 
-export const decorators = [
-	mswDecorator,
-	withDatxProvider,
-	withThemeProvider,
-	withPerformance,
-	withNextRouter({
-		path: '/',
-		asPath: '/',
-		query: {},
-		push() {},
-		replace() {},
-	}),
-];
+export const decorators = [mswDecorator, withDatxProvider, withThemeProvider, withPerformance];
 
 export const parameters = {
 	actions: { argTypesRegex: '^on[A-Z].*' },
@@ -30,6 +18,14 @@ export const parameters = {
 			color: /(background|color)$/i,
 			date: /Date$/,
 		},
+	},
+	nextRouter: {
+		Provider: RouterContext.Provider,
+		path: '/',
+		asPath: '/',
+		query: {},
+		push() {},
+		replace() {},
 	},
 };
 

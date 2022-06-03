@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { Response } from '@datx/jsonapi';
-import { cache, SWRConfiguration } from 'swr';
+import { useSWRConfig, SWRConfiguration } from 'swr';
 import { useDatx, useResource } from '@/libs/@datx/jsonapi-react';
 
 import { Session } from '@/resources/Session';
@@ -10,6 +10,7 @@ const createSession = (store, attributes) =>
 
 export const useSession = (props: SWRConfiguration<Response<Session>> = {}) => {
 	const store = useDatx();
+	const { cache } = useSWRConfig();
 
 	const {
 		data: session,
@@ -31,12 +32,15 @@ export const useSession = (props: SWRConfiguration<Response<Session>> = {}) => {
 
 				await store.request('sessions', 'DELETE');
 				store.reset();
+				// This code works type definition of cache is not up to date - currently PR for fixing this is open https://github.com/vercel/swr/pull/1936
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-ignore
 				cache.clear();
 
 				return mutate();
 			},
 		}),
-		[mutate, store]
+		[mutate, store, cache]
 	);
 
 	return {

@@ -8,10 +8,10 @@ import { useSession } from '@/hooks/useSession';
 import { Response } from '@datx/jsonapi';
 import { useTranslation } from 'next-i18next';
 
-type FormValues = {
+interface IFormValues {
 	email: string;
 	password: string;
-};
+}
 
 export const LoginForm: FC<BoxProps> = () => {
 	const { t } = useTranslation('login');
@@ -20,11 +20,11 @@ export const LoginForm: FC<BoxProps> = () => {
 		handleSubmit,
 		formState: { errors },
 		setError,
-	} = useForm<FormValues>();
+	} = useForm<IFormValues>();
 
 	const { login } = useSession();
 
-	async function onSubmit(formData: FormValues) {
+	async function onSubmit(formData: IFormValues) {
 		try {
 			const data = {
 				type: 'session',

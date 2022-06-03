@@ -9,11 +9,11 @@ interface IFlightCardProps {
 }
 
 export const FlightCard: FC<IFlightCardProps> = ({ flight, ...rest }) => (
-	<Flex p={5} shadow="md" borderWidth="1px" align="center" {...rest}>
-		<Heading as="h2" size="lg" mb={2} w="50%">
+	<Flex align="center" p={5} borderWidth="1px" shadow="md" {...rest}>
+		<Heading as="h2" w="50%" mb={2} size="lg">
 			{flight.name}
 		</Heading>
-		<Stat w="50%" align="right">
+		<Stat w="50%">
 			<StatNumber>${flight.currentSeatPrice}</StatNumber>
 			<StatHelpText>
 				{format(new Date(flight.departsAt), 'MMM dd')} - {format(new Date(flight.arrivesAt), 'MMM dd')}
