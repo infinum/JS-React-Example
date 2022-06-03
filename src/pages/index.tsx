@@ -1,10 +1,11 @@
 import React from 'react';
 import { GetServerSideProps, NextPage } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { Container } from '@chakra-ui/react';
 
 import { MainLayout } from '@/components/shared/layouts/MainLayout/MainLayout';
 import { ITodo } from '@/interfaces/ITodo';
 import { Todo } from '@/components/shared/todo/Todo';
-import { Container } from '@chakra-ui/react';
 
 interface IHomeProps {
 	todos: Array<ITodo>;
@@ -22,9 +23,10 @@ const Home: NextPage<IHomeProps> = ({ todos }) => {
 	);
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
 	return {
 		props: {
+			...(await serverSideTranslations(String(locale), ['common', 'mainNavigation'])),
 			todos: [
 				{
 					id: 1,
