@@ -12,7 +12,8 @@
 	"rules": {
 		"chakra-ui/props-order": "error",
 		"chakra-ui/props-shorthand": "error",
-		"chakra-ui/require-specific-component": "error"
+		"chakra-ui/require-specific-component": "error",
+		"newline-before-return": "warn"
 	},
 	"parser": "@typescript-eslint/parser"
 }
