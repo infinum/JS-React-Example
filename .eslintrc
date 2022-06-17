@@ -13,8 +13,8 @@
 		"chakra-ui/props-order": "error",
 		"chakra-ui/props-shorthand": "error",
 		"chakra-ui/require-specific-component": "error",
-		"newline-before-return": "warn",
-		"padding-line-between-statements": ["warn", { "blankLine": "always", "prev": "*", "next": "if" }]
+		"newline-before-return": "error",
+		"padding-line-between-statements": ["error", { "blankLine": "always", "prev": "*", "next": "if" }]
 	},
 	"parser": "@typescript-eslint/parser"
 }
