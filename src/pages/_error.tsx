@@ -1,26 +1,38 @@
 import React from 'react';
-import { NextComponentType } from 'next';
+import { NextPage, NextPageContext } from 'next';
 import { Container, Heading, Image, Center } from '@chakra-ui/react';
 
-const Error: NextComponentType = ({ statusCode }: any) => {
+interface IErrorProps {
+	statusCode?: number;
+}
+
+const Error: NextPage<IErrorProps> = ({ statusCode }) => {
 	return (
-		<Container height="100%">
-			<Center height="100%" flexDirection="column">
-				<Heading my={8} size="4xl" color="infinum.500">
+		<Container h="100%">
+			<Center flexDir="column" h="100%">
+				<Heading my={8} size="4xl" variant="tertiary">
 					{statusCode}
 				</Heading>
-				<Heading size="xl" color="infinum.500">
+				<Heading color="infinum.500" size="xl">
 					Error occurred!
 				</Heading>
-				<Image src="/images/infinum-contruction.png" alt="presentation" width="100%" />
+				<Image w="100%" alt="presentation" src="/images/infinum-contruction.png" />
 			</Center>
 		</Container>
 	);
 };
 
-Error.getInitialProps = (ctx) => {
+Error.getInitialProps = (ctx: NextPageContext) => {
 	const { res, err } = ctx;
-	const statusCode = res ? res.statusCode : err ? err.statusCode : 500;
+	let statusCode = undefined;
+
+	if (res) {
+		statusCode = res.statusCode;
+	} else if (err) {
+		statusCode = err.statusCode;
+	} else {
+		statusCode = 500;
+	}
 
 	return { statusCode };
 };
