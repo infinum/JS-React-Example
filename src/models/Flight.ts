@@ -1,8 +1,8 @@
-import { Attribute } from '@datx/core';
-import { Resource } from '@datx/jsonapi-react';
+import { Attribute, PureModel } from '@datx/core';
+import { jsonapiModel } from '@datx/jsonapi';
 
-export class Flight extends Resource {
-	public static type = 'flight';
+export class Flight extends jsonapiModel(PureModel) {
+	public static readonly type = 'flight';
 	public static endpoint = 'flights';
 
 	@Attribute({ isIdentifier: true })
