@@ -1,15 +1,10 @@
-const path = require('path');
 const withPlugins = require('next-compose-plugins');
-const withReactSvg = require('next-react-svg');
 
-const config = {};
+const { i18n } = require('./next-i18next.config');
 
-module.exports = withPlugins([
-	[
-		withReactSvg,
-		{
-			include: path.resolve(__dirname, 'src/assets/icons'),
-		},
-	],
-	config,
-]);
+/**
+ * @type {import('next').NextConfig}
+ */
+const config = { i18n };
+
+module.exports = withPlugins([config]);
