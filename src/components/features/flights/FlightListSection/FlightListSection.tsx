@@ -1,31 +1,23 @@
 import React, { FC, Fragment } from 'react';
 import { Box, Container, Divider, Heading } from '@chakra-ui/react';
-import { useResourceList } from '@datx/jsonapi-react';
-
 import { FlightList } from '@/components/shared/flight/FlightList/FlightList';
 import { LoadingMessage } from '@/components/shared/messages/LoadingMessage/LoadingMessage';
 import { EmptyListMessage } from '@/components/shared/messages/EmptyListMessage/EmptyListMessage';
 import { BasicPagination } from '@/components/shared/paginations/BasicPagination/BasicPagination';
-import { Flight } from '@/resources/Flight';
-
-import { useSession } from '@/hooks/useSession';
+import { Flight } from '@/models/Flight';
+import { useSession } from '@/hooks/use-session';
+import { useDatx } from '@datx/swr';
 
 export const FlightListSection: FC = () => {
-	const { user } = useSession();
+	const { data: sessionResponse } = useSession();
+	const user = sessionResponse?.data.user;
 
-	const { data, error, hasNext, hasPrev, next, prev } = useResourceList(() =>
+	const { data, error } = useDatx(() =>
 		user
-			? [
-					Flight,
-					{
-						queryParams: {
-							custom: [
-								{ key: 'page[size]', value: '3' },
-								{ key: 'page[number]', value: '1' },
-							],
-						},
-					},
-			  ]
+			? ({
+					op: 'getMany',
+					type: Flight.type,
+			  } as const)
 			: null
 	);
 
@@ -45,10 +37,10 @@ export const FlightListSection: FC = () => {
 				</Heading>
 
 				<Divider mb={10} />
-				{data.length > 0 ? (
+				{data.data.length > 0 ? (
 					<Fragment>
-						<FlightList flightList={data} />
-						<BasicPagination hasNext={hasNext} hasPrev={hasPrev} onNext={next} onPrev={prev} current={1} total={10} />
+						<FlightList flightList={data.data} />
+						{/* <BasicPagination hasNext={hasNext} hasPrev={hasPrev} onNext={next} onPrev={prev} current={1} total={10} /> */}
 					</Fragment>
 				) : (
 					<EmptyListMessage />

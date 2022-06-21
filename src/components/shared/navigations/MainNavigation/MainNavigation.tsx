@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC } from 'react';
 import {
 	HStack,
 	Flex,
@@ -14,32 +14,38 @@ import {
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { Response } from '@datx/jsonapi';
+import { useMutation, useClient } from '@datx/swr';
+import { useTranslation } from 'next-i18next';
+import { FaMoon, FaSun } from 'react-icons/fa';
 
 import { NavigationWrapper } from './MainNavigation.elements';
-import { useSession } from '@/hooks/useSession';
-
-import MoonIcon from '@/assets/icons/ic-moon.svg';
-import SunIcon from '@/assets/icons/ic-sun.svg';
-import { useTranslation } from 'next-i18next';
+import { useSession } from '@/hooks/use-session';
+import { logout } from '@/mutations/auth';
+import { useSWRConfig } from 'swr';
 
 export const MainNavigation: FC = () => {
 	const { t } = useTranslation(['common', 'mainNavigation']);
 	const { colorMode, toggleColorMode } = useColorMode();
 	const toast = useToast();
+	const { cache } = useSWRConfig();
+	const store = useClient();
 
-	const { user, logout } = useSession();
+	const { data } = useSession();
 
-	const handleLogout = useCallback(async () => {
-		try {
-			await logout();
-		} catch (errorResponse) {
+	const [handleLogout] = useMutation(logout, {
+		onFailure: ({ error: errorResponse }) => {
 			if (errorResponse instanceof Response) {
 				const { error } = errorResponse;
 				const message = error instanceof Error ? error.message : error[0].detail;
 				toast({ title: message, status: 'error' });
 			}
-		}
-	}, [logout, toast]);
+		},
+		onSuccess: () => {
+			// @ts-ignore
+			cache.clear();
+			store.reset();
+		},
+	});
 
 	return (
 		<NavigationWrapper>
@@ -53,7 +59,7 @@ export const MainNavigation: FC = () => {
 				</LinkBox>
 				<Heading size="lg">{t('mainNavigation:heading')}</Heading>
 				<HStack>
-					{user ? (
+					{data?.data.user ? (
 						<Button aria-label="Log out from this page" onClick={handleLogout}>
 							{t('mainNavigation:auth.logout.label')}
 						</Button>
@@ -64,7 +70,7 @@ export const MainNavigation: FC = () => {
 					)}
 					<IconButton
 						aria-label="Toggle color mode"
-						icon={<Icon as={colorMode === 'light' ? MoonIcon : SunIcon} w="16px" />}
+						icon={<Icon as={colorMode === 'light' ? FaMoon : FaSun} w="16px" />}
 						onClick={toggleColorMode}
 					/>
 				</HStack>

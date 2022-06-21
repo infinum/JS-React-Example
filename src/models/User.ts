@@ -2,7 +2,7 @@ import { Attribute, PureModel } from '@datx/core';
 import { jsonapiModel } from '@datx/jsonapi';
 
 export class User extends jsonapiModel(PureModel) {
-	public static readonly type = 'user';
+	public static readonly type = 'users';
 
 	@Attribute({ isIdentifier: true })
 	public id!: string | number;

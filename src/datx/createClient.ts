@@ -12,7 +12,7 @@ export class JsonapiSwrClient extends jsonapiSwrClient(Collection) {
 }
 
 export function createClient() {
-	config.baseUrl = process.env.NEXT_PUBLIC_JSONAPI_URL as string;
+	config.baseUrl = process.env.NEXT_PUBLIC_API_ENDPOINT as string;
 	config.cache = CachingStrategy.NetworkOnly;
 	config.defaultFetchOptions = {
 		headers: {
