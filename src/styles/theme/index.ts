@@ -12,14 +12,17 @@ const overrides = {
 		body: 'GT Haptik',
 		heading: 'GT Haptik',
 	},
-	sizes: {
-		sm: '400px',
-		md: '560px',
-		lg: '800px',
-	},
 	components: {
 		Container,
 		Heading,
+	},
+	semanticTokens: {
+		colors: {
+			'bg-surface': {
+				default: 'white',
+				_dark: 'gray.800',
+			},
+		},
 	},
 };
 

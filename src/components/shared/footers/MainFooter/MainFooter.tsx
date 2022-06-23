@@ -1,14 +1,12 @@
 import React, { FC } from 'react';
-import { Container, Text } from '@chakra-ui/react';
-
-import { FooterWrapper } from './MainFooter.elements';
+import { Box, Container, Text } from '@chakra-ui/react';
 
 export const MainFooter: FC = () => {
 	return (
-		<FooterWrapper>
+		<Box w="100%" px={6}>
 			<Container>
-				<Text textAlign="center">© 2021 Infinum Inc.</Text>
+				<Text textAlign="center">© 2022 Infinum Inc.</Text>
 			</Container>
-		</FooterWrapper>
+		</Box>
 	);
 };

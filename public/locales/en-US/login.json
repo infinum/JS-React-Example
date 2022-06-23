@@ -1,13 +1,5 @@
 {
-	"heading": "Login",
-	"form": {
-		"submit": { "label": "Login" },
-		"required": "This field is required",
-		"email": {
-			"label": "Email"
-		},
-		"password": {
-			"label": "Password"
-		}
-	}
+	"heading": "Log in to your account",
+	"registerMessage": "Don't have an account?",
+	"signUp": { "label": "Sign up" }
 }

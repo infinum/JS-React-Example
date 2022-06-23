@@ -15,20 +15,20 @@ import {
 import NextLink from 'next/link';
 import { Response } from '@datx/jsonapi';
 import { useMutation, useClient } from '@datx/swr';
+import { useSWRConfig } from 'swr';
 import { useTranslation } from 'next-i18next';
 import { FaMoon, FaSun } from 'react-icons/fa';
 
 import { NavigationWrapper } from './MainNavigation.elements';
 import { useSession } from '@/hooks/use-session';
 import { logout } from '@/mutations/auth';
-import { useSWRConfig } from 'swr';
 
 export const MainNavigation: FC = () => {
 	const { t } = useTranslation(['common', 'mainNavigation']);
 	const { colorMode, toggleColorMode } = useColorMode();
 	const toast = useToast();
 	const { cache } = useSWRConfig();
-	const store = useClient();
+	const client = useClient();
 
 	const { data } = useSession();
 
@@ -43,7 +43,7 @@ export const MainNavigation: FC = () => {
 		onSuccess: () => {
 			// @ts-ignore
 			cache.clear();
-			store.reset();
+			client.reset();
 		},
 	});
 

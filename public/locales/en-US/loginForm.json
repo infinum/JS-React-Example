@@ -1,0 +1,10 @@
+{
+	"submit": { "label": "Sign in" },
+	"required": "This field is required",
+	"email": {
+		"label": "Email"
+	},
+	"password": {
+		"label": "Password"
+	}
+}

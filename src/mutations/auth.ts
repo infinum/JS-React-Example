@@ -1,4 +1,4 @@
-import { JsonapiSwrClient } from '@/datx/createClient';
+import { JsonapiSwrClient } from '@/datx/create-client';
 import { Session } from '@/models/Session';
 
 export const login = (client: JsonapiSwrClient, data) =>

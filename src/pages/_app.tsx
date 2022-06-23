@@ -4,7 +4,7 @@ import React, { ReactElement } from 'react';
 import type { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
 import { createFetcher, DatxProvider, useInitialize } from '@datx/swr';
-import { createClient } from '../datx/createClient';
+import { createClient } from '../datx/create-client';
 import { appWithTranslation } from 'next-i18next';
 import { SWRConfig } from 'swr';
 import nextI18nConfig from '../../next-i18next.config';
