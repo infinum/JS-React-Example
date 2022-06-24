@@ -1,39 +1,33 @@
 import React from 'react';
-import { GetServerSideProps, NextPage } from 'next';
+import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { Container } from '@chakra-ui/react';
 
 import { MainLayout } from '@/components/shared/layouts/MainLayout/MainLayout';
-import { ITodo } from '@/interfaces/ITodo';
-import { Todo } from '@/components/shared/todo/Todo';
+import { Hydrate } from '@datx/swr';
+import { createClient } from '@/datx/create-client';
+import { HomeHeaderSection } from '@/components/features/home/HomeHeaderSection/HomeHeaderSection';
 
-interface IHomeProps {
-	todos: Array<ITodo>;
-}
+type HomeProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
-const Home: NextPage<IHomeProps> = ({ todos }) => {
+const Home: NextPage<HomeProps> = ({ fallback }) => {
 	return (
-		<MainLayout>
-			<Container py={5}>
-				{todos.map((todo) => (
-					<Todo key={todo.id} todo={todo} />
-				))}
-			</Container>
-		</MainLayout>
+		<Hydrate fallback={fallback}>
+			<MainLayout>
+				<HomeHeaderSection />
+			</MainLayout>
+		</Hydrate>
 	);
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+	const client = createClient();
+
+	const { fallback } = client;
+
 	return {
 		props: {
 			...(await serverSideTranslations(String(locale), ['common', 'mainNavigation'])),
-			todos: [
-				{
-					id: 1,
-					title: 'Task #1',
-					body: 'Implement Datx methods for getServerSideProps!',
-				},
-			],
+			fallback,
 		},
 	};
 };

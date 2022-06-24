@@ -21,23 +21,14 @@ export const FlightListSection: FC = () => {
 			: null
 	);
 
-	// if (error) {
-	// 	throw { statusCode: 404 };
-	// }
-
-	if (!data) {
-		return <LoadingMessage />;
-	}
-
 	return (
-		<Container>
+		<Container minW="container.lg" py={10}>
 			<Box as="section">
-				<Heading as="h1" my={10}>
+				<Heading as="h1" mb={3} size="lg">
 					All flights
 				</Heading>
 
-				<Divider mb={10} />
-				{data.data.length > 0 ? (
+				{data?.data.length > 0 ? (
 					<Fragment>
 						<FlightList flightList={data.data} />
 						{/* <BasicPagination hasNext={hasNext} hasPrev={hasPrev} onNext={next} onPrev={prev} current={1} total={10} /> */}

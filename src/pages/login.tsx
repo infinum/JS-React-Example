@@ -1,7 +1,6 @@
 import React from 'react';
 import { NextPage, GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'next-i18next';
 
 import { Login } from '@/components/features/login/Login/Login';
 import { AuthLayout } from '@/components/shared/layouts/AuthLayout/AuthLayout';

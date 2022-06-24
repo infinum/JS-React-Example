@@ -5,7 +5,7 @@ export interface ICardProps extends StyleProps {}
 export const Card = forwardRef<ICardProps, 'div'>((props, ref) => {
 	return (
 		<chakra.div
-			bg="bg-surface"
+			bg="chakra-body-bg"
 			borderRadius={{ base: 'md', sm: 'xl' }}
 			_dark={{
 				shadow: { base: 'md', sm: 'md-dark' },

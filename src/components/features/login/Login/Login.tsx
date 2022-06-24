@@ -11,7 +11,7 @@ export const Login: FC<ILoginProps> = () => {
 	const { t } = useTranslation('login');
 
 	return (
-		<Container maxW="sm" px={{ base: 3, sm: 8 }} py={{ base: '12', md: '10' }}>
+		<Container minW="container.sm" px={{ base: 3, sm: 8 }} py={{ base: '12', md: '10' }}>
 			<Stack spacing="8">
 				<Stack spacing="6">
 					<Stack textAlign="center" spacing={{ base: '2', md: '3' }}>

@@ -6,10 +6,10 @@ import {
 	useColorMode,
 	IconButton,
 	Button,
-	LinkBox,
-	LinkOverlay,
 	useToast,
 	Icon,
+	Container,
+	Box,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { Response } from '@datx/jsonapi';
@@ -47,15 +47,13 @@ export const MainNavigation: FC = () => {
 	});
 
 	return (
-		<Navigation>
-			<Flex align="center" justify="space-between">
-				<LinkBox>
-					<NextLink href="/" passHref>
-						<LinkOverlay>
-							<Image htmlWidth="64px" src="/images/logo-infinum.png" />
-						</LinkOverlay>
-					</NextLink>
-				</LinkBox>
+		<Box as="nav" shadow="md">
+			<Container as={Flex} align="center" justify="space-between" maxW="container.lg" py={4}>
+				<NextLink href="/" passHref>
+					<a>
+						<Image htmlWidth="64px" src="/images/logo-infinum.png" />
+					</a>
+				</NextLink>
 
 				<HStack>
 					<NextLink href="/" passHref>
@@ -82,7 +80,7 @@ export const MainNavigation: FC = () => {
 						onClick={toggleColorMode}
 					/>
 				</HStack>
-			</Flex>
-		</Navigation>
+			</Container>
+		</Box>
 	);
 };
