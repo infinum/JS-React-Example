@@ -1,6 +1,5 @@
 import React from 'react';
 import { NextPage } from 'next';
-
 import { MainLayout } from '@/components/shared/layouts/MainLayout/MainLayout';
 import { FlightListSection } from '@/components/features/flights/FlightListSection/FlightListSection';
 import { AuthRedirect } from '@/components/shared/utilities/AuthRedirect/AuthRedirect';

@@ -6,7 +6,6 @@ import {
 	useColorMode,
 	IconButton,
 	Button,
-	Heading,
 	LinkBox,
 	LinkOverlay,
 	useToast,
@@ -19,7 +18,7 @@ import { useSWRConfig } from 'swr';
 import { useTranslation } from 'next-i18next';
 import { FaMoon, FaSun } from 'react-icons/fa';
 
-import { NavigationWrapper } from './MainNavigation.elements';
+import { Navigation, NavLink } from './MainNavigation.elements';
 import { useSession } from '@/hooks/use-session';
 import { logout } from '@/mutations/auth';
 
@@ -48,7 +47,7 @@ export const MainNavigation: FC = () => {
 	});
 
 	return (
-		<NavigationWrapper>
+		<Navigation>
 			<Flex align="center" justify="space-between">
 				<LinkBox>
 					<NextLink href="/" passHref>
@@ -57,7 +56,16 @@ export const MainNavigation: FC = () => {
 						</LinkOverlay>
 					</NextLink>
 				</LinkBox>
-				<Heading size="lg">{t('mainNavigation:heading')}</Heading>
+
+				<HStack>
+					<NextLink href="/" passHref>
+						<NavLink>Home</NavLink>
+					</NextLink>
+					<NextLink href="/flights" passHref>
+						<NavLink>Flights</NavLink>
+					</NextLink>
+				</HStack>
+
 				<HStack>
 					{data?.data.user ? (
 						<Button aria-label="Log out from this page" onClick={handleLogout}>
@@ -75,6 +83,6 @@ export const MainNavigation: FC = () => {
 					/>
 				</HStack>
 			</Flex>
-		</NavigationWrapper>
+		</Navigation>
 	);
 };

@@ -21,9 +21,9 @@ export const FlightListSection: FC = () => {
 			: null
 	);
 
-	if (error) {
-		throw { statusCode: 404 };
-	}
+	// if (error) {
+	// 	throw { statusCode: 404 };
+	// }
 
 	if (!data) {
 		return <LoadingMessage />;
