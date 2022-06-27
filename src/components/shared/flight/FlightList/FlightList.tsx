@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { StackProps, VStack } from '@chakra-ui/react';
 
 import { FlightCard } from '@/components/shared/flight/FlightCard/FlightCard';
-import { Flight } from '@/resources/Flight';
+import { Flight } from '@/models/Flight';
 
 interface IFlightListProps extends StackProps {
 	flightList: Array<Flight>;

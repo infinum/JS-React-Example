@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
 import { Heading, Stat, StatNumber, StatHelpText, Flex } from '@chakra-ui/react';
 import { format } from 'date-fns';
-
-import { Flight } from '@/resources/Flight';
+import { Flight } from '@/models/Flight';
 
 interface IFlightCardProps {
 	flight: Flight;

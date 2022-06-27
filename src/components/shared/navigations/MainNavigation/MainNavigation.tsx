@@ -18,7 +18,7 @@ import { useSWRConfig } from 'swr';
 import { useTranslation } from 'next-i18next';
 import { FaMoon, FaSun } from 'react-icons/fa';
 
-import { Navigation, NavLink } from './MainNavigation.elements';
+import { NavLink } from './MainNavigation.elements';
 import { useSession } from '@/hooks/use-session';
 import { logout } from '@/mutations/auth';
 
