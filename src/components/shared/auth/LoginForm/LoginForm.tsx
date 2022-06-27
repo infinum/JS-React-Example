@@ -1,12 +1,14 @@
 import React, { FC } from 'react';
-import { Box, BoxProps, Button } from '@chakra-ui/react';
-
+import { BoxProps, Button, Checkbox, HStack, Stack } from '@chakra-ui/react';
 import { InputField } from '@/components/shared/fields/InputField/InputField';
 import { useForm } from 'react-hook-form';
 import { setApiErrors } from '@/utils/setApiErrors';
-import { useSession } from '@/hooks/useSession';
 import { Response } from '@datx/jsonapi';
 import { useTranslation } from 'next-i18next';
+import { login } from '@/mutations/auth';
+import { useClient } from '@datx/swr';
+import { useSession } from '@/hooks/use-session';
+import { PasswordField } from '@/components/shared/fields/PasswordField/PasswordField';
 
 interface IFormValues {
 	email: string;
@@ -14,27 +16,29 @@ interface IFormValues {
 }
 
 export const LoginForm: FC<BoxProps> = () => {
-	const { t } = useTranslation('login');
+	const { t } = useTranslation('loginForm');
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 		setError,
 	} = useForm<IFormValues>();
-
-	const { login } = useSession();
+	const { mutate } = useSession();
+	const client = useClient();
 
 	async function onSubmit(formData: IFormValues) {
 		try {
 			const data = {
-				type: 'session',
-				id: '',
-				attributes: {
-					...formData,
+				data: {
+					type: 'session',
+					id: '',
+					attributes: {
+						...formData,
+					},
 				},
 			};
 
-			await login({ data });
+			await mutate(() => login(client, data), false);
 		} catch (errors) {
 			if (errors instanceof Response) {
 				setApiErrors(errors.error).forEach(({ name, type, message }) => setError(name, { type, message }));
@@ -43,18 +47,33 @@ export const LoginForm: FC<BoxProps> = () => {
 	}
 
 	return (
-		<Box as="form" onSubmit={handleSubmit(onSubmit)}>
-			<InputField
-				label={t('form.email.label')}
-				errors={errors}
-				{...register('email', { required: t('form.required') })}
-			/>
-			<InputField
-				label={t('form.password.label')}
-				errors={errors}
-				{...register('password', { required: t('form.required') })}
-			/>
-			<Button type="submit">{t('form.submit.label')}</Button>
-		</Box>
+		<Stack as="form" onSubmit={handleSubmit(onSubmit)} spacing="6">
+			<Stack spacing="5">
+				<InputField
+					label={t('email.label')}
+					errors={errors}
+					type="email"
+					{...register('email', { required: t('required') })}
+				/>
+				<PasswordField
+					label={t('password.label')}
+					errors={errors}
+					{...register('password', { required: t('required') })}
+				/>
+			</Stack>
+			<HStack justify="space-between">
+				<Checkbox colorScheme="red" defaultChecked>
+					Remember me
+				</Checkbox>
+				<Button colorScheme="red" size="sm" variant="link">
+					Forgot password?
+				</Button>
+			</HStack>
+			<Stack spacing="6">
+				<Button colorScheme="red" type="submit">
+					{t('submit.label')}
+				</Button>
+			</Stack>
+		</Stack>
 	);
 };

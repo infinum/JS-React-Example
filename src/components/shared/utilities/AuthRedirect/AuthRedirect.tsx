@@ -2,8 +2,8 @@ import { FC, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { UrlObject } from 'url';
 
-import { useSession } from '@/hooks/useSession';
-import { Session } from '@/resources/Session';
+import { useSession } from '@/hooks/use-session';
+import { Session } from '@/models/Session';
 
 interface IAuthRedirectProps {
 	/**
@@ -23,7 +23,7 @@ interface IAuthRedirectProps {
 }
 
 export const AuthRedirect: FC<IAuthRedirectProps> = ({ to, ifFound, condition }) => {
-	const { session, isValidating, error } = useSession();
+	const { data, isValidating, error } = useSession();
 	const router = useRouter();
 
 	useEffect(() => {
@@ -33,7 +33,7 @@ export const AuthRedirect: FC<IAuthRedirectProps> = ({ to, ifFound, condition })
 		}
 
 		// https://swr.vercel.app/advanced/performance#dependency-collection
-		const hydration = session === undefined && error === undefined && isValidating === false;
+		const hydration = data === undefined && error === undefined && isValidating === false;
 
 		// if user data not yet there (fetch in progress, logged in or not) then don't do anything yet
 		if (hydration) {
@@ -41,12 +41,12 @@ export const AuthRedirect: FC<IAuthRedirectProps> = ({ to, ifFound, condition })
 		}
 
 		// `condition` has a priority over a `ifFound` property
-		const shouldRedirect = condition ? condition(session) : (ifFound && session) || (!ifFound && !session);
+		const shouldRedirect = condition ? condition(data.data) : (ifFound && data) || (!ifFound && !data);
 
 		if (shouldRedirect) {
 			router.push(to);
 		}
-	}, [session, ifFound, to, error, isValidating, router, condition]);
+	}, [data, ifFound, to, error, isValidating, router, condition]);
 
 	// this component renders nothing since it is only used to redirect if needed
 	return null;

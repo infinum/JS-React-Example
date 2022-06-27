@@ -1,6 +1,7 @@
 {
-	"extends": ["@infinumjs/eslint-config-react-ts", "plugin:@next/next/recommended"],
+	"extends": ["plugin:@next/next/recommended"],
 	"plugins": ["chakra-ui"],
+	"parser": "@typescript-eslint/parser",
 	"overrides": [
 		{
 			"files": ["*.ts", "*.tsx"],
@@ -15,6 +16,5 @@
 		"chakra-ui/require-specific-component": "error",
 		"newline-before-return": "error",
 		"padding-line-between-statements": ["error", { "blankLine": "always", "prev": "*", "next": "if" }]
-	},
-	"parser": "@typescript-eslint/parser"
+	}
 }

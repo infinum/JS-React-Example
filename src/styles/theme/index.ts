@@ -2,8 +2,6 @@ import { extendTheme } from '@chakra-ui/react';
 
 import { styles } from './styles';
 import { colors } from './foundations/colors';
-import { Container } from './components/container';
-import { Heading } from './components/heading';
 
 const overrides = {
 	styles,
@@ -12,14 +10,13 @@ const overrides = {
 		body: 'GT Haptik',
 		heading: 'GT Haptik',
 	},
-	sizes: {
-		sm: '400px',
-		md: '560px',
-		lg: '800px',
-	},
-	components: {
-		Container,
-		Heading,
+	semanticTokens: {
+		colors: {
+			'bg-surface': {
+				default: 'gray.100',
+				_dark: 'gray.700',
+			},
+		},
 	},
 };
 

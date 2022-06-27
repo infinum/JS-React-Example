@@ -38,19 +38,16 @@ Project repository
 
 ## Deployment
 
-TBD
+- [Infinum Handbook - Deployment](https://infinum.com/handbook/frontend/git/deployment)
 
 ## Git workflow
 
-TBD
+- [Infinum Handbook - Branching](https://infinum.com/handbook/frontend/git/branching)
 
 ## Styleguide
 
 This project is using the styleguide as defined in the [Infinum Handbook](https://infinum.com/handbook/frontend/react/chakra-ui).
 
-## Team
+## Project Structure
 
-Once you're onboarded to the project add your self to the list and mention in
-short what you worked on:
-
-- Darko Kukovec (project setup; 2020)
+- [Infinum Handbook - Project Structure](https://infinum.com/handbook/frontend/react/project-structure)

@@ -16,8 +16,7 @@
 		"jsx": "preserve",
 		"baseUrl": ".",
 		"paths": {
-			"@/*": ["src/*"],
-			"@datx/jsonapi-react": ["src/libs/@datx/jsonapi-react"]
+			"@/*": ["src/*"]
 		},
 		"incremental": true
 	},

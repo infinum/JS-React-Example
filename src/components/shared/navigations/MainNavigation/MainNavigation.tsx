@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC } from 'react';
 import {
 	HStack,
 	Flex,
@@ -6,54 +6,66 @@ import {
 	useColorMode,
 	IconButton,
 	Button,
-	Heading,
-	LinkBox,
-	LinkOverlay,
 	useToast,
 	Icon,
+	Container,
+	Box,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { Response } from '@datx/jsonapi';
-
-import { NavigationWrapper } from './MainNavigation.elements';
-import { useSession } from '@/hooks/useSession';
-
-import MoonIcon from '@/assets/icons/ic-moon.svg';
-import SunIcon from '@/assets/icons/ic-sun.svg';
+import { useMutation, useClient } from '@datx/swr';
+import { useSWRConfig } from 'swr';
 import { useTranslation } from 'next-i18next';
+import { FaMoon, FaSun } from 'react-icons/fa';
+
+import { NavLink } from './MainNavigation.elements';
+import { useSession } from '@/hooks/use-session';
+import { logout } from '@/mutations/auth';
 
 export const MainNavigation: FC = () => {
 	const { t } = useTranslation(['common', 'mainNavigation']);
 	const { colorMode, toggleColorMode } = useColorMode();
 	const toast = useToast();
+	const { cache } = useSWRConfig();
+	const client = useClient();
 
-	const { user, logout } = useSession();
+	const { data } = useSession();
 
-	const handleLogout = useCallback(async () => {
-		try {
-			await logout();
-		} catch (errorResponse) {
+	const [handleLogout] = useMutation(logout, {
+		onFailure: ({ error: errorResponse }) => {
 			if (errorResponse instanceof Response) {
 				const { error } = errorResponse;
 				const message = error instanceof Error ? error.message : error[0].detail;
 				toast({ title: message, status: 'error' });
 			}
-		}
-	}, [logout, toast]);
+		},
+		onSuccess: () => {
+			// @ts-ignore
+			cache.clear();
+			client.reset();
+		},
+	});
 
 	return (
-		<NavigationWrapper>
-			<Flex align="center" justify="space-between">
-				<LinkBox>
-					<NextLink href="/" passHref>
-						<LinkOverlay>
-							<Image htmlWidth="64px" src="/images/logo-infinum.png" />
-						</LinkOverlay>
-					</NextLink>
-				</LinkBox>
-				<Heading size="lg">{t('mainNavigation:heading')}</Heading>
+		<Box as="nav" shadow="md">
+			<Container as={Flex} align="center" justify="space-between" maxW="container.lg" py={4}>
+				<NextLink href="/" passHref>
+					<a>
+						<Image htmlWidth="64px" src="/images/logo-infinum.png" />
+					</a>
+				</NextLink>
+
 				<HStack>
-					{user ? (
+					<NextLink href="/" passHref>
+						<NavLink>Home</NavLink>
+					</NextLink>
+					<NextLink href="/flights" passHref>
+						<NavLink>Flights</NavLink>
+					</NextLink>
+				</HStack>
+
+				<HStack>
+					{data?.data.user ? (
 						<Button aria-label="Log out from this page" onClick={handleLogout}>
 							{t('mainNavigation:auth.logout.label')}
 						</Button>
@@ -64,11 +76,11 @@ export const MainNavigation: FC = () => {
 					)}
 					<IconButton
 						aria-label="Toggle color mode"
-						icon={<Icon as={colorMode === 'light' ? MoonIcon : SunIcon} w="16px" />}
+						icon={<Icon as={colorMode === 'light' ? FaMoon : FaSun} w="16px" />}
 						onClick={toggleColorMode}
 					/>
 				</HStack>
-			</Flex>
-		</NavigationWrapper>
+			</Container>
+		</Box>
 	);
 };

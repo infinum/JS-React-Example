@@ -1,18 +1,35 @@
 import React from 'react';
-import { NextPage } from 'next';
+import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import { MainLayout } from '@/components/shared/layouts/MainLayout/MainLayout';
-import { FlightListSection } from '@/components/pages/flights/FlightListSection/FlightListSection';
-import { AuthRedirect } from '@/components/shared/utilities/AuthRedirect/AuthRedirect';
+import { FlightListSection } from '@/components/features/flights/FlightListSection/FlightListSection';
+import { Hydrate } from '@datx/swr';
+import { createClient } from '@/datx/create-client';
 
-const Flights: NextPage = () => {
+type HomeProps = InferGetServerSidePropsType<typeof getServerSideProps>;
+
+const Home: NextPage<HomeProps> = ({ fallback }) => {
 	return (
-		<MainLayout>
-			<AuthRedirect to="/login" />
-
-			<FlightListSection />
-		</MainLayout>
+		<Hydrate fallback={fallback}>
+			<MainLayout>
+				<FlightListSection />
+			</MainLayout>
+		</Hydrate>
 	);
 };
 
-export default Flights;
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+	const client = createClient();
+
+	const { fallback } = client;
+
+	return {
+		props: {
+			...(await serverSideTranslations(String(locale), ['common', 'mainNavigation'])),
+			fallback,
+		},
+	};
+};
+
+export default Home;

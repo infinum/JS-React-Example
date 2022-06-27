@@ -1,4 +1,4 @@
-import { FC, Fragment, ReactNode } from 'react';
+import { FC, Fragment, ReactNode, Suspense } from 'react';
 
 import { MainNavigation } from '@/components/shared/navigations/MainNavigation/MainNavigation';
 import { Meta } from '@/components/shared/utilities/Meta/Meta';
@@ -11,7 +11,9 @@ interface IMainLayoutProps {
 export const MainLayout: FC<IMainLayoutProps> = ({ children }) => (
 	<Fragment>
 		<Meta />
-		<MainNavigation />
+		<Suspense fallback={null}>
+			<MainNavigation />
+		</Suspense>
 		{children}
 		<MainFooter />
 	</Fragment>
