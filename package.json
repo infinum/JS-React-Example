@@ -16,7 +16,8 @@
 		"analyze:sourcemap": "source-map-explorer .next/static/**/*.js",
 		"prepare": "husky install",
 		"gen:theme-typings": "chakra-cli tokens ./src/styles/theme/index.ts",
-		"postinstall": "npm run gen:theme-typings"
+		"postinstall": "npm run gen:theme-typings",
+		"i18n:generate": "node ./scripts/i18next-cli.js"
 	},
 	"dependencies": {
 		"@chakra-ui/react": "^2.2.1",
