@@ -26,7 +26,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
 
 	return {
 		props: {
-			...(await serverSideTranslations(String(locale), ['common', 'mainNavigation'])),
+			...(await serverSideTranslations(String(locale), ['common', 'main-navigation'])),
 			fallback,
 		},
 	};

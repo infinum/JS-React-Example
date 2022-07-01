@@ -8,10 +8,20 @@ const defaultNS = 'common';
 const readPath = path.join(__dirname, '..', 'public', 'locales', defaultLocale);
 const savePath = path.join(__dirname, '..', 'typings', 'react-i18next.d.ts');
 
+const getNameData = (name) => {
+	const isKebabCase = name.includes('-');
+	const importName = isKebabCase ? name.replace(/-([a-z])/g, (g) => g[1].toUpperCase()) : name;
+	const safePropName = isKebabCase ? `["${name}"]` : name;
+
+	return { name, importName, safePropName };
+};
+
 const generate = (names) => `// NOTE: this file is generated with "npm run i18n:generate" command
 
 import 'react-i18next';
-${names.map((name) => `import ${name} from 'public/locales/${defaultLocale}/${name}.json';`).join('\n')}
+${names
+	.map((nameObj) => `import ${nameObj.importName} from 'public/locales/${defaultLocale}/${nameObj.name}.json';`)
+	.join('\n')}
 
 declare module 'react-i18next' {
 	// eslint-disable-next-line @typescript-eslint/naming-convention
@@ -20,7 +30,7 @@ declare module 'react-i18next' {
 		defaultNS: '${defaultNS}';
 		// custom resources type
 		resources: {
-			${names.map((name) => `${name}: typeof ${name};`).join('\n\t\t\t')}
+			${names.map((nameObj) => `${nameObj.safePropName}: typeof ${nameObj.importName};`).join('\n\t\t\t')}
 		};
 	}
 }
@@ -31,7 +41,7 @@ fs.readdir(readPath, (err, files) => {
 		return console.log(`Unable to scan directory: ${err}`);
 	}
 
-	const names = files.map((file) => file.replace('.json', ''));
+	const names = files.map((file) => getNameData(file.replace('.json', '')));
 	const template = generate(names);
 
 	fs.writeFile(savePath, template, (err) => {

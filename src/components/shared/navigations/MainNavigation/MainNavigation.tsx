@@ -23,7 +23,7 @@ import { useSession } from '@/hooks/use-session';
 import { logout } from '@/mutations/auth';
 
 export const MainNavigation: FC = () => {
-	const { t } = useTranslation(['common', 'mainNavigation']);
+	const { t } = useTranslation(['common', 'main-navigation']);
 	const { colorMode, toggleColorMode } = useColorMode();
 	const toast = useToast();
 	const { cache } = useSWRConfig();
@@ -67,11 +67,11 @@ export const MainNavigation: FC = () => {
 				<HStack>
 					{data?.data.user ? (
 						<Button aria-label="Log out from this page" onClick={handleLogout}>
-							{t('mainNavigation:auth.logout.label')}
+							{t('main-navigation:auth.logout.label')}
 						</Button>
 					) : (
 						<Button as="a" href="/login">
-							{t('mainNavigation:auth.login.label')}
+							{t('main-navigation:auth.login.label')}
 						</Button>
 					)}
 					<IconButton
