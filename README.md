@@ -28,6 +28,8 @@ Use one of the user credentials to log in into the application
 
 ## API
 
+Cekila = Cedevita + Tekila
+
 Documentation
 
 - https://cekila.byinfinum.co/api/v1/docs/index.html
@@ -35,6 +37,7 @@ Documentation
 Project repository
 
 - https://github.com/infinum/rails-jsonapi-example-app
+
 
 ## Deployment
 
