@@ -32,7 +32,7 @@ Cekila = Cedevita + Tekila
 
 Documentation
 
-- https://cekila.byinfinum.co/api/v1/docs/index.html
+- https://cekila.infinum.co/api/v1/docs/index.html
 
 Project repository
 
