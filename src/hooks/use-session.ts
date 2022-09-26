@@ -5,7 +5,7 @@ import { Session } from '@/models/Session';
 export const sessionExpression = {
 	op: 'getOne',
 	type: Session.type,
-	id: 'me',
+	id: 'current',
 	queryParams: { include: 'user' },
 } as const;
 

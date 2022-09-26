@@ -1,5 +1,19 @@
 # React Example project
 
+## Technology
+
+- [Next.js](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Datx](https://datx.dev/)
+- [JSON:API](https://jsonapi.org/)
+- [SWR](https://swr.vercel.app/)
+- [Chakra UI](https://chakra-ui.com/)
+- [React Hook Form](https://react-hook-form.com/)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) and [Jest](https://jestjs.io/) for unit and integration tests
+- [Storybook](https://storybook.js.org/)
+- [I18Next](https://www.i18next.com/)
+- [Hygen Templates](https://www.hygen.io/)
+
 ## Project setup
 
 ```bash
@@ -32,7 +46,7 @@ Cekila = Cedevita + Tekila
 
 Documentation
 
-- https://cekila.byinfinum.co/api/v1/docs/index.html
+- https://cekila.infinum.co/api/v1/docs/index.html
 
 Project repository
 
