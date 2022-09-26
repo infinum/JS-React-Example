@@ -13,7 +13,7 @@ switch (process.env.PROXY_ENV) {
 		apiUrl = 'https://uat.example.com';
 		break;
 	default:
-		apiUrl = 'https://cekila.byinfinum.co/';
+		apiUrl = 'https://cekila.infinum.co';
 }
 
 const proxy = createProxyMiddleware({
