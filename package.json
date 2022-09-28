@@ -5,6 +5,7 @@
 	"scripts": {
 		"dev": "PROXY_ENV=development next dev",
 		"build": "next build",
+		"postbuild": "next-sitemap",
 		"start": "next start",
 		"lint": "eslint . --ext .js,.jsx,.ts,.tsx,.d.ts",
 		"lint:next": "next lint",
@@ -39,6 +40,7 @@
 		"next": "^12.1.6",
 		"next-compose-plugins": "^2.2.1",
 		"next-i18next": "^11.0.0",
+		"next-sitemap": "^3.1.23",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-hook-form": "^7.32.2",

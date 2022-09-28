@@ -14,6 +14,11 @@
 - [I18Next](https://www.i18next.com/)
 - [Hygen Templates](https://www.hygen.io/)
 
+## Next.js plugins
+
+- [next-i18next](https://github.com/i18next/next-i18next)
+- [next-sitemap](https://github.com/iamvishnusankar/next-sitemap)
+
 ## Project setup
 
 ```bash
@@ -51,7 +56,6 @@ Documentation
 Project repository
 
 - https://github.com/infinum/rails-jsonapi-example-app
-
 
 ## Deployment
 

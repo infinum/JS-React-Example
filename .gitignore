@@ -34,5 +34,6 @@ yarn-error.log*
 .vercel
 .env
 
-# kurier
-./api/data/dev.sqlite3
+# sitemaps
+public/sitemap*.xml
+public/robots.txt
