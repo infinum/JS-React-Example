@@ -18,7 +18,8 @@
 		"prepare": "husky install",
 		"gen:theme-typings": "chakra-cli tokens ./src/styles/theme/index.ts",
 		"postinstall": "npm run gen:theme-typings",
-		"i18n:generate": "node ./scripts/i18next-cli.js"
+		"i18n:generate": "node ./scripts/i18next-cli.js",
+		"create:pkg": "plop component"
 	},
 	"dependencies": {
 		"@chakra-ui/react": "~2.3.4",
@@ -74,6 +75,7 @@
 		"lint-staged": "~13.0.3",
 		"msw": "~0.47.3",
 		"msw-storybook-addon": "~1.6.3",
+		"plop": "~3.1.1",
 		"prettier": "~2.7.1",
 		"source-map-explorer": "~2.5.3",
 		"tsconfig-paths-webpack-plugin": "~4.0.0",
