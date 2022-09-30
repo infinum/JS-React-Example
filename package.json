@@ -19,7 +19,7 @@
 		"gen:theme-typings": "chakra-cli tokens ./src/styles/theme/index.ts",
 		"postinstall": "npm run gen:theme-typings",
 		"i18n:generate": "node ./scripts/i18next-cli.js",
-		"create:pkg": "plop component"
+		"gen:component": "plop component"
 	},
 	"dependencies": {
 		"@chakra-ui/react": "~2.3.4",
