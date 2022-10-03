@@ -45,22 +45,38 @@ module.exports = function projectStructure(plop, config) {
 
 			if (!answers) return actions;
 
-			const { rootDomain, componentName } = answers;
+			const { rootDomain, name } = answers;
 
 			actions.push({
 				type: 'addMany',
 				destination: `${base}/components/{{rootDomain}}/{{pascalCase name}}`,
 				templateFiles: 'templates/component/{{rootDomain}}/{{coreType}}/**',
 				base: 'templates/component/{{rootDomain}}/{{coreType}}',
-				data: { componentName },
+				data: { name },
 				abortOnFail: true,
 			});
 
 			if (rootDomain === CORE_DOMAIN) {
 				actions.push({
 					type: 'add',
-					destination: `${base}/styles/theme/components/test.ts`,
-					template: 'templates/theme/core/single-part/theme.hbs',
+					path: `${base}/styles/theme/components/{{dashCase name}}.ts`,
+					templateFile: 'templates/theme/core/theme-{{coreType}}.hbs',
+				});
+
+				actions.push({
+					type: 'modify',
+					path: `${base}/styles/theme/index.ts`,
+					pattern: /\/\/ -- PLOP:IMPORT_COMPONENT_THEME --/gi,
+					template: `import {{pascalCase name}} from './components/{{dashCase name}}';\n// -- PLOP:IMPORT_COMPONENT_THEME --`,
+					data: { name },
+				});
+
+				actions.push({
+					type: 'modify',
+					path: `${base}/styles/theme/index.ts`,
+					pattern: /\/\/ -- PLOP:REGISTER_COMPONENT_THEME --/gi,
+					template: `{{pascalCase name}},\n		// -- PLOP:REGISTER_COMPONENT_THEME --`,
+					data: { name },
 				});
 			}
 

@@ -3,6 +3,8 @@ import { extendTheme } from '@chakra-ui/react';
 import { styles } from './styles';
 import { colors } from './foundations/colors';
 
+// -- PLOP:IMPORT_COMPONENT_THEME --
+
 const overrides = {
 	styles,
 	colors,
@@ -17,6 +19,9 @@ const overrides = {
 				_dark: 'gray.700',
 			},
 		},
+	},
+	components: {
+		// -- PLOP:REGISTER_COMPONENT_THEME --
 	},
 };
 

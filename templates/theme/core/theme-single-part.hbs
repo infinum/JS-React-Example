@@ -1,0 +1,26 @@
+import { mode } from '@chakra-ui/theme-tools';
+
+type Dict = Record<string, any>;
+
+function baseStyle(props: Dict) {
+  return {
+    color: mode(`${props.colorScheme}.500`, `${props.colorScheme}.200`)(props),
+  };
+}
+
+const defaultProps = {
+  // size: 'md',
+  colorScheme: 'violet',
+};
+
+export default {
+  baseStyle,
+  variants: {
+    // primary: {},
+  },
+  sizes: {
+    // md: {},
+    // sm: {},
+  },
+  defaultProps,
+};

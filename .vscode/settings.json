@@ -5,6 +5,11 @@
 	"[scss]": {
 		"editor.formatOnSave": false
 	},
+	"[handlebars]": {
+		"files.trimTrailingWhitespace": false,
+		"files.insertFinalNewline": false,
+		"editor.formatOnSave": false
+	},
 	"typescript.preferences.importModuleSpecifier": "non-relative",
 	"editor.codeActionsOnSave": ["source.fixAll.format", "source.fixAll.eslint"]
 }
