@@ -1,0 +1,10 @@
+{
+	"root": "src/components",
+	"rules": [
+		"core/*",
+		"shared/*/components",
+		"shared/*/*/components",
+		"features/*/components",
+		"features/*/*/components"
+	]
+}
