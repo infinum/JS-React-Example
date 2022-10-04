@@ -4,13 +4,13 @@ const FEATURE_DOMAIN = 'feature';
 const rootDomains = [CORE_DOMAIN, SHARED_DOMAIN, FEATURE_DOMAIN];
 
 /**
- * @param {import("plop").NodePlopAPI} plop
  * @param {{ base?: string }} config
+ * @returns {import("plop").GeneratorConfig}
  */
-module.exports = function projectStructure(plop, config) {
+module.exports = function component(config) {
 	const base = config?.base || './src';
 
-	plop.setGenerator('component', {
+	return {
 		description: 'Generates a Chakra UI component',
 		prompts: [
 			{
@@ -82,5 +82,5 @@ module.exports = function projectStructure(plop, config) {
 
 			return actions;
 		},
-	});
+	};
 };

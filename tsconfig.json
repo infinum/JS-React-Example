@@ -21,6 +21,6 @@
 		},
 		"incremental": true
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "scripts/plop/generators/theme.js"],
 	"exclude": ["node_modules"]
 }

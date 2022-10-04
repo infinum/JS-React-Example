@@ -1,4 +1,4 @@
-const projectStructure = require('./scripts/plop-react-project-structure');
+const projectStructure = require('./scripts/plop');
 
 /**
  * @param {import("plop").NodePlopAPI} plop

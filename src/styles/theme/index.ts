@@ -3,6 +3,8 @@ import { extendTheme } from '@chakra-ui/react';
 import { styles } from './styles';
 import { colors } from './foundations/colors';
 
+// -- PLOP:IMPORT_FOUNDATION_THEME --
+
 // -- PLOP:IMPORT_COMPONENT_THEME --
 
 const overrides = {
@@ -20,6 +22,7 @@ const overrides = {
 			},
 		},
 	},
+	// -- PLOP:REGISTER_FOUNDATION_THEME --
 	components: {
 		// -- PLOP:REGISTER_COMPONENT_THEME --
 	},

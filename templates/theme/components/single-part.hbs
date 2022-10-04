@@ -1,0 +1,42 @@
+import {
+  defineStyle,
+  defineStyleConfig,
+} from "@chakra-ui/styled-system";
+
+const baseStyle = defineStyle({});
+
+const variantGhost = defineStyle({});
+
+const variantOutline = defineStyle({});
+
+const variantSolid = defineStyle({});
+
+const variantLink = defineStyle({});
+
+const variantUnstyled = defineStyle({});
+
+const variants = {
+  ghost: variantGhost,
+  outline: variantOutline,
+  solid: variantSolid,
+  link: variantLink,
+  unstyled: variantUnstyled,
+}
+
+const sizes = {
+  lg: defineStyle({}),
+  md: defineStyle({}),
+  sm: defineStyle({}),
+  xs: defineStyle({}),
+}
+
+export const {{camelCase name}}Theme = defineStyleConfig({
+  baseStyle,
+  variants,
+  sizes,
+  defaultProps: {
+    variant: "solid",
+    size: "md",
+    colorScheme: "gray",
+  },
+});
