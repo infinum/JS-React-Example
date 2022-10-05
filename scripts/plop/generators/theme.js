@@ -5,9 +5,7 @@ const commands = [INIT_COMMAND, ADD_FOUNDATION_COMMAND, ADD_COMPONENT_COMMAND];
 
 const foundations = ['colors'];
 
-const SINGLE_PART_COMPONENT = 'single-part';
-const MULTI_PART_COMPONENT = 'multi-part';
-const componentTypes = [SINGLE_PART_COMPONENT, MULTI_PART_COMPONENT];
+const { componentTypes } = require('../constants');
 
 /**
  * @param {{ base?: string }} config

@@ -1,0 +1,17 @@
+import React, { ComponentProps } from 'react';
+// also exported from '@storybook/react' if you can deal with breaking changes in 6.1
+import { Story, Meta } from '@storybook/react/types-6-0';
+
+import { {{pascalCase name}} } from './{{pascalCase name}}';
+
+export default {
+  title: 'UI/core/{{pascalCase name}}',
+  component: {{pascalCase name}},
+} as Meta;
+
+const Template: Story<ComponentProps<typeof {{pascalCase name}}>> = (args) => <{{pascalCase name}} {...args} />;
+
+export const Basic = Template.bind({});
+Basic.args = {
+  /* the args you need here will depend on your component */
+};

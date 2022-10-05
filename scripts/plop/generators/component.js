@@ -3,6 +3,8 @@ const SHARED_DOMAIN = 'shared';
 const FEATURE_DOMAIN = 'feature';
 const rootDomains = [CORE_DOMAIN, SHARED_DOMAIN, FEATURE_DOMAIN];
 
+const { componentTypes } = require('../constants');
+
 /**
  * @param {{ base?: string }} config
  * @returns {import("plop").GeneratorConfig}
@@ -29,10 +31,10 @@ module.exports = function component(config) {
 			{
 				when: ({ rootDomain }) => rootDomain === CORE_DOMAIN,
 				type: 'list',
-				name: 'coreType',
+				name: 'componentType',
 				message: (answer) => `Enter ${answer.rootDomain} component type:`,
-				default: 'single-part',
-				choices: ['single-part', 'multi-part'],
+				default: componentTypes[0],
+				choices: componentTypes,
 			},
 			{
 				type: 'input',
@@ -50,8 +52,8 @@ module.exports = function component(config) {
 			actions.push({
 				type: 'addMany',
 				destination: `${base}/components/{{rootDomain}}/{{pascalCase name}}`,
-				templateFiles: 'templates/component/{{rootDomain}}/{{coreType}}/**',
-				base: 'templates/component/{{rootDomain}}/{{coreType}}',
+				templateFiles: 'templates/component/{{rootDomain}}/{{componentType}}/**',
+				base: 'templates/component/{{rootDomain}}/{{componentType}}',
 				data: { name },
 				abortOnFail: true,
 			});
@@ -60,14 +62,14 @@ module.exports = function component(config) {
 				actions.push({
 					type: 'add',
 					path: `${base}/styles/theme/components/{{dashCase name}}.ts`,
-					templateFile: 'templates/theme/core/theme-{{coreType}}.hbs',
+					templateFile: 'templates/theme/components/{{componentType}}.hbs',
 				});
 
 				actions.push({
 					type: 'modify',
 					path: `${base}/styles/theme/index.ts`,
 					pattern: /\/\/ -- PLOP:IMPORT_COMPONENT_THEME --/gi,
-					template: `import {{pascalCase name}} from './components/{{dashCase name}}';\n// -- PLOP:IMPORT_COMPONENT_THEME --`,
+					template: `import \{ {{camelCase name}}Theme as {{pascalCase name}} \} from './components/{{dashCase name}}';\n// -- PLOP:IMPORT_COMPONENT_THEME --`,
 					data: { name },
 				});
 
