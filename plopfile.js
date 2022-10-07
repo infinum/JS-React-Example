@@ -1,4 +1,4 @@
-const projectStructure = require('./scripts/plop');
+const projectStructure = require('@infinum/plop-next-folder-structure');
 
 /**
  * @param {import("plop").NodePlopAPI} plop
