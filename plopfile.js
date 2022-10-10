@@ -1,8 +1,8 @@
-const projectStructure = require('@infinum/plop-next-folder-structure');
+const init = require('@infinum/plop-next-ts-generators');
 
 /**
  * @param {import("plop").NodePlopAPI} plop
  */
 module.exports = function main(plop) {
-	projectStructure(plop);
+	init(plop);
 };

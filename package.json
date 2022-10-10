@@ -22,7 +22,7 @@
 		"gen:component": "plop component"
 	},
 	"dependencies": {
-		"@infinum/plop-next-folder-structure": "file:/Users/ivicabatinic/Documents/projects/js-react-nuts-and-bolts/packages/plop-next-folder-structure",
+		"@infinum/plop-next-ts-generators": "file:/Users/ivicabatinic/Documents/projects/react-nuts-and-bolts/packages/plop-next-ts-generators",
 		"@chakra-ui/react": "~2.3.4",
 		"@datx/core": "~2.5.0-beta.4",
 		"@datx/jsonapi": "~2.5.0-beta.5",
