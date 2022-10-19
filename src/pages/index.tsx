@@ -6,6 +6,11 @@ import { MainLayout } from '@/components/shared/layouts/MainLayout/MainLayout';
 import { Hydrate } from '@datx/swr';
 import { createClient } from '@/datx/create-client';
 import { HomeHeaderSection } from '@/components/features/home/HomeHeaderSection/HomeHeaderSection';
+import { query } from '@/libs/query';
+
+const QUERY = query((q) => q.findRecords('user').filter({ attribute: 'name', value: 'John' }));
+
+console.log(QUERY);
 
 type HomeProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
