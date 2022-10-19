@@ -19,7 +19,8 @@
 		"gen:theme-typings": "chakra-cli tokens ./src/styles/theme/index.ts",
 		"postinstall": "npm run gen:theme-typings",
 		"i18n:generate": "node ./scripts/i18next-cli.js",
-		"gen:component": "plop component"
+		"gen:component": "plop component",
+		"gen:theme": "plop theme"
 	},
 	"dependencies": {
 		"@chakra-ui/react": "~2.3.4",
@@ -49,6 +50,7 @@
 	},
 	"devDependencies": {
 		"@chakra-ui/cli": "~2.1.8",
+		"@infinum/plop-next-ts-generators": "~0.0.1-1",
 		"@infinumjs/eslint-config-react-ts": "~3.3.1",
 		"@next/bundle-analyzer": "~12.3.1",
 		"@next/eslint-plugin-next": "~12.3.1",
