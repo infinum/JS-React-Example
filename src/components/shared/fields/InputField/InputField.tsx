@@ -12,7 +12,7 @@ export const InputField = forwardRef<IInputField, 'input'>(function InputField({
 	return (
 		<FormControl id={name} isInvalid={errors[name]}>
 			<FormLabel htmlFor={name}>{label}</FormLabel>
-			<Input ref={ref} errorBorderColor="red" name={name} {...rest} />
+			<Input ref={ref} name={name} {...rest} />
 			<FormErrorMessage color="red">
 				<ErrorMessage errors={errors} name={name} />
 			</FormErrorMessage>

@@ -15,7 +15,7 @@ interface IFormValues {
 	password: string;
 }
 
-export const LoginForm: FC<BoxProps> = () => {
+export const LoginForm: FC<BoxProps> = (props) => {
 	const { t } = useTranslation('loginForm');
 	const {
 		register,
@@ -47,7 +47,7 @@ export const LoginForm: FC<BoxProps> = () => {
 	}
 
 	return (
-		<Stack as="form" onSubmit={handleSubmit(onSubmit)} spacing="6">
+		<Stack as="form" noValidate onSubmit={handleSubmit(onSubmit)} spacing="6" {...props}>
 			<Stack spacing="5">
 				<InputField
 					label={t('email.label')}
@@ -58,6 +58,7 @@ export const LoginForm: FC<BoxProps> = () => {
 				<PasswordField
 					label={t('password.label')}
 					errors={errors}
+					id="password"
 					{...register('password', { required: t('required') })}
 				/>
 			</Stack>
