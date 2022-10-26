@@ -4,11 +4,10 @@ import { jsonapiSwrClient } from '@datx/swr';
 
 import { Session } from '../models/Session';
 import { User } from '../models/User';
-import { Flight } from '../models/Flight';
 import { apify, deapify } from '@/utils/api-transformers';
 
 export class JsonapiSwrClient extends jsonapiSwrClient(Collection) {
-	public static types = [Session, User, Flight];
+	public static types = [Session, User];
 }
 
 export function createClient() {
