@@ -4,11 +4,8 @@ import Home from '@/pages/index';
 describe('Home', () => {
 	it('renders a heading', () => {
 		render(<Home />);
+		const hello = screen.getByText('Hello World');
 
-		const heading = screen.getByRole('heading', {
-			name: 'Todo',
-		});
-
-		expect(heading).toBeInTheDocument();
+		expect(hello).toBeInTheDocument();
 	});
 });
