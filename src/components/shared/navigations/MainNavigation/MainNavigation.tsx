@@ -50,18 +50,12 @@ export const MainNavigation: FC = () => {
 		<Box as="nav" shadow="md">
 			<Container as={Flex} align="center" justify="space-between" maxW="container.lg" py={4}>
 				<NextLink href="/" passHref>
-					<a>
-						<Image htmlWidth="64px" src="/images/logo-infinum.png" />
-					</a>
+					<Image htmlWidth="64px" src="/images/logo-infinum.png" />
 				</NextLink>
 
 				<HStack>
-					<NextLink href="/" passHref>
-						<NavLink>Home</NavLink>
-					</NextLink>
-					<NextLink href="/flights" passHref>
-						<NavLink>Flights</NavLink>
-					</NextLink>
+					<NavLink as={NextLink} href="/">Home</NavLink>
+					<NavLink as={NextLink} href="/flights">Flights</NavLink>
 				</HStack>
 
 				<HStack>
