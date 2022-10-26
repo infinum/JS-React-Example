@@ -2,7 +2,19 @@ import { IncomingMessage } from 'http';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-let apiUrl: string = 'http://localhost:8080';
+let apiUrl: string;
+
+switch (process.env.PROXY_ENV) {
+	// pick API endpoint depending on the PROXY_ENV, assign to apiUrl
+	case 'production':
+		apiUrl = 'https://production.example.com';
+		break;
+	case 'uat':
+		apiUrl = 'https://uat.example.com';
+		break;
+	default:
+		apiUrl = 'https://development.example.com';
+}
 
 const proxy = createProxyMiddleware({
 	target: apiUrl,

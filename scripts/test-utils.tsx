@@ -1,6 +1,6 @@
 import { FC, ReactElement, ReactNode } from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
-import { render, RenderOptions } from '@testing-library/react';
+import { render, RenderOptions, act } from '@testing-library/react';
 import { SWRConfig } from 'swr';
 import { I18nextProvider } from 'react-i18next';
 import i18n from 'i18next';
@@ -34,8 +34,20 @@ const AllTheProviders: FC<IComponentWithChildrenProps> = ({ children }) => (
 const customRender = (ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>) =>
 	render(ui, { wrapper: AllTheProviders, ...options });
 
+// https://reactjs.org/blog/2022/03/08/react-18-upgrade-guide.html#configuring-your-testing-environment
+const customAct: typeof act = (cb) => {
+	let prev = globalThis.IS_REACT_ACT_ENVIRONMENT;
+	globalThis.IS_REACT_ACT_ENVIRONMENT = true;
+
+	const result = act(cb);
+
+	globalThis.IS_REACT_ACT_ENVIRONMENT = prev;
+
+	return result;
+};
+
 // re-export everything
 export * from '@testing-library/react';
 
 // override render method
-export { customRender as render };
+export { customRender as render, customAct as act };

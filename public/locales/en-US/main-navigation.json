@@ -1,0 +1,11 @@
+{
+	"heading": "React example",
+	"auth": {
+		"login": {
+			"label": "Login"
+		},
+		"logout": {
+			"label": "Logout"
+		}
+	}
+}

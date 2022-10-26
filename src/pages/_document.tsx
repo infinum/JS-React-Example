@@ -6,10 +6,7 @@ class MyDocument extends Document {
 	render() {
 		return (
 			<Html>
-				<Head>
-					<link rel="preload" href="/fonts/GT-Haptik-Regular.woff" as="font" crossOrigin="true" />
-					<link rel="preload" href="/fonts/GT-Haptik-Bold.woff" as="font" crossOrigin="true" />
-				</Head>
+				<Head />
 				<body>
 					<ColorModeScript initialColorMode={theme.config.initialColorMode} />
 					<Main />

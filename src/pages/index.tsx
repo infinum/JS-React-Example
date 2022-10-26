@@ -1,17 +1,10 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { NextPage } from 'next';
 
 import { Layout } from '@/components/shared/layouts/Layout/Layout';
-import { TodoLists } from '@/components/features/todo-lists/TodoLists';
 
-const Home: NextPage = () => {
-	return (
-		<Layout>
-			<Suspense>
-				<TodoLists />
-			</Suspense>
-		</Layout>
-	);
+const HomePage: NextPage = () => {
+	return <Layout>Home</Layout>;
 };
 
-export default Home;
+export default HomePage;

@@ -1,16 +1,13 @@
 import { extendTheme } from '@chakra-ui/react';
 
-import { colors } from './foundations/colors';
-import { Container } from './components/container';
+// -- PLOP:IMPORT_FOUNDATION_THEME --
+
+// -- PLOP:IMPORT_COMPONENT_THEME --
 
 const overrides = {
-	colors,
-	fonts: {
-		body: 'GT Haptik',
-		heading: 'GT Haptik',
-	},
+	// -- PLOP:REGISTER_FOUNDATION_THEME --
 	components: {
-		Container,
+		// -- PLOP:REGISTER_COMPONENT_THEME --
 	},
 };
 
