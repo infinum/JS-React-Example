@@ -18,11 +18,9 @@ export const Login: FC<ILoginProps> = () => {
 						<Heading size="lg">{t('heading')}</Heading>
 						<HStack justify="center" spacing="1">
 							<Text color="muted">{t('registerMessage')}</Text>
-							<NextLink href="/register" passHref legacyBehavior>
-								<Button as="a" colorScheme="red" variant="link">
-									{t('signUp.label')}
-								</Button>
-							</NextLink>
+							<Button as={NextLink} colorScheme="red" href="/register" variant="link">
+								{t('signUp.label')}
+							</Button>
 						</HStack>
 					</Stack>
 				</Stack>
