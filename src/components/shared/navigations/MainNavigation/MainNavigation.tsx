@@ -55,9 +55,7 @@ export const MainNavigation: FC = () => {
 
 				<HStack>
 					<NavLink as={NextLink} href="/">Home</NavLink>
-					<NextLink href="/flights" passHref legacyBehavior>
-						<NavLink>Flights</NavLink>
-					</NextLink>
+					<NavLink as={NextLink} href="/flights">Flights</NavLink>
 				</HStack>
 
 				<HStack>
