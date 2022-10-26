@@ -11,14 +11,14 @@ export const Login: FC<ILoginProps> = () => {
 	const { t } = useTranslation('login');
 
 	return (
-		<Container minW="container.sm" px={{ base: 3, sm: 8 }} py={{ base: '12', md: '10' }}>
+        <Container minW="container.sm" px={{ base: 3, sm: 8 }} py={{ base: '12', md: '10' }}>
 			<Stack spacing="8">
 				<Stack spacing="6">
 					<Stack textAlign="center" spacing={{ base: '2', md: '3' }}>
 						<Heading size="lg">{t('heading')}</Heading>
 						<HStack justify="center" spacing="1">
 							<Text color="muted">{t('registerMessage')}</Text>
-							<NextLink href="/register" passHref>
+							<NextLink href="/register" passHref legacyBehavior>
 								<Button as="a" colorScheme="red" variant="link">
 									{t('signUp.label')}
 								</Button>
@@ -31,5 +31,5 @@ export const Login: FC<ILoginProps> = () => {
 				</Card>
 			</Stack>
 		</Container>
-	);
+    );
 };

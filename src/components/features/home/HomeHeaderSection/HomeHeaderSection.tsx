@@ -6,7 +6,7 @@ export interface IHomeHeaderSectionProps {}
 
 export const HomeHeaderSection: FC<IHomeHeaderSectionProps> = () => {
 	return (
-		<Box as="section">
+        <Box as="section">
 			<Container minW="container.lg" py={{ base: '16', md: '24' }}>
 				<Stack spacing={{ base: '8', md: '10' }}>
 					<Stack align="center" spacing={{ base: '4', md: '5' }}>
@@ -19,7 +19,7 @@ export const HomeHeaderSection: FC<IHomeHeaderSectionProps> = () => {
 						<Button colorScheme="red" size="lg">
 							Learn more
 						</Button>
-						<NextLink href="/flights" passHref>
+						<NextLink href="/flights" passHref legacyBehavior>
 							<Button as="a" size="lg">
 								Check Flights
 							</Button>
@@ -28,5 +28,5 @@ export const HomeHeaderSection: FC<IHomeHeaderSectionProps> = () => {
 				</Stack>
 			</Container>
 		</Box>
-	);
+    );
 };
