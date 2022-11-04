@@ -1,6 +1,8 @@
 import {
 	FormControl,
+	FormErrorMessage,
 	FormLabel,
+	forwardRef,
 	IconButton,
 	Input,
 	InputGroup,
@@ -8,8 +10,6 @@ import {
 	InputRightElement,
 	useDisclosure,
 	useMergeRefs,
-	forwardRef,
-	FormErrorMessage,
 } from '@chakra-ui/react';
 import { ErrorMessage } from '@hookform/error-message';
 import { useRef } from 'react';
@@ -21,7 +21,7 @@ export interface IPasswordField extends InputProps {
 	errors?: FieldValues;
 }
 
-export const PasswordField = forwardRef<IPasswordField, 'input'>(({ label, errors, ...rest }, ref) => {
+export const PasswordField = forwardRef<IPasswordField, 'input'>(({ label, errors, name, id, ...rest }, ref) => {
 	const { isOpen, onToggle } = useDisclosure();
 	const inputRef = useRef<HTMLInputElement>(null);
 
@@ -35,8 +35,8 @@ export const PasswordField = forwardRef<IPasswordField, 'input'>(({ label, error
 	};
 
 	return (
-		<FormControl>
-			<FormLabel htmlFor={rest.name}>{label}</FormLabel>
+		<FormControl id={id} isInvalid={errors[name]}>
+			<FormLabel>{label}</FormLabel>
 			<InputGroup>
 				<InputRightElement>
 					<IconButton
@@ -49,16 +49,15 @@ export const PasswordField = forwardRef<IPasswordField, 'input'>(({ label, error
 				<Input
 					ref={mergeRef}
 					autoComplete="current-password"
-					id="password"
-					name="password"
+					name={name}
 					required
 					type={isOpen ? 'text' : 'password'}
 					{...rest}
 				/>
-				<FormErrorMessage color="red">
-					<ErrorMessage errors={errors} name={rest.name} />
-				</FormErrorMessage>
 			</InputGroup>
+			<FormErrorMessage color="red">
+				<ErrorMessage errors={errors} name={name} />
+			</FormErrorMessage>
 		</FormControl>
 	);
 });

@@ -72,3 +72,14 @@ This project is using the styleguide as defined in the [Infinum Handbook](https:
 ## Project Structure
 
 - [Infinum Handbook - Project Structure](https://infinum.com/handbook/frontend/react/project-structure)
+
+## Starting a new project from this template
+
+If you need to start a new project from this template, you can use this command:
+
+```bash
+
+npx create-next-app@latest PROJECT_NAME -e https://github.com/infinum/JS-React-Example/tree/project-starter-template --use-npm
+```
+
+> Note: PROJECT_NAME is the name of your project
