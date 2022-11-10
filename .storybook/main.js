@@ -52,11 +52,6 @@ module.exports = {
 						extensions: config.resolve.extensions,
 					}),
 				],
-				alias: {
-					...config.resolve.alias,
-					'@emotion/core': toPath('node_modules/@emotion/react'),
-					'emotion-theming': toPath('node_modules/@emotion/react'),
-				},
 			},
 			module: {
 				rules: [
