@@ -12,7 +12,7 @@
 		"test": "jest",
 		"test:coverage": "jest --coverage",
 		"test:watch": "jest --watch --coverage",
-		"storybook": "start-storybook -p 6006 -s ./public",
+		"storybook": "start-storybook -p 6006",
 		"build-storybook": "build-storybook",
 		"analyze": "ANALYZE=true yarn build",
 		"analyze:sourcemap": "source-map-explorer .next/static/**/*.js",

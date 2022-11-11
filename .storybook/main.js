@@ -71,4 +71,5 @@ module.exports = {
 		...config,
 		__NEXT_NEW_LINK_BEHAVIOR: JSON.stringify(true),
 	}),
+	staticDirs: ['../public'],
 };
