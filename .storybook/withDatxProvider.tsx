@@ -1,16 +1,17 @@
+import { createFetcher, DatxProvider, useInitialize } from '@datx/swr';
 import { Story, StoryContext } from '@storybook/react';
-import React from 'react';
-import { cache } from 'swr';
+import { SWRConfig } from 'swr';
 
-import { DatxProvider } from '../src/libs/@datx/jsonapi-react';
-import client from '../src/store';
+import { createClient } from '../src/datx/create-client';
 
 export const withDatxProvider = (StoryFn: Story, context: StoryContext) => {
-	cache.clear();
+	const client = useInitialize(createClient);
 
 	return (
 		<DatxProvider client={client}>
-			<StoryFn />
+			<SWRConfig value={{ fetcher: createFetcher(client), provider: () => new Map() }}>
+				<StoryFn />
+			</SWRConfig>
 		</DatxProvider>
 	);
 };

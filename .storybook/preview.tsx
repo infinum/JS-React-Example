@@ -1,15 +1,14 @@
-import { withPerformance } from 'storybook-addon-performance';
 import { RouterContext } from 'next/dist/shared/lib/router-context';
 import { initializeWorker, mswDecorator } from 'msw-storybook-addon';
+import theme from '../src/styles/theme';
 
-import { withThemeProvider } from './withThemeProvider';
 import { withDatxProvider } from './withDatxProvider';
 
 import 'focus-visible/dist/focus-visible';
 
 initializeWorker();
 
-export const decorators = [mswDecorator, withDatxProvider, withThemeProvider, withPerformance];
+export const decorators = [mswDecorator, withDatxProvider];
 
 export const parameters = {
 	actions: { argTypesRegex: '^on[A-Z].*' },
@@ -38,5 +37,8 @@ export const globalTypes = {
 			icon: 'paintbrush',
 			items: [{ value: 'default', title: 'Default Theme' }],
 		},
+	},
+	chakra: {
+		theme,
 	},
 };

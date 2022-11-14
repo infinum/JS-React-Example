@@ -4,15 +4,22 @@ const path = require('path');
 const toPath = (_path) => path.join(process.cwd(), _path);
 
 module.exports = {
+	core: {
+		builder: 'webpack5',
+	},
 	stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.(js|jsx|ts|tsx)', '../src/**/stories.(js|jsx|ts|tsx)'],
 	addons: [
 		'@storybook/addon-a11y',
 		'@storybook/addon-links',
 		'@storybook/addon-essentials',
 		'storybook-addon-next-router',
+		'@chakra-ui/storybook-addon',
 	],
 	typescript: {
 		reactDocgen: false,
+	},
+	features: {
+		emotionAlias: false,
 	},
 	webpackFinal: async (config) => {
 		// Remove default svg file loader
@@ -25,16 +32,26 @@ module.exports = {
 			}
 		});
 
+		config.module.rules.push({
+			test: /\.mjs$/,
+			include: /node_modules/,
+			type: 'javascript/auto',
+		});
+
 		return {
 			...config,
 			resolve: {
 				...config.resolve,
-				plugins: [...config.resolve.plugins, new TsconfigPathsPlugin()],
-				alias: {
-					...config.resolve.alias,
-					'@emotion/core': toPath('node_modules/@emotion/react'),
-					'emotion-theming': toPath('node_modules/@emotion/react'),
+				fallback: {
+					fs: false,
+					path: false,
 				},
+				plugins: [
+					...(config.resolve.plugins || []),
+					new TsconfigPathsPlugin({
+						extensions: config.resolve.extensions,
+					}),
+				],
 			},
 			module: {
 				rules: [
@@ -50,4 +67,9 @@ module.exports = {
 			},
 		};
 	},
+	env: (config) => ({
+		...config,
+		__NEXT_NEW_LINK_BEHAVIOR: JSON.stringify(true),
+	}),
+	staticDirs: ['../public'],
 };
