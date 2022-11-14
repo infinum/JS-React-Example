@@ -50,7 +50,7 @@
 		"swr": "~1.3.0"
 	},
 	"devDependencies": {
-		"@chakra-ui/cli": "~1.0.0",
+		"@chakra-ui/cli": "~2.1.8",
 		"@chakra-ui/storybook-addon": "~4.0.12",
 		"@infinum/plop-next-ts-generators": "~0.0.1-5",
 		"@infinumjs/eslint-config-react-ts": "~3.3.1",
