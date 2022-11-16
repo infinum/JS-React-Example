@@ -1,5 +1,6 @@
 import Bugsnag from '@bugsnag/js';
 import BugsnagPluginReact from '@bugsnag/plugin-react';
+import React, { Fragment } from 'react';
 import { PHASE_PRODUCTION_BUILD } from 'next/constants';
 
 export function start() {
@@ -20,9 +21,9 @@ export function start() {
 				...commonConfig,
 				appType: 'server',
 				plugins: [
+					new BugsnagPluginReact(React),
 					// @bugsnag/plugin-aws-lambda must only be imported on the server
 					require('@bugsnag/plugin-aws-lambda'),
-					new BugsnagPluginReact(),
 				],
 			});
 		} else {
@@ -30,7 +31,7 @@ export function start() {
 			Bugsnag.start({
 				...commonConfig,
 				appType: 'client',
-				plugins: [new BugsnagPluginReact()],
+				plugins: [new BugsnagPluginReact(React)],
 			});
 		}
 	}
@@ -38,4 +39,12 @@ export function start() {
 
 export function getServerlessHandler() {
 	return Bugsnag.getPlugin('awsLambda').createHandler();
+}
+
+export function getErrorBoundary() {
+	if (process.env.NEXT_PHASE === PHASE_PRODUCTION_BUILD) {
+		return Fragment;
+	} else {
+		return Bugsnag.getPlugin('react').createErrorBoundary();
+	}
 }
