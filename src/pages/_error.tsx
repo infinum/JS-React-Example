@@ -89,4 +89,4 @@ CustomErrorPage.getInitialProps = async (ctx: NextPageContext) => {
 	};
 };
 
-export default Error;
+export default CustomErrorPage;
