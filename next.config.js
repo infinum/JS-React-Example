@@ -21,7 +21,11 @@ module.exports = {
 		}
 
 		// Upload source maps on production build
-		if (process.env.NEXT_PUBLIC_BUGSNAG_API_KEY && process.env.NODE_ENV === 'production') {
+		if (
+			process.env.NEXT_PUBLIC_BUGSNAG_API_KEY &&
+			process.env.NODE_ENV === 'production' &&
+			process.env.NEXT_PUBLIC_NEXT_APP_ENV !== 'development'
+		) {
 			config.plugins.push(
 				new BugsnagBuildReporterPlugin(
 					{
