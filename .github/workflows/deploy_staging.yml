@@ -1,0 +1,25 @@
+name: Deploy staging
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    name: Deploy
+    uses: infinum/js-pipeline/.github/workflows/build.yml@v1
+    with:
+      ci_steps: 'deploy-next-ssr'
+      features: 'secrets'
+      deploy_host: 'react-example.byinfinum.co'
+      deploy_to: '/home/js_react_example/www/react-example.byinfinum.co'
+      deploy_user: 'js_react_example'
+      environment: 'production'
+    secrets:
+      SSH_PRIVATE_KEY: ${{ secrets.PRODUCTION_KEY }}
+      VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
+      VAULT_AUTH_METHOD: ${{ secrets.VAULT_AUTH_METHOD }}
+      VAULT_AUTH_ROLE_ID: ${{ secrets.VAULT_AUTH_ROLE_ID }}
+      VAULT_AUTH_SECRET_ID: ${{ secrets.VAULT_AUTH_SECRET_ID }}
