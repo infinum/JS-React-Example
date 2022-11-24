@@ -12,7 +12,8 @@
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) and [Jest](https://jestjs.io/) for unit and integration tests
 - [Storybook](https://storybook.js.org/)
 - [I18Next](https://www.i18next.com/)
-- [Hygen Templates](https://www.hygen.io/)
+- [Plop](https://plopjs.com/)
+- [Plop Next.js Generators](https://github.com/infinum/react-nuts-and-bolts/tree/main/packages/plop-next-ts-generators)
 
 ## Next.js plugins
 
