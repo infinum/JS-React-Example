@@ -12,7 +12,6 @@ jobs:
     uses: infinum/js-pipeline/.github/workflows/pipeline.yml@master
     with:
       ci_steps: 'deploy'
-      features: 'secrets'
       secrets: 'js-react-example'
       deploy_host: 'react-example.byinfinum.co'
       deploy_user: 'js_react_example'
