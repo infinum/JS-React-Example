@@ -84,3 +84,18 @@ npx create-next-app@latest PROJECT_NAME -e https://github.com/infinum/JS-React-E
 ```
 
 > Note: PROJECT_NAME is the name of your project
+
+
+# Credits
+
+JS-React-Example is maintained by
+[Infinum](https://www.infinum.com).
+
+<p align="center">
+  <a href='https://infinum.com'>
+    <picture>
+        <source srcset="https://assets.infinum.com/brand/logo/static/white.svg" media="(prefers-color-scheme: dark)">
+        <img src="https://assets.infinum.com/brand/logo/static/default.svg">
+    </picture>
+  </a>
+</p>
