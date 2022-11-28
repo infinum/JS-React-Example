@@ -9,7 +9,7 @@ on:
 jobs:
   deploy:
     name: Deploy
-    uses: infinum/js-pipeline/.github/workflows/pipeline.yml
+    uses: infinum/js-pipeline/.github/workflows/pipeline.yml@master
     with:
       ci_steps: 'deploy'
       features: 'secrets'
