@@ -40,3 +40,6 @@ public/robots.txt
 
 # storybook
 storybook-static
+
+# vscode
+.vscode/find-unused-exports.json
