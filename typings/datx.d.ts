@@ -1,4 +1,4 @@
-import { Client, JsonapiSwrClient } from '../src/datx/createClient';
+import { Client, JsonapiSwrClient } from '../src/datx/create-client';
 
 declare module '@datx/swr' {
 	interface IClient extends Client {
