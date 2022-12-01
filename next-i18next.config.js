@@ -3,7 +3,7 @@ const ChainedBackend = require('i18next-chained-backend').default;
 const LocalStorageBackend = require('i18next-localstorage-backend').default;
 
 /**
- * @type {import('i18next').InitOptions & Required<Pick<import('next').NextConfig, 'i18n'>>}
+ * @type {import('next-i18next').UserConfig}
  */
 module.exports = {
 	backend: {

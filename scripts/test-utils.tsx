@@ -11,6 +11,10 @@ import '@testing-library/jest-dom';
 import theme from '@/styles/theme';
 import common from '../public/locales/en-US/common.json';
 
+declare global {
+	var IS_REACT_ACT_ENVIRONMENT: boolean;
+}
+
 i18n.use(initReactI18next).init({
 	lng: 'en-US',
 	fallbackLng: 'en-US',
@@ -39,6 +43,7 @@ const customAct: typeof act = (cb) => {
 	let prev = globalThis.IS_REACT_ACT_ENVIRONMENT;
 	globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 
+	// @ts-ignore
 	const result = act(cb);
 
 	globalThis.IS_REACT_ACT_ENVIRONMENT = prev;

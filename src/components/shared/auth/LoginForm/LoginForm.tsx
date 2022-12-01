@@ -2,13 +2,15 @@ import React, { FC } from 'react';
 import { BoxProps, Button, Checkbox, HStack, Stack } from '@chakra-ui/react';
 import { InputField } from '@/components/shared/fields/InputField/InputField';
 import { useForm } from 'react-hook-form';
-import { setApiErrors } from '@/utils/setApiErrors';
+import { getErrors } from '@/utils/form-error';
 import { Response } from '@datx/jsonapi';
 import { useTranslation } from 'next-i18next';
 import { login } from '@/mutations/auth';
 import { useClient } from '@datx/swr';
 import { useSession } from '@/hooks/use-session';
 import { PasswordField } from '@/components/shared/fields/PasswordField/PasswordField';
+import { Session } from '@/models/Session';
+import { JsonapiDocument } from '@/interfaces/Jsonapi';
 
 interface IFormValues {
 	email: string;
@@ -28,20 +30,17 @@ export const LoginForm: FC<BoxProps> = (props) => {
 
 	async function onSubmit(formData: IFormValues) {
 		try {
-			const data = {
+			const data: JsonapiDocument<typeof Session> = {
 				data: {
-					type: 'session',
-					id: '',
-					attributes: {
-						...formData,
-					},
+					type: 'sessions',
+					attributes: formData,
 				},
 			};
 
 			await mutate(() => login(client, data), false);
 		} catch (errors) {
 			if (errors instanceof Response) {
-				setApiErrors(errors.error).forEach(({ name, type, message }) => setError(name, { type, message }));
+				getErrors(errors.error).forEach(({ name, type, message }) => setError(name, { type, message }));
 			}
 		}
 	}

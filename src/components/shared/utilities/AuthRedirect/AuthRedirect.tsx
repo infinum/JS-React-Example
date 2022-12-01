@@ -41,7 +41,7 @@ export const AuthRedirect: FC<IAuthRedirectProps> = ({ to, ifFound, condition })
 		}
 
 		// `condition` has a priority over a `ifFound` property
-		const shouldRedirect = condition ? condition(data.data) : (ifFound && data) || (!ifFound && !data);
+		const shouldRedirect = condition ? condition(data?.data) : (ifFound && data) || (!ifFound && !data);
 
 		if (shouldRedirect) {
 			router.push(to);

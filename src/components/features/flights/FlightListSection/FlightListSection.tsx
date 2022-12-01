@@ -28,7 +28,7 @@ export const FlightListSection: FC = () => {
 					All flights
 				</Heading>
 
-				{data?.data.length > 0 ? (
+				{data && data.data.length > 0 ? (
 					<Fragment>
 						<FlightList flightList={data.data} />
 						{/* <BasicPagination hasNext={hasNext} hasPrev={hasPrev} onNext={next} onPrev={prev} current={1} total={10} /> */}
