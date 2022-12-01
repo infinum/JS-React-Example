@@ -30,12 +30,12 @@ export const LoginForm: FC<BoxProps> = (props) => {
 
 	async function onSubmit(formData: IFormValues) {
 		try {
-			const data: JsonapiDocument<typeof Session> = {
+			const data = {
 				data: {
 					type: 'sessions',
 					attributes: formData,
 				},
-			};
+			} satisfies JsonapiDocument<typeof Session>;
 
 			await mutate(() => login(client, data), false);
 		} catch (errors) {
