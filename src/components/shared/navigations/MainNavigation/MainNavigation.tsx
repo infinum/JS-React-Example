@@ -21,6 +21,7 @@ import { FaMoon, FaSun } from 'react-icons/fa';
 import { NavLink } from './MainNavigation.elements';
 import { useSession } from '@/hooks/use-session';
 import { logout } from '@/mutations/auth';
+import { LanguageDropdown } from '@/components/shared/navigations/MainNavigation/components/LanguageDropdown/LanguageDropdown';
 
 export const MainNavigation: FC = () => {
 	const { t } = useTranslation(['common', 'main-navigation']);
@@ -55,14 +56,15 @@ export const MainNavigation: FC = () => {
 
 				<HStack>
 					<NavLink as={NextLink} href="/">
-						Home
+						{t('main-navigation:nav.home')}
 					</NavLink>
 					<NavLink as={NextLink} href="/flights">
-						Flights
+						{t('main-navigation:nav.flights')}
 					</NavLink>
 				</HStack>
 
 				<HStack>
+					<LanguageDropdown />
 					{data?.data.user ? (
 						<Button aria-label="Log out from this page" onClick={handleLogout}>
 							{t('main-navigation:auth.logout.label')}

@@ -5,6 +5,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Login } from '@/components/features/login/Login/Login';
 import { AuthLayout } from '@/components/shared/layouts/AuthLayout/AuthLayout';
 import { AuthRedirect } from '@/components/shared/utilities/AuthRedirect/AuthRedirect';
+import { getSafeLocale } from '@/utils/locale';
 
 const LoginPage: NextPage = () => {
 	return (
@@ -16,11 +17,9 @@ const LoginPage: NextPage = () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-	const languageSSRConfig = locale && (await serverSideTranslations(locale, ['common', 'login', 'loginForm']));
-
 	return {
 		props: {
-			...languageSSRConfig,
+			...(await serverSideTranslations(getSafeLocale(locale), ['common', 'login', 'loginForm'])),
 		},
 	};
 };
