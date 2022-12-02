@@ -52,13 +52,13 @@ export const LoginForm: FC<BoxProps> = (props) => {
 					label={t('email.label')}
 					errors={errors}
 					type="email"
-					{...register('email', { required: t('required') })}
+					{...register('email', { required: t<string>('required') })}
 				/>
 				<PasswordField
 					label={t('password.label')}
 					errors={errors}
 					id="password"
-					{...register('password', { required: t('required') })}
+					{...register('password', { required: t<string>('required') })}
 				/>
 			</Stack>
 			<HStack justify="space-between">
