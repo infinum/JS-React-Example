@@ -3,6 +3,81 @@ import { IJsonapiModel } from '@datx/jsonapi';
 
 type LeastOneOf<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> & U[keyof U];
 
+export type JsonapiLinkObject = {
+	/**
+	 * a string whose value is a URI-reference [RFC3986 Section 4.1] pointing to the link’s target.
+	 *
+	 * @see https://www.rfc-editor.org/rfc/rfc3986#section-4.1
+	 */
+	href: string;
+	/**
+	 * a string indicating the link’s relation type. The string MUST be a valid link relation type.
+	 *
+	 * @see https://www.rfc-editor.org/rfc/rfc8288#section-2.1
+	 */
+	rel?: string;
+	/**
+	 * a link to a description document (e.g. OpenAPI or JSON Schema) for the link target.
+	 *
+	 * @see https://jsonapi.org/format/#document-links-link
+	 */
+	describedBy?: string;
+	/**
+	 * a string which serves as a label for the destination of a link such that it can be used as a
+	 * human-readable identifier (e.g., a menu entry).
+	 */
+	title?: string;
+	/**
+	 * a string indicating the media type of the link’s target.
+	 */
+	type?: string;
+	/**
+	 * a string or an array of strings indicating the language(s) of the link’s target. An array of
+	 * strings indicates that the link’s target is available in multiple languages. Each string MUST
+	 * be a valid language tag [RFC5646].
+	 *
+	 * @see https://tools.ietf.org/html/rfc5646
+	 */
+	hreflang?: string;
+	/**
+	 * a meta object containing non-standard meta-information about the link.
+	 */
+	meta?: object;
+};
+
+/**
+ * Where specified, a links member can be used to represent links. The value of this member MUST be an object (a “links object”).
+ *
+ * Within this object, a link MUST be represented as either:
+ * - a string whose value is a URI-reference [RFC3986 Section 4.1] pointing to the link’s target,
+ * - a link object or
+ * - null if the link does not exist.
+ *
+ * @see https://jsonapi.org/format/#document-links
+ */
+export type JsonapiLinks = {
+	self?: string | JsonapiLinkObject | null;
+	related?: string | JsonapiLinkObject | null;
+};
+
+export type JsonapiPaginationLinks = {
+	first?: string | JsonapiLinkObject | null;
+	last?: string | JsonapiLinkObject | null;
+	prev?: string | JsonapiLinkObject | null;
+	next?: string | JsonapiLinkObject | null;
+};
+
+/**
+ * @see https://jsonapi.org/format/#document-top-level
+ */
+export type JsonapiTopLevelLinks = JsonapiLinks &
+	JsonapiPaginationLinks & {
+		/**
+		 * a link to a description document (e.g. OpenAPI or JSON Schema) for the current document.
+		 */
+		describedby?: string | JsonapiLinkObject | null;
+	};
+
 /**
  * Where specified, a meta member can be used to include non-standard meta-information.
  * The value of each meta member MUST be an object (a “meta object”).
@@ -78,7 +153,7 @@ export type JsonapiResourceRelationships<TModel> = Partial<
 	Omit<
 		{
 			[Key in keyof TModel as TModel[Key] extends IJsonapiModel | Array<IJsonapiModel> ? Key : never]-?: LeastOneOf<{
-				links: any;
+				links: JsonapiLinks;
 				// TODO: figure out support for relationship links and how to get instance type for JsonapiResourceLinkage
 				data: Record<string, unknown> | Array<Record<string, unknown>>;
 				meta: JsonapiMeta;
@@ -117,4 +192,5 @@ export type JsonapiPrimaryData<TResourceConstructor extends IModelConstructor> =
 
 export type JsonapiDocument<TResourceConstructor extends IModelConstructor> = {
 	data: JsonapiPrimaryData<TResourceConstructor>;
+	links?: JsonapiTopLevelLinks;
 };
