@@ -26,6 +26,13 @@ Error.getInitialProps = (ctx: NextPageContext) => {
 	const { res, err } = ctx;
 	let statusCode = undefined;
 
+	if (typeof window == 'undefined') {
+		const newrelic = require('newrelic');
+		newrelic.noticeError(err);
+	} else {
+		window['newrelic']?.noticeError?.(err);
+	}
+
 	if (res) {
 		statusCode = res.statusCode;
 	} else if (err) {
