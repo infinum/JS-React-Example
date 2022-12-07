@@ -76,14 +76,21 @@ This project is using the styleguide as defined in the [Infinum Handbook](https:
 
 ## Starting a new project from this template
 
-If you need to start a new project from this template, you can use this command:
+If you need to start a new project from this template, you have these options:
+
+1. Stripped down version of the App from `project-starter-template` branch
 
 ```bash
-
 npx create-next-app@latest PROJECT_NAME -e https://github.com/infinum/JS-React-Example/tree/project-starter-template --use-npm
 ```
 
-> Note: PROJECT_NAME is the name of your project
+2. Full blown example App from the `master` branch
+
+```bash
+npx create-next-app@latest PROJECT_NAME -e https://github.com/infinum/JS-React-Example --use-npm
+```
+
+> Note: replace PROJECT_NAME with the name of your project
 
 
 # Credits
