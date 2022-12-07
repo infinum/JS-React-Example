@@ -1,0 +1,11 @@
+{
+	"submit": { "label": "Anmelden" },
+	"required": "Dieses Feld ist erforderlich",
+	"email": {
+		"label": "E-Mail"
+	},
+	"password": {
+		"label": "Passwort"
+	},
+	"error": "Etwas ist schiefgelaufen"
+}

@@ -7,8 +7,10 @@ import { BasicPagination } from '@/components/shared/paginations/BasicPagination
 import { Flight } from '@/models/Flight';
 import { useSession } from '@/hooks/use-session';
 import { useDatx } from '@datx/swr';
+import { useTranslation } from 'next-i18next';
 
 export const FlightListSection: FC = () => {
+	const { t } = useTranslation(['flight-list-section']);
 	const { data: sessionResponse } = useSession();
 	const user = sessionResponse?.data.user;
 
@@ -25,7 +27,7 @@ export const FlightListSection: FC = () => {
 		<Container minW="container.lg" py={10}>
 			<Box as="section">
 				<Heading as="h1" mb={3} size="lg">
-					All flights
+					{t('flight-list-section:title')}
 				</Heading>
 
 				{data && data.data.length > 0 ? (
