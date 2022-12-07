@@ -50,3 +50,17 @@ To generate a new theme, run the following command:
 ```
 npm run gen:theme
 ```
+
+# Credits
+
+JS-React-Example is maintained by
+[Infinum](https://www.infinum.com).
+
+<p align="center">
+  <a href='https://infinum.com'>
+    <picture>
+        <source srcset="https://assets.infinum.com/brand/logo/static/white.svg" media="(prefers-color-scheme: dark)">
+        <img src="https://assets.infinum.com/brand/logo/static/default.svg">
+    </picture>
+  </a>
+</p>

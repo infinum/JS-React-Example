@@ -37,3 +37,9 @@ yarn-error.log*
 # sitemaps
 public/sitemap*.xml
 public/robots.txt
+
+# storybook
+storybook-static
+
+# vscode
+.vscode/find-unused-exports.json

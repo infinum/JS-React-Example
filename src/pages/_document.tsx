@@ -1,20 +1,24 @@
 import { ColorModeScript } from '@chakra-ui/react';
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import { getSafeLocale } from '@/utils/locale';
+import { DocumentProps, Head, Html, Main, NextScript } from 'next/document';
+
 import theme from '../styles/theme/index';
 
-class MyDocument extends Document {
-	render() {
-		return (
-			<Html>
-				<Head />
-				<body>
-					<ColorModeScript initialColorMode={theme.config.initialColorMode} />
-					<Main />
-					<NextScript />
-				</body>
-			</Html>
-		);
-	}
-}
+const AppDocument = (props: DocumentProps) => {
+	const currentLocale = getSafeLocale(props.__NEXT_DATA__.locale);
 
-export default MyDocument;
+	return (
+		<Html lang={currentLocale}>
+			<Head>
+				<meta charSet="utf-8" />
+			</Head>
+			<body>
+				<ColorModeScript initialColorMode={theme.config.initialColorMode} />
+				<Main />
+				<NextScript />
+			</body>
+		</Html>
+	);
+};
+
+export default AppDocument;
