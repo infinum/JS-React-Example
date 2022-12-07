@@ -19,7 +19,7 @@ const LoginPage: NextPage = () => {
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
 	return {
 		props: {
-			...(await serverSideTranslations(getSafeLocale(locale), ['common', 'login', 'loginForm'])),
+			...(await serverSideTranslations(getSafeLocale(locale), ['common', 'login', 'login-form'])),
 		},
 	};
 };

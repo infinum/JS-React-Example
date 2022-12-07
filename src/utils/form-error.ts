@@ -5,7 +5,7 @@ import camelCase from 'lodash/camelCase';
 interface IApiError {
 	name: any;
 	type: string;
-	message: string;
+	message?: string;
 }
 
 export function getErrors(error: Response['error']): Array<IApiError> {
@@ -14,7 +14,6 @@ export function getErrors(error: Response['error']): Array<IApiError> {
 			{
 				name: 'error',
 				type: 'error',
-				message: 'Something went wrong',
 			},
 		];
 	}

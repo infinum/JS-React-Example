@@ -2,8 +2,9 @@
 
 import 'react-i18next';
 import common from 'public/locales/en-US/common.json';
+import flightListSection from 'public/locales/en-US/flight-list-section.json';
+import loginForm from 'public/locales/en-US/login-form.json';
 import login from 'public/locales/en-US/login.json';
-import loginForm from 'public/locales/en-US/loginForm.json';
 import mainNavigation from 'public/locales/en-US/main-navigation.json';
 
 declare module 'react-i18next' {
@@ -14,8 +15,9 @@ declare module 'react-i18next' {
 		// custom resources type
 		resources: {
 			common: typeof common;
+			['flight-list-section']: typeof flightListSection;
+			['login-form']: typeof loginForm;
 			login: typeof login;
-			loginForm: typeof loginForm;
 			['main-navigation']: typeof mainNavigation;
 		};
 	}

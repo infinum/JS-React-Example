@@ -18,7 +18,7 @@ interface IFormValues {
 }
 
 export const LoginForm: FC<BoxProps> = (props) => {
-	const { t } = useTranslation('loginForm');
+	const { t } = useTranslation('login-form');
 	const {
 		register,
 		handleSubmit,
@@ -40,7 +40,9 @@ export const LoginForm: FC<BoxProps> = (props) => {
 			await mutate(() => login(client, data), false);
 		} catch (errors) {
 			if (errors instanceof Response) {
-				getErrors(errors.error).forEach(({ name, type, message }) => setError(name, { type, message }));
+				getErrors(errors.error).forEach(({ name, type, message = t<string>('error') }) =>
+					setError(name, { type, message })
+				);
 			}
 		}
 	}

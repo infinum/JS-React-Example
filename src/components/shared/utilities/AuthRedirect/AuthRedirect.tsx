@@ -19,7 +19,7 @@ interface IAuthRedirectProps {
 	 * Callback that will trigger a redirect if true is returned.
 	 * Useful when you need to redirect base on some attribute, e.g. if user is not admin
 	 */
-	condition?(session: Session): boolean;
+	condition?(session?: Session): boolean;
 }
 
 export const AuthRedirect: FC<IAuthRedirectProps> = ({ to, ifFound, condition }) => {
