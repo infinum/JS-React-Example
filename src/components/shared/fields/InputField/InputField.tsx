@@ -6,11 +6,12 @@ import { FieldValues } from 'react-hook-form';
 export interface IInputField extends InputProps {
 	label: string;
 	errors?: FieldValues;
+	name: string;
 }
 
 export const InputField = forwardRef<IInputField, 'input'>(function InputField({ errors, name, label, ...rest }, ref) {
 	return (
-		<FormControl id={name} isInvalid={errors[name]}>
+		<FormControl id={name} isInvalid={errors?.[name]}>
 			<FormLabel htmlFor={name}>{label}</FormLabel>
 			<Input ref={ref} name={name} {...rest} />
 			<FormErrorMessage color="red">

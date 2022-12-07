@@ -19,6 +19,7 @@ import { HiEye, HiEyeOff } from 'react-icons/hi';
 export interface IPasswordField extends InputProps {
 	label: string;
 	errors?: FieldValues;
+	name: string;
 }
 
 export const PasswordField = forwardRef<IPasswordField, 'input'>(({ label, errors, name, id, ...rest }, ref) => {
@@ -35,7 +36,7 @@ export const PasswordField = forwardRef<IPasswordField, 'input'>(({ label, error
 	};
 
 	return (
-		<FormControl id={id} isInvalid={errors[name]}>
+		<FormControl id={id} isInvalid={errors?.[name]}>
 			<FormLabel>{label}</FormLabel>
 			<InputGroup>
 				<InputRightElement>

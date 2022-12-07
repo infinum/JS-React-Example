@@ -35,7 +35,7 @@ export const MainNavigation: FC = () => {
 		onFailure: ({ error: errorResponse }) => {
 			if (errorResponse instanceof Response) {
 				const { error } = errorResponse;
-				const message = error instanceof Error ? error.message : error[0].detail;
+				const message = error instanceof Error ? error.message : error?.[0].detail;
 				toast({ title: message, status: 'error' });
 			}
 		},
@@ -54,8 +54,12 @@ export const MainNavigation: FC = () => {
 				</NextLink>
 
 				<HStack>
-					<NavLink as={NextLink} href="/">Home</NavLink>
-					<NavLink as={NextLink} href="/flights">Flights</NavLink>
+					<NavLink as={NextLink} href="/">
+						Home
+					</NavLink>
+					<NavLink as={NextLink} href="/flights">
+						Flights
+					</NavLink>
 				</HStack>
 
 				<HStack>
