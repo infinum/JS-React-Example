@@ -30,7 +30,7 @@ npm ci
 npm run dev
 ```
 
-Use one of the user credentials to log in into the application
+Use one of the user credentials to log in to the application
 
 ```
 # user1
@@ -66,6 +66,45 @@ Project repository
 
 - [Infinum Handbook - Branching](https://infinum.com/handbook/frontend/git/branching)
 
+## Secrets
+
+### Installation
+
+You need to install `secrets_cli` gem. Explained [here](https://github.com/infinum/secrets_cli)
+
+`gem install secrets_cli`
+
+### Configuration
+
+Create a new token on [GitHub](https://github.com/settings/tokens) with `read:org` permissions.
+
+Add 3 new environment variables to `.zshrc` file:
+
+```
+export VAULT_ADDR=https://vault.byinfinum.co:8200
+export VAULT_AUTH_METHOD=github
+export VAULT_AUTH_TOKEN={your_github_token}
+```
+
+Don't forget to restart your `exec $SHELL`
+
+> Check the [secrets_cli prerequisites](https://github.com/infinum/secrets_cli#prerequisites) section for more details.
+
+### Pull the secrets
+
+Pull the secrets for the specific environment. Explained [here](https://github.com/infinum/secrets_cli#usage)
+
+`secrets pull -e development`
+
+### Vault dashboard
+
+Example link to Vault dashboard:
+
+- [development](https://vault.byinfinum.co:8200/ui/vault/secrets/js/show/js-react-example/development)
+- [staging](https://vault.byinfinum.co:8200/ui/vault/secrets/js/show/js-react-example/staging)
+
+You should log in with the GitHub method and use VAULT_AUTH_TOKEN for the token.
+
 ## Styleguide
 
 This project is using the styleguide as defined in the [Infinum Handbook](https://infinum.com/handbook/frontend/react/chakra-ui).
@@ -84,7 +123,7 @@ If you need to start a new project from this template, you have these options:
 npx create-next-app@latest PROJECT_NAME -e https://github.com/infinum/JS-React-Example/tree/project-starter-template --use-npm
 ```
 
-2. Full blown example App from the `master` branch
+2. Full-blown example App from the `master` branch
 
 ```bash
 npx create-next-app@latest PROJECT_NAME -e https://github.com/infinum/JS-React-Example --use-npm
