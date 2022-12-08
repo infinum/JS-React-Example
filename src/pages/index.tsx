@@ -6,6 +6,7 @@ import { MainLayout } from '@/components/shared/layouts/MainLayout/MainLayout';
 import { Hydrate } from '@datx/swr';
 import { createClient } from '@/datx/create-client';
 import { HomeHeaderSection } from '@/components/features/home/HomeHeaderSection/HomeHeaderSection';
+import { getSafeLocale } from '@/utils/locale';
 
 type HomeProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
@@ -26,7 +27,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
 
 	return {
 		props: {
-			...(await serverSideTranslations(String(locale), ['common', 'main-navigation'])),
+			...(await serverSideTranslations(getSafeLocale(locale), ['common', 'main-navigation'])),
 			fallback,
 		},
 	};

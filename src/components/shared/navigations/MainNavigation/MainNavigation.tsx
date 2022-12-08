@@ -21,6 +21,7 @@ import { FaMoon, FaSun } from 'react-icons/fa';
 import { NavLink } from './MainNavigation.elements';
 import { useSession } from '@/hooks/use-session';
 import { logout } from '@/mutations/auth';
+import { LanguageDropdown } from '@/components/shared/navigations/MainNavigation/components/LanguageDropdown/LanguageDropdown';
 
 export const MainNavigation: FC = () => {
 	const { t } = useTranslation(['common', 'main-navigation']);
@@ -35,7 +36,7 @@ export const MainNavigation: FC = () => {
 		onFailure: ({ error: errorResponse }) => {
 			if (errorResponse instanceof Response) {
 				const { error } = errorResponse;
-				const message = error instanceof Error ? error.message : error[0].detail;
+				const message = error instanceof Error ? error.message : error?.[0].detail;
 				toast({ title: message, status: 'error' });
 			}
 		},
@@ -54,11 +55,16 @@ export const MainNavigation: FC = () => {
 				</NextLink>
 
 				<HStack>
-					<NavLink as={NextLink} href="/">Home</NavLink>
-					<NavLink as={NextLink} href="/flights">Flights</NavLink>
+					<NavLink as={NextLink} href="/">
+						{t('main-navigation:nav.home')}
+					</NavLink>
+					<NavLink as={NextLink} href="/flights">
+						{t('main-navigation:nav.flights')}
+					</NavLink>
 				</HStack>
 
 				<HStack>
+					<LanguageDropdown />
 					{data?.data.user ? (
 						<Button aria-label="Log out from this page" onClick={handleLogout}>
 							{t('main-navigation:auth.logout.label')}

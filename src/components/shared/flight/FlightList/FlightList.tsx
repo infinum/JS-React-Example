@@ -12,7 +12,7 @@ export const FlightList: FC<IFlightListProps> = ({ flightList, ...rest }) => {
 	return (
 		<VStack align="stretch" spacing={4} {...rest}>
 			{flightList.map((item) => (
-				<FlightCard key={item.id} flight={item} />
+				<FlightCard key={item.name} flight={item} />
 			))}
 		</VStack>
 	);

@@ -1,5 +1,8 @@
 {
-	"heading": "React example",
+	"nav": {
+		"home": "Home",
+		"flights": "Flights"
+	},
 	"auth": {
 		"login": {
 			"label": "Login"

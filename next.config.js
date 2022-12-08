@@ -5,6 +5,8 @@ const { BugsnagSourceMapUploaderPlugin, BugsnagBuildReporterPlugin } = require('
 module.exports = {
 	i18n,
 	productionBrowserSourceMaps: true,
+	reactStrictMode: true,
+	output: 'standalone',
 	webpack(config, { buildId, isServer, webpack }) {
 		config.plugins.push(
 			new webpack.DefinePlugin({

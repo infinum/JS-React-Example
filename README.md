@@ -12,7 +12,8 @@
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) and [Jest](https://jestjs.io/) for unit and integration tests
 - [Storybook](https://storybook.js.org/)
 - [I18Next](https://www.i18next.com/)
-- [Hygen Templates](https://www.hygen.io/)
+- [Plop](https://plopjs.com/)
+- [Plop Next.js Generators](https://github.com/infinum/react-nuts-and-bolts/tree/main/packages/plop-next-ts-generators)
 
 ## Next.js plugins
 
@@ -75,11 +76,33 @@ This project is using the styleguide as defined in the [Infinum Handbook](https:
 
 ## Starting a new project from this template
 
-If you need to start a new project from this template, you can use this command:
+If you need to start a new project from this template, you have these options:
+
+1. Stripped down version of the App from `project-starter-template` branch
 
 ```bash
-
 npx create-next-app@latest PROJECT_NAME -e https://github.com/infinum/JS-React-Example/tree/project-starter-template --use-npm
 ```
 
-> Note: PROJECT_NAME is the name of your project
+2. Full blown example App from the `master` branch
+
+```bash
+npx create-next-app@latest PROJECT_NAME -e https://github.com/infinum/JS-React-Example --use-npm
+```
+
+> Note: replace PROJECT_NAME with the name of your project
+
+
+# Credits
+
+JS-React-Example is maintained by
+[Infinum](https://www.infinum.com).
+
+<p align="center">
+  <a href='https://infinum.com'>
+    <picture>
+        <source srcset="https://assets.infinum.com/brand/logo/static/white.svg" media="(prefers-color-scheme: dark)">
+        <img src="https://assets.infinum.com/brand/logo/static/default.svg">
+    </picture>
+  </a>
+</p>

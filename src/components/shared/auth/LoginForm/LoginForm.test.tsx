@@ -37,7 +37,9 @@ describe('LoginForm', () => {
 		const { container } = render(<UI />);
 
 		const submitButton = screen.queryByRole('button', { name: /submit\.label/i });
-		await act(() => user.click(submitButton));
+		await act(() => {
+			if (submitButton) user.click(submitButton);
+		});
 
 		const results = await axe(container);
 
