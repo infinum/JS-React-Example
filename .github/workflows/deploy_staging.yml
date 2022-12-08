@@ -3,6 +3,8 @@ name: Deploy staging
 on:
   workflow_dispatch:
   push:
+    paths-ignore:
+      - '**.md'
     branches:
       - master
 
