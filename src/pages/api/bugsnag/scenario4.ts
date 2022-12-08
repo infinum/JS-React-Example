@@ -6,15 +6,16 @@
 
 import Bugsnag from '@bugsnag/js';
 import { start, getServerlessHandler } from '@/lib/bugsnag';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 start();
 const serverlessHandler = getServerlessHandler();
 
-async function handler(req, res) {
+async function handler(_req: NextApiRequest, res: NextApiResponse) {
 	try {
 		throw new Error('API scenario 4');
 	} catch (error) {
-		Bugsnag.notify(error);
+		Bugsnag.notify(error as Error);
 	}
 
 	// Flushing before returning is necessary if deploying to Vercel, see

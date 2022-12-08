@@ -1,12 +1,11 @@
-import { BugsnagErrorBoundary } from '@bugsnag/plugin-react';
 import { Button, Center, Text, VStack } from '@chakra-ui/react';
-import { ComponentType, FC, Validator } from 'react';
+import { FC } from 'react';
 
-export type ErrorFallbackProps = BugsnagErrorBoundary['propTypes']['FallbackComponent'] extends Validator<
-	ComponentType<infer T>
->
-	? T
-	: never;
+export type ErrorFallbackProps = {
+	error: Error;
+	info: React.ErrorInfo;
+	clearError: () => void;
+};
 
 export const ErrorFallback: FC<ErrorFallbackProps> = ({ error, clearError }) => {
 	return (

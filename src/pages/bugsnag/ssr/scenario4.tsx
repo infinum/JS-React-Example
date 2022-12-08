@@ -12,7 +12,7 @@ export async function getServerSideProps() {
 	try {
 		throw new Error('SSR scenario 4');
 	} catch (error) {
-		Bugsnag.notify(error, (event) => {
+		Bugsnag.notify(error as Error, (event) => {
 			event.severity = 'error';
 			event.unhandled = true;
 		});

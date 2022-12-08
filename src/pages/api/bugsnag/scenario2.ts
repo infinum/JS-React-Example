@@ -5,6 +5,7 @@
  */
 
 import { start, getServerlessHandler } from '@/lib/bugsnag';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 start();
 const serverlessHandler = getServerlessHandler();
@@ -15,7 +16,7 @@ function work() {
 
 work();
 
-async function handler(req, res) {
+async function handler(_req: NextApiRequest, res: NextApiResponse) {
 	res.status(200).json({ name: 'John Doe' });
 }
 

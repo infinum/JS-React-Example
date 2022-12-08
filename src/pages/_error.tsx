@@ -2,7 +2,7 @@ import React from 'react';
 import { NextPage, NextPageContext } from 'next';
 import NextErrorComponent, { ErrorProps } from 'next/error';
 import { Container, Heading, Image, Center } from '@chakra-ui/react';
-import Bugsnag from '@bugsnag/js';
+import Bugsnag, { Request } from '@bugsnag/js';
 
 interface ICustomErrorPageProps extends ErrorProps {
 	err?: Error;
@@ -60,7 +60,10 @@ CustomErrorPage.getInitialProps = async (ctx: NextPageContext) => {
 		Bugsnag.notify(err, (event) => {
 			event.severity = 'error';
 			event.unhandled = true;
-			event.request = req as unknown;
+
+			if (req) {
+				event.request = req as unknown as Request;
+			}
 		});
 
 		// Flushing before returning is necessary if deploying to Vercel, see
@@ -79,8 +82,12 @@ CustomErrorPage.getInitialProps = async (ctx: NextPageContext) => {
 	Bugsnag.notify(new Error(`_error.js getInitialProps missing data at path: ${asPath}`), (event) => {
 		event.severity = 'error';
 		event.unhandled = true;
-		event.request = req as unknown;
+
+		if (req) {
+			event.request = req as unknown as Request;
+		}
 	});
+
 	await require('@bugsnag/in-flight').flush(2000);
 
 	return {
