@@ -50,7 +50,7 @@ export const MainNavigation: FC = () => {
 	return (
 		<Box as="nav" shadow="md">
 			<Container as={Flex} align="center" justify="space-between" maxW="container.lg" py={4}>
-				<NextLink href="/" passHref>
+				<NextLink href="/">
 					<Image htmlWidth="64px" src="/images/logo-infinum.png" />
 				</NextLink>
 
@@ -70,7 +70,7 @@ export const MainNavigation: FC = () => {
 							{t('main-navigation:auth.logout.label')}
 						</Button>
 					) : (
-						<Button as="a" href="/login">
+						<Button as={NextLink} href="/login">
 							{t('main-navigation:auth.login.label')}
 						</Button>
 					)}

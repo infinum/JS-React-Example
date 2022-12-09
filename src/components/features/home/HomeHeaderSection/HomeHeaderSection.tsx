@@ -19,11 +19,9 @@ export const HomeHeaderSection: FC<IHomeHeaderSectionProps> = () => {
 						<Button colorScheme="red" size="lg">
 							Learn more
 						</Button>
-						<NextLink href="/flights" passHref legacyBehavior>
-							<Button as="a" size="lg">
-								Check Flights
-							</Button>
-						</NextLink>
+						<Button as={NextLink} href="/flights" size="lg">
+							Check Flights
+						</Button>
 					</Stack>
 				</Stack>
 			</Container>
