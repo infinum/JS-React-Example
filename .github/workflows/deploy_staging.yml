@@ -11,7 +11,7 @@ on:
 
 jobs:
   deploy:
-    name: Deploy
+    name: Deploy v1
     uses: infinum/js-pipeline/.github/workflows/pipeline.yml@v1
     with:
       ci_steps: 'deploy'
