@@ -7,11 +7,12 @@ on:
       - '**.md'
     branches:
       - master
+      - ga-v1
 
 jobs:
   deploy:
     name: Deploy
-    uses: infinum/js-pipeline/.github/workflows/pipeline.yml@master
+    uses: infinum/js-pipeline/.github/workflows/pipeline.yml@v1
     with:
       ci_steps: 'deploy'
       secrets: 'js-react-example'
