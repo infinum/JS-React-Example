@@ -33,14 +33,16 @@ module.exports = {
 					{
 						apiKey: process.env.NEXT_PUBLIC_BUGSNAG_API_KEY,
 						appVersion: buildId,
-						releaseStage: process.env.NODE_ENV,
+						releaseStage: process.env.NEXT_PUBLIC_NEXT_APP_ENV,
 					},
 					{ logLevel: 'debug' }
 				),
 				new BugsnagSourceMapUploaderPlugin({
 					apiKey: process.env.NEXT_PUBLIC_BUGSNAG_API_KEY,
 					appVersion: buildId,
-					publicPath: 'http://localhost:3000/_next/',
+					publicPath: isServer ? '.next/server/' : `${process.env.SITE_URL}/_next/`,
+					releaseStage: process.env.NEXT_PUBLIC_NEXT_APP_ENV,
+					overwrite: true,
 				})
 			);
 		}
