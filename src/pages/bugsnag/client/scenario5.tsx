@@ -9,13 +9,18 @@
  * display on the screen.
  * https://reactjs.org/docs/error-boundaries.html#how-about-event-handlers
  */
+import Bugsnag from '@bugsnag/js';
 
 const Scenario5 = () => (
 	<>
 		<h1>Client scenario 5</h1>
 		<button
 			onClick={() => {
-				throw new Error('Client scenario 5');
+				try {
+					throw new Error('Client scenario 5');
+				} catch (error) {
+					Bugsnag.notify(error as Error);
+				}
 			}}
 		>
 			Click me to throw an Error
