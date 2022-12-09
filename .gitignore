@@ -40,3 +40,6 @@ public/robots.txt
 
 # storybook
 storybook-static
+
+# new relic
+newrelic_agent.log

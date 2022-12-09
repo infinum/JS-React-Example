@@ -1,8 +1,10 @@
-import Document, { Html, Head, Main, NextScript, DocumentContext, DocumentInitialProps } from 'next/document';
+import Document, { Html, Head, Main, NextScript, DocumentContext, DocumentProps } from 'next/document';
 
 const newrelic = require('newrelic');
 
-const AppDocument = ({ browserTimingHeader }: { browserTimingHeader: string }) => {
+type Props = DocumentProps & Awaited<ReturnType<Awaited<typeof getInitialProps>>>;
+
+const AppDocument = ({ browserTimingHeader }: Props) => {
 	return (
 		<Html>
 			<Head>
@@ -18,9 +20,7 @@ const AppDocument = ({ browserTimingHeader }: { browserTimingHeader: string }) =
 	);
 };
 
-AppDocument.getInitialProps = async function (
-	ctx: DocumentContext
-): Promise<DocumentInitialProps & { browserTimingHeader: string }> {
+export async function getInitialProps(ctx: DocumentContext) {
 	const initialProps = await Document.getInitialProps(ctx);
 
 	const browserTimingHeader: string = newrelic.getBrowserTimingHeader({
@@ -31,6 +31,6 @@ AppDocument.getInitialProps = async function (
 		...initialProps,
 		browserTimingHeader,
 	};
-};
+}
 
 export default AppDocument;
