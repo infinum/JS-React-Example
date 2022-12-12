@@ -21,6 +21,6 @@
 		},
 		"incremental": true
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/lib/bugsnag.tjs"],
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/lib/bugsnag.tjs", "__tests__/.gitkeep"],
 	"exclude": ["node_modules"]
 }

@@ -14,14 +14,14 @@ exports[`LoginForm should matches snapshot 1`] = `
         role="group"
       >
         <label
-          class="chakra-form__label css-1ouynl9"
+          class="chakra-form__label css-g6pte"
           for="email"
           id="email-label"
         >
           email.label
         </label>
         <input
-          class="chakra-input css-9wkudj"
+          class="chakra-input css-1kp110w"
           id="email"
           name="email"
           type="email"
@@ -32,7 +32,7 @@ exports[`LoginForm should matches snapshot 1`] = `
         role="group"
       >
         <label
-          class="chakra-form__label css-1ouynl9"
+          class="chakra-form__label css-g6pte"
           for="password"
           id="password-label"
         >
@@ -46,7 +46,7 @@ exports[`LoginForm should matches snapshot 1`] = `
           >
             <button
               aria-label="Reveal password"
-              class="chakra-button css-14grpeb"
+              class="chakra-button css-x66jzz"
               type="button"
             >
               <svg
@@ -74,7 +74,7 @@ exports[`LoginForm should matches snapshot 1`] = `
           <input
             aria-required="true"
             autocomplete="current-password"
-            class="chakra-input css-1rorybn"
+            class="chakra-input css-9u6owi"
             id="password"
             name="password"
             required=""
@@ -87,7 +87,7 @@ exports[`LoginForm should matches snapshot 1`] = `
       class="chakra-stack css-1oeb4ru"
     >
       <label
-        class="chakra-checkbox css-1feyqmz"
+        class="chakra-checkbox css-1577qb8"
         data-checked=""
       >
         <input
@@ -99,16 +99,15 @@ exports[`LoginForm should matches snapshot 1`] = `
         />
         <span
           aria-hidden="true"
-          class="chakra-checkbox__control css-57ksmd"
+          class="chakra-checkbox__control css-690el4"
           data-checked=""
         >
           <div
-            style="display: flex; align-items: center; justify-content: center; height: 100%; transform: none;"
+            class="css-0"
+            style="display: flex; align-items: center; justify-content: center; height: 100%;"
           >
             <svg
-              class="css-1x1o9fj"
-              opacity="1"
-              stroke-dashoffset="0"
+              class="css-5jdg10"
               style="fill: none; stroke-width: 2; stroke: currentColor; stroke-dasharray: 16;"
               viewBox="0 0 12 10"
             >
@@ -119,14 +118,14 @@ exports[`LoginForm should matches snapshot 1`] = `
           </div>
         </span>
         <span
-          class="chakra-checkbox__label css-mq5zsn"
+          class="chakra-checkbox__label css-6x44c9"
           data-checked=""
         >
           Remember me
         </span>
       </label>
       <button
-        class="chakra-button css-13pffa4"
+        class="chakra-button css-5m7awp"
         type="button"
       >
         Forgot password?
@@ -136,7 +135,7 @@ exports[`LoginForm should matches snapshot 1`] = `
       class="chakra-stack css-b5leqj"
     >
       <button
-        class="chakra-button css-1rnaulk"
+        class="chakra-button css-41aesz"
         type="submit"
       >
         submit.label
