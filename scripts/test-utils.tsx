@@ -5,10 +5,12 @@ import { SWRConfig } from 'swr';
 import { I18nextProvider } from 'react-i18next';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import { createFetcher, DatxProvider, useInitialize } from '@datx/swr';
 
 import '@testing-library/jest-dom';
 
 import theme from '@/styles/theme';
+import { createClient } from '@/datx/create-client';
 import common from '../public/locales/en-US/common.json';
 
 declare global {
@@ -27,16 +29,22 @@ interface IComponentWithChildrenProps {
 	children?: ReactNode;
 }
 
-const AllTheProviders: FC<IComponentWithChildrenProps> = ({ children }) => (
-	<I18nextProvider i18n={i18n}>
-		<SWRConfig value={{ provider: () => new Map() }}>
-			<ChakraProvider theme={theme}>{children}</ChakraProvider>
-		</SWRConfig>
-	</I18nextProvider>
-);
+const AllProviders: FC<IComponentWithChildrenProps> = ({ children }) => {
+	const client = useInitialize(createClient);
+
+	return (
+		<I18nextProvider i18n={i18n}>
+			<DatxProvider client={client}>
+				<SWRConfig value={{ provider: () => new Map(), fetcher: createFetcher(client) }}>
+					<ChakraProvider theme={theme}>{children}</ChakraProvider>
+				</SWRConfig>
+			</DatxProvider>
+		</I18nextProvider>
+	);
+};
 
 const customRender = (ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>) =>
-	render(ui, { wrapper: AllTheProviders, ...options });
+	render(ui, { wrapper: AllProviders, ...options });
 
 // https://reactjs.org/blog/2022/03/08/react-18-upgrade-guide.html#configuring-your-testing-environment
 const customAct = (...args: Parameters<typeof act>) => {
