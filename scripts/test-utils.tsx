@@ -39,12 +39,11 @@ const customRender = (ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>
 	render(ui, { wrapper: AllTheProviders, ...options });
 
 // https://reactjs.org/blog/2022/03/08/react-18-upgrade-guide.html#configuring-your-testing-environment
-const customAct: typeof act = (cb) => {
+const customAct = (...args: Parameters<typeof act>) => {
 	let prev = globalThis.IS_REACT_ACT_ENVIRONMENT;
 	globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 
-	// @ts-ignore
-	const result = act(cb);
+	const result = act(...args);
 
 	globalThis.IS_REACT_ACT_ENVIRONMENT = prev;
 
