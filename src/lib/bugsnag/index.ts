@@ -22,12 +22,14 @@ export function start() {
 			enabledReleaseStages: ['production', 'staging', 'uat'],
 		};
 
+		const bugsnagPluginReact = new BugsnagPluginReact(React);
+
 		if ((process.env.NEXT_IS_SERVER as unknown as boolean) === true) {
 			Bugsnag.start({
 				...commonConfig,
 				appType: 'server',
 				plugins: [
-					new BugsnagPluginReact(React),
+					bugsnagPluginReact,
 					// @bugsnag/plugin-aws-lambda must only be imported on the server
 					require('@bugsnag/plugin-aws-lambda'),
 				],
@@ -37,7 +39,7 @@ export function start() {
 			Bugsnag.start({
 				...commonConfig,
 				appType: 'client',
-				plugins: [new BugsnagPluginReact(React)],
+				plugins: [bugsnagPluginReact],
 			} satisfies BrowserConfig);
 		}
 	}
