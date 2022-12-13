@@ -1,18 +1,26 @@
+import localFont from '@next/font/local';
 import { extendTheme } from '@chakra-ui/react';
 
 import { styles } from './styles';
-import { colors } from './foundations/colors';
 
+import { colors } from './foundations/colors';
 // -- PLOP:IMPORT_FOUNDATION_THEME --
 
 // -- PLOP:IMPORT_COMPONENT_THEME --
+
+const gtHaptik = localFont({
+	src: [
+		{ path: '../../assets/fonts/GT-Haptik-Regular.woff', weight: '400', style: 'normal' },
+		{ path: '../../assets/fonts/GT-Haptik-Bold.woff', weight: '700', style: 'normal' },
+	],
+});
 
 const overrides = {
 	styles,
 	colors,
 	fonts: {
-		body: 'GT Haptik',
-		heading: 'GT Haptik',
+		body: gtHaptik.style.fontFamily,
+		heading: gtHaptik.style.fontFamily,
 	},
 	semanticTokens: {
 		colors: {

@@ -34,6 +34,7 @@
 		"@emotion/react": "~11.10.4",
 		"@emotion/styled": "~11.10.4",
 		"@hookform/error-message": "2.0.0",
+		"@next/font": "~13.0.6",
 		"date-fns": "~2.29.3",
 		"eslint-config-next": "~13.0.6",
 		"focus-visible": "~5.2.0",
