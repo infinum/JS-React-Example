@@ -49,7 +49,7 @@ export const MainNavigation: FC = () => {
 
 	return (
 		<Box as="nav" shadow="md">
-			<Container as={Flex} align="center" justify="space-between" maxW="container.lg" py={4}>
+			<Container as={Flex} align="center" justify="space-between" py={4} size="xl">
 				<NextLink href="/">
 					<Image htmlWidth="64px" src="/images/logo-infinum.png" />
 				</NextLink>

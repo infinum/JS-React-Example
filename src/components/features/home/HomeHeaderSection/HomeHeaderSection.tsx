@@ -7,7 +7,7 @@ export interface IHomeHeaderSectionProps {}
 export const HomeHeaderSection: FC<IHomeHeaderSectionProps> = () => {
 	return (
 		<Box as="section">
-			<Container minW="container.lg" py={{ base: '16', md: '24' }}>
+			<Container py={{ base: '16', md: '24' }} size="xl">
 				<Stack spacing={{ base: '8', md: '10' }}>
 					<Stack align="center" spacing={{ base: '4', md: '5' }}>
 						<Heading size={{ base: 'sm', md: 'md' }}>Ready to Fly?</Heading>

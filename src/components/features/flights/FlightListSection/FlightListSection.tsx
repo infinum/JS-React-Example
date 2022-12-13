@@ -24,7 +24,7 @@ export const FlightListSection: FC = () => {
 	);
 
 	return (
-		<Container minW="container.lg" py={10}>
+		<Container py={10} size="xl">
 			<Box as="section">
 				<Heading as="h1" mb={3} size="lg">
 					{t('flight-list-section:title')}
