@@ -5,7 +5,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { Card } from './Card';
 
 export default {
-	title: 'UI/core/Card2',
+	title: 'UI/core/Card',
 	component: Card,
 } as Meta;
 
