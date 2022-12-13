@@ -56,7 +56,7 @@
 		"@chakra-ui/cli": "~2.1.8",
 		"@chakra-ui/storybook-addon": "~4.0.12",
 		"@infinum/plop-next-ts-generators": "~1.0.2",
-		"@next/bundle-analyzer": "~12.3.1",
+		"@next/bundle-analyzer": "~13.0.6",
 		"@next/eslint-plugin-next": "~13.0.5",
 		"@storybook/addon-a11y": "~6.5.12",
 		"@storybook/addon-actions": "~6.5.12",
