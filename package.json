@@ -33,7 +33,7 @@
 		"@datx/swr": "~2.5.0-beta.5",
 		"@emotion/react": "~11.10.4",
 		"@emotion/styled": "~11.10.4",
-		"@hookform/error-message": "2.0.0",
+		"@hookform/error-message": "~2.0.1",
 		"@next/font": "~13.0.6",
 		"date-fns": "~2.29.3",
 		"eslint-config-next": "~13.0.6",
