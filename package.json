@@ -17,17 +17,19 @@
 		"analyze": "ANALYZE=true yarn build",
 		"analyze:sourcemap": "source-map-explorer .next/static/**/*.js",
 		"prepare": "husky install",
-		"gen:theme-typings": "chakra-cli tokens ./src/styles/theme/index.ts",
-		"postinstall": "npm run gen:theme-typings",
+		"gen:theme-typings": "chakra-cli tokens ./src/styles/theme/index.ts --strict-component-types --strict-token-types",
+		"gen:theme-typings:watch": "chakra-cli tokens ./src/styles/theme/index.ts --strict-component-types --strict-token-types --watch",
 		"i18n:generate": "node ./scripts/i18next-cli.js",
 		"gen:component": "plop component",
-		"gen:theme": "plop theme"
+		"gen:theme": "plop theme",
+		"postinstall": "npm run gen:theme-typings"
 	},
 	"dependencies": {
 		"@bugsnag/js": "~7.18.0",
 		"@bugsnag/plugin-aws-lambda": "~7.18.0",
 		"@bugsnag/plugin-react": "~7.18.0",
 		"@chakra-ui/react": "~2.4.3",
+		"@chakra-ui/utils": "~2.0.12",
 		"@datx/core": "~2.5.0-beta.4",
 		"@datx/jsonapi": "~2.5.0-beta.5",
 		"@datx/swr": "~2.5.0-beta.5",
@@ -53,7 +55,7 @@
 		"swr": "~2.0.0"
 	},
 	"devDependencies": {
-		"@chakra-ui/cli": "~2.1.8",
+		"@chakra-ui/cli": "~2.2.0",
 		"@chakra-ui/storybook-addon": "~4.0.12",
 		"@infinum/plop-next-ts-generators": "~1.0.2",
 		"@next/bundle-analyzer": "~13.0.6",
