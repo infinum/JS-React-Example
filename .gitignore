@@ -43,3 +43,8 @@ storybook-static
 
 # vscode
 .vscode/find-unused-exports.json
+
+#playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
