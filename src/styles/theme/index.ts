@@ -1,21 +1,18 @@
-import localFont from '@next/font/local';
 import { extendTheme } from '@chakra-ui/react';
+import localFont from '@next/font/local';
 
 // -- PLOP:IMPORT_FOUNDATION_THEME --
 
 // -- PLOP:IMPORT_COMPONENT_THEME --
 
-const gtHaptik = localFont({
-	src: [
-		{ path: '../../assets/fonts/GT-Haptik-Regular.woff', weight: '400', style: 'normal' },
-		{ path: '../../assets/fonts/GT-Haptik-Bold.woff', weight: '700', style: 'normal' },
-	],
-});
+// A fix for Chakra UI CLI pass on npm postinstall.
+// It will be replaced with Next.js localFont in _app.tsx.
+const fontFamilyFallback = 'system-ui, sans-serif';
 
 const overrides = {
 	fonts: {
-		body: gtHaptik.style.fontFamily,
-		heading: gtHaptik.style.fontFamily,
+		body: fontFamilyFallback,
+		heading: fontFamilyFallback,
 	},
 	// -- PLOP:REGISTER_FOUNDATION_THEME --
 	components: {
