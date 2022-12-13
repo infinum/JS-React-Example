@@ -75,7 +75,7 @@
 		"@types/react-dom": "~18.0.9",
 		"@typescript-eslint/eslint-plugin": "~5.46.1",
 		"@typescript-eslint/parser": "~5.46.1",
-		"eslint": "~8.28.0",
+		"eslint": "~8.29.0",
 		"eslint-plugin-chakra-ui": "~0.7.6",
 		"eslint-plugin-jsx-a11y": "~6.6.1",
 		"eslint-plugin-react": "~7.31.11",
