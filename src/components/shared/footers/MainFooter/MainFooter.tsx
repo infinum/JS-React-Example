@@ -5,20 +5,25 @@ import NextLink from 'next/link';
 
 export const MainFooter = () => (
 	<Box as="footer" bg="bg-surface" role="contentinfo">
-		<Container minW="container.lg">
+		<Container size="xl">
 			<Stack
 				justify="space-between"
 				direction={{ base: 'column', md: 'row' }}
 				py={{ base: '12', md: '16' }}
 				spacing="8"
 			>
-				<Stack align="start" spacing={{ base: '6', md: '8' }}>
+				<Stack align="start" minW="0" spacing={{ base: '6', md: '8' }}>
 					<NextLink href="/">
 						<Image htmlWidth="64px" src="/images/logo-infinum.png" />
 					</NextLink>
 					<Text color="muted">Create beautiful websites remarkably fast.</Text>
 				</Stack>
-				<Stack direction={{ base: 'column-reverse', md: 'column', lg: 'row' }} spacing={{ base: '12', md: '8' }}>
+
+				<Stack
+					direction={{ base: 'column-reverse', md: 'column', lg: 'row' }}
+					minW="0"
+					spacing={{ base: '12', md: '8' }}
+				>
 					<Stack direction="row" spacing="8">
 						<Stack flex="1" minW="36" spacing="4">
 							<Text color="subtle" fontSize="sm" fontWeight="semibold">
@@ -54,7 +59,9 @@ export const MainFooter = () => (
 					</Stack>
 				</Stack>
 			</Stack>
+
 			<Divider />
+
 			<Stack align="center" justify="space-between" direction={{ base: 'column-reverse', md: 'row' }} pt="8" pb="12">
 				<Text color="subtle" fontSize="sm">
 					&copy; {new Date().getFullYear()} Infinum Inc.
