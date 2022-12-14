@@ -1,11 +1,11 @@
 import React from 'react';
 import { createFetcher, DatxProvider, useInitialize } from '@datx/swr';
-import { Story, StoryContext } from '@storybook/react';
+import { StoryFn, StoryContext } from '@storybook/react';
 import { SWRConfig } from 'swr';
 
 import { createClient } from '../src/datx/create-client';
 
-export const withDatxProvider = (StoryFn: Story, context: StoryContext) => {
+export const withDatxProvider = (StoryFn: StoryFn, context: StoryContext) => {
 	const client = useInitialize(createClient);
 
 	return (

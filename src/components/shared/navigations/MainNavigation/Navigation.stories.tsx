@@ -1,4 +1,4 @@
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 
 import { MainNavigation } from './MainNavigation';
 
@@ -7,7 +7,7 @@ export default {
 	component: MainNavigation,
 } as Meta;
 
-const Template: Story = (args) => <MainNavigation {...args} />;
+const Template: StoryFn = (args) => <MainNavigation {...args} />;
 
 export const Example = Template.bind({});
 Example.args = {};
