@@ -1,10 +1,8 @@
-import { RouterContext } from 'next/dist/shared/lib/router-context';
 import { initializeWorker, mswDecorator } from 'msw-storybook-addon';
+
 import theme from '../src/styles/theme';
 
 import { withDatxProvider } from './withDatxProvider';
-
-import 'focus-visible/dist/focus-visible';
 
 initializeWorker();
 
@@ -17,14 +15,6 @@ export const parameters = {
 			color: /(background|color)$/i,
 			date: /Date$/,
 		},
-	},
-	nextRouter: {
-		Provider: RouterContext.Provider,
-		path: '/',
-		asPath: '/',
-		query: {},
-		push() {},
-		replace() {},
 	},
 };
 

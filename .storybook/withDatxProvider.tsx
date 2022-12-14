@@ -1,3 +1,4 @@
+import React from 'react';
 import { createFetcher, DatxProvider, useInitialize } from '@datx/swr';
 import { Story, StoryContext } from '@storybook/react';
 import { SWRConfig } from 'swr';
