@@ -12,7 +12,7 @@ on:
 jobs:
   deploy:
     name: Deploy v1
-    uses: infinum/js-pipeline/.github/workflows/pipeline.yml@v1
+    uses: infinum/js-pipeline/.github/workflows/pipeline.yml@caching-fixes
     with:
       ci_steps: 'deploy'
       secrets: 'js-react-example'
