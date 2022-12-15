@@ -1,14 +1,14 @@
-import { Response } from '@datx/jsonapi';
-import { IError } from '@datx/jsonapi/dist/interfaces/JsonApi';
+import { SingleResponse, CollectionResponse } from '@datx/swr';
 import camelCase from 'lodash/camelCase';
 
-interface IApiError {
+export type ResponseError = SingleResponse['error'] | CollectionResponse['error'];
+export interface IApiError {
 	name: any;
 	type: string;
 	message?: string;
 }
 
-export function getErrors(error: Response['error']): Array<IApiError> {
+export function getErrors(error: ResponseError): Array<IApiError> {
 	if (error === undefined) {
 		return [
 			{

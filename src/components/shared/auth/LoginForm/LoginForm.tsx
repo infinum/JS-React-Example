@@ -6,7 +6,7 @@ import { getErrors } from '@/utils/form-error';
 import { Response } from '@datx/jsonapi';
 import { useTranslation } from 'next-i18next';
 import { login } from '@/mutations/auth';
-import { useClient } from '@datx/swr';
+import { isCollectionResponse, isSingleResponse, SingleResponse, useClient } from '@datx/swr';
 import { useSession } from '@/hooks/use-session';
 import { PasswordField } from '@/components/shared/fields/PasswordField/PasswordField';
 import { Session } from '@/models/Session';
@@ -39,7 +39,7 @@ export const LoginForm: FC<BoxProps> = (props) => {
 
 			await mutate(() => login(client, data), false);
 		} catch (errors) {
-			if (errors instanceof Response) {
+			if (isSingleResponse(errors) || isCollectionResponse(errors)) {
 				getErrors(errors.error).forEach(({ name, type, message = t<string>('error') }) =>
 					setError(name, { type, message })
 				);
