@@ -10,7 +10,12 @@ export const LanguageDropdown = () => {
 
 	return (
 		<Menu placement="bottom">
-			<MenuButton as={IconButton} aria-label="Toggle language" icon={<Icon as={FaGlobeEurope} w="16px" />} />
+			<MenuButton
+				as={IconButton}
+				aria-label="Toggle language"
+				icon={<Icon as={FaGlobeEurope} w="16px" />}
+				variant="ghost"
+			/>
 			<MenuList>
 				{locales?.map((locale) => (
 					<MenuItem

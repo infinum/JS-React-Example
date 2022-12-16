@@ -10,6 +10,7 @@ import {
 	Icon,
 	Container,
 	Box,
+	Text,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { Response } from '@datx/jsonapi';
@@ -30,7 +31,7 @@ export const MainNavigation: FC = () => {
 	const { cache } = useSWRConfig();
 	const client = useClient();
 
-	const { data } = useSession();
+	const { data, mutate } = useSession();
 
 	const [handleLogout] = useMutation(logout, {
 		onFailure: ({ error: errorResponse }) => {
@@ -40,21 +41,27 @@ export const MainNavigation: FC = () => {
 				toast({ title: message, status: 'error' });
 			}
 		},
-		onSuccess: () => {
+		onSuccess: async () => {
+			// @ts-ignore
+			mutate(null, false);
 			// @ts-ignore
 			cache.clear();
 			client.reset();
 		},
 	});
 
+	console.log('data', data);
+
 	return (
-		<Box as="nav" shadow="md">
-			<Container as={Flex} align="center" justify="space-between" py={4} size="xl">
+		<Box as="nav" borderBottom="1px" borderBottomColor="chakra-border-color">
+			<Container as={Flex} align="center" justify="space-between" py={2} size="xl">
 				<NextLink href="/">
-					<Image htmlWidth="64px" src="/images/logo-infinum.png" />
+					<Text as="h1" color="red.500" fontSize="3xl">
+						Cekila
+					</Text>
 				</NextLink>
 
-				<HStack>
+				<HStack flex="1" px={8} spacing={4}>
 					<NavLink as={NextLink} href="/">
 						{t('main-navigation:nav.home')}
 					</NavLink>
@@ -65,20 +72,21 @@ export const MainNavigation: FC = () => {
 
 				<HStack>
 					<LanguageDropdown />
-					{data?.data.user ? (
-						<Button aria-label="Log out from this page" onClick={handleLogout}>
-							{t('main-navigation:auth.logout.label')}
-						</Button>
-					) : (
-						<Button as={NextLink} href="/login">
-							{t('main-navigation:auth.login.label')}
-						</Button>
-					)}
 					<IconButton
 						aria-label="Toggle color mode"
 						icon={<Icon as={colorMode === 'light' ? FaMoon : FaSun} w="16px" />}
 						onClick={toggleColorMode}
+						variant="ghost"
 					/>
+					{data?.data.user ? (
+						<Button aria-label="Log out from this page" colorScheme="red" onClick={handleLogout}>
+							{t('main-navigation:auth.logout.label')}
+						</Button>
+					) : (
+						<Button as={NextLink} colorScheme="red" href="/login">
+							{t('main-navigation:auth.login.label')}
+						</Button>
+					)}
 				</HStack>
 			</Container>
 		</Box>
