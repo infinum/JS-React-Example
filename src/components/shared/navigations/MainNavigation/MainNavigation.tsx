@@ -1,17 +1,5 @@
 import React, { FC } from 'react';
-import {
-	HStack,
-	Flex,
-	Image,
-	useColorMode,
-	IconButton,
-	Button,
-	useToast,
-	Icon,
-	Container,
-	Box,
-	Text,
-} from '@chakra-ui/react';
+import { HStack, Flex, useColorMode, IconButton, Button, useToast, Icon, Container, Box, Text } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { Response } from '@datx/jsonapi';
 import { useMutation, useClient } from '@datx/swr';
@@ -22,7 +10,8 @@ import { FaMoon, FaSun } from 'react-icons/fa';
 import { NavLink } from './MainNavigation.elements';
 import { useSession } from '@/hooks/use-session';
 import { logout } from '@/mutations/auth';
-import { LanguageDropdown } from '@/components/shared/navigations/MainNavigation/components/LanguageDropdown/LanguageDropdown';
+import { LanguageMenu } from '@/components/shared/navigations/MainNavigation/components/LanguageMenu';
+import { UserMenu } from '@/components/shared/navigations/MainNavigation/components/UserMenu';
 
 export const MainNavigation: FC = () => {
 	const { t } = useTranslation(['common', 'main-navigation']);
@@ -50,8 +39,6 @@ export const MainNavigation: FC = () => {
 		},
 	});
 
-	console.log('data', data);
-
 	return (
 		<Box as="nav" borderBottom="1px" borderBottomColor="chakra-border-color">
 			<Container as={Flex} align="center" justify="space-between" py={2} size="xl">
@@ -71,7 +58,7 @@ export const MainNavigation: FC = () => {
 				</HStack>
 
 				<HStack>
-					<LanguageDropdown />
+					<LanguageMenu />
 					<IconButton
 						aria-label="Toggle color mode"
 						icon={<Icon as={colorMode === 'light' ? FaMoon : FaSun} w="16px" />}
@@ -79,9 +66,7 @@ export const MainNavigation: FC = () => {
 						variant="ghost"
 					/>
 					{data?.data.user ? (
-						<Button aria-label="Log out from this page" colorScheme="red" onClick={handleLogout}>
-							{t('main-navigation:auth.logout.label')}
-						</Button>
+						<UserMenu user={data?.data.user} onLogout={handleLogout} />
 					) : (
 						<Button as={NextLink} colorScheme="red" href="/login">
 							{t('main-navigation:auth.login.label')}

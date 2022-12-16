@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { FaGlobeEurope } from 'react-icons/fa';
 import { ariaAttr } from '@chakra-ui/utils';
 
-export const LanguageDropdown = () => {
+export const LanguageMenu = () => {
 	const { pathname, query, locale: currentLocale, locales } = useRouter();
 
 	return (
