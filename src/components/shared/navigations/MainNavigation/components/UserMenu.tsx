@@ -1,5 +1,5 @@
 import { User } from '@/models/User';
-import { Avatar, forwardRef, Icon, IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
+import { Avatar, forwardRef, IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
 export interface IUserMenuProps {
@@ -21,7 +21,7 @@ export const UserMenu = forwardRef<IUserMenuProps, 'div'>((props, ref) => {
 			/>
 			<MenuList>
 				<MenuItem aria-label="Log out from this page" onClick={onLogout}>
-					{t('main-navigation:auth.logout.label')}
+					{t('auth.logout.label')}
 				</MenuItem>
 			</MenuList>
 		</Menu>

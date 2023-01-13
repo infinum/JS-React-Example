@@ -40,9 +40,7 @@ export const LoginForm: FC<BoxProps> = (props) => {
 			await mutate(() => login(client, data), false);
 		} catch (errors) {
 			if (isSingleResponse(errors) || isCollectionResponse(errors)) {
-				getErrors(errors.error).forEach(({ name, type, message = t<string>('error') }) =>
-					setError(name, { type, message })
-				);
+				getErrors(errors.error).forEach(({ name, type, message = t('error') }) => setError(name, { type, message }));
 			}
 		}
 	}
@@ -54,13 +52,13 @@ export const LoginForm: FC<BoxProps> = (props) => {
 					label={t('email.label')}
 					errors={errors}
 					type="email"
-					{...register('email', { required: t<string>('required') })}
+					{...register('email', { required: t('required') })}
 				/>
 				<PasswordField
 					label={t('password.label')}
 					errors={errors}
 					id="password"
-					{...register('password', { required: t<string>('required') })}
+					{...register('password', { required: t('required') })}
 				/>
 			</Stack>
 			<HStack justify="space-between">
