@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { createClient } from '@/datx/create-client';
 import { DatxProvider, useInitialize } from '@datx/swr';
 import userEvent from '@testing-library/user-event';
-import { act, render, screen } from 'test-utils';
+import { render, screen } from 'test-utils';
 import { LoginForm } from './LoginForm';
 
 describe('LoginForm', () => {
@@ -37,9 +37,8 @@ describe('LoginForm', () => {
 		const { container } = render(<UI />);
 
 		const submitButton = screen.queryByRole('button', { name: /submit\.label/i });
-		await act(() => {
-			if (submitButton) user.click(submitButton);
-		});
+
+		if (submitButton) user.click(submitButton);
 
 		const results = await axe(container);
 
