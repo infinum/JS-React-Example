@@ -1,18 +1,20 @@
 import { sequenceType } from '@/lib/datx-test-data-factory/src/generators/sequence';
 import {
+	Attributes,
 	BuildConfiguration,
-	BuildTimeConfig,
+	Configuration,
 	Field,
 	FieldsConfiguration,
+	ModelType,
 } from '@/lib/datx-test-data-factory/src/types';
 import { isGenerator } from '@/lib/datx-test-data-factory/src/utils';
-import { PureCollection, PureModel } from '@datx/core';
+import { PureCollection } from '@datx/core';
 
 export const createFactory = <TCollection extends PureCollection>(client: TCollection) => {
-	const factory = <TModel extends PureModel>(model: TModel, config?: BuildConfiguration<TModel>) => {
+	const factory = <TModelType extends ModelType>(model: TModelType, config?: Configuration<TModelType>) => {
 		let sequenceCounter = 0;
 
-		const expandConfigField = (fieldValue: Field): Field => {
+		const computeField = (fieldValue: Field<Attributes<TModelType>>) => {
 			if (isGenerator(fieldValue)) {
 				switch (fieldValue.type) {
 					case sequenceType: {
@@ -24,21 +26,21 @@ export const createFactory = <TCollection extends PureCollection>(client: TColle
 			return fieldValue;
 		};
 
-		const expandConfigFields = (fields: FieldsConfiguration<TModel>, buildTimeConfig: BuildTimeConfig<TModel> = {}) => {
-			// map through fields and expand generators
-			const expandedFields = Object.entries(fields).reduce((acc, [key, value]) => {
-				acc[key] = expandConfigField(value);
+		const compute = (fields: FieldsConfiguration<TModelType>, buildTimeConfig: BuildConfiguration<TModelType> = {}) => {
+			const keys = Object.keys(fields);
+			const expandedFields = keys.reduce((acc, key) => {
+				acc[key] = computeField(fields[key]);
 
 				return acc;
-			}, {} as FieldsConfiguration<TModel>);
+			}, {});
 
 			return expandedFields;
 		};
 
-		const build = (buildTimeConfig: BuildTimeConfig<TModel> = {}) => {
-			const fields = expandConfigFields(config.fields, buildTimeConfig);
+		const build = (buildTimeConfig: BuildConfiguration<TModelType> = {}) => {
+			const fields = config?.fields ? compute(config?.fields, buildTimeConfig) : {};
 
-			return client.add<TModel>(fields, model);
+			return client.add(fields, model) as InstanceType<TModelType>;
 		};
 
 		return build;

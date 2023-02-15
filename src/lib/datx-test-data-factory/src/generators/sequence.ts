@@ -5,13 +5,13 @@ export interface SequenceGenerator<T> {
 	call: (counter: number) => T;
 }
 
-export const sequence = <T>(userProvidedFunction: (counter: number) => T) => ({
+export const sequence = <T>(callback?: (counter: number) => T) => ({
 	type: sequenceType,
 	call: (counter: number) => {
-		if (typeof userProvidedFunction === 'undefined') {
+		if (typeof callback === 'undefined') {
 			return counter;
 		}
 
-		return userProvidedFunction(counter);
+		return callback(counter);
 	},
 });

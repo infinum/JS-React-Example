@@ -7,14 +7,11 @@ import { render, screen } from 'test-utils';
 const client = createClient();
 const factory = createFactory(client);
 
-type FlightInstance = InstanceType<typeof Flight>;
-
-type Name = FlightInstance['name'];
-
 const flight = factory(Flight, {
 	fields: {
 		id: sequence(),
-		name: 'jack',
+		name: 'Air Force One',
+		//...
 	},
 });
 
@@ -26,11 +23,8 @@ describe('FlightList', () => {
 	it('should render flights', () => {
 		const data = buildMany(flight, 2);
 
-		console.log(data[0].id);
-		console.log(data[1].id);
+		const { asFragment } = render(<FlightList flightList={data} />);
 
-		// const { asFragment } = render(<FlightList flightList={data} />);
-
-		// expect(asFragment()).toMatchSnapshot();
+		expect(asFragment()).toMatchSnapshot();
 	});
 });
