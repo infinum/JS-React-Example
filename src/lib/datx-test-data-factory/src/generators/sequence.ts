@@ -10,13 +10,13 @@ export type Sequence = {
 	<T>(callback?: (count: number) => T): SequenceGenerator<T>;
 };
 
-export const sequence: Sequence = <T>(callback?: (counter: number) => T) => ({
+export const sequence: Sequence = <T>(fn?: (counter: number) => T) => ({
 	type: sequenceType,
 	call: (counter: number) => {
-		if (typeof callback === 'undefined') {
+		if (typeof fn === 'undefined') {
 			return counter;
 		}
 
-		return callback(counter);
+		return fn(counter);
 	},
 });

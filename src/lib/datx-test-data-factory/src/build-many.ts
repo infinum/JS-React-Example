@@ -1,9 +1,9 @@
-import { Builder, BuildTimeConfig } from '@/lib/datx-test-data-factory/src/types';
+import { Factory, BuildConfiguration, ModelType } from '@/lib/datx-test-data-factory/src/types';
 
-export const buildMany = <TModel>(
-	factory: Builder<TModel>,
+export const buildMany = <TModelType extends ModelType>(
+	factory: Factory<TModelType>,
 	count: number,
-	buildTimeConfig?: BuildTimeConfig<TModel>
+	buildTimeConfig?: BuildConfiguration<TModelType>
 ) => {
 	return Array.from({ length: count }, () => factory(buildTimeConfig));
 };

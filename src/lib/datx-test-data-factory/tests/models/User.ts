@@ -1,5 +1,9 @@
 import { Attribute, Model } from '@datx/core';
 
+export interface IImage {
+	url: string;
+}
+
 export class User extends Model {
 	public static type = 'users';
 
@@ -16,5 +20,5 @@ export class User extends Model {
 	public role!: string;
 
 	@Attribute()
-	public avatar!: string;
+	public avatar!: IImage;
 }

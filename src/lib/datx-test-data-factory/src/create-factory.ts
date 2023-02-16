@@ -1,3 +1,4 @@
+import { perBuildType } from '@/lib/datx-test-data-factory/src/generators/per-build';
 import { sequenceType } from '@/lib/datx-test-data-factory/src/generators/sequence';
 import {
 	Attributes,
@@ -20,6 +21,10 @@ export const createFactory = <TCollection extends PureCollection>(client: TColle
 					case sequenceType: {
 						return fieldValue.call(++sequenceCounter);
 					}
+
+					case perBuildType: {
+						return fieldValue.call();
+					}
 				}
 			}
 
@@ -27,12 +32,20 @@ export const createFactory = <TCollection extends PureCollection>(client: TColle
 		};
 
 		const compute = (fields: FieldsConfiguration<TModelType>, buildTimeConfig: BuildConfiguration<TModelType> = {}) => {
+			const overrides = buildTimeConfig.overrides || {};
+
 			return mapValues(fields, (fieldValue, fieldKey) => {
+				const override = overrides[fieldKey];
+
+				if (override) {
+					return computeField(override);
+				}
+
 				return computeField(fieldValue);
 			});
 		};
 
-		const build = (buildTimeConfig: BuildConfiguration<TModelType> = {}) => {
+		const build = (buildTimeConfig?: BuildConfiguration<TModelType>) => {
 			const fields = config?.fields ? compute(config?.fields, buildTimeConfig) : {};
 
 			return client.add(fields, model) as InstanceType<TModelType>;

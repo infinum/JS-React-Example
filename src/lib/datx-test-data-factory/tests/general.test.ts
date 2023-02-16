@@ -1,12 +1,12 @@
 import { createTestClient } from './create-test-client';
-import { createFactory, sequence } from '../src';
+import { createFactory } from '../src';
 import { Post } from './models/Post';
 import { User } from './models/User';
 
 const client = createTestClient();
 const factory = createFactory(client);
 
-describe('General', () => {
+describe('general', () => {
 	beforeEach(() => {
 		client.reset();
 	});
@@ -24,31 +24,18 @@ describe('General', () => {
 		expect(post.body).toBe('Hello world');
 	});
 
-	describe('Sequences', () => {
-		it('should increment sequence per build', () => {
-			const userFactory = factory(User, {
-				fields: {
-					id: sequence(),
+	it('should generates the same object each time', () => {
+		const userFactory = factory(User, {
+			fields: {
+				avatar: {
+					url: 'https://example.com/avatar.png',
 				},
-			});
-
-			const user1 = userFactory();
-			const user2 = userFactory();
-
-			expect(user1.id).toBe(1);
-			expect(user2.id).toBe(2);
+			},
 		});
 
-		it('should accept function that returns a string', () => {
-			const userFactory = factory(User, {
-				fields: {
-					email: sequence((n) => `datx${n}@example.com`),
-				},
-			});
+		const user1 = userFactory();
+		const user2 = userFactory();
 
-			const user = userFactory();
-
-			expect(user.email).toBe('datx1@example.com');
-		});
+		expect(user1.avatar).toBe(user2.avatar);
 	});
 });
