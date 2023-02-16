@@ -7,7 +7,7 @@ import {
 	FieldsConfiguration,
 	ModelType,
 } from '@/lib/datx-test-data-factory/src/types';
-import { isGenerator } from '@/lib/datx-test-data-factory/src/utils';
+import { isGenerator, mapValues } from '@/lib/datx-test-data-factory/src/utils';
 import { PureCollection } from '@datx/core';
 
 export const createFactory = <TCollection extends PureCollection>(client: TCollection) => {
@@ -27,14 +27,9 @@ export const createFactory = <TCollection extends PureCollection>(client: TColle
 		};
 
 		const compute = (fields: FieldsConfiguration<TModelType>, buildTimeConfig: BuildConfiguration<TModelType> = {}) => {
-			const keys = Object.keys(fields);
-			const expandedFields = keys.reduce((acc, key) => {
-				acc[key] = computeField(fields[key]);
-
-				return acc;
-			}, {});
-
-			return expandedFields;
+			return mapValues(fields, (fieldValue, fieldKey) => {
+				return computeField(fieldValue);
+			});
 		};
 
 		const build = (buildTimeConfig: BuildConfiguration<TModelType> = {}) => {

@@ -1,5 +1,5 @@
 import { createTestClient } from './create-test-client';
-import { createFactory, Attributes, sequence } from '../src';
+import { createFactory, sequence } from '../src';
 import { Post } from './models/Post';
 import { User } from './models/User';
 
@@ -19,8 +19,6 @@ describe('General', () => {
 		});
 
 		const post = postFactory();
-
-		console.log(post);
 
 		expect(post).toBeInstanceOf(Post);
 		expect(post.body).toBe('Hello world');

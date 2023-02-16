@@ -4,7 +4,7 @@ export class User extends Model {
 	public static type = 'users';
 
 	@Attribute({ isIdentifier: true })
-	public id!: string;
+	public id!: number;
 
 	@Attribute()
 	public name!: string;

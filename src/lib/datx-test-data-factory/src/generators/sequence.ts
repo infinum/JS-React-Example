@@ -5,7 +5,12 @@ export interface SequenceGenerator<T> {
 	call: (counter: number) => T;
 }
 
-export const sequence = <T>(callback?: (counter: number) => T) => ({
+export type Sequence = {
+	(): SequenceGenerator<number>;
+	<T>(callback?: (count: number) => T): SequenceGenerator<T>;
+};
+
+export const sequence: Sequence = <T>(callback?: (counter: number) => T) => ({
 	type: sequenceType,
 	call: (counter: number) => {
 		if (typeof callback === 'undefined') {

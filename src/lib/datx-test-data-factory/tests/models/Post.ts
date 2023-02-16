@@ -5,7 +5,7 @@ export class Post extends Model {
 	public static type = 'posts';
 
 	@Attribute({ isIdentifier: true })
-	public id!: string;
+	public id!: number;
 
 	@Attribute()
 	public body!: string;
