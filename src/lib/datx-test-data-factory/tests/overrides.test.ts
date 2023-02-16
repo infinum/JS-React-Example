@@ -58,21 +58,19 @@ describe('overrides', () => {
 		expect(user.id).toBe(1);
 	});
 
-	it('should override normal field when building multiple instances', () => {
+	it('should support generators in override fields', () => {
 		const userFactory = factory(User, {
 			fields: {
-				name: 'John',
+				name: sequence((i) => `John ${i}`),
 			},
 		});
 
-		const users = buildMany(userFactory, 3, {
+		const user = userFactory({
 			overrides: {
-				name: 'Jane',
+				name: sequence((i) => `John ${i}`),
 			},
 		});
 
-		expect(users[0].name).toBe('Jane');
-		expect(users[1].name).toBe('Jane');
-		expect(users[2].name).toBe('Jane');
+		expect(user.name).toBe('John 1');
 	});
 });

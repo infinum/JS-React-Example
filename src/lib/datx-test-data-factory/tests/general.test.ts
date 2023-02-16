@@ -38,4 +38,18 @@ describe('general', () => {
 
 		expect(user1.avatar).toBe(user2.avatar);
 	});
+
+	it('should create Data and override it correctly', () => {
+		const userFactory = factory(User, {
+			fields: {
+				createdAt: new Date('2020-01-01'),
+			},
+		});
+
+		const user1 = userFactory();
+		const user2 = userFactory({ overrides: { createdAt: new Date('2020-02-01') } });
+
+		expect(user1.createdAt).toEqual(new Date('2020-01-01'));
+		expect(user2.createdAt).toEqual(new Date('2020-02-01'));
+	});
 });

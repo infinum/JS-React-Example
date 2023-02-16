@@ -5,7 +5,7 @@ import { User } from './models/User';
 const client = createTestClient();
 const factory = createFactory(client);
 
-describe('preBuild', () => {
+describe('pre build', () => {
 	beforeEach(() => {
 		client.reset();
 	});

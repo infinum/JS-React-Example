@@ -17,8 +17,14 @@ export class User extends Model {
 	public email!: string;
 
 	@Attribute()
-	public role!: string;
+	public isAdmin!: boolean;
 
 	@Attribute()
 	public avatar!: IImage;
+
+	@Attribute({
+		parse: (value: string) => value && new Date(value),
+		serialize: (value: Date) => value && value.toISOString(),
+	})
+	public createdAt?: Date;
 }

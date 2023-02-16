@@ -13,13 +13,19 @@ import { PureCollection } from '@datx/core';
 
 export const createFactory = <TCollection extends PureCollection>(client: TCollection) => {
 	const factory = <TModelType extends ModelType>(model: TModelType, config?: Configuration<TModelType>) => {
-		let sequenceCounter = 0;
+		let sequenceCounterMap = new Map();
 
-		const computeField = (fieldValue: Field<Attributes<TModelType>>) => {
+		const computeField = (fieldValue: Field<Attributes<TModelType>>, key: string) => {
 			if (isGenerator(fieldValue)) {
 				switch (fieldValue.type) {
 					case sequenceType: {
-						return fieldValue.call(++sequenceCounter);
+						if (!sequenceCounterMap.has(key)) {
+							sequenceCounterMap.set(key, 0);
+						}
+
+						sequenceCounterMap.set(key, sequenceCounterMap.get(key) + 1);
+
+						return fieldValue.call(sequenceCounterMap.get(key));
 					}
 
 					case perBuildType: {
@@ -34,21 +40,27 @@ export const createFactory = <TCollection extends PureCollection>(client: TColle
 		const compute = (fields: FieldsConfiguration<TModelType>, buildTimeConfig: BuildConfiguration<TModelType> = {}) => {
 			const overrides = buildTimeConfig.overrides || {};
 
-			return mapValues(fields, (fieldValue, fieldKey) => {
-				const override = overrides[fieldKey];
+			return mapValues(fields, (value, key) => {
+				const override = overrides[key];
 
 				if (override) {
-					return computeField(override);
+					return computeField(override, key);
 				}
 
-				return computeField(fieldValue);
+				return computeField(value, key);
 			});
 		};
 
-		const build = (buildTimeConfig?: BuildConfiguration<TModelType>) => {
+		const build = (buildTimeConfig?: BuildConfiguration<TModelType>): InstanceType<TModelType> => {
 			const fields = config?.fields ? compute(config?.fields, buildTimeConfig) : {};
 
-			return client.add(fields, model) as InstanceType<TModelType>;
+			const data = client.add(fields, model) as InstanceType<TModelType>;
+
+			if (config?.postBuild) {
+				return config.postBuild(data);
+			}
+
+			return data;
 		};
 
 		return build;

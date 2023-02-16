@@ -40,6 +40,7 @@ export type Overrides<TModelType extends ModelType> = {
 
 export interface Configuration<TModelType extends ModelType> {
 	readonly fields: FieldsConfiguration<TModelType>;
+	readonly postBuild?: (model: InstanceType<TModelType>) => InstanceType<TModelType>;
 }
 
 export interface BuildConfiguration<TModelType extends ModelType> {

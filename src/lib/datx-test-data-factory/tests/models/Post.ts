@@ -8,6 +8,9 @@ export class Post extends Model {
 	public id!: number;
 
 	@Attribute()
+	public title!: string;
+
+	@Attribute()
 	public body!: string;
 
 	@Attribute({ toMany: 'comments' })
