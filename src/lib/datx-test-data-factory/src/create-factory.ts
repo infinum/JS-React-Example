@@ -63,7 +63,15 @@ export const createFactory = <TCollection extends PureCollection>(client: TColle
 			return data;
 		};
 
+		build.reset = () => {
+			sequenceCounterMap = new Map();
+		};
+
 		return build;
+	};
+
+	factory.reset = () => {
+		client.reset();
 	};
 
 	return factory;

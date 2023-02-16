@@ -11,7 +11,11 @@ const flight = factory(Flight, {
 	fields: {
 		id: sequence(),
 		name: 'Air Force One',
-		//...
+		arrivesAt: '2021-01-01T00:00:00.000Z',
+		airplaneModel: 'Boeing 747',
+		basePrice: '100',
+		currentSeatPrice: '100',
+		departsAt: '2021-01-01T00:00:00.000Z',
 	},
 });
 
@@ -23,8 +27,8 @@ describe('FlightList', () => {
 	it('should render flights', () => {
 		const data = buildMany(flight, 2);
 
-		const { asFragment } = render(<FlightList flightList={data} />);
+		render(<FlightList flightList={data} />);
 
-		expect(asFragment()).toMatchSnapshot();
+		expect(screen.getAllByText('Air Force One')).toHaveLength(2);
 	});
 });

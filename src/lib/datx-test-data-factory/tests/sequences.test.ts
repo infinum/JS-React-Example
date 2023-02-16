@@ -7,7 +7,7 @@ const factory = createFactory(client);
 
 describe('sequences', () => {
 	beforeEach(() => {
-		client.reset();
+		factory.reset();
 	});
 
 	it('should increment sequence per build', () => {
@@ -53,5 +53,27 @@ describe('sequences', () => {
 
 		expect(user2.id).toBe(2);
 		expect(user2.email).toBe('john2@example.com');
+	});
+
+	it('should bea able to imperatively reset sequences', () => {
+		const userFactory = factory(User, {
+			fields: {
+				id: sequence(),
+			},
+		});
+
+		const user1 = userFactory();
+		const user2 = userFactory();
+
+		expect(user1.id).toBe(1);
+		expect(user2.id).toBe(2);
+
+		userFactory.reset();
+
+		const user3 = userFactory();
+		const user4 = userFactory();
+
+		expect(user3.id).toBe(1);
+		expect(user4.id).toBe(2);
 	});
 });
