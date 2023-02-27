@@ -41,7 +41,7 @@
 		"date-fns": "~2.29.3",
 		"eslint-config-next": "~13.1.0",
 		"focus-visible": "~5.2.0",
-		"framer-motion": "~8.0.1",
+		"framer-motion": "~10.0.1",
 		"http-proxy-middleware": "~2.0.6",
 		"i18next": "~22.4.9",
 		"mobx": "~6.7.0",
