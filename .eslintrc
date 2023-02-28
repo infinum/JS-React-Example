@@ -1,0 +1,20 @@
+{
+	"extends": ["plugin:@next/next/recommended"],
+	"plugins": ["chakra-ui"],
+	"parser": "@typescript-eslint/parser",
+	"overrides": [
+		{
+			"files": ["*.ts", "*.tsx"],
+			"parserOptions": {
+				"project": ["./tsconfig.json"]
+			}
+		}
+	],
+	"rules": {
+		"chakra-ui/props-order": "error",
+		"chakra-ui/props-shorthand": "error",
+		"chakra-ui/require-specific-component": "error",
+		"newline-before-return": "error",
+		"padding-line-between-statements": ["error", { "blankLine": "always", "prev": "*", "next": "if" }]
+	}
+}

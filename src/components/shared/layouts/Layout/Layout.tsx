@@ -1,5 +1,9 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
-export const Layout: FC = ({ children }) => {
+export interface ILayout {
+	children?: ReactNode;
+}
+
+export const Layout: FC<ILayout> = ({ children }) => {
 	return <div>{children}</div>;
 };

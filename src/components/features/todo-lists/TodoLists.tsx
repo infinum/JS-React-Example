@@ -1,6 +1,13 @@
 import { FC } from 'react';
-import { Container } from '@chakra-ui/layout';
+import { Container, Heading } from '@chakra-ui/layout';
+import { useTranslation } from 'next-i18next';
 
 export const TodoLists: FC = () => {
-	return <Container py={5}>todo</Container>;
+	const { t } = useTranslation('common');
+
+	return (
+		<Container py={5}>
+			<Heading>{t('removeMe')}</Heading>
+		</Container>
+	);
 };
