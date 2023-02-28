@@ -131,6 +131,16 @@ npx create-next-app@latest PROJECT_NAME -e https://github.com/infinum/JS-React-E
 
 > Note: replace PROJECT_NAME with the name of your project
 
+Once you have created your new project, you can push it to an existing repository using the following commands:
+
+```bash
+git remote add origin git@github.com:infinum/REPOSITORY_NAME
+git branch -M main
+git push -u origin main
+```
+
+> Note: Replace REPOSITORY_NAME with the name of your repository. These commands will add the remote repository, rename the branch to main, and push your changes to the remote repository.
+
 
 # Credits
 
