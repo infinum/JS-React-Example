@@ -1,5 +1,4 @@
 import { extendTheme } from '@chakra-ui/react';
-import localFont from '@next/font/local';
 
 import { styles } from './styles';
 
