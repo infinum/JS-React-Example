@@ -13,10 +13,6 @@ import theme from '@/styles/theme';
 import { createClient } from '@/datx/create-client';
 import common from '../public/locales/en-US/common.json';
 
-declare global {
-	var IS_REACT_ACT_ENVIRONMENT: boolean;
-}
-
 i18n.use(initReactI18next).init({
 	lng: 'en-US',
 	fallbackLng: 'en-US',
@@ -46,20 +42,8 @@ const AllProviders: FC<IComponentWithChildrenProps> = ({ children }) => {
 const customRender = (ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>) =>
 	render(ui, { wrapper: AllProviders, ...options });
 
-// https://reactjs.org/blog/2022/03/08/react-18-upgrade-guide.html#configuring-your-testing-environment
-const customAct = (...args: Parameters<typeof act>) => {
-	let prev = globalThis.IS_REACT_ACT_ENVIRONMENT;
-	globalThis.IS_REACT_ACT_ENVIRONMENT = true;
-
-	const result = act(...args);
-
-	globalThis.IS_REACT_ACT_ENVIRONMENT = prev;
-
-	return result;
-};
-
 // re-export everything
 export * from '@testing-library/react';
 
 // override render method
-export { customRender as render, customAct as act };
+export { customRender as render };
