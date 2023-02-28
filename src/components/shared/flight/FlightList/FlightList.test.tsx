@@ -1,6 +1,6 @@
 import { FlightList } from '@/components/shared/flight/FlightList/FlightList';
 import { createClient } from '@/datx/create-client';
-import { buildMany, createFactory, sequence } from '@/lib/datx-test-data-factory/src';
+import { buildMany, createFactory, sequence } from '@datx/test-data-factory';
 import { Flight } from '@/models/Flight';
 import { render, screen } from 'test-utils';
 
@@ -21,7 +21,7 @@ const flight = factory(Flight, {
 
 describe('FlightList', () => {
 	beforeEach(() => {
-		client.reset();
+		factory.reset();
 	});
 
 	it('should render flights', () => {
@@ -30,5 +30,6 @@ describe('FlightList', () => {
 		render(<FlightList flightList={data} />);
 
 		expect(screen.getAllByText('Air Force One')).toHaveLength(2);
+		expect(screen.getAllByText('$100')).toHaveLength(2);
 	});
 });
