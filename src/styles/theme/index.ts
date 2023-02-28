@@ -1,5 +1,4 @@
 import { extendTheme } from '@chakra-ui/react';
-import localFont from '@next/font/local';
 
 // -- PLOP:IMPORT_FOUNDATION_THEME --
 

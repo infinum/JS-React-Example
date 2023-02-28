@@ -5,7 +5,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { appWithTranslation } from 'next-i18next';
 import { createFetcher, DatxProvider, useInitialize } from '@datx/swr';
 import { SWRConfig } from 'swr';
-import localFont from '@next/font/local';
+import localFont from 'next/font/local';
 
 import { createClient } from '@/datx/create-client';
 import { start } from '@/lib/bugsnag';
