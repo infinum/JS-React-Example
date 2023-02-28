@@ -1,27 +1,22 @@
-const HttpBackend = require('i18next-http-backend/cjs');
-const ChainedBackend = require('i18next-chained-backend').default;
-const LocalStorageBackend = require('i18next-localstorage-backend').default;
-
 /**
- * @type {import('i18next').InitOptions & Required<Pick<import('next').NextConfig, 'i18n'>>}
+ * @type {import('next-i18next').UserConfig}
  */
 module.exports = {
-	backend: {
-		backendOptions: [
-			{ expirationTime: 60 * 60 * 1000 },
-			{
-				/* loadPath: 'https:// somewhere else' */
-			},
-		], // 1 hour
-		backends: typeof window !== 'undefined' ? [LocalStorageBackend, HttpBackend] : [],
-	},
+	// https://www.i18next.com/overview/configuration-options#logging
+	// debug: process.env.NODE_ENV === 'development',
 	i18n: {
 		defaultLocale: 'en-US',
-		locales: ['en-US'],
+		locales: ['en-US', 'de-DE'],
 	},
-	serializeConfig: false,
-	use: typeof window !== 'undefined' ? [ChainedBackend] : [],
-	react: {
-		useSuspense: true,
-	},
+	/** To avoid issues when deploying to some paas (vercel...) */
+	localePath: typeof window === 'undefined' ? require('path').resolve('./public/locales') : '/locales',
+	reloadOnPrerender: process.env.NODE_ENV === 'development',
+
+	/**
+	 * @link https://github.com/i18next/next-i18next#6-advanced-configuration
+	 */
+	// saveMissing: false,
+	// strictMode: true,
+	// serializeConfig: false,
+	// react: { useSuspense: false }
 };

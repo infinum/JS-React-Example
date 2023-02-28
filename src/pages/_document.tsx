@@ -1,23 +1,24 @@
 import { ColorModeScript } from '@chakra-ui/react';
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import { getSafeLocale } from '@/utils/locale';
+import { DocumentProps, Head, Html, Main, NextScript } from 'next/document';
+
 import theme from '../styles/theme/index';
 
-class MyDocument extends Document {
-	render() {
-		return (
-			<Html>
-				<Head>
-					<link rel="preload" href="/fonts/GT-Haptik-Regular.woff" as="font" crossOrigin="" />
-					<link rel="preload" href="/fonts/GT-Haptik-Bold.woff" as="font" crossOrigin="" />
-				</Head>
-				<body>
-					<ColorModeScript initialColorMode={theme.config.initialColorMode} />
-					<Main />
-					<NextScript />
-				</body>
-			</Html>
-		);
-	}
-}
+const AppDocument = (props: DocumentProps) => {
+	const currentLocale = getSafeLocale(props.__NEXT_DATA__.locale);
 
-export default MyDocument;
+	return (
+		<Html lang={currentLocale}>
+			<Head>
+				<meta charSet="utf-8" />
+			</Head>
+			<body>
+				<ColorModeScript initialColorMode={theme.config.initialColorMode} />
+				<Main />
+				<NextScript />
+			</body>
+		</Html>
+	);
+};
+
+export default AppDocument;
