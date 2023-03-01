@@ -38,6 +38,7 @@
 		"@emotion/react": "~11.10.5",
 		"@emotion/styled": "~11.10.5",
 		"@hookform/error-message": "~2.0.1",
+		"@rive-app/react-canvas": "~3.0.36",
 		"date-fns": "~2.29.3",
 		"eslint-config-next": "~13.2.1",
 		"focus-visible": "~5.2.0",
