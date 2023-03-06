@@ -6,7 +6,7 @@ const RiveAnimationPage: NextPage = () => {
 	return (
 		<Board w="100vw" h="100vh">
 			<Box boxSize={300}>
-				<video width="600" height="100%" autoPlay loop muted playsInline>
+				<video width="100%" height="100%" autoPlay loop muted playsInline>
 					{/* <source
     src="https://rotato.netlify.app/alpha-demo/movie-hevc.mov"
     type='video/mp4; codecs="hvc1"'> */}

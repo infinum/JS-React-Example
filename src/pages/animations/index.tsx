@@ -12,7 +12,7 @@ const AnimationPage: NextPage = () => {
 						<Text as="span">Rive</Text>
 					</Flex>
 				</Button>
-				<Button p={'16'} isDisabled size="lg" variant="outline">
+				<Button as={NextLink} p={'16'} href="/animations/lottie" size="lg" variant="outline">
 					<Flex align="center" justify="center" direction="column" gap={2}>
 						<Text as="span">Lottie</Text>
 					</Flex>
