@@ -39,14 +39,15 @@ exports[`LoginForm should matches snapshot 1`] = `
           password.label
         </label>
         <div
-          class="chakra-input__group css-4302v8"
+          class="chakra-input__group css-bx0blc"
+          data-group="true"
         >
           <div
             class="chakra-input__right-element css-ur97uj"
           >
             <button
               aria-label="Reveal password"
-              class="chakra-button css-x66jzz"
+              class="chakra-button css-1m3sc6v"
               type="button"
             >
               <svg
