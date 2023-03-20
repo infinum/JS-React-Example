@@ -17,7 +17,7 @@
 		"build-storybook": "build-storybook",
 		"analyze": "ANALYZE=true yarn build",
 		"analyze:sourcemap": "source-map-explorer .next/static/**/*.js",
-		"prepare": "husky install",
+		"prepare": "cd .. && husky install just-todo-it/.husky",
 		"gen:theme-typings": "chakra-cli tokens ./src/styles/theme/index.ts --strict-component-types --strict-token-types",
 		"gen:theme-typings:watch": "chakra-cli tokens ./src/styles/theme/index.ts --strict-component-types --strict-token-types --watch",
 		"i18n:generate": "node ./scripts/i18next-cli.js",
