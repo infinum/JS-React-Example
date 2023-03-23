@@ -2,7 +2,7 @@ import { FlightList } from '@/components/shared/flight/FlightList/FlightList';
 import { buildMany } from '@datx/test-data-factory';
 
 import { render, screen } from 'test-utils';
-import { flightFactory } from '__mocks__/factories';
+import { flightFactory } from '__factories__/flight';
 
 describe('FlightList', () => {
 	beforeEach(() => {

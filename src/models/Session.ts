@@ -1,8 +1,8 @@
 import { User } from '@/models/User';
-import { Attribute, PureModel } from '@datx/core';
-import { jsonapiModel } from '@datx/jsonapi';
+import { Attribute, Model } from '@datx/core';
+import { jsonapi, jsonapiModel } from '@datx/jsonapi';
 
-export class Session extends jsonapiModel(PureModel) {
+export class Session extends jsonapi(Model) {
 	public static readonly type = 'sessions';
 
 	@Attribute({ isIdentifier: true })

@@ -12,8 +12,9 @@ export class JsonapiSwrClient extends jsonapiSwrClient(Collection) {
 }
 
 export function createClient() {
-	config.baseUrl = process.env.NEXT_PUBLIC_API_ENDPOINT as string;
+	config.baseUrl = (process.env.NEXT_PUBLIC_API_ENDPOINT as string) + '/';
 	config.cache = CachingStrategy.NetworkOnly;
+	config.fetchReference = fetch;
 	config.defaultFetchOptions = {
 		headers: {
 			Accept: 'application/vnd.api+json',
@@ -23,6 +24,8 @@ export function createClient() {
 	};
 
 	config.transformResponse = (opts: IRawResponse) => {
+		console.log('API:', JSON.stringify(opts.data));
+
 		return { ...opts, data: deapify(opts.data) };
 	};
 

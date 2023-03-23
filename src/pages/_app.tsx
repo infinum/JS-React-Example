@@ -16,6 +16,10 @@ import 'focus-visible/dist/focus-visible';
 
 start();
 
+if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
+	require('../mocks');
+}
+
 const gtHaptik = localFont({
 	src: [
 		{ path: '../assets/fonts/GT-Haptik-Regular.woff', weight: '400', style: 'normal' },

@@ -1,6 +1,6 @@
 import { FC, ReactElement, ReactNode } from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
-import { render, RenderOptions, act } from '@testing-library/react';
+import { act, render, RenderOptions } from '@testing-library/react';
 import { SWRConfig } from 'swr';
 import { I18nextProvider } from 'react-i18next';
 import i18n from 'i18next';
@@ -47,3 +47,9 @@ export * from '@testing-library/react';
 
 // override render method
 export { customRender as render };
+
+export function sleep(time: number) {
+	return new Promise<void>((resolve) => setTimeout(resolve, time));
+}
+
+export const nextTick = () => act(() => sleep(1));

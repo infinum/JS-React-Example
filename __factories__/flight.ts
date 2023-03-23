@@ -1,9 +1,6 @@
-import { createClient } from '@/datx/create-client';
-import { createJsonapiFactory, sequence } from '@datx/test-data-factory';
+import { sequence } from '@datx/test-data-factory';
 import { Flight } from '@/models/Flight';
-
-const client = createClient();
-const factory = createJsonapiFactory(client);
+import { factory } from '../factory.setup';
 
 export const flightFactory = factory(Flight, {
 	fields: {
