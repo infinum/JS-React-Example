@@ -1,5 +1,5 @@
 import { Attribute, Model } from '@datx/core';
-import { jsonapi, jsonapiModel } from '@datx/jsonapi';
+import { jsonapi } from '@datx/jsonapi';
 
 export class Flight extends jsonapi(Model) {
 	public static readonly type = 'flights';

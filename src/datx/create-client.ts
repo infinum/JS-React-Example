@@ -23,15 +23,9 @@ export function createClient() {
 		credentials: 'include',
 	};
 
-	config.transformResponse = (opts: IRawResponse) => {
-		console.log('API:', JSON.stringify(opts.data));
+	config.transformResponse = (opts: IRawResponse) => ({ ...opts, data: deapify(opts.data) });
 
-		return { ...opts, data: deapify(opts.data) };
-	};
-
-	config.transformRequest = (opts: ICollectionFetchOpts) => {
-		return { ...opts, data: apify(opts.data) };
-	};
+	config.transformRequest = (opts: ICollectionFetchOpts) => ({ ...opts, data: apify(opts.data) });
 
 	const client = new JsonapiSwrClient();
 

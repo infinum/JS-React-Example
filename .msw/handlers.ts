@@ -18,7 +18,6 @@ export const handlers = [
 		userFactory.reset();
 		sessionFactory.reset();
 		const include = req.url.searchParams.get('include');
-		debugger;
 		const session = sessionFactory();
 
 		const included = include
@@ -31,18 +30,15 @@ export const handlers = [
 				}
 
 				const rawModel = modelToJsonApi(includeData);
-				console.log('INCLUDED', includeData.id, rawModel.id, isJsonApiClass(User), isModelPersisted(session));
-				console.log(includeData.toJSON());
 
-				// rawModel.id = includeData.id;
+				rawModel.id = includeData.id;
 
 				return rawModel;
 			})
 			.flat();
 
 		const rawSessionModel = modelToJsonApi(session);
-		console.log(rawSessionModel.id, isJsonApiClass(Session));
-		// rawSessionModel.id = session.id;
+		rawSessionModel.id = session.id;
 
 		return res(
 			ctx.json({

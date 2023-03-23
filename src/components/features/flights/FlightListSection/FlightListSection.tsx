@@ -14,18 +14,15 @@ const FlightListFragment = () => {
 	const { data: sessionResponse, error: sessionErrorResponse } = useSession();
 	const user = sessionResponse?.data.user;
 
-	console.log('Error', sessionErrorResponse?.error);
-	console.log('Session rsponse:', user, JSON.stringify(getResponseRawData(sessionResponse)));
-
 	const { data: flightsResponse, error: flightsErrorResponse } = useDatx(flightsQuery(user));
 
-	if (!sessionResponse && !sessionErrorResponse) {
-		return <LoadingMessage message="Loading User" />;
+	if ((!sessionResponse && !sessionErrorResponse) || (!flightsResponse && !flightsErrorResponse)) {
+		return <LoadingMessage message="Loading" />;
 	}
 
-	if (!flightsResponse && !flightsErrorResponse) {
-		return <LoadingMessage message="Loading Flights" />;
-	}
+	// if (!flightsResponse && !flightsErrorResponse) {
+	// 	return <LoadingMessage message="Loading Flights" />;
+	// }
 
 	return flightsResponse && flightsResponse.data.length > 0 ? (
 		<Fragment>

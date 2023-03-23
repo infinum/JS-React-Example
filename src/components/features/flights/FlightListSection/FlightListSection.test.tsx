@@ -13,8 +13,7 @@ describe('FlightList', () => {
 	it('should render flight list section', async () => {
 		render(<FlightListSection />);
 
-		await waitForElementToBeRemoved(() => screen.getAllByText('Loading User'));
-		await waitForElementToBeRemoved(() => screen.getAllByText('Loading Flights'));
+		await waitForElementToBeRemoved(() => screen.getAllByText('Loading'));
 
 		expect(screen.getAllByText('Air Force One')).toHaveLength(2);
 		expect(screen.getAllByText('$100')).toHaveLength(2);
