@@ -20,10 +20,6 @@ const FlightListFragment = () => {
 		return <LoadingMessage message="Loading" />;
 	}
 
-	// if (!flightsResponse && !flightsErrorResponse) {
-	// 	return <LoadingMessage message="Loading Flights" />;
-	// }
-
 	return flightsResponse && flightsResponse.data.length > 0 ? (
 		<Fragment>
 			<FlightList flightList={flightsResponse.data} />

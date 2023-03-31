@@ -34,7 +34,7 @@
 		"@datx/core": "~2.5.0-beta.11",
 		"@datx/jsonapi": "~2.5.0-beta.11",
 		"@datx/swr": "~2.5.0-beta.11",
-		"@datx/test-data-factory": "~1.0.0-9",
+		"@datx/test-data-factory": "~2.4.0-1",
 		"@emotion/react": "~11.10.5",
 		"@emotion/styled": "~11.10.5",
 		"@hookform/error-message": "~2.0.1",
@@ -60,7 +60,7 @@
 	"devDependencies": {
 		"@chakra-ui/cli": "~2.3.0",
 		"@chakra-ui/storybook-addon": "~4.0.15",
-		"@infinum/jest": "~1.0.0",
+		"@infinum/jest": "~2.0.1",
 		"@infinum/plop-next-ts-generators": "~1.0.2",
 		"@next/bundle-analyzer": "~13.2.1",
 		"@next/eslint-plugin-next": "~13.2.1",

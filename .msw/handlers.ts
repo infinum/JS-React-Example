@@ -1,11 +1,9 @@
-import { isJsonApiClass, isModelPersisted, modelToJsonApi } from '@datx/jsonapi';
+import { modelToJsonApi } from '@datx/jsonapi';
 import { buildMany } from '@datx/test-data-factory';
 import { rest } from 'msw';
 import { sessionFactory } from '../__factories__/session';
 import { userFactory } from '../__factories__/user';
 import { flightFactory } from '../__factories__/flight';
-import { Session } from '@/models/Session';
-import { User } from '@/models/User';
 
 export const handlers = [
 	// datx.get({
@@ -31,14 +29,14 @@ export const handlers = [
 
 				const rawModel = modelToJsonApi(includeData);
 
-				rawModel.id = includeData.id;
+				// rawModel.id = includeData.id;
 
 				return rawModel;
 			})
 			.flat();
 
 		const rawSessionModel = modelToJsonApi(session);
-		rawSessionModel.id = session.id;
+		// rawSessionModel.id = session.id;
 
 		return res(
 			ctx.json({
