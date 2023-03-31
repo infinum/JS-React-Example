@@ -24,6 +24,13 @@
 # Install dependencies
 npm ci
 
+# create .env file from .env.example
+cp .env.example .env
+```
+
+## Development
+
+```bash
 # Start the dev server
 npm run dev
 ```
