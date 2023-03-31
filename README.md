@@ -4,8 +4,6 @@
 
 - [Next.js](https://nextjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
-- [Datx](https://datx.dev/)
-- [JSON:API](https://jsonapi.org/)
 - [SWR](https://swr.vercel.app/)
 - [Chakra UI](https://chakra-ui.com/)
 - [React Hook Form](https://react-hook-form.com/)
