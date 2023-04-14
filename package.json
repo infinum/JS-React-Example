@@ -29,6 +29,7 @@
 		"@bugsnag/js": "~7.20.0",
 		"@bugsnag/plugin-aws-lambda": "~7.19.0",
 		"@bugsnag/plugin-react": "~7.19.0",
+		"@chakra-ui/next-js": "~2.1.2",
 		"@chakra-ui/react": "~2.5.5",
 		"@chakra-ui/utils": "~2.0.14",
 		"@datx/core": "~2.5.0-beta.11",
