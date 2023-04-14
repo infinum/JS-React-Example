@@ -14,6 +14,7 @@ const RiveAnimationPage: NextPage = () => {
 			<ButtonGroup>
 				{artboards.map((artboard) => (
 					<Button
+						key={artboard}
 						colorScheme="blue"
 						isActive={selectedArtboard === artboard}
 						onClick={() => setSelectedArtboard(artboard)}

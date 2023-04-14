@@ -1,9 +1,7 @@
 import React, { FC, Fragment } from 'react';
-import { Box, Container, Divider, Heading } from '@chakra-ui/react';
+import { Box, Container, Heading } from '@chakra-ui/react';
 import { FlightList } from '@/components/shared/flight/FlightList/FlightList';
-import { LoadingMessage } from '@/components/shared/messages/LoadingMessage/LoadingMessage';
 import { EmptyListMessage } from '@/components/shared/messages/EmptyListMessage/EmptyListMessage';
-import { BasicPagination } from '@/components/shared/paginations/BasicPagination/BasicPagination';
 import { Flight } from '@/models/Flight';
 import { useSession } from '@/hooks/use-session';
 import { useDatx } from '@datx/swr';
@@ -29,6 +27,8 @@ export const FlightListSection: FC = () => {
 				<Heading as="h1" mb={3} size="lg">
 					{t('flight-list-section:title')}
 				</Heading>
+
+				{error && <div>Failed to load</div>}
 
 				{data && data.data.length > 0 ? (
 					<Fragment>
