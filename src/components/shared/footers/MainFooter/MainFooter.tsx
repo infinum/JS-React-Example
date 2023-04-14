@@ -1,5 +1,4 @@
 import { Box, Button, ButtonGroup, Container, Divider, IconButton, Image, Input, Stack, Text } from '@chakra-ui/react';
-import * as React from 'react';
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
 import NextLink from 'next/link';
 

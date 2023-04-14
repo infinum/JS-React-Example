@@ -1,4 +1,4 @@
-import { Box, Button, Container, Heading, Stack, Text, useBreakpointValue } from '@chakra-ui/react';
+import { Box, Button, Container, Heading, Stack, Text } from '@chakra-ui/react';
 import { FC } from 'react';
 import NextLink from 'next/link';
 

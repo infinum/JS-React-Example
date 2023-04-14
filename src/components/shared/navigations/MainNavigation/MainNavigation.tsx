@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { HStack, Flex, useColorMode, IconButton, Button, useToast, Icon, Container, Box, Text } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { Response } from '@datx/jsonapi';
