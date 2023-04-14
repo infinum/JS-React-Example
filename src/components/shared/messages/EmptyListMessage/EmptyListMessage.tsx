@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Center, Heading, Image } from '@chakra-ui/react';
 
 export const EmptyListMessage: FC = () => (

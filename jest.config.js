@@ -21,7 +21,7 @@ const customJestConfig = {
 	moduleDirectories: ['node_modules', '<rootDir>/'],
 	testEnvironment: '@infinum/jest/environment',
 	coverageReporters: ['html'],
-	collectCoverageFrom: ['./src/**/*.{js,jsx,ts,tsx}'],
+	collectCoverageFrom: ['./src/**/*.{js,jsx,ts,tsx}', '!./src/**/*.stories.{js,jsx,ts,tsx}'],
 	watchPlugins: ['jest-watch-typeahead/filename', 'jest-watch-typeahead/testname'],
 };
 

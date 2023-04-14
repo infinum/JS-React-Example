@@ -1,4 +1,3 @@
-import React from 'react';
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
@@ -7,6 +6,7 @@ import { FlightListSection } from '@/components/features/flights/FlightListSecti
 import { Hydrate } from '@datx/swr';
 import { createClient } from '@/datx/create-client';
 import { getSafeLocale } from '@/utils/locale';
+import { Flights } from '@/components/features/flights/Flights/Flights';
 
 type HomeProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
@@ -14,7 +14,9 @@ const Home: NextPage<HomeProps> = ({ fallback }) => {
 	return (
 		<Hydrate fallback={fallback}>
 			<MainLayout>
-				<FlightListSection />
+				<FlightListSection>
+					<Flights />
+				</FlightListSection>
 			</MainLayout>
 		</Hydrate>
 	);

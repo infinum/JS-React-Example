@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { StackProps, VStack } from '@chakra-ui/react';
 
 import { FlightCard } from '@/components/shared/flight/FlightCard/FlightCard';

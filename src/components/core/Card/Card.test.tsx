@@ -1,4 +1,3 @@
-import React from 'react';
 import { axe } from 'jest-axe';
 
 import { Card } from './Card';

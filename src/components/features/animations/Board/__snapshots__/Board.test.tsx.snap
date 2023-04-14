@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Board should matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="css-1chadfc"
+  />
+  <span
+    hidden=""
+    id="__chakra_env"
+  />
+</DocumentFragment>
+`;
