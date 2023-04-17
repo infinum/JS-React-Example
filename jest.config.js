@@ -20,6 +20,14 @@ const customJestConfig = {
 	// if using TypeScript with a baseUrl set to the root directory then you need the below for alias' to work
 	moduleDirectories: ['node_modules', '<rootDir>/'],
 	testEnvironment: '@infinum/jest/environment',
+	coverageThreshold: {
+		global: {
+			statements: 100,
+			branches: 100,
+			functions: 100,
+			lines: 100,
+		},
+	},
 	coverageReporters: ['html'],
 	collectCoverageFrom: ['./src/**/*.{js,jsx,ts,tsx}', '!./src/**/*.stories.{js,jsx,ts,tsx}'],
 	watchPlugins: ['jest-watch-typeahead/filename', 'jest-watch-typeahead/testname'],

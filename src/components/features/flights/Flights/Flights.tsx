@@ -3,7 +3,7 @@ import { useSession } from '@/hooks/use-session';
 import { useDatx } from '@datx/swr';
 import { getFlightsQuery } from '@/queries/flights';
 import { EmptyListMessage } from '@/components/shared/messages/EmptyListMessage/EmptyListMessage';
-import { FlightList } from '@/components/shared/flight/FlightList/FlightList';
+import { FlightList, FlightListFallback } from '@/components/shared/flight/FlightList/FlightList';
 import { BasicPagination, getPagination } from '@/components/shared/paginations/BasicPagination/BasicPagination';
 import { useRouter } from 'next/router';
 
@@ -21,7 +21,7 @@ export const Flights: FC<IFlightsProps> = () => {
 	}
 
 	if (!data) {
-		return <div>loading</div>;
+		return <FlightListFallback />;
 	}
 
 	if (data.data.length === 0) {
