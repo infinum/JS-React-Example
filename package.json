@@ -35,7 +35,7 @@
 		"@datx/core": "~2.5.1",
 		"@datx/jsonapi": "~2.5.1",
 		"@datx/swr": "~2.5.1",
-		"@datx/test-data-factory": "~2.4.0-1",
+		"@datx/test-data-factory": "~2.5.1",
 		"@emotion/react": "~11.10.6",
 		"@emotion/styled": "~11.10.6",
 		"@hookform/error-message": "~2.0.1",
