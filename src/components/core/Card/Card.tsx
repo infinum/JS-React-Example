@@ -1,6 +1,6 @@
 import { chakra, forwardRef, StyleProps } from '@chakra-ui/react';
 
-export interface ICardProps extends StyleProps {}
+export type ICardProps = StyleProps;
 
 export const Card = forwardRef<ICardProps, 'div'>((props, ref) => {
 	return (

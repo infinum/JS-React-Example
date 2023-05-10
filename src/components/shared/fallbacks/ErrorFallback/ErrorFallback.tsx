@@ -1,13 +1,13 @@
 import { Button, Center, Text, VStack } from '@chakra-ui/react';
-import { FC } from 'react';
+import React, { FC } from 'react';
 
-export type ErrorFallbackProps = {
+export interface IErrorFallbackProps {
 	error: Error;
 	info: React.ErrorInfo;
 	clearError: () => void;
-};
+}
 
-export const ErrorFallback: FC<ErrorFallbackProps> = ({ error, clearError }) => {
+export const ErrorFallback: FC<IErrorFallbackProps> = ({ error, clearError }) => {
 	return (
 		<Center h="full">
 			<VStack>

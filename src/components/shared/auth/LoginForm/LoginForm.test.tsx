@@ -11,11 +11,13 @@ describe('LoginForm', () => {
 	let UI: FC;
 
 	beforeAll(() => {
-		UI = () => (
-			<DatxProvider client={useInitialize(createClient)}>
-				<LoginForm />
-			</DatxProvider>
-		);
+		UI = function UI() {
+			return (
+				<DatxProvider client={useInitialize(createClient)}>
+					<LoginForm />
+				</DatxProvider>
+			);
+		};
 	});
 
 	it('should matches snapshot', () => {
