@@ -24,7 +24,7 @@ interface IAuthRedirectProps {
 
 export const AuthRedirect: FC<IAuthRedirectProps> = ({ to, ifFound, condition }) => {
 	const { data, isValidating, error } = useSession();
-	const router = useRouter();
+	const { push } = useRouter();
 
 	useEffect(() => {
 		// if state is validating, wait until request is done
@@ -44,9 +44,9 @@ export const AuthRedirect: FC<IAuthRedirectProps> = ({ to, ifFound, condition })
 		const shouldRedirect = condition ? condition(data?.data) : (ifFound && data) || (!ifFound && !data);
 
 		if (shouldRedirect) {
-			router.push(to);
+			push(to);
 		}
-	}, [data, ifFound, to, error, isValidating, router, condition]);
+	}, [data, ifFound, to, error, isValidating]);
 
 	// this component renders nothing since it is only used to redirect if needed
 	return null;
