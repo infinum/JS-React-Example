@@ -1,16 +1,15 @@
-import { FC, ReactElement, ReactNode } from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
-import { render, RenderOptions, act } from '@testing-library/react';
-import { SWRConfig } from 'swr';
-import { I18nextProvider } from 'react-i18next';
+import { DatxProvider, createFetcher, useInitialize } from '@datx/swr';
+import { RenderOptions, render } from '@testing-library/react';
 import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import { createFetcher, DatxProvider, useInitialize } from '@datx/swr';
+import { FC, ReactElement, ReactNode } from 'react';
+import { I18nextProvider, initReactI18next } from 'react-i18next';
+import { SWRConfig } from 'swr';
 
 import '@testing-library/jest-dom';
 
-import theme from '@/styles/theme';
 import { createClient } from '@/datx/create-client';
+import theme from '@/styles/theme';
 import common from '../public/locales/en-US/common.json';
 
 i18n.use(initReactI18next).init({
@@ -44,6 +43,5 @@ const customRender = (ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>
 
 // re-export everything
 export * from '@testing-library/react';
-
 // override render method
 export { customRender as render };

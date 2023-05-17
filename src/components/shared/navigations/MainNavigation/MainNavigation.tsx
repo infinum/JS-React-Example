@@ -31,9 +31,7 @@ export const MainNavigation: FC = () => {
 			}
 		},
 		onSuccess: async () => {
-			// @ts-ignore
 			mutate(null, false);
-			// @ts-ignore
 			cache.clear();
 			client.reset();
 		},

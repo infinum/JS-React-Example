@@ -1,4 +1,4 @@
-import { Box, Heading, Text, Link, List, ListItem, OrderedList } from '@chakra-ui/react';
+import { Box, Heading, Link, ListItem, OrderedList, Text } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
 const BugsnagPage = () => (
@@ -10,7 +10,7 @@ const BugsnagPage = () => (
 		</Text>
 		<Text mt="2">
 			<strong>Important:</strong> exceptions in development mode take a different path than in production. These
-			scenarios should be run on a production build (i.e. 'next build').{' '}
+			scenarios should be run on a production build (i.e. &lsquo;next build&rsquo;).{' '}
 			<Link href="https://nextjs.org/docs/advanced-features/custom-error-page#customizing-the-error-page">
 				Read more
 			</Link>
@@ -100,8 +100,8 @@ const BugsnagPage = () => (
 					</Link>
 				</ListItem>
 				<ListItem>
-					There is an exception during React lifecycle that is caught by Next.js's React Error Boundary. In this case,
-					when the component mounts. This should cause _error.js to render.{' '}
+					There is an exception during React lifecycle that is caught by Next.js&apos;s React Error Boundary. In this
+					case, when the component mounts. This should cause _error.js to render.{' '}
 					<Link as={NextLink} color="red.500" href="/bugsnag/client/scenario3">
 						Perform client side navigation
 					</Link>{' '}
