@@ -1,4 +1,5 @@
 declare global {
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	interface Error {
 		info?: any;
 		status?: number;

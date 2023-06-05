@@ -5,7 +5,7 @@ import { DocumentProps, Head, Html, Main, NextScript } from 'next/document';
 import theme from '../styles/theme/index';
 
 const AppDocument = (props: DocumentProps) => {
-	const currentLocale = getSafeLocale(props.__NEXT_DATA__.locale);
+	const currentLocale = getSafeLocale(props['__NEXT_DATA__'].locale);
 
 	return (
 		<Html lang={currentLocale}>

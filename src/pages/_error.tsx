@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { NextPage, NextPageContext } from 'next';
 import NextErrorComponent, { ErrorProps } from 'next/error';
 import { Container, Heading, Image, Center } from '@chakra-ui/react';

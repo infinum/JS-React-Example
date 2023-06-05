@@ -25,7 +25,7 @@ interface IExampleAppProps extends AppProps {
 	err: Error;
 }
 
-function ExampleApp({ Component, pageProps, err }: IExampleAppProps) {
+function ExampleApp({ Component, pageProps }: IExampleAppProps) {
 	return (
 		<ChakraProvider theme={theme}>
 			<Component {...pageProps} />

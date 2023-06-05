@@ -1,9 +1,9 @@
 {
-	"extends": ["plugin:@next/next/recommended"],
+	"extends": ["plugin:@next/next/recommended", "@infinumjs/eslint-config-react-js"],
 	"plugins": ["chakra-ui"],
-	"parser": "@typescript-eslint/parser",
 	"overrides": [
 		{
+			"extends": ["@infinumjs/eslint-config-nextjs-ts"],
 			"files": ["*.ts", "*.tsx"],
 			"parserOptions": {
 				"project": ["./tsconfig.json"]
