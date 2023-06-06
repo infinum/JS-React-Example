@@ -7,7 +7,6 @@ on:
       - '**.md'
     branches:
       - master
-      - fix/github-actions-upgrade
 
 jobs:
   deploy:
