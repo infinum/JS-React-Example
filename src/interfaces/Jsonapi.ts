@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { IModelConstructor, Model } from '@datx/core';
 import { IJsonapiModel } from '@datx/jsonapi';
 
 type LeastOneOf<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> & U[keyof U];
 
-export type JsonapiLinkObject = {
+export interface JsonapiLinkObject {
 	/**
 	 * a string whose value is a URI-reference [RFC3986 Section 4.1] pointing to the link’s target.
 	 *
@@ -43,7 +44,7 @@ export type JsonapiLinkObject = {
 	 * a meta object containing non-standard meta-information about the link.
 	 */
 	meta?: object;
-};
+}
 
 /**
  * Where specified, a links member can be used to represent links. The value of this member MUST be an object (a “links object”).
@@ -55,17 +56,17 @@ export type JsonapiLinkObject = {
  *
  * @see https://jsonapi.org/format/#document-links
  */
-export type JsonapiLinks = {
+export interface JsonapiLinks {
 	self?: string | JsonapiLinkObject | null;
 	related?: string | JsonapiLinkObject | null;
-};
+}
 
-export type JsonapiPaginationLinks = {
+export interface JsonapiPaginationLinks {
 	first?: string | JsonapiLinkObject | null;
 	last?: string | JsonapiLinkObject | null;
 	prev?: string | JsonapiLinkObject | null;
 	next?: string | JsonapiLinkObject | null;
-};
+}
 
 /**
  * @see https://jsonapi.org/format/#document-top-level
@@ -168,13 +169,13 @@ export type JsonapiResourceRelationships<TModel> = Partial<
  *
  * @see https://jsonapi.org/format/#document-resource-objects
  */
-export type JsonapiResource<TModelConstructor extends IModelConstructor> = {
+export interface JsonapiResource<TModelConstructor extends IModelConstructor> {
 	id?: string;
 	lid?: string;
 	type: TModelConstructor['type'];
 	attributes: JsonapiResourceAttributes<InstanceType<TModelConstructor>>;
 	relationships?: JsonapiResourceRelationships<InstanceType<TModelConstructor>>;
-};
+}
 
 /**
  * The document’s “primary data” is a representation of the resource or collection of resources targeted by a request.
@@ -190,7 +191,7 @@ export type JsonapiPrimaryData<TResourceConstructor extends IModelConstructor> =
 	| null
 	| [];
 
-export type JsonapiDocument<TResourceConstructor extends IModelConstructor> = {
+export interface JsonapiDocument<TResourceConstructor extends IModelConstructor> {
 	data: JsonapiPrimaryData<TResourceConstructor>;
 	links?: JsonapiTopLevelLinks;
-};
+}

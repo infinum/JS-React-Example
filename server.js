@@ -1,3 +1,6 @@
+// This is a cjs file
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 const path = require('path');
 
 const nextPath = path.join(__dirname, 'node_modules', '.bin', 'next');

@@ -10,6 +10,7 @@ import { PHASE_PRODUCTION_BUILD } from 'next/constants';
 // So use NEXT_PHASE to avoid this failing at build time
 if (process.env.NEXT_PHASE !== PHASE_PRODUCTION_BUILD) {
 	const doAsyncWork = () => Promise.reject(new Error('Client scenario 1'));
+
 	doAsyncWork();
 }
 

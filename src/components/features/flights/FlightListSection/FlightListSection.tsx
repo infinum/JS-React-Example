@@ -1,20 +1,18 @@
-import React, { FC, Fragment } from 'react';
-import { Box, Container, Divider, Heading } from '@chakra-ui/react';
 import { FlightList } from '@/components/shared/flight/FlightList/FlightList';
-import { LoadingMessage } from '@/components/shared/messages/LoadingMessage/LoadingMessage';
 import { EmptyListMessage } from '@/components/shared/messages/EmptyListMessage/EmptyListMessage';
-import { BasicPagination } from '@/components/shared/paginations/BasicPagination/BasicPagination';
-import { Flight } from '@/models/Flight';
 import { useSession } from '@/hooks/use-session';
+import { Flight } from '@/models/Flight';
+import { Box, Container, Heading } from '@chakra-ui/react';
 import { useDatx } from '@datx/swr';
 import { useTranslation } from 'next-i18next';
+import { FC, Fragment } from 'react';
 
 export const FlightListSection: FC = () => {
 	const { t } = useTranslation(['flight-list-section']);
 	const { data: sessionResponse } = useSession();
 	const user = sessionResponse?.data.user;
 
-	const { data, error } = useDatx(() =>
+	const { data } = useDatx(() =>
 		user
 			? ({
 					op: 'getMany',

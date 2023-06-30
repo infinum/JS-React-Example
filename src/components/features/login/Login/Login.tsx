@@ -1,13 +1,11 @@
-import { FC } from 'react';
-import NextLink from 'next/link';
-import { Button, Container, Heading, HStack, Image, Stack, Text, chakra } from '@chakra-ui/react';
-import { LoginForm } from '@/components/shared/auth/LoginForm/LoginForm';
-import { useTranslation } from 'next-i18next';
 import { Card } from '@/components/core/Card/Card';
+import { LoginForm } from '@/components/shared/auth/LoginForm/LoginForm';
+import { Button, Container, HStack, Heading, Stack, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
+import NextLink from 'next/link';
+import { FC } from 'react';
 
-export interface ILoginProps {}
-
-export const Login: FC<ILoginProps> = () => {
+export const Login: FC = () => {
 	const { t } = useTranslation('login');
 
 	return (

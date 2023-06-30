@@ -7,6 +7,8 @@ import { Board } from '@/components/features/animations/Board/Board';
 const artboards = ['Art1', 'Art2', 'Art3'];
 
 const RiveAnimationPage: NextPage = () => {
+	// disabled since this is a test scenario
+	// eslint-disable-next-line @infinum/no-hooks-in-pages-folder
 	const [selectedArtboard, setSelectedArtboard] = useState(artboards[0]);
 
 	return (
@@ -14,6 +16,7 @@ const RiveAnimationPage: NextPage = () => {
 			<ButtonGroup>
 				{artboards.map((artboard) => (
 					<Button
+						key={artboard}
 						colorScheme="blue"
 						isActive={selectedArtboard === artboard}
 						onClick={() => setSelectedArtboard(artboard)}

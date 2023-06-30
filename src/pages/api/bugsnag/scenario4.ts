@@ -20,7 +20,7 @@ async function handler(_req: NextApiRequest, res: NextApiResponse) {
 
 	// Flushing before returning is necessary if deploying to Vercel, see
 	// https://vercel.com/docs/platform/limits#streaming-responses
-	await require('@bugsnag/in-flight').flush(2000);
+	await (await import('@bugsnag/in-flight')).default.flush(2000);
 	res.status(200).json({ name: 'John Doe' });
 }
 

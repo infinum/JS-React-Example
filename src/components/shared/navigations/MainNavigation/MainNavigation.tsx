@@ -27,13 +27,14 @@ export const MainNavigation: FC = () => {
 			if (errorResponse instanceof Response) {
 				const { error } = errorResponse;
 				const message = error instanceof Error ? error.message : error?.[0].detail;
+
 				toast({ title: message, status: 'error' });
 			}
 		},
 		onSuccess: async () => {
-			// @ts-ignore
+			// @ts-expect-error We need to have falsy value here
 			mutate(null, false);
-			// @ts-ignore
+			// @ts-expect-error We need to have falsy value here
 			cache.clear();
 			client.reset();
 		},

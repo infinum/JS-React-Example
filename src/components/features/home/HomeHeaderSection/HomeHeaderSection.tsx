@@ -2,9 +2,7 @@ import { Box, Button, Container, Heading, Stack, Text } from '@chakra-ui/react';
 import { FC } from 'react';
 import NextLink from 'next/link';
 
-export interface IHomeHeaderSectionProps {}
-
-export const HomeHeaderSection: FC<IHomeHeaderSectionProps> = () => {
+export const HomeHeaderSection: FC = () => {
 	return (
 		<Box as="section">
 			<Container py={{ base: '16', md: '24' }} size="xl">

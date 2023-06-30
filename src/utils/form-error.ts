@@ -2,6 +2,7 @@ import { SingleResponse, CollectionResponse } from '@datx/swr';
 import camelCase from 'lodash/camelCase';
 
 export type ResponseError = SingleResponse['error'] | CollectionResponse['error'];
+
 export interface IApiError {
 	name: any;
 	type: string;
