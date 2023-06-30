@@ -4,7 +4,8 @@
 		"plugin:@infinum/typescript",
 		"plugin:@infinum/react",
 		"plugin:@infinum/next-js",
-		"plugin:@infinum/chakra-ui"
+		"plugin:@infinum/chakra-ui",
+		"plugin:prettier/recommended"
 	],
 	"parserOptions": {
 		"project": ["./tsconfig.json"]
