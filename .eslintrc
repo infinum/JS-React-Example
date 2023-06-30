@@ -5,6 +5,7 @@
 		"plugin:@infinum/react",
 		"plugin:@infinum/next-js",
 		"plugin:@infinum/chakra-ui",
+		"plugin:typescript-enum/recommended",
 		"plugin:prettier/recommended"
 	],
 	"parserOptions": {

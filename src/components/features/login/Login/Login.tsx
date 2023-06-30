@@ -1,15 +1,15 @@
 import { Card } from '@/components/core/Card/Card';
 import { LoginForm } from '@/components/shared/auth/LoginForm/LoginForm';
-import { Button, Container, HStack, Heading, Stack, Text } from '@chakra-ui/react';
+import { Button, Container, ContainerProps, HStack, Heading, Stack, Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import NextLink from 'next/link';
 import { FC } from 'react';
 
-export const Login: FC = () => {
+export const Login: FC<ContainerProps> = (props) => {
 	const { t } = useTranslation('login');
 
 	return (
-		<Container minW="container.sm" px={{ base: 3, sm: 8 }} py={{ base: '12', md: '10' }}>
+		<Container minW="container.sm" px={{ base: 3, sm: 8 }} py={{ base: '12', md: '10' }} {...props}>
 			<Stack spacing="8">
 				<Stack spacing="6">
 					<Stack textAlign="center" spacing={{ base: '2', md: '3' }}>

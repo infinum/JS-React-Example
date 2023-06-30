@@ -1,5 +1,8 @@
+import React, { FC, Fragment } from 'react';
+import { Box, Container, Heading } from '@chakra-ui/react';
 import { FlightList } from '@/components/shared/flight/FlightList/FlightList';
 import { EmptyListMessage } from '@/components/shared/messages/EmptyListMessage/EmptyListMessage';
+import { Flight } from '@/models/Flight';
 import { useSession } from '@/hooks/use-session';
 import { Flight } from '@/models/Flight';
 import { Box, Container, Heading } from '@chakra-ui/react';
@@ -27,6 +30,8 @@ export const FlightListSection: FC = () => {
 				<Heading as="h1" mb={3} size="lg">
 					{t('flight-list-section:title')}
 				</Heading>
+
+				{error && <div>Failed to load</div>}
 
 				{data && data.data.length > 0 ? (
 					<Fragment>

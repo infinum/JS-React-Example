@@ -1,5 +1,5 @@
 import { Button, Center, Text, VStack } from '@chakra-ui/react';
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 export interface IErrorFallbackProps {
 	error: Error;

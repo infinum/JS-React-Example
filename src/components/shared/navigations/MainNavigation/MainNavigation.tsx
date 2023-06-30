@@ -17,10 +17,10 @@ export const MainNavigation: FC = () => {
 	const { t } = useTranslation(['common', 'main-navigation']);
 	const { colorMode, toggleColorMode } = useColorMode();
 	const toast = useToast();
-	const { cache } = useSWRConfig();
+	const { mutate } = useSWRConfig();
 	const client = useClient();
 
-	const { data, mutate } = useSession();
+	const { data } = useSession();
 
 	const [handleLogout] = useMutation(logout, {
 		onFailure: ({ error: errorResponse }) => {
@@ -32,10 +32,7 @@ export const MainNavigation: FC = () => {
 			}
 		},
 		onSuccess: async () => {
-			// @ts-expect-error We need to have falsy value here
-			mutate(null, false);
-			// @ts-expect-error We need to have falsy value here
-			cache.clear();
+			mutate(() => true, undefined, { revalidate: false });
 			client.reset();
 		},
 	});

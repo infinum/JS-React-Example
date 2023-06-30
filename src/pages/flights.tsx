@@ -1,4 +1,3 @@
-import React from 'react';
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
