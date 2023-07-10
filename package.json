@@ -59,6 +59,7 @@
 	"devDependencies": {
 		"@chakra-ui/cli": "~2.4.1",
 		"@chakra-ui/storybook-addon": "~5.0.0",
+		"@emotion/jest": "~11.11.0",
 		"@infinum/eslint-plugin": "~1.0.0-beta.7",
 		"@infinum/jest": "~2.0.1",
 		"@infinum/plop-next-ts-generators": "~1.0.3",
