@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Flights should render empty list message 1`] = `
+<DocumentFragment>
+  FlightListFallback
+  <span
+    hidden=""
+    id="__chakra_env"
+  />
+</DocumentFragment>
+`;
+
+exports[`Flights should render error state 1`] = `
+<DocumentFragment>
+  FlightListFallback
+  <span
+    hidden=""
+    id="__chakra_env"
+  />
+</DocumentFragment>
+`;
+
+exports[`Flights should render flights list 1`] = `
+<DocumentFragment>
+  FlightListFallback
+  <span
+    hidden=""
+    id="__chakra_env"
+  />
+</DocumentFragment>
+`;

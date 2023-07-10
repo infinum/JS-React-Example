@@ -1,15 +1,13 @@
 import { Flights } from './Flights';
 import { render, screen } from 'test-utils';
 
-import { FlightList, FlightListFallback } from '@/components/shared/flight/FlightList/FlightList';
-
 const mockFlightList = jest.fn();
 const mockFlightListFallbackMessage = 'FlightListFallback';
 const mockFlightListFallback = jest.fn(() => mockFlightListFallbackMessage);
 
 jest.mock('@/components/shared/flight/FlightList/FlightList', () => ({
 	FlightList: () => mockFlightList,
-	FlightListFallback: () => mockFlightListFallback,
+	FlightListFallback: () => mockFlightListFallback(),
 }));
 
 describe('Flights', () => {
@@ -20,21 +18,21 @@ describe('Flights', () => {
 		expect(screen.getByText(mockFlightListFallbackMessage)).toBeDefined();
 	});
 
-	// it('should render error state', () => {
-	// 	const { asFragment } = render(<Flights />);
+	it('should render error state', () => {
+		const { asFragment } = render(<Flights />);
 
-	// 	// expect(asFragment()).toMatchSnapshot();
-	// });
+		expect(asFragment()).toMatchSnapshot();
+	});
 
-	// it('should render flights list', () => {
-	// 	const { asFragment } = render(<Flights />);
+	it('should render flights list', () => {
+		const { asFragment } = render(<Flights />);
 
-	// 	// expect(asFragment()).toMatchSnapshot();
-	// });
+		expect(asFragment()).toMatchSnapshot();
+	});
 
-	// it('should render empty list message', () => {
-	// 	const { asFragment } = render(<Flights />);
+	it('should render empty list message', () => {
+		const { asFragment } = render(<Flights />);
 
-	// 	// expect(asFragment()).toMatchSnapshot();
-	// });
+		expect(asFragment()).toMatchSnapshot();
+	});
 });
