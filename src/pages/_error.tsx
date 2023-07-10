@@ -66,6 +66,7 @@ CustomErrorPage.getInitialProps = async (ctx: NextPageContext) => {
 
 		// Flushing before returning is necessary if deploying to Vercel, see
 		// https://vercel.com/docs/platform/limits#streaming-responses
+		// eslint-disable-next-line @typescript-eslint/no-var-requires
 		await require('@bugsnag/in-flight').flush(2000);
 
 		return {
@@ -86,6 +87,7 @@ CustomErrorPage.getInitialProps = async (ctx: NextPageContext) => {
 		}
 	});
 
+	// eslint-disable-next-line @typescript-eslint/no-var-requires
 	await require('@bugsnag/in-flight').flush(2000);
 
 	return {

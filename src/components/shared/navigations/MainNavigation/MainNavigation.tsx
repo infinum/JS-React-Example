@@ -17,10 +17,10 @@ export const MainNavigation: FC = () => {
 	const { t } = useTranslation(['common', 'main-navigation']);
 	const { colorMode, toggleColorMode } = useColorMode();
 	const toast = useToast();
-	const { cache } = useSWRConfig();
+	const { mutate } = useSWRConfig();
 	const client = useClient();
 
-	const { data, mutate } = useSession();
+	const { data } = useSession();
 
 	const [handleLogout] = useMutation(logout, {
 		onFailure: ({ error: errorResponse }) => {
@@ -31,10 +31,7 @@ export const MainNavigation: FC = () => {
 			}
 		},
 		onSuccess: async () => {
-			// @ts-ignore
-			mutate(null, false);
-			// @ts-ignore
-			cache.clear();
+			mutate(() => true, undefined, { revalidate: false });
 			client.reset();
 		},
 	});

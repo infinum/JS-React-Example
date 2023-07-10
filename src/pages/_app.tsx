@@ -1,5 +1,3 @@
-import '@datx/core/disable-mobx';
-
 import type { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
 import { appWithTranslation } from 'next-i18next';

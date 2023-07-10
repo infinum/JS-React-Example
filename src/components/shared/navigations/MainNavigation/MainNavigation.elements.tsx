@@ -1,5 +1,4 @@
-import { chakra, forwardRef, ChakraProps } from '@chakra-ui/react';
-import { ariaAttr } from '@chakra-ui/utils';
+import { ChakraProps, chakra, forwardRef } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
 export const NavLink = forwardRef<ChakraProps, 'a'>((props, ref) => {

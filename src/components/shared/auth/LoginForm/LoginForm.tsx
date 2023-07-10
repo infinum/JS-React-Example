@@ -1,16 +1,15 @@
-import React, { FC } from 'react';
-import { BoxProps, Button, Checkbox, HStack, Stack } from '@chakra-ui/react';
 import { InputField } from '@/components/shared/fields/InputField/InputField';
-import { useForm } from 'react-hook-form';
-import { getErrors } from '@/utils/form-error';
-import { Response } from '@datx/jsonapi';
-import { useTranslation } from 'next-i18next';
-import { login } from '@/mutations/auth';
-import { isCollectionResponse, isSingleResponse, SingleResponse, useClient } from '@datx/swr';
-import { useSession } from '@/hooks/use-session';
 import { PasswordField } from '@/components/shared/fields/PasswordField/PasswordField';
-import { Session } from '@/models/Session';
+import { useSession } from '@/hooks/use-session';
 import { JsonapiDocument } from '@/interfaces/Jsonapi';
+import { Session } from '@/models/Session';
+import { login } from '@/mutations/auth';
+import { getErrors } from '@/utils/form-error';
+import { BoxProps, Button, Checkbox, HStack, Stack } from '@chakra-ui/react';
+import { isCollectionResponse, isSingleResponse, useClient } from '@datx/swr';
+import { useTranslation } from 'next-i18next';
+import { FC } from 'react';
+import { useForm } from 'react-hook-form';
 
 interface IFormValues {
 	email: string;

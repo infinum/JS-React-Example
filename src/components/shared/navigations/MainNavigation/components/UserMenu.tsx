@@ -7,7 +7,7 @@ export interface IUserMenuProps {
 	onLogout?: (...args: Array<any>) => void;
 }
 
-export const UserMenu = forwardRef<IUserMenuProps, 'div'>((props, ref) => {
+export const UserMenu = forwardRef<IUserMenuProps, 'div'>((props) => {
 	const { t } = useTranslation('main-navigation');
 	const { user, onLogout } = props;
 

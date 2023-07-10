@@ -1,6 +1,6 @@
-import { FC, ReactNode } from 'react';
 import { Box, Container, Heading } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
+import { FC, ReactNode } from 'react';
 
 export interface IFlightListSection {
 	children?: ReactNode;

@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
-import { Box, BoxProps, css } from '@chakra-ui/react';
 import { GlobalStyles } from '@/components/shared/utilities/GlobalStyles/GlobalStyles';
+import { Box, BoxProps } from '@chakra-ui/react';
+import { FC } from 'react';
 
 export const AuthLayout: FC<BoxProps> = ({ children }) => {
 	return (
