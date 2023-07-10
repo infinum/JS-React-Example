@@ -88,6 +88,7 @@
 		"eslint-config-next": "~13.4.1",
 		"eslint-config-prettier": "~8.8.0",
 		"eslint-plugin-chakra-ui": "~0.8.0",
+		"eslint-plugin-jest-dom": "~5.0.1",
 		"eslint-plugin-jsx-a11y": "~6.7.1",
 		"eslint-plugin-prettier": "~4.2.1",
 		"eslint-plugin-react": "~7.32.2",
