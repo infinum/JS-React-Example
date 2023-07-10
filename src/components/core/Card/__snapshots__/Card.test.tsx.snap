@@ -2,8 +2,39 @@
 
 exports[`Card should matches snapshot 1`] = `
 <DocumentFragment>
-  <div
-    class="css-1azbgsf"
+  .emotion-0 {
+  background: var(--chakra-colors-chakra-body-bg);
+  border-radius: var(--chakra-radii-md);
+}
+
+@media screen and (min-width: 30em) {
+  .emotion-0 {
+    border-radius: var(--chakra-radii-xl);
+  }
+}
+
+.chakra-ui-dark .emotion-0:not([data-theme]),
+[data-theme=dark] .emotion-0:not([data-theme]),
+.emotion-0[data-theme=dark] {
+  box-shadow: var(--chakra-shadows-md);
+}
+
+@media screen and (min-width: 30em) {
+  .chakra-ui-dark .emotion-0:not([data-theme]),
+  [data-theme=dark] .emotion-0:not([data-theme]),
+  .emotion-0[data-theme=dark] {
+    box-shadow: md-dark;
+  }
+}
+
+.chakra-ui-light .emotion-0:not([data-theme]),
+[data-theme=light] .emotion-0:not([data-theme]),
+.emotion-0[data-theme=light] {
+  box-shadow: var(--chakra-shadows-md);
+}
+
+<div
+    class="emotion-0"
   />
   <span
     hidden=""

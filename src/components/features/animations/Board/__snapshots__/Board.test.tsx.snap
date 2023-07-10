@@ -2,8 +2,18 @@
 
 exports[`Board should matches snapshot 1`] = `
 <DocumentFragment>
-  <div
-    class="css-1chadfc"
+  .emotion-0 {
+  background-color: #ffffff;
+  opacity: 1;
+  background-image: linear-gradient(#c9c9c9 2px, var(--chakra-colors-transparent) 2px),linear-gradient(90deg, #c9c9c9 2px, var(--chakra-colors-transparent) 2px),linear-gradient(#c9c9c9 1px, var(--chakra-colors-transparent) 1px),linear-gradient(90deg, #c9c9c9 1px, #ffffff 1px);
+  -webkit-background-size: 50px 50px,50px 50px,10px 10px,10px 10px;
+  background-size: 50px 50px,50px 50px,10px 10px,10px 10px;
+  -webkit-background-position: -2px -2px,-2px -2px,-1px -1px,-1px -1px;
+  background-position: -2px -2px,-2px -2px,-1px -1px,-1px -1px;
+}
+
+<div
+    class="emotion-0"
   />
   <span
     hidden=""
