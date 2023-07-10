@@ -15,7 +15,7 @@ describe('Flights', () => {
 		render(<Flights />);
 
 		expect(mockFlightListFallback).toHaveBeenCalled();
-		expect(screen.getByText(mockFlightListFallbackMessage)).toBeDefined();
+		expect(screen.getByText(mockFlightListFallbackMessage)).toBeInTheDocument();
 	});
 
 	it('should render error state', () => {

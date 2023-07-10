@@ -12,7 +12,7 @@ describe('FlightCard', () => {
 
 		render(<FlightCard flight={data} />);
 
-		expect(screen.getByText(data.name)).toBeDefined();
-		expect(screen.getByText(`$${data.currentSeatPrice}`)).toBeDefined();
+		expect(screen.getByText(data.name)).toBeInTheDocument();
+		expect(screen.getByText(`$${data.currentSeatPrice}`)).toBeInTheDocument();
 	});
 });

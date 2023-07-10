@@ -1,16 +1,16 @@
 import { FlightListSection } from './FlightListSection';
-import { render } from 'test-utils';
+import { render, screen } from 'test-utils';
 
 describe('FlightListSection', () => {
 	it('should render title', () => {
-		const { getByText } = render(<FlightListSection />);
+		render(<FlightListSection />);
 
-		expect(getByText('title')).toBeInTheDocument();
+		expect(screen.getByText('title')).toBeInTheDocument();
 	});
 
 	it('should render children', () => {
-		const { getByText } = render(<FlightListSection>test</FlightListSection>);
+		render(<FlightListSection>test</FlightListSection>);
 
-		expect(getByText('test')).toBeInTheDocument();
+		expect(screen.getByText('test')).toBeInTheDocument();
 	});
 });

@@ -7,9 +7,7 @@ import { FlightList, FlightListFallback } from '@/components/shared/flight/Fligh
 import { BasicPagination, getPagination } from '@/components/shared/paginations/BasicPagination/BasicPagination';
 import { useRouter } from 'next/router';
 
-export interface IFlightsProps {}
-
-export const Flights: FC<IFlightsProps> = () => {
+export const Flights: FC = () => {
 	const { query } = useRouter();
 	const { data: sessionResponse } = useSession();
 	const user = sessionResponse?.data.user;

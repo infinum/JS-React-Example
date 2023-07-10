@@ -1,11 +1,10 @@
-import { FC } from 'react';
-import { Button, HStack } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import NextLink from 'next/link';
-import { CollectionResponse } from '@datx/swr';
-import { IPaginationMeta } from '@/interfaces/IPaginationMeta';
 import { PaginationLinks } from '@/interfaces/IPaginationLinks';
-import { ILink } from '@datx/jsonapi/interfaces/JsonApi';
+import { IPaginationMeta } from '@/interfaces/IPaginationMeta';
+import { Button, HStack } from '@chakra-ui/react';
+import { CollectionResponse } from '@datx/swr';
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
+import { FC } from 'react';
 
 export interface IPagination {
 	hasNext?: boolean;

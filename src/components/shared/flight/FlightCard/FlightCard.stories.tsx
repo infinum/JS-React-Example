@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import { FlightCard, FlightCardFallback } from './FlightCard';
 import { flightFactory } from '__mocks__/factories';
+import { FlightCard } from './FlightCard';
 
 export default {
 	title: 'UI/shared/flight/FlightCard',
