@@ -31,7 +31,7 @@ const customJestConfig = {
 			lines: 100,
 		},
 	},
-	coverageReporters: ['html'],
+	coverageReporters: ['html', 'text-summary'],
 	collectCoverageFrom: ['./src/**/*.{js,jsx,ts,tsx}', '!./src/**/*.stories.{js,jsx,ts,tsx}'],
 	watchPlugins: ['jest-watch-typeahead/filename', 'jest-watch-typeahead/testname'],
 	snapshotSerializers: ['@emotion/jest/serializer'],
