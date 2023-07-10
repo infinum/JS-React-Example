@@ -1,3 +1,7 @@
+// This is a cjs file so it can use `require` instead of `import`
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const path = require('path');
+
 /**
  * @type {import('next-i18next').UserConfig}
  */
@@ -9,7 +13,7 @@ module.exports = {
 		locales: ['en-US', 'de-DE'],
 	},
 	/** To avoid issues when deploying to some paas (vercel...) */
-	localePath: typeof window === 'undefined' ? require('path').resolve('./public/locales') : '/locales',
+	localePath: typeof window === 'undefined' ? path.resolve('./public/locales') : '/locales',
 	reloadOnPrerender: process.env.NODE_ENV === 'development',
 
 	/**

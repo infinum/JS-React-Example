@@ -8,9 +8,12 @@
 import { useEffect } from 'react';
 
 const Scenario4 = () => {
+	// disabled since this is a test scenario
+	// eslint-disable-next-line @infinum/no-hooks-in-pages-folder
 	useEffect(function () {
 		async function doTest() {
 			const doAsyncWork = () => Promise.reject(new Error('Client scenario 4'));
+
 			await doAsyncWork();
 		}
 		doTest();

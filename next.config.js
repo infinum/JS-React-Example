@@ -1,3 +1,6 @@
+// This is a cjs file
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 const { i18n } = require('./next-i18next.config');
 const { BugsnagSourceMapUploaderPlugin, BugsnagBuildReporterPlugin } = require('webpack-bugsnag-plugins');
 

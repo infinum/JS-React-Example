@@ -12,9 +12,12 @@ import { ErrorBoundary } from '@/components/shared/utilities/ErrorBoundary/Error
 let showError = true;
 
 const Scenario6Child = () => {
+	// disabled since this is a test scenario
+	// eslint-disable-next-line @infinum/no-hooks-in-pages-folder
 	useEffect(() => {
 		if (showError) {
 			showError = false;
+
 			throw new Error('Client scenario 6');
 		}
 	}, []);

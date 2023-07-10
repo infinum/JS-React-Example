@@ -1,3 +1,6 @@
+// This is a cjs file
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 const nextJest = require('next/jest');
 const { infinumJest } = require('@infinum/jest');
 
