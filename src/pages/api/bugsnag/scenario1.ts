@@ -11,6 +11,7 @@ start();
 const serverlessHandler = getServerlessHandler();
 
 const doAsyncWork = () => Promise.reject(new Error('API scenario 1'));
+
 doAsyncWork();
 
 async function handler(_req: NextApiRequest, res: NextApiResponse) {

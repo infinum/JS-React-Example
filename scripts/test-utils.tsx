@@ -43,5 +43,6 @@ const customRender = (ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>
 
 // re-export everything
 export * from '@testing-library/react';
+
 // override render method
 export { customRender as render };

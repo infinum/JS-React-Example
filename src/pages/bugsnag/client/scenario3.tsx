@@ -8,6 +8,8 @@
 import { useEffect } from 'react';
 
 const Scenario3 = () => {
+	// disabled since this is a test scenario
+	// eslint-disable-next-line @infinum/no-hooks-in-pages-folder
 	useEffect(() => {
 		throw new Error('Client scenario 3');
 	}, []);
