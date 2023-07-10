@@ -7,13 +7,13 @@ export interface IFlightListSection {
 }
 
 export const FlightListSection: FC<IFlightListSection> = ({ children }) => {
-	const { t } = useTranslation(['flight-list-section']);
+	const { t } = useTranslation('flight-list-section');
 
 	return (
 		<Container py={10} size="xl">
 			<Box as="section">
 				<Heading as="h1" mb={3} size="lg">
-					{t('flight-list-section:title')}
+					{t('title')}
 				</Heading>
 
 				{children}

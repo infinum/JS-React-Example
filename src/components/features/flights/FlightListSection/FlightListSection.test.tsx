@@ -5,7 +5,7 @@ describe('FlightListSection', () => {
 	it('should render title', () => {
 		const { getByText } = render(<FlightListSection />);
 
-		expect(getByText('flight-list-section:title')).toBeInTheDocument();
+		expect(getByText('title')).toBeInTheDocument();
 	});
 
 	it('should render children', () => {
