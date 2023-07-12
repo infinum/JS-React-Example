@@ -1,11 +1,14 @@
-import { axe } from 'jest-axe';
-import { FC } from 'react';
-
 import { createClient } from '@/datx/create-client';
+import { MOCKED_URLS, handlerOverrides } from '@/mocks/handlers';
+import { server } from '@/mocks/server';
 import { DatxProvider, useInitialize } from '@datx/swr';
 import userEvent from '@testing-library/user-event';
-import { render, screen } from 'test-utils';
+import { axe } from 'jest-axe';
+import { FC } from 'react';
+import { act, render, screen, waitFor, waitForRequest } from 'test-utils';
 import { LoginForm } from './LoginForm';
+
+const user = userEvent.setup();
 
 describe('LoginForm', () => {
 	let UI: FC;
@@ -35,15 +38,76 @@ describe('LoginForm', () => {
 	});
 
 	it('should be accessible with form errors', async () => {
-		const user = userEvent.setup();
 		const { container } = render(<UI />);
 
-		const submitButton = screen.queryByRole('button', { name: /submit\.label/i });
-
-		if (submitButton) user.click(submitButton);
+		await triggerSubmit();
 
 		const results = await axe(container);
 
 		expect(results).toHaveNoViolations();
 	});
+
+	it('should display required error when value is invalid', async () => {
+		const { container } = render(<UI />);
+
+		await triggerSubmit();
+
+		expect(getErrorMessageElements(container)).toHaveLength(2);
+	});
+
+	it('should not display error when value is valid', async () => {
+		const { container } = render(<UI />);
+
+		const pendingRequest = waitForRequest.post(MOCKED_URLS.Session);
+
+		const emailValue = 'test@infinum.com';
+		const passwordValue = 'password';
+
+		await user.type(screen.getByRole('textbox', { name: /email/i }), emailValue);
+		await user.type(screen.getByLabelText(/password/i, { selector: 'input' }), passwordValue);
+		await triggerSubmit();
+
+		await waitFor(() => {
+			expect(getErrorMessageElements(container)).toHaveLength(0);
+		});
+
+		await act(async () => {
+			const request = await pendingRequest;
+
+			expect((await request.json())?.data?.attributes).toEqual({
+				email: emailValue,
+				password: passwordValue,
+			});
+		});
+	});
+
+	it('should display error from API', async () => {
+		const { container } = render(<UI />);
+
+		server.use(handlerOverrides.invalidLogin);
+
+		const emailValue = 'test@infinum.com';
+		const passwordValue = 'password';
+
+		await user.type(screen.getByRole('textbox', { name: /email/i }), emailValue);
+		await user.type(screen.getByLabelText(/password/i, { selector: 'input' }), passwordValue);
+		await triggerSubmit();
+
+		await waitFor(() => {
+			expect(getErrorMessageElements(container)).toHaveLength(1);
+		});
+	});
 });
+
+const triggerSubmit = async () => {
+	const submitButton = screen.queryByRole('button', { name: /submit\.label/i });
+
+	if (submitButton) {
+		await user.click(submitButton);
+	}
+};
+
+const getErrorMessageElements = (container: HTMLElement) => {
+	// eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+	return container.querySelectorAll('[aria-live]');
+};
