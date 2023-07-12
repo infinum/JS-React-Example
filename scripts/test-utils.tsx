@@ -11,6 +11,8 @@ import '@testing-library/jest-dom';
 import { createClient } from '@/datx/create-client';
 import theme from '@/styles/theme';
 import common from '../public/locales/en-US/common.json';
+import { MockedRequest, matchRequestUrl } from 'msw';
+import { server } from '@/mocks/server';
 
 i18n.use(initReactI18next).init({
 	lng: 'en-US',
@@ -46,3 +48,36 @@ export * from '@testing-library/react';
 
 // override render method
 export { customRender as render };
+
+export function waitForRequest(method: string, url: string) {
+	let requestId = '';
+
+	return new Promise<MockedRequest>((resolve, reject) => {
+		server.events.on('request:start', (req) => {
+			if (req.method.toLowerCase() !== method.toLowerCase()) {
+				return;
+			}
+
+			if (!matchRequestUrl(req.url, url).matches) {
+				return;
+			}
+
+			requestId = req.id;
+		});
+
+		server.events.on('request:match', (req) => {
+			if (req.id === requestId) {
+				resolve(req);
+			}
+		});
+
+		server.events.on('request:unhandled', (req) => {
+			if (req.id === requestId) {
+				reject(new Error(`The ${req.method} ${req.url.href} request was unhandled.`));
+			}
+		});
+	});
+}
+
+waitForRequest.get = (url: string) => waitForRequest('get', url);
+waitForRequest.post = (url: string) => waitForRequest('post', url);
