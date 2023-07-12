@@ -1,8 +1,12 @@
 // This is a cjs file
 /* eslint-disable @typescript-eslint/no-var-requires */
 
+const dotenv = require('dotenv');
+
 const nextJest = require('next/jest');
 const { infinumJest } = require('@infinum/jest');
+
+dotenv.config({ path: './.env.example' });
 
 const createNextJestConfig = nextJest({
 	// Provide the path to your Next.js app to load next.config.js and .env files in your test environment
@@ -14,7 +18,7 @@ const createInfinumJestConfig = infinumJest();
 // Add any custom config to be passed to Jest
 /** @type {import('jest').Config} */
 const customJestConfig = {
-	setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+	setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 	moduleNameMapper: {
 		// Handle module aliases (this will be automatically configured for you soon)
 		'^@/(.*)$': '<rootDir>/src/$1',
