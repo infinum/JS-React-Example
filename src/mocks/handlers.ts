@@ -11,7 +11,7 @@ export const MOCKED_URLS = {
 } as const;
 
 export const handlers = [
-	rest.get(generateApiUrl(MOCKED_URLS.SessionCurrent), async (_req, res, ctx) => {
+	rest.get(MOCKED_URLS.SessionCurrent, async (_req, res, ctx) => {
 		return res(
 			ctx.status(401),
 			ctx.json({
