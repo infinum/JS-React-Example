@@ -5,8 +5,13 @@ export const generateApiUrl = (path: string) => {
 	return process.env.NEXT_PUBLIC_API_ENDPOINT + path;
 };
 
+export const MOCKED_URLS = {
+	SessionCurrent: generateApiUrl('sessions/current'),
+	Session: generateApiUrl('sessions'),
+} as const;
+
 export const handlers = [
-	rest.get(generateApiUrl('sessions/current'), async (_req, res, ctx) => {
+	rest.get(generateApiUrl(MOCKED_URLS.SessionCurrent), async (_req, res, ctx) => {
 		return res(
 			ctx.status(401),
 			ctx.json({
@@ -21,7 +26,7 @@ export const handlers = [
 			})
 		);
 	}),
-	rest.post(generateApiUrl('sessions'), async (req, res, ctx) => {
+	rest.post(MOCKED_URLS.Session, async (req, res, ctx) => {
 		const body = await req.json();
 		const emailOverride = body.data?.attributes?.email || undefined;
 
@@ -39,7 +44,7 @@ export const handlers = [
 ];
 
 export const handlerOverrides = {
-	invalidLogin: rest.post(generateApiUrl('sessions'), (_req, res, ctx) => {
+	invalidLogin: rest.post(MOCKED_URLS.Session, (_req, res, ctx) => {
 		return res(
 			ctx.status(422),
 			ctx.json({
@@ -55,7 +60,7 @@ export const handlerOverrides = {
 			})
 		);
 	}),
-	activeCurrentSession: rest.get(generateApiUrl('sessions/current'), async (_req, res, ctx) => {
+	activeCurrentSession: rest.get(MOCKED_URLS.SessionCurrent, async (_req, res, ctx) => {
 		return res(ctx.status(200), ctx.json(sessionFactory()));
 	}),
 };
