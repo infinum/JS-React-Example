@@ -2,10 +2,11 @@ import { JsonapiSwrClient } from '@/datx/create-client';
 import { Session } from '@/models/Session';
 import { SingleResponse } from '@datx/swr';
 
-export const login = (client: JsonapiSwrClient, data: any) =>
-	client.request('sessions', 'POST', data, {
+export const login = (client: JsonapiSwrClient, data: any) => {
+	return client.request('sessions', 'POST', data, {
 		queryParams: { include: 'user' },
 	}) as unknown as Promise<SingleResponse<Session>>;
+};
 
 export const logout = (client: JsonapiSwrClient) =>
 	client.request('sessions/me', 'DELETE') as unknown as Promise<SingleResponse<Session>>;
