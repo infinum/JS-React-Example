@@ -26,22 +26,25 @@ interface IComponentWithChildrenProps {
 	children?: ReactNode;
 }
 
-const AllProviders: FC<IComponentWithChildrenProps> = ({ children }) => {
-	const client = useInitialize(createClient);
+const AllProvidersFactory = (Wrapper?: RenderOptions['wrapper']): FC<IComponentWithChildrenProps> =>
+	function AllProviders({ children }) {
+		const client = useInitialize(createClient);
 
-	return (
-		<I18nextProvider i18n={i18n}>
-			<DatxProvider client={client}>
-				<SWRConfig value={{ provider: () => new Map(), fetcher: createFetcher(client) }}>
-					<ChakraProvider theme={theme}>{children}</ChakraProvider>
-				</SWRConfig>
-			</DatxProvider>
-		</I18nextProvider>
-	);
-};
+		const content = (
+			<I18nextProvider i18n={i18n}>
+				<DatxProvider client={client}>
+					<SWRConfig value={{ provider: () => new Map(), fetcher: createFetcher(client) }}>
+						<ChakraProvider theme={theme}>{children}</ChakraProvider>
+					</SWRConfig>
+				</DatxProvider>
+			</I18nextProvider>
+		);
 
-const customRender = (ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>) =>
-	render(ui, { wrapper: AllProviders, ...options });
+		return Wrapper ? <Wrapper>{content}</Wrapper> : content;
+	};
+
+const customRender = (ui: ReactElement, options?: RenderOptions) =>
+	render(ui, { wrapper: AllProvidersFactory(options?.wrapper), ...options });
 
 // re-export everything
 export * from '@testing-library/react';
