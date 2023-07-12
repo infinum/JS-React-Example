@@ -7,13 +7,14 @@ export interface IUserMenuProps {
 	onLogout?: (...args: Array<any>) => void;
 }
 
-export const UserMenu = forwardRef<IUserMenuProps, 'div'>((props) => {
+export const UserMenu = forwardRef<IUserMenuProps, 'div'>((props, ref) => {
 	const { t } = useTranslation('main-navigation');
 	const { user, onLogout } = props;
 
 	return (
 		<Menu placement="bottom-end">
 			<MenuButton
+				ref={ref}
 				as={IconButton}
 				aria-label="Toggle language"
 				icon={<Avatar name={`${user?.firstName} ${user?.lastName}`} size="sm" />}

@@ -1,0 +1,1321 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MainLayout should matches snapshot 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  border-bottom: var(--chakra-borders-1px);
+  border-bottom-color: var(--chakra-colors-chakra-border-color);
+}
+
+.emotion-1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  width: 100%;
+  -webkit-margin-start: auto;
+  margin-inline-start: auto;
+  -webkit-margin-end: auto;
+  margin-inline-end: auto;
+  max-width: var(--chakra-sizes-container-xl);
+  -webkit-padding-start: var(--chakra-space-4);
+  padding-inline-start: var(--chakra-space-4);
+  -webkit-padding-end: var(--chakra-space-4);
+  padding-inline-end: var(--chakra-space-4);
+  padding-top: var(--chakra-space-2);
+  padding-bottom: var(--chakra-space-2);
+}
+
+.emotion-2 {
+  color: var(--chakra-colors-red-500);
+  font-size: var(--chakra-fontSizes-3xl);
+}
+
+.emotion-3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-padding-start: var(--chakra-space-8);
+  padding-inline-start: var(--chakra-space-8);
+  -webkit-padding-end: var(--chakra-space-8);
+  padding-inline-end: var(--chakra-space-8);
+}
+
+.emotion-3>*:not(style)~*:not(style) {
+  margin-top: 0px;
+  -webkit-margin-end: 0px;
+  margin-inline-end: 0px;
+  margin-bottom: 0px;
+  -webkit-margin-start: var(--chakra-space-4);
+  margin-inline-start: var(--chakra-space-4);
+}
+
+.emotion-4 {
+  border-radius: var(--chakra-radii-full);
+}
+
+.emotion-4[aria-current=page] {
+  color: var(--chakra-colors-red-500);
+}
+
+.emotion-6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.emotion-6>*:not(style)~*:not(style) {
+  margin-top: 0px;
+  -webkit-margin-end: 0px;
+  margin-inline-end: 0px;
+  margin-bottom: 0px;
+  -webkit-margin-start: 0.5rem;
+  margin-inline-start: 0.5rem;
+}
+
+.emotion-7 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+  white-space: nowrap;
+  vertical-align: middle;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  line-height: 1.2;
+  border-radius: var(--chakra-radii-md);
+  font-weight: var(--chakra-fontWeights-semibold);
+  transition-property: var(--chakra-transition-property-common);
+  transition-duration: var(--chakra-transition-duration-normal);
+  height: var(--chakra-sizes-10);
+  min-width: var(--chakra-sizes-10);
+  font-size: var(--chakra-fontSizes-md);
+  -webkit-padding-start: var(--chakra-space-4);
+  padding-inline-start: var(--chakra-space-4);
+  -webkit-padding-end: var(--chakra-space-4);
+  padding-inline-end: var(--chakra-space-4);
+  color: inherit;
+  padding: 0px;
+}
+
+.emotion-7:focus-visible,
+.emotion-7[data-focus-visible] {
+  box-shadow: var(--chakra-shadows-outline);
+}
+
+.emotion-7:disabled,
+.emotion-7[disabled],
+.emotion-7[aria-disabled=true],
+.emotion-7[data-disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: var(--chakra-shadows-none);
+}
+
+.emotion-7:hover,
+.emotion-7[data-hover] {
+  background: var(--chakra-colors-gray-100);
+}
+
+.emotion-7:hover:disabled,
+.emotion-7[data-hover]:disabled,
+.emotion-7:hover[disabled],
+.emotion-7[data-hover][disabled],
+.emotion-7:hover[aria-disabled=true],
+.emotion-7[data-hover][aria-disabled=true],
+.emotion-7:hover[data-disabled],
+.emotion-7[data-hover][data-disabled] {
+  background: initial;
+}
+
+.emotion-7:active,
+.emotion-7[data-active] {
+  background: var(--chakra-colors-gray-200);
+}
+
+.emotion-8 {
+  height: 1em;
+  display: inline-block;
+  line-height: 1em;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  color: currentColor;
+  width: 16px;
+}
+
+.emotion-9 {
+  z-index: 1;
+}
+
+.emotion-10 {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  --menu-bg: #fff;
+  --menu-shadow: var(--chakra-shadows-sm);
+  color: inherit;
+  min-width: var(--chakra-sizes-3xs);
+  padding-top: var(--chakra-space-2);
+  padding-bottom: var(--chakra-space-2);
+  z-index: 1;
+  border-radius: var(--chakra-radii-md);
+  border-width: 1px;
+  background: var(--menu-bg);
+  box-shadow: var(--menu-shadow);
+}
+
+.chakra-ui-dark .emotion-10:not([data-theme]),
+[data-theme=dark] .emotion-10:not([data-theme]),
+.emotion-10[data-theme=dark] {
+  --menu-bg: var(--chakra-colors-gray-700);
+  --menu-shadow: var(--chakra-shadows-dark-lg);
+}
+
+.emotion-13 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+  white-space: nowrap;
+  vertical-align: middle;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  line-height: 1.2;
+  border-radius: var(--chakra-radii-md);
+  font-weight: var(--chakra-fontWeights-semibold);
+  transition-property: var(--chakra-transition-property-common);
+  transition-duration: var(--chakra-transition-duration-normal);
+  height: var(--chakra-sizes-10);
+  min-width: var(--chakra-sizes-10);
+  font-size: var(--chakra-fontSizes-md);
+  -webkit-padding-start: var(--chakra-space-4);
+  padding-inline-start: var(--chakra-space-4);
+  -webkit-padding-end: var(--chakra-space-4);
+  padding-inline-end: var(--chakra-space-4);
+  background: var(--chakra-colors-red-500);
+  color: var(--chakra-colors-white);
+}
+
+.emotion-13:focus-visible,
+.emotion-13[data-focus-visible] {
+  box-shadow: var(--chakra-shadows-outline);
+}
+
+.emotion-13:disabled,
+.emotion-13[disabled],
+.emotion-13[aria-disabled=true],
+.emotion-13[data-disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: var(--chakra-shadows-none);
+}
+
+.emotion-13:hover,
+.emotion-13[data-hover] {
+  background: var(--chakra-colors-red-600);
+}
+
+.emotion-13:hover:disabled,
+.emotion-13[data-hover]:disabled,
+.emotion-13:hover[disabled],
+.emotion-13[data-hover][disabled],
+.emotion-13:hover[aria-disabled=true],
+.emotion-13[data-hover][aria-disabled=true],
+.emotion-13:hover[data-disabled],
+.emotion-13[data-hover][data-disabled] {
+  background: var(--chakra-colors-red-500);
+}
+
+.emotion-13:active,
+.emotion-13[data-active] {
+  background: var(--chakra-colors-red-700);
+}
+
+<nav
+    class="emotion-0"
+  >
+    <div
+      class="chakra-container emotion-1"
+    >
+      <a
+        href="/"
+      >
+        <h1
+          class="chakra-text emotion-2"
+        >
+          Cekila
+        </h1>
+      </a>
+      <div
+        class="chakra-stack emotion-3"
+      >
+        <a
+          aria-current="page"
+          class="emotion-4"
+          href="/"
+        >
+          nav.home
+        </a>
+        <a
+          class="emotion-4"
+          href="/flights"
+        >
+          nav.flights
+        </a>
+      </div>
+      <div
+        class="chakra-stack emotion-6"
+      >
+        <button
+          aria-controls="menu-list-:r1:"
+          aria-expanded="false"
+          aria-haspopup="menu"
+          aria-label="Toggle language"
+          class="chakra-button chakra-menu__menu-button emotion-7"
+          id="menu-button-:r1:"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="chakra-icon emotion-8"
+            fill="currentColor"
+            focusable="false"
+            height="1em"
+            stroke="currentColor"
+            stroke-width="0"
+            viewBox="0 0 496 512"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm200 248c0 22.5-3.9 44.2-10.8 64.4h-20.3c-4.3 0-8.4-1.7-11.4-4.8l-32-32.6c-4.5-4.6-4.5-12.1.1-16.7l12.5-12.5v-8.7c0-3-1.2-5.9-3.3-8l-9.4-9.4c-2.1-2.1-5-3.3-8-3.3h-16c-6.2 0-11.3-5.1-11.3-11.3 0-3 1.2-5.9 3.3-8l9.4-9.4c2.1-2.1 5-3.3 8-3.3h32c6.2 0 11.3-5.1 11.3-11.3v-9.4c0-6.2-5.1-11.3-11.3-11.3h-36.7c-8.8 0-16 7.2-16 16v4.5c0 6.9-4.4 13-10.9 15.2l-31.6 10.5c-3.3 1.1-5.5 4.1-5.5 7.6v2.2c0 4.4-3.6 8-8 8h-16c-4.4 0-8-3.6-8-8s-3.6-8-8-8H247c-3 0-5.8 1.7-7.2 4.4l-9.4 18.7c-2.7 5.4-8.2 8.8-14.3 8.8H194c-8.8 0-16-7.2-16-16V199c0-4.2 1.7-8.3 4.7-11.3l20.1-20.1c4.6-4.6 7.2-10.9 7.2-17.5 0-3.4 2.2-6.5 5.5-7.6l40-13.3c1.7-.6 3.2-1.5 4.4-2.7l26.8-26.8c2.1-2.1 3.3-5 3.3-8 0-6.2-5.1-11.3-11.3-11.3H258l-16 16v8c0 4.4-3.6 8-8 8h-16c-4.4 0-8-3.6-8-8v-20c0-2.5 1.2-4.9 3.2-6.4l28.9-21.7c1.9-.1 3.8-.3 5.7-.3C358.3 56 448 145.7 448 256zM130.1 149.1c0-3 1.2-5.9 3.3-8l25.4-25.4c2.1-2.1 5-3.3 8-3.3 6.2 0 11.3 5.1 11.3 11.3v16c0 3-1.2 5.9-3.3 8l-9.4 9.4c-2.1 2.1-5 3.3-8 3.3h-16c-6.2 0-11.3-5.1-11.3-11.3zm128 306.4v-7.1c0-8.8-7.2-16-16-16h-20.2c-10.8 0-26.7-5.3-35.4-11.8l-22.2-16.7c-11.5-8.6-18.2-22.1-18.2-36.4v-23.9c0-16 8.4-30.8 22.1-39l42.9-25.7c7.1-4.2 15.2-6.5 23.4-6.5h31.2c10.9 0 21.4 3.9 29.6 10.9l43.2 37.1h18.3c8.5 0 16.6 3.4 22.6 9.4l17.3 17.3c3.4 3.4 8.1 5.3 12.9 5.3H423c-32.4 58.9-93.8 99.5-164.9 103.1z"
+            />
+          </svg>
+        </button>
+        <div
+          class="emotion-9"
+          style="visibility: hidden; position: absolute; min-width: max-content; inset: 0 auto auto 0;"
+        >
+          <div
+            aria-orientation="vertical"
+            class="chakra-menu__menu-list emotion-10"
+            id="menu-list-:r1:"
+            role="menu"
+            style="transform-origin: var(--popper-transform-origin); opacity: 0; visibility: hidden; transform: scale(0.8) translateZ(0);"
+            tabindex="-1"
+          />
+        </div>
+        <button
+          aria-label="Toggle color mode"
+          class="chakra-button emotion-7"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="chakra-icon emotion-8"
+            fill="currentColor"
+            focusable="false"
+            height="1em"
+            stroke="currentColor"
+            stroke-width="0"
+            viewBox="0 0 512 512"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z"
+            />
+          </svg>
+        </button>
+        <a
+          class="chakra-button emotion-13"
+          href="/login"
+        >
+          auth.login.label
+        </a>
+      </div>
+    </div>
+  </nav>
+  .emotion-0 {
+  background: var(--chakra-colors-bg-surface);
+}
+
+.emotion-1 {
+  width: 100%;
+  -webkit-margin-start: auto;
+  margin-inline-start: auto;
+  -webkit-margin-end: auto;
+  margin-inline-end: auto;
+  max-width: var(--chakra-sizes-container-xl);
+  -webkit-padding-start: var(--chakra-space-4);
+  padding-inline-start: var(--chakra-space-4);
+  -webkit-padding-end: var(--chakra-space-4);
+  padding-inline-end: var(--chakra-space-4);
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding-top: var(--chakra-space-12);
+  padding-bottom: var(--chakra-space-12);
+}
+
+.emotion-2>*:not(style)~*:not(style) {
+  margin-top: var(--chakra-space-8);
+  -webkit-margin-end: 0px;
+  margin-inline-end: 0px;
+  margin-bottom: 0px;
+  -webkit-margin-start: 0px;
+  margin-inline-start: 0px;
+}
+
+@media screen and (min-width: 48em) {
+  .emotion-2 {
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    padding-top: var(--chakra-space-16);
+    padding-bottom: var(--chakra-space-16);
+  }
+
+  .emotion-2>*:not(style)~*:not(style) {
+    margin-top: 0px;
+    -webkit-margin-end: 0px;
+    margin-inline-end: 0px;
+    margin-bottom: 0px;
+    -webkit-margin-start: var(--chakra-space-8);
+    margin-inline-start: var(--chakra-space-8);
+  }
+}
+
+.emotion-3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: start;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: start;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0px;
+}
+
+.emotion-3>*:not(style)~*:not(style) {
+  margin-top: var(--chakra-space-6);
+  -webkit-margin-end: 0px;
+  margin-inline-end: 0px;
+  margin-bottom: 0px;
+  -webkit-margin-start: 0px;
+  margin-inline-start: 0px;
+}
+
+@media screen and (min-width: 48em) {
+  .emotion-3>*:not(style)~*:not(style) {
+    margin-top: var(--chakra-space-8);
+  }
+}
+
+.emotion-5 {
+  color: muted;
+}
+
+.emotion-6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column-reverse;
+  -ms-flex-direction: column-reverse;
+  flex-direction: column-reverse;
+  --chakra-space-y-reverse: 1;
+  --chakra-divide-y-reverse: 1;
+  min-width: 0px;
+}
+
+.emotion-6>*:not(style)~*:not(style) {
+  margin-top: 0px;
+  -webkit-margin-end: 0px;
+  margin-inline-end: 0px;
+  margin-bottom: var(--chakra-space-12);
+  -webkit-margin-start: 0px;
+  margin-inline-start: 0px;
+}
+
+@media screen and (min-width: 48em) {
+  .emotion-6>*:not(style)~*:not(style) {
+    margin-bottom: var(--chakra-space-8);
+  }
+}
+
+@media screen and (min-width: 48em) {
+  .emotion-6 {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+
+  .emotion-6>*:not(style)~*:not(style) {
+    margin-top: var(--chakra-space-12);
+    -webkit-margin-end: 0px;
+    margin-inline-end: 0px;
+    margin-bottom: 0px;
+    -webkit-margin-start: 0px;
+    margin-inline-start: 0px;
+  }
+
+  @media screen and (min-width: 48em) {
+    .emotion-6>*:not(style)~*:not(style) {
+      margin-top: var(--chakra-space-8);
+    }
+  }
+}
+
+@media screen and (min-width: 62em) {
+  .emotion-6 {
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+  }
+
+  .emotion-6>*:not(style)~*:not(style) {
+    margin-top: 0px;
+    -webkit-margin-end: 0px;
+    margin-inline-end: 0px;
+    margin-bottom: 0px;
+    -webkit-margin-start: var(--chakra-space-12);
+    margin-inline-start: var(--chakra-space-12);
+  }
+
+  @media screen and (min-width: 48em) {
+    .emotion-6>*:not(style)~*:not(style) {
+      -webkit-margin-start: var(--chakra-space-8);
+      margin-inline-start: var(--chakra-space-8);
+    }
+  }
+}
+
+.emotion-7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.emotion-7>*:not(style)~*:not(style) {
+  margin-top: 0px;
+  -webkit-margin-end: 0px;
+  margin-inline-end: 0px;
+  margin-bottom: 0px;
+  -webkit-margin-start: var(--chakra-space-8);
+  margin-inline-start: var(--chakra-space-8);
+}
+
+.emotion-8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  min-width: var(--chakra-sizes-36);
+}
+
+.emotion-8>*:not(style)~*:not(style) {
+  margin-top: var(--chakra-space-4);
+  -webkit-margin-end: 0px;
+  margin-inline-end: 0px;
+  margin-bottom: 0px;
+  -webkit-margin-start: 0px;
+  margin-inline-start: 0px;
+}
+
+.emotion-9 {
+  color: subtle;
+  font-size: var(--chakra-fontSizes-sm);
+  font-weight: var(--chakra-fontWeights-semibold);
+}
+
+.emotion-10 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.emotion-10>*:not(style)~*:not(style) {
+  margin-top: var(--chakra-space-3);
+  -webkit-margin-end: 0px;
+  margin-inline-end: 0px;
+  margin-bottom: 0px;
+  -webkit-margin-start: 0px;
+  margin-inline-start: 0px;
+}
+
+.emotion-11 {
+  display: inline-block;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  min-width: 0px;
+}
+
+.emotion-12 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+  white-space: nowrap;
+  vertical-align: baseline;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  line-height: var(--chakra-lineHeights-normal);
+  border-radius: var(--chakra-radii-md);
+  font-weight: var(--chakra-fontWeights-semibold);
+  transition-property: var(--chakra-transition-property-common);
+  transition-duration: var(--chakra-transition-duration-normal);
+  height: auto;
+  min-width: var(--chakra-sizes-10);
+  font-size: var(--chakra-fontSizes-md);
+  -webkit-padding-start: var(--chakra-space-4);
+  padding-inline-start: var(--chakra-space-4);
+  -webkit-padding-end: var(--chakra-space-4);
+  padding-inline-end: var(--chakra-space-4);
+  padding: 0px;
+  color: var(--chakra-colors-gray-500);
+}
+
+.emotion-12:focus-visible,
+.emotion-12[data-focus-visible] {
+  box-shadow: var(--chakra-shadows-outline);
+}
+
+.emotion-12:disabled,
+.emotion-12[disabled],
+.emotion-12[aria-disabled=true],
+.emotion-12[data-disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: var(--chakra-shadows-none);
+}
+
+.emotion-12:hover,
+.emotion-12[data-hover] {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.emotion-12:hover:disabled,
+.emotion-12[data-hover]:disabled,
+.emotion-12:hover[disabled],
+.emotion-12[data-hover][disabled],
+.emotion-12:hover[aria-disabled=true],
+.emotion-12[data-hover][aria-disabled=true],
+.emotion-12:hover[data-disabled],
+.emotion-12[data-hover][data-disabled] {
+  background: initial;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-12:active,
+.emotion-12[data-active] {
+  color: var(--chakra-colors-gray-700);
+}
+
+.emotion-26 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.emotion-26>*:not(style)~*:not(style) {
+  margin-top: var(--chakra-space-4);
+  -webkit-margin-end: 0px;
+  margin-inline-end: 0px;
+  margin-bottom: 0px;
+  -webkit-margin-start: 0px;
+  margin-inline-start: 0px;
+}
+
+.emotion-28 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.emotion-28>*:not(style)~*:not(style) {
+  margin-top: var(--chakra-space-4);
+  -webkit-margin-end: 0px;
+  margin-inline-end: 0px;
+  margin-bottom: 0px;
+  -webkit-margin-start: 0px;
+  margin-inline-start: 0px;
+}
+
+@media screen and (min-width: 30em) {
+  .emotion-28 {
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+  }
+
+  .emotion-28>*:not(style)~*:not(style) {
+    margin-top: 0px;
+    -webkit-margin-end: 0px;
+    margin-inline-end: 0px;
+    margin-bottom: 0px;
+    -webkit-margin-start: var(--chakra-space-4);
+    margin-inline-start: var(--chakra-space-4);
+  }
+}
+
+@media screen and (min-width: 62em) {
+  .emotion-28 {
+    max-width: 360px;
+  }
+}
+
+.emotion-29 {
+  width: 100%;
+  min-width: 0px;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  position: relative;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  transition-property: var(--chakra-transition-property-common);
+  transition-duration: var(--chakra-transition-duration-normal);
+  font-size: var(--chakra-fontSizes-md);
+  -webkit-padding-start: var(--chakra-space-4);
+  padding-inline-start: var(--chakra-space-4);
+  -webkit-padding-end: var(--chakra-space-4);
+  padding-inline-end: var(--chakra-space-4);
+  height: var(--chakra-sizes-10);
+  border-radius: var(--chakra-radii-md);
+  border: 1px solid;
+  border-color: inherit;
+  background: inherit;
+}
+
+.emotion-29:disabled,
+.emotion-29[disabled],
+.emotion-29[aria-disabled=true],
+.emotion-29[data-disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.emotion-29:hover,
+.emotion-29[data-hover] {
+  border-color: var(--chakra-colors-gray-300);
+}
+
+.emotion-29[aria-readonly=true],
+.emotion-29[readonly],
+.emotion-29[data-readonly] {
+  box-shadow: var(--chakra-shadows-none)!important;
+  -webkit-user-select: all;
+  -moz-user-select: all;
+  -ms-user-select: all;
+  user-select: all;
+}
+
+.emotion-29[aria-invalid=true],
+.emotion-29[data-invalid] {
+  border-color: #E53E3E;
+  box-shadow: 0 0 0 1px #E53E3E;
+}
+
+.emotion-29:focus-visible,
+.emotion-29[data-focus-visible] {
+  z-index: 1;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 1px #3182ce;
+}
+
+.emotion-30 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+  white-space: nowrap;
+  vertical-align: middle;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  line-height: 1.2;
+  border-radius: var(--chakra-radii-md);
+  font-weight: var(--chakra-fontWeights-semibold);
+  transition-property: var(--chakra-transition-property-common);
+  transition-duration: var(--chakra-transition-duration-normal);
+  height: var(--chakra-sizes-10);
+  min-width: var(--chakra-sizes-10);
+  font-size: var(--chakra-fontSizes-md);
+  -webkit-padding-start: var(--chakra-space-4);
+  padding-inline-start: var(--chakra-space-4);
+  -webkit-padding-end: var(--chakra-space-4);
+  padding-inline-end: var(--chakra-space-4);
+  background: var(--chakra-colors-red-500);
+  color: var(--chakra-colors-white);
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.emotion-30:focus-visible,
+.emotion-30[data-focus-visible] {
+  box-shadow: var(--chakra-shadows-outline);
+}
+
+.emotion-30:disabled,
+.emotion-30[disabled],
+.emotion-30[aria-disabled=true],
+.emotion-30[data-disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: var(--chakra-shadows-none);
+}
+
+.emotion-30:hover,
+.emotion-30[data-hover] {
+  background: var(--chakra-colors-red-600);
+}
+
+.emotion-30:hover:disabled,
+.emotion-30[data-hover]:disabled,
+.emotion-30:hover[disabled],
+.emotion-30[data-hover][disabled],
+.emotion-30:hover[aria-disabled=true],
+.emotion-30[data-hover][aria-disabled=true],
+.emotion-30:hover[data-disabled],
+.emotion-30[data-hover][data-disabled] {
+  background: var(--chakra-colors-red-500);
+}
+
+.emotion-30:active,
+.emotion-30[data-active] {
+  background: var(--chakra-colors-red-700);
+}
+
+.emotion-31 {
+  opacity: 0.6;
+  border: 0;
+  border-color: inherit;
+  border-style: solid;
+  border-bottom-width: 1px;
+  width: 100%;
+}
+
+.emotion-32 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-flex-direction: column-reverse;
+  -ms-flex-direction: column-reverse;
+  flex-direction: column-reverse;
+  --chakra-space-y-reverse: 1;
+  --chakra-divide-y-reverse: 1;
+  padding-top: var(--chakra-space-8);
+  padding-bottom: var(--chakra-space-12);
+}
+
+.emotion-32>*:not(style)~*:not(style) {
+  margin-top: 0px;
+  -webkit-margin-end: 0px;
+  margin-inline-end: 0px;
+  margin-bottom: 0.5rem;
+  -webkit-margin-start: 0px;
+  margin-inline-start: 0px;
+}
+
+@media screen and (min-width: 48em) {
+  .emotion-32 {
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+  }
+
+  .emotion-32>*:not(style)~*:not(style) {
+    margin-top: 0px;
+    -webkit-margin-end: 0px;
+    margin-inline-end: 0px;
+    margin-bottom: 0px;
+    -webkit-margin-start: 0.5rem;
+    margin-inline-start: 0.5rem;
+  }
+}
+
+.emotion-33 {
+  color: subtle;
+  font-size: var(--chakra-fontSizes-sm);
+}
+
+.emotion-34 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.emotion-34>*:not(style)~*:not(style) {
+  -webkit-margin-start: 0.5rem;
+  margin-inline-start: 0.5rem;
+}
+
+.emotion-35 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+  white-space: nowrap;
+  vertical-align: middle;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  line-height: 1.2;
+  border-radius: var(--chakra-radii-md);
+  font-weight: var(--chakra-fontWeights-semibold);
+  transition-property: var(--chakra-transition-property-common);
+  transition-duration: var(--chakra-transition-duration-normal);
+  height: var(--chakra-sizes-10);
+  min-width: var(--chakra-sizes-10);
+  font-size: var(--chakra-fontSizes-md);
+  -webkit-padding-start: var(--chakra-space-4);
+  padding-inline-start: var(--chakra-space-4);
+  -webkit-padding-end: var(--chakra-space-4);
+  padding-inline-end: var(--chakra-space-4);
+  color: inherit;
+  padding: 0px;
+}
+
+.emotion-35:focus-visible,
+.emotion-35[data-focus-visible] {
+  box-shadow: var(--chakra-shadows-outline);
+}
+
+.emotion-35:disabled,
+.emotion-35[disabled],
+.emotion-35[aria-disabled=true],
+.emotion-35[data-disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: var(--chakra-shadows-none);
+}
+
+.emotion-35:hover,
+.emotion-35[data-hover] {
+  background: var(--chakra-colors-gray-100);
+}
+
+.emotion-35:hover:disabled,
+.emotion-35[data-hover]:disabled,
+.emotion-35:hover[disabled],
+.emotion-35[data-hover][disabled],
+.emotion-35:hover[aria-disabled=true],
+.emotion-35[data-hover][aria-disabled=true],
+.emotion-35:hover[data-disabled],
+.emotion-35[data-hover][data-disabled] {
+  background: initial;
+}
+
+.emotion-35:active,
+.emotion-35[data-active] {
+  background: var(--chakra-colors-gray-200);
+}
+
+.emotion-35:focus,
+.emotion-35[data-focus] {
+  z-index: 1;
+}
+
+<footer
+    class="emotion-0"
+    role="contentinfo"
+  >
+    <div
+      class="chakra-container emotion-1"
+    >
+      <div
+        class="chakra-stack emotion-2"
+      >
+        <div
+          class="chakra-stack emotion-3"
+        >
+          <a
+            href="/"
+          >
+            <img
+              alt="Logo"
+              class="chakra-image emotion-4"
+              src="/images/logo-infinum.png"
+              width="64px"
+            />
+          </a>
+          <p
+            class="chakra-text emotion-5"
+          >
+            Create beautiful websites remarkably fast.
+          </p>
+        </div>
+        <div
+          class="chakra-stack emotion-6"
+        >
+          <div
+            class="chakra-stack emotion-7"
+          >
+            <div
+              class="chakra-stack emotion-8"
+            >
+              <p
+                class="chakra-text emotion-9"
+              >
+                Product
+              </p>
+              <div
+                class="chakra-stack emotion-10"
+              >
+                <div
+                  class="chakra-stack__item emotion-11"
+                >
+                  <button
+                    class="chakra-button emotion-12"
+                    type="button"
+                  >
+                    How it works
+                  </button>
+                </div>
+                <div
+                  class="chakra-stack__item emotion-11"
+                >
+                  <button
+                    class="chakra-button emotion-12"
+                    type="button"
+                  >
+                    Pricing
+                  </button>
+                </div>
+                <div
+                  class="chakra-stack__item emotion-11"
+                >
+                  <button
+                    class="chakra-button emotion-12"
+                    type="button"
+                  >
+                    Use Cases
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div
+              class="chakra-stack emotion-8"
+            >
+              <p
+                class="chakra-text emotion-9"
+              >
+                Legal
+              </p>
+              <div
+                class="chakra-stack emotion-10"
+              >
+                <div
+                  class="chakra-stack__item emotion-11"
+                >
+                  <button
+                    class="chakra-button emotion-12"
+                    type="button"
+                  >
+                    Privacy
+                  </button>
+                </div>
+                <div
+                  class="chakra-stack__item emotion-11"
+                >
+                  <button
+                    class="chakra-button emotion-12"
+                    type="button"
+                  >
+                    Terms
+                  </button>
+                </div>
+                <div
+                  class="chakra-stack__item emotion-11"
+                >
+                  <button
+                    class="chakra-button emotion-12"
+                    type="button"
+                  >
+                    License
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="chakra-stack emotion-26"
+          >
+            <p
+              class="chakra-text emotion-9"
+            >
+              Stay up to date
+            </p>
+            <div
+              class="chakra-stack emotion-28"
+            >
+              <input
+                aria-required="true"
+                class="chakra-input emotion-29"
+                placeholder="Enter your email"
+                required=""
+                type="email"
+              />
+              <button
+                class="chakra-button emotion-30"
+                type="submit"
+              >
+                Subscribe
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr
+        aria-orientation="horizontal"
+        class="chakra-divider emotion-31"
+      />
+      <div
+        class="chakra-stack emotion-32"
+      >
+        <p
+          class="chakra-text emotion-33"
+        >
+          © 2023 Infinum Inc.
+        </p>
+        <div
+          class="chakra-button__group emotion-34"
+          data-orientation="horizontal"
+          role="group"
+        >
+          <a
+            aria-label="LinkedIn"
+            class="chakra-button emotion-35"
+            href="#"
+          >
+            <svg
+              aria-hidden="true"
+              fill="currentColor"
+              focusable="false"
+              font-size="1.25rem"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 448 512"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"
+              />
+            </svg>
+          </a>
+          <a
+            aria-label="GitHub"
+            class="chakra-button emotion-35"
+            href="#"
+          >
+            <svg
+              aria-hidden="true"
+              fill="currentColor"
+              focusable="false"
+              font-size="1.25rem"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 496 512"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"
+              />
+            </svg>
+          </a>
+          <a
+            aria-label="Twitter"
+            class="chakra-button emotion-35"
+            href="#"
+          >
+            <svg
+              aria-hidden="true"
+              fill="currentColor"
+              focusable="false"
+              font-size="1.25rem"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 512 512"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <span
+    hidden=""
+    id="__chakra_env"
+  />
+</DocumentFragment>
+`;
