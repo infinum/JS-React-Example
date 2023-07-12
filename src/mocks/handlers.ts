@@ -1,4 +1,4 @@
-import { sessionFactory } from '@/mocks/factories';
+import { sessionFactory } from '__mocks__/factories';
 import { rest } from 'msw';
 
 export const generateApiUrl = (path: string) => {

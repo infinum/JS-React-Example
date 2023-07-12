@@ -1,5 +1,6 @@
-import { FlightListSection } from './FlightListSection';
+import { axe } from 'jest-axe';
 import { render, screen } from 'test-utils';
+import { FlightListSection } from './FlightListSection';
 
 describe('FlightListSection', () => {
 	it('should render title', () => {
@@ -12,5 +13,13 @@ describe('FlightListSection', () => {
 		render(<FlightListSection>test</FlightListSection>);
 
 		expect(screen.getByText('test')).toBeInTheDocument();
+	});
+
+	it('should be accessible', async () => {
+		const { container } = render(<FlightListSection />);
+
+		const results = await axe(container);
+
+		expect(results).toHaveNoViolations();
 	});
 });

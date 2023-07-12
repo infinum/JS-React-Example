@@ -1,5 +1,6 @@
-import { Flights } from './Flights';
+import { axe } from 'jest-axe';
 import { render, screen } from 'test-utils';
+import { Flights } from './Flights';
 
 const mockFlightList = jest.fn();
 const mockFlightListFallbackMessage = 'FlightListFallback';
@@ -34,5 +35,13 @@ describe('Flights', () => {
 		const { asFragment } = render(<Flights />);
 
 		expect(asFragment()).toMatchSnapshot();
+	});
+
+	it('should be accessible', async () => {
+		const { container } = render(<Flights />);
+
+		const results = await axe(container);
+
+		expect(results).toHaveNoViolations();
 	});
 });
