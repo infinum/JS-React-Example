@@ -1,3 +1,4 @@
+import { buildJsonApiDocument } from '@/datx/buildJsonApiDocument';
 import { sessionFactory } from '__mocks__/factories';
 import { rest } from 'msw';
 
@@ -7,6 +8,7 @@ export const generateApiUrl = (path: string) => {
 
 export const MOCKED_URLS = {
 	SessionCurrent: generateApiUrl('sessions/current'),
+	SessionMe: generateApiUrl('sessions/me'),
 	Session: generateApiUrl('sessions'),
 } as const;
 
@@ -41,6 +43,9 @@ export const handlers = [
 			)
 		);
 	}),
+	rest.delete(MOCKED_URLS.SessionMe, async (_req, res, ctx) => {
+		return res(ctx.status(204));
+	}),
 ];
 
 export const handlerOverrides = {
@@ -60,7 +65,9 @@ export const handlerOverrides = {
 			})
 		);
 	}),
-	activeCurrentSession: rest.get(MOCKED_URLS.SessionCurrent, async (_req, res, ctx) => {
-		return res(ctx.status(200), ctx.json(sessionFactory()));
+	activeCurrentSession: rest.get(MOCKED_URLS.SessionCurrent, async (req, res, ctx) => {
+		const session = sessionFactory();
+
+		return res(ctx.status(200), ctx.json(buildJsonApiDocument(session)));
 	}),
 };
