@@ -1,5 +1,4 @@
 import { axe } from 'jest-axe';
-
 import { render } from 'test-utils';
 import { Card } from './Card';
 

@@ -2,18 +2,34 @@
 
 exports[`Meta should match snapshot with custom title and description: custom-title-and-description 1`] = `
 <DocumentFragment>
-  <span
-    hidden=""
-    id="__chakra_env"
+  <title>
+    Custom title
+  </title>
+  <meta
+    content="Custom description"
+    id="meta-description"
+    name="description"
+  />
+  <link
+    href="/favicon.ico"
+    rel="icon"
   />
 </DocumentFragment>
 `;
 
 exports[`Meta should matches snapshot 1`] = `
 <DocumentFragment>
-  <span
-    hidden=""
-    id="__chakra_env"
+  <title>
+    React Example | Infinum
+  </title>
+  <meta
+    content="Javascript React Example project landing page "
+    id="meta-description"
+    name="description"
+  />
+  <link
+    href="/favicon.ico"
+    rel="icon"
   />
 </DocumentFragment>
 `;
