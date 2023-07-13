@@ -9,10 +9,10 @@ import { SWRConfig } from 'swr';
 import '@testing-library/jest-dom';
 
 import { createClient } from '@/datx/create-client';
-import theme from '@/styles/theme';
-import common from '../public/locales/en-US/common.json';
-import { MockedRequest, matchRequestUrl } from 'msw';
 import { server } from '@/mocks/server';
+import theme from '@/styles/theme';
+import { MockedRequest, matchRequestUrl } from 'msw';
+import common from '../public/locales/en-US/common.json';
 
 i18n.use(initReactI18next).init({
 	lng: 'en-US',
