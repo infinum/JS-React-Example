@@ -3,7 +3,7 @@ import { Center, Heading, Image } from '@chakra-ui/react';
 
 export const EmptyListMessage: FC = () => (
 	<Center flexDir="column" my={8}>
-		<Image w="64px" mb={6} alt="presentations" src="/images/logo-js.png" />
+		<Image w="64px" mb={6} role="presentation" src="/images/logo-js.png" />
 		<Heading as="h5" size="md">
 			Ducky has nothing todo!
 		</Heading>
