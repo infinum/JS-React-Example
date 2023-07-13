@@ -11,7 +11,7 @@ describe('MainLayout', () => {
 	});
 
 	it('should render children', () => {
-		-render(
+		render(
 			<MainLayout>
 				<p>test</p>
 			</MainLayout>

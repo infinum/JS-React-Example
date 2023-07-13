@@ -10,7 +10,7 @@ describe('AuthLayout', () => {
 	});
 
 	it('should render children', () => {
-		-render(
+		render(
 			<AuthLayout>
 				<p>test</p>
 			</AuthLayout>
@@ -22,10 +22,8 @@ describe('AuthLayout', () => {
 	it('should be accessible', async () => {
 		const { container } = render(<AuthLayout />);
 
-		// await act(async () => {
 		const results = await axe(container);
 
 		expect(results).toHaveNoViolations();
-		// });
 	});
 });
