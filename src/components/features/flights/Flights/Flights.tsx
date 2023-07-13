@@ -11,7 +11,7 @@ export const Flights: FC = () => {
 	const { query } = useRouter();
 	const { data: sessionResponse } = useSession();
 	const user = sessionResponse?.data.user;
-	const { data, error } = useDatx(() => getFlightsQuery(user, query.page as string));
+	const { data, error } = useDatx(() => getFlightsQuery(user, (query.page || '1') as string));
 	const pagination = useMemo(() => getPagination(data), [data]);
 
 	if (error) {
