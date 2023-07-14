@@ -2,7 +2,6 @@ import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import mockRouter from 'next-router-mock';
 import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider';
-import { act } from 'react-dom/test-utils';
 import { render, screen } from 'test-utils';
 import { BasicPagination, getPagination } from './BasicPagination';
 import { CollectionResponse } from '@datx/swr';
@@ -39,11 +38,9 @@ describe('BasicPagination', () => {
 	it('should be accessible', async () => {
 		const { container } = render(<BasicPagination pagination={defaultPagination} />);
 
-		await act(async () => {
-			const results = await axe(container);
+		const results = await axe(container);
 
-			expect(results).toHaveNoViolations();
-		});
+		expect(results).toHaveNoViolations();
 	});
 
 	it('should set page query param on action', async () => {

@@ -3,7 +3,6 @@ import { server } from '@/mocks/server';
 import { useColorMode } from '@chakra-ui/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
-import { act } from 'react-dom/test-utils';
 import { render, screen } from 'test-utils';
 import { MainNavigation } from './MainNavigation';
 
@@ -31,11 +30,9 @@ describe('MainNavigation', () => {
 	it('should be accessible', async () => {
 		const { container } = render(<MainNavigation />);
 
-		await act(async () => {
-			const results = await axe(container);
+		const results = await axe(container);
 
-			expect(results).toHaveNoViolations();
-		});
+		expect(results).toHaveNoViolations();
 	});
 
 	it('should render navigation links', () => {

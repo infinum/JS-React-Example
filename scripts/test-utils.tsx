@@ -6,8 +6,6 @@ import { FC, ReactElement, ReactNode } from 'react';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
 import { SWRConfig } from 'swr';
 
-import '@testing-library/jest-dom';
-
 import { createClient } from '@/datx/create-client';
 import { server } from '@/mocks/server';
 import theme from '@/styles/theme';

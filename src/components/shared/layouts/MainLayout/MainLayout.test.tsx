@@ -1,5 +1,4 @@
 import { axe } from 'jest-axe';
-import { act } from 'react-dom/test-utils';
 import { render, screen } from 'test-utils';
 import { MainLayout } from './MainLayout';
 
@@ -23,10 +22,8 @@ describe('MainLayout', () => {
 	it('should be accessible', async () => {
 		const { container } = render(<MainLayout />);
 
-		await act(async () => {
-			const results = await axe(container);
+		const results = await axe(container);
 
-			expect(results).toHaveNoViolations();
-		});
+		expect(results).toHaveNoViolations();
 	});
 });

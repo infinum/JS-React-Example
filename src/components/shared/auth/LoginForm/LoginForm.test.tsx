@@ -5,7 +5,7 @@ import { DatxProvider, useInitialize } from '@datx/swr';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { FC } from 'react';
-import { act, render, screen, waitFor, waitForRequest } from 'test-utils';
+import { render, screen, waitFor, waitForRequest } from 'test-utils';
 import { LoginForm } from './LoginForm';
 
 const user = userEvent.setup();
@@ -71,13 +71,11 @@ describe('LoginForm', () => {
 			expect(getErrorMessageElements(container)).toHaveLength(0);
 		});
 
-		await act(async () => {
-			const request = await pendingRequest;
+		const request = await pendingRequest;
 
-			expect((await request.json())?.data?.attributes).toEqual({
-				email: emailValue,
-				password: passwordValue,
-			});
+		expect((await request.json())?.data?.attributes).toEqual({
+			email: emailValue,
+			password: passwordValue,
 		});
 	});
 

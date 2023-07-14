@@ -9,6 +9,13 @@ import 'jest-axe/extend-expect';
 
 jest.mock('next/router', () => require('next-router-mock'));
 
+// In order to run `jest-axe` assertions for components containing
+// `next/link`, we need `IntersectionObserver` to always exist,
+// but to be mocked so that we can set it to *never* intersect
+import 'react-intersection-observer/test-utils';
+
+global.IntersectionObserver = jest.fn();
+
 // Establish API mocking before all tests.
 beforeAll(() => {
 	server.listen({

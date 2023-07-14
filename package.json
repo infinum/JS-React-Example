@@ -107,6 +107,7 @@
 		"next-router-mock": "~0.9.7",
 		"plop": "~3.1.2",
 		"prettier": "~2.8.7",
+		"react-intersection-observer": "~9.5.2",
 		"source-map-explorer": "~2.5.3",
 		"storybook-addon-next-router": "~4.0.2",
 		"tsconfig-paths-webpack-plugin": "~4.0.1",
