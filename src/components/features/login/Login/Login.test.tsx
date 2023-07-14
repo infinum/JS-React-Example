@@ -1,4 +1,3 @@
-// import userEvent from '@testing-library/user-event';
 import { Login } from '@/components/features/login/Login/Login';
 import { render } from 'test-utils';
 import { axe } from 'jest-axe';
