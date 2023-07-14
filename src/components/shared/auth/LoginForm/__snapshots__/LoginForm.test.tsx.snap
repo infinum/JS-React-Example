@@ -108,7 +108,7 @@ exports[`LoginForm should matches snapshot 1`] = `
             style="display: flex; align-items: center; justify-content: center; height: 100%;"
           >
             <svg
-              class="css-5jdg10"
+              class="css-1ckqq05"
               style="fill: none; stroke-width: 2; stroke: currentColor; stroke-dasharray: 16;"
               viewBox="0 0 12 10"
             >
