@@ -27,6 +27,7 @@ export const MainNavigation: FC = () => {
 			if (errorResponse instanceof Response) {
 				const { error } = errorResponse;
 				const message = error instanceof Error ? error.message : error?.[0].detail;
+
 				toast({ title: message, status: 'error' });
 			}
 		},

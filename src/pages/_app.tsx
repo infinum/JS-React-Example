@@ -1,5 +1,3 @@
-import '@datx/core/disable-mobx';
-
 import type { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
 import { appWithTranslation } from 'next-i18next';
@@ -31,6 +29,8 @@ interface IExampleAppProps extends AppProps {
 }
 
 function ExampleApp({ Component, pageProps, err }: IExampleAppProps) {
+	// disabled since `useInitialize` won't trigger a re-render
+	// eslint-disable-next-line @infinum/no-hooks-in-pages-folder
 	const client = useInitialize(createClient);
 
 	return (

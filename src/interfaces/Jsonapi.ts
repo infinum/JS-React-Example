@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-
 import { IModelConstructor, Model } from '@datx/core';
 import { IJsonapiModel } from '@datx/jsonapi';
 

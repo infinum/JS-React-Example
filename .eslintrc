@@ -1,24 +1,14 @@
 {
 	"extends": [
-		"plugin:@next/next/recommended",
+		"plugin:@infinum/core",
+		"plugin:@infinum/typescript",
+		"plugin:@infinum/react",
+		"plugin:@infinum/next-js",
+		"plugin:@infinum/chakra-ui",
 		"plugin:typescript-enum/recommended",
-		"@infinumjs/eslint-config-react-js"
+		"plugin:prettier/recommended"
 	],
-	"plugins": ["chakra-ui"],
-	"overrides": [
-		{
-			"extends": ["@infinumjs/eslint-config-nextjs-ts"],
-			"files": ["*.ts", "*.tsx"],
-			"parserOptions": {
-				"project": ["./tsconfig.json"]
-			}
-		}
-	],
-	"rules": {
-		"chakra-ui/props-order": "error",
-		"chakra-ui/props-shorthand": "error",
-		"chakra-ui/require-specific-component": "error",
-		"newline-before-return": "error",
-		"padding-line-between-statements": ["error", { "blankLine": "always", "prev": "*", "next": "if" }]
+	"parserOptions": {
+		"project": ["./tsconfig.json"]
 	}
 }
