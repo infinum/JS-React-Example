@@ -13,12 +13,14 @@ export class JsonapiSwrClient extends jsonapiSwrClient(Collection) {
 }
 
 export function createClient() {
+	config.baseUrl = process.env.NEXT_PUBLIC_API_ENDPOINT as string;
+
 	if (process.env.NODE_ENV === 'test') {
 		// @ts-expect-error MSW cannot intercept requests when using Node 18 Fetch API
 		config.fetchReference = nodeFetch;
+		config.baseUrl = process.env.API_TEST_ENDPOINT as string;
 	}
 
-	config.baseUrl = process.env.NEXT_PUBLIC_API_ENDPOINT as string;
 	config.cache = CachingStrategy.NetworkOnly;
 	config.defaultFetchOptions = {
 		headers: {

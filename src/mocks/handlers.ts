@@ -1,15 +1,16 @@
 import { buildJsonApiDocument } from '@/datx/buildJsonApiDocument';
+import { invalidEmailMessage, invalidPasswordMessage } from '__mocks__/errors';
 import { sessionFactory } from '__mocks__/factories';
 import { rest } from 'msw';
 
-export const generateApiUrl = (path: string) => {
-	return process.env.NEXT_PUBLIC_API_ENDPOINT + path;
+export const generateTestApiUrl = (path: string) => {
+	return process.env.API_TEST_ENDPOINT + path;
 };
 
 export const MOCKED_URLS = {
-	SessionCurrent: generateApiUrl('sessions/current'),
-	SessionMe: generateApiUrl('sessions/me'),
-	Session: generateApiUrl('sessions'),
+	SessionCurrent: generateTestApiUrl('sessions/current'),
+	SessionMe: generateTestApiUrl('sessions/me'),
+	Session: generateTestApiUrl('sessions'),
 } as const;
 
 export const handlers = [
@@ -49,7 +50,7 @@ export const handlers = [
 ];
 
 export const handlerOverrides = {
-	invalidLogin: rest.post(MOCKED_URLS.Session, (_req, res, ctx) => {
+	invalidEmailLogin: rest.post(MOCKED_URLS.Session, (_req, res, ctx) => {
 		return res(
 			ctx.status(422),
 			ctx.json({
@@ -58,8 +59,24 @@ export const handlerOverrides = {
 						status: 'unprocessable entity',
 						code: 'UNPROCESSABLE_ENTITY',
 						title: 'Unprocessable Entity',
-						detail: 'Email User not found',
+						detail: invalidEmailMessage,
 						source: { parameter: 'email', pointer: 'data/attributes/email' },
+					},
+				],
+			})
+		);
+	}),
+	invalidPasswordLogin: rest.post(MOCKED_URLS.Session, (_req, res, ctx) => {
+		return res(
+			ctx.status(422),
+			ctx.json({
+				errors: [
+					{
+						status: 'unprocessable entity',
+						code: 'UNPROCESSABLE_ENTITY',
+						title: 'Unprocessable Entity',
+						detail: invalidPasswordMessage,
+						source: { parameter: 'password', pointer: 'data/attributes/password' },
 					},
 				],
 			})
