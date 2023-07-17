@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { StackProps, VStack } from '@chakra-ui/react';
+import { StackProps, Text, VStack } from '@chakra-ui/react';
 
 import { FlightCard, FlightCardFallback } from '@/components/shared/flight/FlightCard/FlightCard';
 import { Flight } from '@/models/Flight';
@@ -25,6 +25,7 @@ export interface IFlightListFallbackProps extends StackProps {
 export const FlightListFallback: FC<IFlightListFallbackProps> = ({ pageSize = 10 }) => {
 	return (
 		<VStack align="stretch" spacing={4}>
+			<Text>Loading...</Text>
 			{Array.from({ length: pageSize }).map((_, index) => (
 				<FlightCardFallback key={index} />
 			))}

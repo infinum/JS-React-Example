@@ -1,5 +1,6 @@
 import { FlightList } from '@/components/shared/flight/FlightList/FlightList';
 import { buildMany } from '@datx/test-data-factory';
+import { TEST_FLIGHT_NAME } from '__mocks__/constants';
 
 import { flightFactory } from '__mocks__/factories';
 import { axe } from 'jest-axe';
@@ -15,7 +16,7 @@ describe('FlightList', () => {
 
 		render(<FlightList flightList={data} />);
 
-		expect(screen.getAllByText('Air Force One')).toHaveLength(2);
+		expect(screen.getAllByText(TEST_FLIGHT_NAME)).toHaveLength(2);
 		expect(screen.getAllByText('$100')).toHaveLength(2);
 	});
 

@@ -10,7 +10,7 @@ import { LoginForm } from './LoginForm';
 import { FormProvider, useForm } from 'react-hook-form';
 import { rest } from 'msw';
 import { sessionFactory } from '__mocks__/factories';
-import { invalidEmailMessage, invalidPasswordMessage } from '__mocks__/errors';
+import { TEST_INVALID_EMAIL, TEST_INVALID_PASSWORD } from '__mocks__/constants';
 
 const user = userEvent.setup();
 
@@ -88,8 +88,8 @@ describe('LoginForm', () => {
 
 		await triggerSubmit();
 
-		expect(screen.queryByText(invalidEmailMessage)).not.toBeInTheDocument();
-		expect(screen.queryByText(invalidPasswordMessage)).not.toBeInTheDocument();
+		expect(screen.queryByText(TEST_INVALID_EMAIL)).not.toBeInTheDocument();
+		expect(screen.queryByText(TEST_INVALID_PASSWORD)).not.toBeInTheDocument();
 	});
 
 	it('should display wrong Email error', async () => {
@@ -105,7 +105,7 @@ describe('LoginForm', () => {
 
 		await triggerSubmit();
 
-		expect(screen.getByText(invalidEmailMessage)).toBeInTheDocument();
+		expect(screen.getByText(TEST_INVALID_EMAIL)).toBeInTheDocument();
 	});
 
 	it('should display wrong Email error', async () => {
@@ -121,7 +121,7 @@ describe('LoginForm', () => {
 
 		await triggerSubmit();
 
-		expect(screen.getByText(invalidPasswordMessage)).toBeInTheDocument();
+		expect(screen.getByText(TEST_INVALID_PASSWORD)).toBeInTheDocument();
 	});
 });
 

@@ -1,5 +1,5 @@
 import { buildJsonApiDocument } from '@/datx/buildJsonApiDocument';
-import { invalidEmailMessage, invalidPasswordMessage } from '__mocks__/errors';
+import { TEST_INVALID_EMAIL, TEST_INVALID_PASSWORD } from '__mocks__/constants';
 import { sessionFactory } from '__mocks__/factories';
 import { rest } from 'msw';
 
@@ -11,6 +11,7 @@ export const MOCKED_URLS = {
 	SessionCurrent: generateTestApiUrl('sessions/current'),
 	SessionMe: generateTestApiUrl('sessions/me'),
 	Session: generateTestApiUrl('sessions'),
+	Flights: generateTestApiUrl('flights'),
 } as const;
 
 export const handlers = [
@@ -59,7 +60,7 @@ export const handlerOverrides = {
 						status: 'unprocessable entity',
 						code: 'UNPROCESSABLE_ENTITY',
 						title: 'Unprocessable Entity',
-						detail: invalidEmailMessage,
+						detail: TEST_INVALID_EMAIL,
 						source: { parameter: 'email', pointer: 'data/attributes/email' },
 					},
 				],
@@ -75,7 +76,7 @@ export const handlerOverrides = {
 						status: 'unprocessable entity',
 						code: 'UNPROCESSABLE_ENTITY',
 						title: 'Unprocessable Entity',
-						detail: invalidPasswordMessage,
+						detail: TEST_INVALID_PASSWORD,
 						source: { parameter: 'password', pointer: 'data/attributes/password' },
 					},
 				],
