@@ -18,7 +18,6 @@ jobs:
       deploy_host: 'react-example.byinfinum.co'
       deploy_user: 'js_react_example'
       environment: 'staging'
-      use_artifact: 'true'
       deploy_port: 229
     secrets:
       SSH_PRIVATE_KEY: ${{ secrets.STAGING_KEY }}
