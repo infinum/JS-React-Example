@@ -381,6 +381,66 @@ exports[`Login should matches snapshot 1`] = `
 }
 
 .emotion-17 {
+  width: 100%;
+  min-width: 0px;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  position: relative;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  transition-property: var(--chakra-transition-property-common);
+  transition-duration: var(--chakra-transition-duration-normal);
+  font-size: var(--chakra-fontSizes-md);
+  -webkit-padding-start: var(--chakra-space-4);
+  padding-inline-start: var(--chakra-space-4);
+  -webkit-padding-end: var(--chakra-space-10);
+  padding-inline-end: var(--chakra-space-10);
+  height: var(--chakra-sizes-10);
+  border-radius: var(--chakra-radii-md);
+  border: 1px solid;
+  border-color: inherit;
+  background: inherit;
+}
+
+.emotion-17:disabled,
+.emotion-17[disabled],
+.emotion-17[aria-disabled=true],
+.emotion-17[data-disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.emotion-17:hover,
+.emotion-17[data-hover] {
+  border-color: var(--chakra-colors-gray-300);
+}
+
+.emotion-17[aria-readonly=true],
+.emotion-17[readonly],
+.emotion-17[data-readonly] {
+  box-shadow: var(--chakra-shadows-none)!important;
+  -webkit-user-select: all;
+  -moz-user-select: all;
+  -ms-user-select: all;
+  user-select: all;
+}
+
+.emotion-17[aria-invalid=true],
+.emotion-17[data-invalid] {
+  border-color: #E53E3E;
+  box-shadow: 0 0 0 1px #E53E3E;
+}
+
+.emotion-17:focus-visible,
+.emotion-17[data-focus-visible] {
+  z-index: 1;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 1px #3182ce;
+}
+
+.emotion-18 {
   right: 0;
   width: var(--chakra-sizes-10);
   height: var(--chakra-sizes-10);
@@ -402,7 +462,7 @@ exports[`Login should matches snapshot 1`] = `
   z-index: 2;
 }
 
-.emotion-18 {
+.emotion-19 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -444,66 +504,9 @@ exports[`Login should matches snapshot 1`] = `
   padding: 0px;
 }
 
-.emotion-18:focus-visible,
-.emotion-18[data-focus-visible] {
+.emotion-19:focus-visible,
+.emotion-19[data-focus-visible] {
   box-shadow: var(--chakra-shadows-outline);
-}
-
-.emotion-18:disabled,
-.emotion-18[disabled],
-.emotion-18[aria-disabled=true],
-.emotion-18[data-disabled] {
-  opacity: 0.4;
-  cursor: not-allowed;
-  box-shadow: var(--chakra-shadows-none);
-}
-
-.emotion-18:hover,
-.emotion-18[data-hover] {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.emotion-18:hover:disabled,
-.emotion-18[data-hover]:disabled,
-.emotion-18:hover[disabled],
-.emotion-18[data-hover][disabled],
-.emotion-18:hover[aria-disabled=true],
-.emotion-18[data-hover][aria-disabled=true],
-.emotion-18:hover[data-disabled],
-.emotion-18[data-hover][data-disabled] {
-  background: initial;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.emotion-18:active,
-.emotion-18[data-active] {
-  color: var(--chakra-colors-gray-700);
-}
-
-.emotion-19 {
-  width: 100%;
-  min-width: 0px;
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-  position: relative;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  appearance: none;
-  transition-property: var(--chakra-transition-property-common);
-  transition-duration: var(--chakra-transition-duration-normal);
-  font-size: var(--chakra-fontSizes-md);
-  -webkit-padding-start: var(--chakra-space-4);
-  padding-inline-start: var(--chakra-space-4);
-  -webkit-padding-end: var(--chakra-space-10);
-  padding-inline-end: var(--chakra-space-10);
-  height: var(--chakra-sizes-10);
-  border-radius: var(--chakra-radii-md);
-  border: 1px solid;
-  border-color: inherit;
-  background: inherit;
 }
 
 .emotion-19:disabled,
@@ -512,34 +515,31 @@ exports[`Login should matches snapshot 1`] = `
 .emotion-19[data-disabled] {
   opacity: 0.4;
   cursor: not-allowed;
+  box-shadow: var(--chakra-shadows-none);
 }
 
 .emotion-19:hover,
 .emotion-19[data-hover] {
-  border-color: var(--chakra-colors-gray-300);
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
-.emotion-19[aria-readonly=true],
-.emotion-19[readonly],
-.emotion-19[data-readonly] {
-  box-shadow: var(--chakra-shadows-none)!important;
-  -webkit-user-select: all;
-  -moz-user-select: all;
-  -ms-user-select: all;
-  user-select: all;
+.emotion-19:hover:disabled,
+.emotion-19[data-hover]:disabled,
+.emotion-19:hover[disabled],
+.emotion-19[data-hover][disabled],
+.emotion-19:hover[aria-disabled=true],
+.emotion-19[data-hover][aria-disabled=true],
+.emotion-19:hover[data-disabled],
+.emotion-19[data-hover][data-disabled] {
+  background: initial;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
-.emotion-19[aria-invalid=true],
-.emotion-19[data-invalid] {
-  border-color: #E53E3E;
-  box-shadow: 0 0 0 1px #E53E3E;
-}
-
-.emotion-19:focus-visible,
-.emotion-19[data-focus-visible] {
-  z-index: 1;
-  border-color: #3182ce;
-  box-shadow: 0 0 0 1px #3182ce;
+.emotion-19:active,
+.emotion-19[data-active] {
+  color: var(--chakra-colors-gray-700);
 }
 
 .emotion-20 {
@@ -933,12 +933,21 @@ exports[`Login should matches snapshot 1`] = `
                 class="chakra-input__group emotion-16"
                 data-group="true"
               >
+                <input
+                  aria-required="true"
+                  autocomplete="current-password"
+                  class="chakra-input emotion-17"
+                  id="password"
+                  name="password"
+                  required=""
+                  type="password"
+                />
                 <div
-                  class="chakra-input__right-element emotion-17"
+                  class="chakra-input__right-element emotion-18"
                 >
                   <button
                     aria-label="Reveal password"
-                    class="chakra-button emotion-18"
+                    class="chakra-button emotion-19"
                     type="button"
                   >
                     <svg
@@ -963,15 +972,6 @@ exports[`Login should matches snapshot 1`] = `
                     </svg>
                   </button>
                 </div>
-                <input
-                  aria-required="true"
-                  autocomplete="current-password"
-                  class="chakra-input emotion-19"
-                  id="password"
-                  name="password"
-                  required=""
-                  type="password"
-                />
               </div>
             </div>
           </div>

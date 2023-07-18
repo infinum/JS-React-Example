@@ -136,6 +136,66 @@ exports[`LoginForm should matches snapshot 1`] = `
 }
 
 .emotion-8 {
+  width: 100%;
+  min-width: 0px;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  position: relative;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  transition-property: var(--chakra-transition-property-common);
+  transition-duration: var(--chakra-transition-duration-normal);
+  font-size: var(--chakra-fontSizes-md);
+  -webkit-padding-start: var(--chakra-space-4);
+  padding-inline-start: var(--chakra-space-4);
+  -webkit-padding-end: var(--chakra-space-10);
+  padding-inline-end: var(--chakra-space-10);
+  height: var(--chakra-sizes-10);
+  border-radius: var(--chakra-radii-md);
+  border: 1px solid;
+  border-color: inherit;
+  background: inherit;
+}
+
+.emotion-8:disabled,
+.emotion-8[disabled],
+.emotion-8[aria-disabled=true],
+.emotion-8[data-disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.emotion-8:hover,
+.emotion-8[data-hover] {
+  border-color: var(--chakra-colors-gray-300);
+}
+
+.emotion-8[aria-readonly=true],
+.emotion-8[readonly],
+.emotion-8[data-readonly] {
+  box-shadow: var(--chakra-shadows-none)!important;
+  -webkit-user-select: all;
+  -moz-user-select: all;
+  -ms-user-select: all;
+  user-select: all;
+}
+
+.emotion-8[aria-invalid=true],
+.emotion-8[data-invalid] {
+  border-color: #E53E3E;
+  box-shadow: 0 0 0 1px #E53E3E;
+}
+
+.emotion-8:focus-visible,
+.emotion-8[data-focus-visible] {
+  z-index: 1;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 1px #3182ce;
+}
+
+.emotion-9 {
   right: 0;
   width: var(--chakra-sizes-10);
   height: var(--chakra-sizes-10);
@@ -157,7 +217,7 @@ exports[`LoginForm should matches snapshot 1`] = `
   z-index: 2;
 }
 
-.emotion-9 {
+.emotion-10 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -199,66 +259,9 @@ exports[`LoginForm should matches snapshot 1`] = `
   padding: 0px;
 }
 
-.emotion-9:focus-visible,
-.emotion-9[data-focus-visible] {
+.emotion-10:focus-visible,
+.emotion-10[data-focus-visible] {
   box-shadow: var(--chakra-shadows-outline);
-}
-
-.emotion-9:disabled,
-.emotion-9[disabled],
-.emotion-9[aria-disabled=true],
-.emotion-9[data-disabled] {
-  opacity: 0.4;
-  cursor: not-allowed;
-  box-shadow: var(--chakra-shadows-none);
-}
-
-.emotion-9:hover,
-.emotion-9[data-hover] {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.emotion-9:hover:disabled,
-.emotion-9[data-hover]:disabled,
-.emotion-9:hover[disabled],
-.emotion-9[data-hover][disabled],
-.emotion-9:hover[aria-disabled=true],
-.emotion-9[data-hover][aria-disabled=true],
-.emotion-9:hover[data-disabled],
-.emotion-9[data-hover][data-disabled] {
-  background: initial;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.emotion-9:active,
-.emotion-9[data-active] {
-  color: var(--chakra-colors-gray-700);
-}
-
-.emotion-10 {
-  width: 100%;
-  min-width: 0px;
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-  position: relative;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  appearance: none;
-  transition-property: var(--chakra-transition-property-common);
-  transition-duration: var(--chakra-transition-duration-normal);
-  font-size: var(--chakra-fontSizes-md);
-  -webkit-padding-start: var(--chakra-space-4);
-  padding-inline-start: var(--chakra-space-4);
-  -webkit-padding-end: var(--chakra-space-10);
-  padding-inline-end: var(--chakra-space-10);
-  height: var(--chakra-sizes-10);
-  border-radius: var(--chakra-radii-md);
-  border: 1px solid;
-  border-color: inherit;
-  background: inherit;
 }
 
 .emotion-10:disabled,
@@ -267,34 +270,31 @@ exports[`LoginForm should matches snapshot 1`] = `
 .emotion-10[data-disabled] {
   opacity: 0.4;
   cursor: not-allowed;
+  box-shadow: var(--chakra-shadows-none);
 }
 
 .emotion-10:hover,
 .emotion-10[data-hover] {
-  border-color: var(--chakra-colors-gray-300);
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
-.emotion-10[aria-readonly=true],
-.emotion-10[readonly],
-.emotion-10[data-readonly] {
-  box-shadow: var(--chakra-shadows-none)!important;
-  -webkit-user-select: all;
-  -moz-user-select: all;
-  -ms-user-select: all;
-  user-select: all;
+.emotion-10:hover:disabled,
+.emotion-10[data-hover]:disabled,
+.emotion-10:hover[disabled],
+.emotion-10[data-hover][disabled],
+.emotion-10:hover[aria-disabled=true],
+.emotion-10[data-hover][aria-disabled=true],
+.emotion-10:hover[data-disabled],
+.emotion-10[data-hover][data-disabled] {
+  background: initial;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
-.emotion-10[aria-invalid=true],
-.emotion-10[data-invalid] {
-  border-color: #E53E3E;
-  box-shadow: 0 0 0 1px #E53E3E;
-}
-
-.emotion-10:focus-visible,
-.emotion-10[data-focus-visible] {
-  z-index: 1;
-  border-color: #3182ce;
-  box-shadow: 0 0 0 1px #3182ce;
+.emotion-10:active,
+.emotion-10[data-active] {
+  color: var(--chakra-colors-gray-700);
 }
 
 .emotion-11 {
@@ -651,12 +651,21 @@ exports[`LoginForm should matches snapshot 1`] = `
           class="chakra-input__group emotion-7"
           data-group="true"
         >
+          <input
+            aria-required="true"
+            autocomplete="current-password"
+            class="chakra-input emotion-8"
+            id="password"
+            name="password"
+            required=""
+            type="password"
+          />
           <div
-            class="chakra-input__right-element emotion-8"
+            class="chakra-input__right-element emotion-9"
           >
             <button
               aria-label="Reveal password"
-              class="chakra-button emotion-9"
+              class="chakra-button emotion-10"
               type="button"
             >
               <svg
@@ -681,15 +690,6 @@ exports[`LoginForm should matches snapshot 1`] = `
               </svg>
             </button>
           </div>
-          <input
-            aria-required="true"
-            autocomplete="current-password"
-            class="chakra-input emotion-10"
-            id="password"
-            name="password"
-            required=""
-            type="password"
-          />
         </div>
       </div>
     </div>
