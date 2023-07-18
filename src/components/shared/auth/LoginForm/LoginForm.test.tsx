@@ -108,7 +108,7 @@ describe('LoginForm', () => {
 		expect(screen.getByText(TEST_INVALID_EMAIL)).toBeInTheDocument();
 	});
 
-	it('should display wrong Email error', async () => {
+	it('should display wrong Password error', async () => {
 		server.use(handlerOverrides.invalidPasswordLogin);
 
 		render(<TestLoginForm />);
