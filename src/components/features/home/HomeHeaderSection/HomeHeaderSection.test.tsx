@@ -7,7 +7,7 @@ import userEvent from '@testing-library/user-event';
 
 const user = userEvent.setup();
 
-const TestHomeHeaderSection = () => (
+const WithRouterHomeHeaderSection = () => (
 	<MemoryRouterProvider>
 		<HomeHeaderSection />
 	</MemoryRouterProvider>
@@ -29,7 +29,7 @@ describe('HomeHeaderSection', () => {
 	});
 
 	it('should link user to /flights', async () => {
-		render(<TestHomeHeaderSection />);
+		render(<WithRouterHomeHeaderSection />);
 
 		const checkFlights = screen.getByRole('link');
 
