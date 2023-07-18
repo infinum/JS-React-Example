@@ -5,7 +5,7 @@ import { UrlObject } from 'url';
 import { useSession } from '@/hooks/use-session';
 import { Session } from '@/models/Session';
 
-interface IAuthRedirectProps {
+export interface IAuthRedirectProps {
 	/**
 	 * `href` param passed to Next.js `Router.push` method
 	 */
