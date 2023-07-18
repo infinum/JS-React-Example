@@ -2,6 +2,7 @@ import { PasswordField } from '@/components/shared/fields/PasswordField/Password
 import { FC } from 'react';
 import { render, screen } from 'test-utils';
 import userEvent from '@testing-library/user-event';
+import { axe } from 'jest-axe';
 
 const label = 'Test Label';
 const name = 'Test Name';
@@ -15,6 +16,14 @@ describe('PasswordField', () => {
 		const { asFragment } = render(<TestPasswordField />);
 
 		expect(asFragment()).toMatchSnapshot();
+	});
+
+	it('should be accessible', async () => {
+		const { container } = render(<TestPasswordField />);
+
+		const results = await axe(container);
+
+		expect(results).toHaveNoViolations();
 	});
 
 	it('should render correct label', () => {

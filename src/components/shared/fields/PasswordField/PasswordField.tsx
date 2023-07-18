@@ -39,14 +39,6 @@ export const PasswordField = forwardRef<IPasswordField, 'input'>(({ label, error
 		<FormControl id={id} isInvalid={errors?.[name]}>
 			<FormLabel>{label}</FormLabel>
 			<InputGroup>
-				<InputRightElement>
-					<IconButton
-						aria-label={isOpen ? 'Mask password' : 'Reveal password'}
-						icon={isOpen ? <HiEyeOff /> : <HiEye />}
-						onClick={onClickReveal}
-						variant="link"
-					/>
-				</InputRightElement>
 				<Input
 					ref={mergeRef}
 					autoComplete="current-password"
@@ -55,6 +47,14 @@ export const PasswordField = forwardRef<IPasswordField, 'input'>(({ label, error
 					type={isOpen ? 'text' : 'password'}
 					{...rest}
 				/>
+				<InputRightElement>
+					<IconButton
+						aria-label={isOpen ? 'Mask password' : 'Reveal password'}
+						icon={isOpen ? <HiEyeOff /> : <HiEye />}
+						onClick={onClickReveal}
+						variant="link"
+					/>
+				</InputRightElement>
 			</InputGroup>
 			<FormErrorMessage color="red">
 				<ErrorMessage errors={errors} name={name} />
