@@ -16,7 +16,7 @@ export const UserMenu = forwardRef<IUserMenuProps, 'div'>((props, ref) => {
 			<MenuButton
 				ref={ref}
 				as={IconButton}
-				aria-label="Toggle language"
+				aria-label="User settings"
 				icon={<Avatar name={`${user?.firstName} ${user?.lastName}`} size="sm" />}
 				variant="ghost"
 			/>
