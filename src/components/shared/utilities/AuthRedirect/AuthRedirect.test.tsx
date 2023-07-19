@@ -40,7 +40,7 @@ describe('AuthRedirect', () => {
 					ctx.json({
 						data: {
 							id: 'current',
-							type: 'session',
+							type: 'sessions',
 							attributes: {
 								email: 'admin@infinum.com',
 							},
