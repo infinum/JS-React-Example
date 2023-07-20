@@ -8,7 +8,7 @@
 		"build": "next build",
 		"postbuild": "next-sitemap",
 		"start": "next start",
-		"lint": "eslint . --ext .js,.jsx,.ts,.tsx,.d.ts",
+		"lint": "eslint . --ext .js,.jsx,.ts,.tsx,.d.ts --report-unused-disable-directives",
 		"lint:next": "next lint",
 		"test": "jest",
 		"test:coverage": "jest --coverage",
