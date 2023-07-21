@@ -8,9 +8,9 @@ import { createClient } from '@/datx/create-client';
 import { getSafeLocale } from '@/utils/locale';
 import { Flights } from '@/components/features/flights/Flights/Flights';
 
-type HomeProps = InferGetServerSidePropsType<typeof getServerSideProps>;
+export type FlightsProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
-const Home: NextPage<HomeProps> = ({ fallback }) => {
+const FlightsPage: NextPage<FlightsProps> = ({ fallback }) => {
 	return (
 		<Hydrate fallback={fallback}>
 			<MainLayout>
@@ -35,4 +35,4 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
 	};
 };
 
-export default Home;
+export default FlightsPage;

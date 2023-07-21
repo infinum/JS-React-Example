@@ -300,11 +300,11 @@ exports[`MainLayout should matches snapshot 1`] = `
       <a
         href="/"
       >
-        <h1
+        <p
           class="chakra-text emotion-2"
         >
           Cekila
-        </h1>
+        </p>
       </a>
       <div
         class="chakra-stack emotion-3"

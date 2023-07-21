@@ -13,7 +13,9 @@ export const Login: FC<ContainerProps> = (props) => {
 			<Stack spacing="8">
 				<Stack spacing="6">
 					<Stack textAlign="center" spacing={{ base: '2', md: '3' }}>
-						<Heading size="lg">{t('heading')}</Heading>
+						<Heading as="h1" size="lg">
+							{t('heading')}
+						</Heading>
 						<HStack justify="center" spacing="1">
 							<Text color="muted">{t('registerMessage')}</Text>
 							<Button as={NextLink} colorScheme="red" href="/register" variant="link">

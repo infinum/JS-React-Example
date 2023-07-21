@@ -7,7 +7,7 @@ import { server } from '@/mocks/server';
 import { MOCKED_URLS, handlerOverrides } from '@/mocks/handlers';
 import { rest } from 'msw';
 
-const TestAuthRedirect: FC<IAuthRedirectProps> = ({ to = '/', ifFound = true }) => (
+export const TestAuthRedirect: FC<IAuthRedirectProps> = ({ to = '/', ifFound = true }) => (
 	<MemoryRouterProvider>
 		<AuthRedirect to={to} ifFound={ifFound} />
 	</MemoryRouterProvider>
