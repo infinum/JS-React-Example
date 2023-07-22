@@ -34,6 +34,7 @@
 		"@chakra-ui/utils": "~2.0.15",
 		"@datx/core": "~3.0.0",
 		"@datx/jsonapi": "~3.0.0",
+		"@datx/jsonapi-types": "~3.0.0",
 		"@datx/swr": "~3.0.0",
 		"@datx/test-data-factory": "~3.0.0",
 		"@emotion/react": "~11.11.0",

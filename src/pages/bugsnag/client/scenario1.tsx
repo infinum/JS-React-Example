@@ -11,6 +11,7 @@ import { PHASE_PRODUCTION_BUILD } from 'next/constants';
 if (process.env.NEXT_PHASE !== PHASE_PRODUCTION_BUILD) {
 	const doAsyncWork = () => Promise.reject(new Error('Client scenario 1'));
 
+	// eslint-disable-next-line @typescript-eslint/no-floating-promises
 	doAsyncWork();
 }
 

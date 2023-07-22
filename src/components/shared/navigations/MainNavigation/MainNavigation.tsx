@@ -22,7 +22,7 @@ export const MainNavigation: FC = () => {
 
 	const { data } = useSession();
 
-	const [handleLogout] = useMutation(logout, {
+	const [logoutMutation] = useMutation(logout, {
 		onFailure: ({ error: errorResponse }) => {
 			if (errorResponse instanceof Response) {
 				const { error } = errorResponse;
@@ -32,10 +32,14 @@ export const MainNavigation: FC = () => {
 			}
 		},
 		onSuccess: async () => {
-			mutate(() => true, undefined, { revalidate: false });
+			await mutate(() => true, undefined, { revalidate: false });
 			client.reset();
 		},
 	});
+
+	const handleLogout = () => {
+		logoutMutation(undefined).catch(console.error);
+	};
 
 	return (
 		<Box as="nav" borderBottom="1px" borderBottomColor="chakra-border-color">

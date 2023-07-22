@@ -40,7 +40,7 @@ describe('LoginForm', () => {
 
 		const submitButton = screen.queryByRole('button', { name: /submit\.label/i });
 
-		if (submitButton) user.click(submitButton);
+		if (submitButton) await user.click(submitButton);
 
 		const results = await axe(container);
 

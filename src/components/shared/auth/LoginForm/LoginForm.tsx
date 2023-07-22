@@ -39,6 +39,7 @@ export const LoginForm: FC<BoxProps> = (props) => {
 			await mutate(() => login(client, data), false);
 		} catch (errors) {
 			if (isSingleResponse(errors) || isCollectionResponse(errors)) {
+				// @ts-expect-error TODO: Fix this
 				getErrors(errors.error).forEach(({ name, type, message = t('error') }) => setError(name, { type, message }));
 			}
 		}

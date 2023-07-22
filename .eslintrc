@@ -10,5 +10,14 @@
 	],
 	"parserOptions": {
 		"project": ["./tsconfig.json"]
-	}
+	},
+	"overrides": [
+		{
+			"files": ["*.ts", "*.tsx"],
+			"extends": ["plugin:@typescript-eslint/recommended-requiring-type-checking"],
+			"rules": {
+				"@typescript-eslint/no-misused-promises": "off"
+			}
+		}
+	]
 }

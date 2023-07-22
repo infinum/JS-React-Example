@@ -4,19 +4,21 @@ import { useTranslation } from 'react-i18next';
 
 export interface IUserMenuProps {
 	user?: User;
-	onLogout?: (...args: Array<any>) => void;
+	onLogout?: () => void;
 }
 
 export const UserMenu = forwardRef<IUserMenuProps, 'div'>((props) => {
 	const { t } = useTranslation('main-navigation');
 	const { user, onLogout } = props;
 
+	const fullName = [user?.firstName, user?.lastName].filter(Boolean).join(' ');
+
 	return (
 		<Menu placement="bottom-end">
 			<MenuButton
 				as={IconButton}
 				aria-label="Toggle language"
-				icon={<Avatar name={`${user?.firstName} ${user?.lastName}`} size="sm" />}
+				icon={<Avatar name={fullName} size="sm" />}
 				variant="ghost"
 			/>
 			<MenuList>

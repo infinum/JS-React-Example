@@ -1,12 +1,11 @@
-import React from 'react';
-import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
+import { GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-import { MainLayout } from '@/components/shared/layouts/MainLayout/MainLayout';
-import { Hydrate } from '@datx/swr';
-import { createClient } from '@/datx/create-client';
 import { HomeHeaderSection } from '@/components/features/home/HomeHeaderSection/HomeHeaderSection';
+import { MainLayout } from '@/components/shared/layouts/MainLayout/MainLayout';
+import { createClient } from '@/datx/create-client';
 import { getSafeLocale } from '@/utils/locale';
+import { Hydrate } from '@datx/swr';
 
 type HomeProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
@@ -20,7 +19,7 @@ const Home: NextPage<HomeProps> = ({ fallback }) => {
 	);
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getServerSideProps = async ({ locale }: GetServerSidePropsContext) => {
 	const client = createClient();
 
 	const { fallback } = client;

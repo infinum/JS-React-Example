@@ -1,5 +1,5 @@
-import { ColorModeScript } from '@chakra-ui/react';
 import { getSafeLocale } from '@/utils/locale';
+import { ColorModeScript } from '@chakra-ui/react';
 import { DocumentProps, Head, Html, Main, NextScript } from 'next/document';
 
 import theme from '../styles/theme/index';

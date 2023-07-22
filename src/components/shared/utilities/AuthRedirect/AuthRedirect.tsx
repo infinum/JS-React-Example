@@ -45,7 +45,7 @@ export const AuthRedirect: FC<IAuthRedirectProps> = ({ to, ifFound, condition })
 			const shouldRedirect = condition ? condition(data?.data) : (ifFound && data) || (!ifFound && !data);
 
 			if (shouldRedirect) {
-				push(to);
+				push(to).catch(console.error);
 			}
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps

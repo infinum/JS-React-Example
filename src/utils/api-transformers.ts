@@ -13,10 +13,7 @@ import snakeCase from 'lodash/snakeCase';
  * @param transformer - Transformer function
  * @return Transformed object
  */
-export function iterator(
-	obj: object | undefined,
-	transformer: typeof snakeCase | typeof camelCase
-): object | undefined {
+export function iterator(obj: unknown, transformer: typeof snakeCase | typeof camelCase): unknown {
 	if (isArray(obj)) {
 		return map(obj, (value) => iterator(value, transformer));
 	}
