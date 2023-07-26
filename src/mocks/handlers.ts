@@ -30,21 +30,6 @@ export const handlers = [
 			})
 		);
 	}),
-	rest.post(MOCKED_URLS.Session, async (req, res, ctx) => {
-		const body = await req.json();
-		const emailOverride = body.data?.attributes?.email || undefined;
-
-		return res(
-			ctx.status(200),
-			ctx.json(
-				sessionFactory({
-					overrides: {
-						email: emailOverride,
-					},
-				})
-			)
-		);
-	}),
 	rest.delete(MOCKED_URLS.SessionMe, async (_req, res, ctx) => {
 		return res(ctx.status(204));
 	}),
