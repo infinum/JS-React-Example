@@ -1,28 +1,36 @@
-import { Attribute, PureModel } from '@datx/core';
+import { Company } from '@/models/Company';
+import { Location } from '@/models/Location';
+import { Field, PureModel } from '@datx/core';
 import { jsonapiModel } from '@datx/jsonapi';
 
 export class Flight extends jsonapiModel(PureModel) {
 	public static readonly type = 'flight';
 	public static readonly endpoint = 'flights';
 
-	@Attribute({ isIdentifier: true })
+	@Field({ isIdentifier: true })
 	public id!: string | number;
 
-	@Attribute()
+	@Field()
 	public airplaneModel!: string;
 
-	@Attribute()
+	@Field()
 	public departsAt!: string;
 
-	@Attribute()
+	@Field()
 	public arrivesAt!: string;
 
-	@Attribute()
+	@Field()
 	public basePrice!: string;
 
-	@Attribute()
+	@Field()
 	public currentSeatPrice!: string;
 
-	@Attribute()
+	@Field()
 	public name!: string;
+
+	@Field({ toOne: 'company' })
+	public company!: Company;
+
+	@Field({ toOne: 'location' })
+	public location!: Location;
 }
