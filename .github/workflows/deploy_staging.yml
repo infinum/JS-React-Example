@@ -11,7 +11,7 @@ on:
 jobs:
   deploy:
     name: Deploy
-    uses: infinum/js-pipeline/.github/workflows/pipeline.yml@master
+    uses: infinum/js-pipeline/.github/workflows/pipeline.yml@v3
     with:
       ci_steps: 'deploy'
       secrets: 'js-react-example'
