@@ -1,4 +1,5 @@
 import { createClient } from '@/datx/create-client';
+import { Company } from '@/models/Company';
 import { Flight } from '@/models/Flight';
 import { Session } from '@/models/Session';
 import { User } from '@/models/User';
@@ -19,8 +20,15 @@ export const flightFactory = factory(Flight, {
 	},
 });
 
-export const flightsFactory = (num: number, buildTimeConfig: IBuildConfiguration<typeof Flight>) =>
+export const flightsFactory = (num: number, buildTimeConfig?: IBuildConfiguration<typeof Flight>) =>
 	buildMany(flightFactory, num, buildTimeConfig);
+
+export const companyFactory = factory(Company, {
+	fields: {
+		id: sequence(),
+		name: oneOf('Croatia Airlines', 'Lufthansa', 'British Airways'),
+	},
+});
 
 export const userFactory = factory(User, {
 	fields: {

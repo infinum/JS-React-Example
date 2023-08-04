@@ -28,9 +28,9 @@ export class Flight extends jsonapiModel(PureModel) {
 	@Field()
 	public name!: string;
 
-	@Field({ toOne: 'company' })
+	@Field({ toOne: () => Company })
 	public company!: Company;
 
-	@Field({ toOne: 'location' })
+	@Field({ toOne: () => Location })
 	public location!: Location;
 }

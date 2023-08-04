@@ -1,6 +1,6 @@
 import { buildJsonApiDocument } from '@/datx/buildJsonApiDocument';
 import { buildMany } from '@datx/test-data-factory';
-import { sessionFactory, userFactory } from '__mocks__/factories';
+import { companyFactory, flightsFactory, sessionFactory, userFactory } from '__mocks__/factories';
 
 describe('buildJsonApiDocument', () => {
 	it('should work with single resources', () => {
@@ -61,6 +61,42 @@ describe('buildJsonApiDocument', () => {
 	});
 
 	it('should work with toMany relationships', () => {
+		const company = companyFactory({
+			overrides: {
+				flights: flightsFactory(2),
+			},
+		});
+
+		expect(buildJsonApiDocument(company)).toEqual({
+			data: {
+				id: String(company.id),
+				type: 'company',
+				attributes: { name: company.name },
+				relationships: {
+					flights: {
+						data: company.flights.map((flight) => ({
+							id: String(flight.id),
+							type: 'flight',
+						})),
+					},
+				},
+			},
+			included: company.flights.map((flight) =>
+				expect.objectContaining({
+					id: String(flight.id),
+					type: 'flight',
+					attributes: {
+						name: flight.name,
+						arrivesAt: flight.arrivesAt,
+						airplaneModel: flight.airplaneModel,
+						basePrice: flight.basePrice,
+						currentSeatPrice: flight.currentSeatPrice,
+						departsAt: flight.departsAt,
+					},
+				})
+			),
+		});
+
 		// TODO
 		expect(true).toBe(true);
 	});

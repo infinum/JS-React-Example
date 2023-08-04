@@ -12,6 +12,6 @@ export class Location extends jsonapiModel(PureModel) {
 	@Field()
 	public name!: string;
 
-	@Field({ toMany: Flight, referenceProperty: 'location' })
+	@Field({ toMany: () => Flight })
 	public flights!: Array<Flight>;
 }

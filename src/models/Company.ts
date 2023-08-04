@@ -12,6 +12,6 @@ export class Company extends jsonapiModel(PureModel) {
 	@Field()
 	public name!: string;
 
-	@Field({ toMany: Flight, referenceProperty: 'company' })
+	@Field({ toMany: () => Flight })
 	public flights!: Array<Flight>;
 }
