@@ -8,6 +8,7 @@ export const getFlightsQuery = (user: User | undefined, page: string | undefined
 				op: 'getMany',
 				type: Flight.type,
 				queryParams: {
+					include: ['company'],
 					custom: [...(page ? [{ key: 'page[number]', value: page }] : [])],
 				},
 		  } as const satisfies IGetManyExpression<typeof Flight>)

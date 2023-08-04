@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Heading, Stat, StatNumber, StatHelpText, Flex, Skeleton, StatLabel } from '@chakra-ui/react';
+import { Heading, Stat, StatNumber, StatHelpText, Flex, Skeleton, StatLabel, Text, Box } from '@chakra-ui/react';
 import { format } from 'date-fns';
 import { Flight } from '@/models/Flight';
 import { useTranslation } from 'next-i18next';
@@ -13,9 +13,14 @@ export const FlightCard: FC<IFlightCardProps> = ({ flight, ...rest }) => {
 
 	return (
 		<Flex align="center" p={5} borderWidth="1px" {...rest}>
-			<Heading as="h2" w="50%" mb={2} size="lg">
-				{flight.name}
-			</Heading>
+			<Box w="50%" mb={2}>
+				<Heading as="h2" size="lg">
+					{flight.name}
+				</Heading>
+
+				{flight.company && <Text color="gray.700">by {flight.company?.name}</Text>}
+			</Box>
+
 			<Stat w="50%">
 				<StatLabel srOnly>{t('seatPriceLabel')}</StatLabel>
 				<StatNumber>${flight.currentSeatPrice}</StatNumber>
