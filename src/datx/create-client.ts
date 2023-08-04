@@ -8,9 +8,10 @@ import { Flight } from '../models/Flight';
 import { Session } from '../models/Session';
 import { User } from '../models/User';
 import { Company } from '../models/Company';
+import { Location } from '../models/Location';
 
 export class JsonapiSwrClient extends jsonapiSwrClient(Collection) {
-	public static types = [Session, User, Flight, Company];
+	public static types = [Session, User, Flight, Company, Location];
 }
 
 export function createClient() {
