@@ -64,4 +64,45 @@ describe('buildJsonApiDocument', () => {
 		// TODO
 		expect(true).toBe(true);
 	});
+
+	it('should deduplicate included resources', () => {
+		const user = userFactory();
+		const session1 = sessionFactory({ overrides: { user } });
+		const session2 = sessionFactory({ overrides: { user } });
+
+		expect(buildJsonApiDocument([session1, session2])).toEqual({
+			data: [
+				{
+					id: String(session1.id),
+					type: 'sessions',
+					attributes: { email: session1.email },
+					relationships: {
+						user: {
+							data: { id: String(user.id), type: 'users' },
+						},
+					},
+				},
+				{
+					id: String(session2.id),
+					type: 'sessions',
+					attributes: { email: session2.email },
+					relationships: {
+						user: {
+							data: { id: String(user.id), type: 'users' },
+						},
+					},
+				},
+			],
+			included: [
+				{
+					id: String(user.id),
+					type: 'users',
+					attributes: {
+						firstName: user.firstName,
+						lastName: user.lastName,
+					},
+				},
+			],
+		});
+	});
 });

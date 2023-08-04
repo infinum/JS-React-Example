@@ -1,5 +1,6 @@
 import { JsonapiDocument, JsonapiResource } from '@/interfaces/Jsonapi';
 import { IJsonapiModel, modelToJsonApi } from '@datx/jsonapi';
+import uniqWith from 'lodash/uniqWith';
 
 /**
  * This function is used to build a JSON:API document from a model or a collection of models.
@@ -19,7 +20,7 @@ export function buildJsonApiDocument<TModel extends IJsonapiModel>(model: TModel
 
 	const relationships = (
 		Array.isArray(data)
-			? Object.keys(data.flatMap((d) => d.relationships).filter(Boolean))
+			? data.flatMap((d) => Object.keys(d.relationships || {})).filter(Boolean)
 			: Object.keys(data.relationships || {})
 	) as Array<keyof TModel>;
 
@@ -43,6 +44,6 @@ export function buildJsonApiDocument<TModel extends IJsonapiModel>(model: TModel
 
 	return {
 		data,
-		...(included.length && { included }),
+		...(included.length && { included: uniqWith(included, (a, b) => a.type === b.type && a.id === b.id) }),
 	} satisfies JsonapiDocument<TModel>;
 }
