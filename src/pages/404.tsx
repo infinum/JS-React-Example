@@ -5,7 +5,7 @@ const NotFound: FC = () => {
 	return (
 		<Container h="100%">
 			<Center flexDir="column" h="100%">
-				<Heading my={8} size="4xl">
+				<Heading as="h1" my={8} size="4xl">
 					404
 				</Heading>
 				<Heading size="xl">Error occurred!</Heading>

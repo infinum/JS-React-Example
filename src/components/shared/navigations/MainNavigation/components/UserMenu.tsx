@@ -1,21 +1,22 @@
 import { User } from '@/models/User';
 import { Avatar, forwardRef, IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 
 export interface IUserMenuProps {
 	user?: User;
 	onLogout?: (...args: Array<any>) => void;
 }
 
-export const UserMenu = forwardRef<IUserMenuProps, 'div'>((props) => {
+export const UserMenu = forwardRef<IUserMenuProps, 'div'>((props, ref) => {
 	const { t } = useTranslation('main-navigation');
 	const { user, onLogout } = props;
 
 	return (
 		<Menu placement="bottom-end">
 			<MenuButton
+				ref={ref}
 				as={IconButton}
-				aria-label="Toggle language"
+				aria-label="User settings"
 				icon={<Avatar name={`${user?.firstName} ${user?.lastName}`} size="sm" />}
 				variant="ghost"
 			/>

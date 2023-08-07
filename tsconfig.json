@@ -21,6 +21,14 @@
 		},
 		"incremental": true
 	},
-	"include": ["next-env.d.ts", "**/*.js", "**/*.ts", "**/*.tsx", "src/lib/bugsnag.tjs", "__tests__/.gitkeep"],
+	"include": [
+		"next-env.d.ts",
+		"**/*.js",
+		"**/*.ts",
+		"**/*.tsx",
+		"src/lib/bugsnag.tjs",
+		"__tests__/.gitkeep",
+		"jest.config.js"
+	],
 	"exclude": ["node_modules"]
 }

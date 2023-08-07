@@ -1,8 +1,12 @@
 // This is a cjs file
 /* eslint-disable @typescript-eslint/no-var-requires */
 
+const dotenv = require('dotenv');
+
 const nextJest = require('next/jest');
 const { infinumJest } = require('@infinum/jest');
+
+dotenv.config({ path: './.env.example' });
 
 const createNextJestConfig = nextJest({
 	// Provide the path to your Next.js app to load next.config.js and .env files in your test environment
@@ -14,7 +18,7 @@ const createInfinumJestConfig = infinumJest();
 // Add any custom config to be passed to Jest
 /** @type {import('jest').Config} */
 const customJestConfig = {
-	setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+	setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 	moduleNameMapper: {
 		// Handle module aliases (this will be automatically configured for you soon)
 		'^@/(.*)$': '<rootDir>/src/$1',
@@ -23,9 +27,18 @@ const customJestConfig = {
 	// if using TypeScript with a baseUrl set to the root directory then you need the below for alias' to work
 	moduleDirectories: ['node_modules', '<rootDir>/'],
 	testEnvironment: '@infinum/jest/environment',
-	coverageReporters: ['html'],
-	collectCoverageFrom: ['./src/**/*.{js,jsx,ts,tsx}'],
+	coverageThreshold: {
+		global: {
+			statements: 60,
+			branches: 60,
+			functions: 60,
+			lines: 60,
+		},
+	},
+	coverageReporters: ['html', 'text-summary'],
+	collectCoverageFrom: ['./src/**/*.{js,jsx,ts,tsx}', '!./src/**/*.stories.{js,jsx,ts,tsx}', '!./src/interfaces/**/*'],
 	watchPlugins: ['jest-watch-typeahead/filename', 'jest-watch-typeahead/testname'],
+	snapshotSerializers: ['@emotion/jest/serializer'],
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async

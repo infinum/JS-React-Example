@@ -1,4 +1,3 @@
-import React from 'react';
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
@@ -8,7 +7,7 @@ import { createClient } from '@/datx/create-client';
 import { HomeHeaderSection } from '@/components/features/home/HomeHeaderSection/HomeHeaderSection';
 import { getSafeLocale } from '@/utils/locale';
 
-type HomeProps = InferGetServerSidePropsType<typeof getServerSideProps>;
+export type HomeProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 const Home: NextPage<HomeProps> = ({ fallback }) => {
 	return (
