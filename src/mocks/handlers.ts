@@ -4,6 +4,10 @@ import { sessionFactory } from '__mocks__/factories';
 import { rest } from 'msw';
 
 export const generateTestApiUrl = (path: string) => {
+	if (!process.env.API_TEST_ENDPOINT) {
+		throw new Error('API_TEST_ENDPOINT is not defined');
+	}
+
 	return process.env.API_TEST_ENDPOINT + path;
 };
 

@@ -12,9 +12,10 @@ const serverlessHandler = getServerlessHandler();
 
 const doAsyncWork = () => Promise.reject(new Error('API scenario 1'));
 
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
 doAsyncWork();
 
-async function handler(_req: NextApiRequest, res: NextApiResponse) {
+function handler(_req: NextApiRequest, res: NextApiResponse) {
 	res.status(200).json({ name: 'John Doe' });
 }
 

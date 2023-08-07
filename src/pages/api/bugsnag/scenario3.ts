@@ -14,7 +14,7 @@ function work() {
 	throw new Error('API scenario 3');
 }
 
-async function handler(_req: NextApiRequest, res: NextApiResponse) {
+function handler(_req: NextApiRequest, res: NextApiResponse) {
 	work();
 
 	res.status(200).json({ name: 'John Doe' });

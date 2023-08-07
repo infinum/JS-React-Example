@@ -29,7 +29,8 @@ module.exports = {
 		if (
 			process.env.NEXT_PUBLIC_BUGSNAG_API_KEY &&
 			process.env.NODE_ENV === 'production' &&
-			process.env.NEXT_PUBLIC_NEXT_APP_ENV !== 'development'
+			process.env.NEXT_PUBLIC_NEXT_APP_ENV !== 'development' &&
+			process.env.SITE_URL
 		) {
 			config.plugins.push(
 				new BugsnagBuildReporterPlugin(

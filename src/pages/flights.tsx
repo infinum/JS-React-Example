@@ -1,11 +1,11 @@
-import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
+import { GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-import { MainLayout } from '@/components/shared/layouts/MainLayout/MainLayout';
 import { FlightListSection } from '@/components/features/flights/FlightListSection/FlightListSection';
-import { Hydrate } from '@datx/swr';
+import { MainLayout } from '@/components/shared/layouts/MainLayout/MainLayout';
 import { createClient } from '@/datx/create-client';
 import { getSafeLocale } from '@/utils/locale';
+import { Hydrate } from '@datx/swr';
 import { Flights } from '@/components/features/flights/Flights/Flights';
 
 export type FlightsProps = InferGetServerSidePropsType<typeof getServerSideProps>;
@@ -22,7 +22,7 @@ const FlightsPage: NextPage<FlightsProps> = ({ fallback }) => {
 	);
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getServerSideProps = async ({ locale }: GetServerSidePropsContext) => {
 	const client = createClient();
 
 	const { fallback } = client;

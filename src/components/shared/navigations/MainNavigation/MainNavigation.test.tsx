@@ -10,8 +10,10 @@ import routerMock from 'next/router';
 import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider';
 
 jest.mock('@chakra-ui/color-mode', () => {
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 	const originalModule = jest.requireActual('@chakra-ui/color-mode');
 
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 	return {
 		...originalModule,
 		useColorMode: jest.fn(() => ({

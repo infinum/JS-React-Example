@@ -47,7 +47,7 @@ export const BasicPagination: FC<IBasicPagination> = ({ pagination }) => {
 			>
 				Previous
 			</Button>
-			<Button as="div">{`${currentPage}/${totalPages}`}</Button>
+			<Button as="div">{`${currentPage}/${totalPages || '-'}`}</Button>
 			<Button
 				as={hasNext ? NextLink : undefined}
 				href={{ query: { ...query, page: currentPage + 1 } }}

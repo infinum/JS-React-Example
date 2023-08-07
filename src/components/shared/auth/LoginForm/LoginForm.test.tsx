@@ -62,7 +62,7 @@ describe('LoginForm', () => {
 	it('should not display error when value is valid', async () => {
 		server.use(
 			rest.post(MOCKED_URLS.Session, async (req, res, ctx) => {
-				const body = await req.json();
+				const body = await req.json<{ data?: { attributes?: { email?: string } } }>();
 				const emailOverride = body.data?.attributes?.email || undefined;
 
 				return res(

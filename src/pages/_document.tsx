@@ -1,11 +1,10 @@
-import { ColorModeScript } from '@chakra-ui/react';
 import { getSafeLocale } from '@/utils/locale';
+import { ColorModeScript } from '@chakra-ui/react';
 import { DocumentProps, Head, Html, Main, NextScript } from 'next/document';
 
 import theme from '../styles/theme/index';
 
 const AppDocument = (props: DocumentProps) => {
-	// eslint-disable-next-line no-underscore-dangle
 	const currentLocale = getSafeLocale(props.__NEXT_DATA__.locale);
 
 	return (

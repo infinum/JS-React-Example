@@ -2,6 +2,7 @@ import { Global } from '@emotion/react';
 import { render } from 'test-utils';
 import { GlobalStyles } from './GlobalStyles';
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 jest.mock('@emotion/react', () => ({
 	...jest.requireActual('@emotion/react'),
 	Global: jest.fn(),

@@ -1,9 +1,10 @@
+import type { BrowserConfig } from '@bugsnag/browser';
 import Bugsnag from '@bugsnag/js';
 import type { NodeConfig } from '@bugsnag/node';
-import type { BrowserConfig } from '@bugsnag/browser';
+import { BugsnagPluginAwsLambdaResult } from '@bugsnag/plugin-aws-lambda';
 import BugsnagPluginReact from '@bugsnag/plugin-react';
-import React, { Fragment } from 'react';
 import { PHASE_PRODUCTION_BUILD } from 'next/constants';
+import React, { Fragment } from 'react';
 
 export function start() {
 	// next.js executes top-level code at build time. See https://github.com/vercel/next.js/discussions/16840 for further example
@@ -46,7 +47,7 @@ export function start() {
 }
 
 export function getServerlessHandler() {
-	return Bugsnag.getPlugin('awsLambda').createHandler();
+	return (Bugsnag.getPlugin('awsLambda') as BugsnagPluginAwsLambdaResult).createHandler();
 }
 
 export function getErrorBoundary() {

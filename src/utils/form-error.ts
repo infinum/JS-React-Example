@@ -4,7 +4,7 @@ import camelCase from 'lodash/camelCase';
 export type ResponseError = SingleResponse['error'] | CollectionResponse['error'];
 
 export interface IApiError {
-	name: any;
+	name: string;
 	type: string;
 	message?: string;
 }
@@ -29,8 +29,8 @@ export function getErrors(error: ResponseError): Array<IApiError> {
 		];
 	}
 
-	return error?.map((error: any) => ({
-		name: error.source?.parameter.split('/').map(camelCase).pop(1),
+	return error?.map((error) => ({
+		name: error.source?.parameter?.split('/').map(camelCase).pop() || 'error',
 		type: 'apiError',
 		message: error.detail,
 	}));

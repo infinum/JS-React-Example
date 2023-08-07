@@ -12,6 +12,7 @@ import theme from '@/styles/theme';
 import { MockedRequest, matchRequestUrl } from 'msw';
 import common from '../public/locales/en-US/common.json';
 
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
 i18n.use(initReactI18next).init({
 	lng: 'en-US',
 	fallbackLng: 'en-US',

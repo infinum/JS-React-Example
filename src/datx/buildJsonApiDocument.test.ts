@@ -82,6 +82,7 @@ describe('buildJsonApiDocument', () => {
 				},
 			},
 			included: company.flights.map((flight) =>
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 				expect.objectContaining({
 					id: String(flight.id),
 					type: 'flight',

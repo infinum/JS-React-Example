@@ -7,6 +7,7 @@ import { server } from '@/mocks/server';
 import '@testing-library/jest-dom/extend-expect';
 import 'jest-axe/extend-expect';
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 jest.mock('next/router', () => require('next-router-mock'));
 
 // In order to run `jest-axe` assertions for components containing

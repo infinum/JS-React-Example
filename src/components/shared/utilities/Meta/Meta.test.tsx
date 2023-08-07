@@ -11,6 +11,7 @@ jest.mock('next/head', () => {
 	};
 });
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 jest.mock('@chakra-ui/react', () => ({
 	...jest.requireActual('@chakra-ui/react'),
 	ChakraProvider: ({ children }: { children: ReactNode }) => {

@@ -23,7 +23,7 @@ describe('AuthRedirect', () => {
 	it('should redirect logged in user', async () => {
 		server.use(handlerOverrides.activeCurrentSession);
 
-		mockRouter.push('/login');
+		await mockRouter.push('/login');
 
 		render(<TestAuthRedirect to="/" ifFound />);
 
@@ -50,7 +50,7 @@ describe('AuthRedirect', () => {
 			})
 		);
 
-		mockRouter.push('/login');
+		await mockRouter.push('/login');
 
 		render(<TestAuthRedirect to="/admin" condition={(session) => session?.email === 'admin@infinum.com'} />);
 

@@ -42,7 +42,9 @@ declare module 'i18next' {
 
 fs.readdir(readPath, (err, files) => {
 	if (err) {
-		return console.log(`Unable to scan directory: ${err}`);
+		console.log(`Unable to scan directory: ${err}`);
+
+		return;
 	}
 
 	const names = files.map((file) => getNameData(file.replace('.json', '')));
@@ -50,7 +52,9 @@ fs.readdir(readPath, (err, files) => {
 
 	fs.writeFile(savePath, template, (err) => {
 		if (err) {
-			return console.log(`Unable to save: ${err}`);
+			console.log(`Unable to save: ${err}`);
+
+			return;
 		}
 
 		console.log('The file was saved!');

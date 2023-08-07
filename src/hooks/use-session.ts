@@ -1,4 +1,4 @@
-import { useDatx } from '@datx/swr';
+import { DatxConfiguration, SingleResponse, useDatx } from '@datx/swr';
 
 import { Session } from '@/models/Session';
 
@@ -9,7 +9,7 @@ export const sessionExpression = {
 	queryParams: { include: 'user' },
 } as const;
 
-export const useSession = (config?: any) =>
+export const useSession = (config?: DatxConfiguration<SingleResponse<Session>>) =>
 	useDatx(sessionExpression, {
 		shouldRetryOnError: false,
 		...(config || {}),

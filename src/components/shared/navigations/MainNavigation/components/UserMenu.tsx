@@ -4,12 +4,14 @@ import { useTranslation } from 'next-i18next';
 
 export interface IUserMenuProps {
 	user?: User;
-	onLogout?: (...args: Array<any>) => void;
+	onLogout?: () => void;
 }
 
 export const UserMenu = forwardRef<IUserMenuProps, 'div'>((props, ref) => {
 	const { t } = useTranslation('main-navigation');
 	const { user, onLogout } = props;
+
+	const fullName = [user?.firstName, user?.lastName].filter(Boolean).join(' ');
 
 	return (
 		<Menu placement="bottom-end">
@@ -17,7 +19,7 @@ export const UserMenu = forwardRef<IUserMenuProps, 'div'>((props, ref) => {
 				ref={ref}
 				as={IconButton}
 				aria-label="User settings"
-				icon={<Avatar name={`${user?.firstName} ${user?.lastName}`} size="sm" />}
+				icon={<Avatar name={fullName} size="sm" />}
 				variant="ghost"
 			/>
 			<MenuList>

@@ -16,6 +16,7 @@ const Scenario4 = () => {
 
 			await doAsyncWork();
 		}
+		// eslint-disable-next-line @typescript-eslint/no-floating-promises
 		doTest();
 	}, []);
 

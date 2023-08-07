@@ -35,7 +35,7 @@ describe('TextareaField', () => {
 		expect(results).toHaveNoViolations();
 	});
 
-	it('should display error message when invalid', async () => {
+	it('should display error message when invalid', () => {
 		const testErrorMessage = 'Test Error Message';
 		const errors = { [testName]: { message: testErrorMessage } };
 

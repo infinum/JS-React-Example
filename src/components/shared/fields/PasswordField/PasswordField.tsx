@@ -13,12 +13,12 @@ import {
 } from '@chakra-ui/react';
 import { ErrorMessage } from '@hookform/error-message';
 import { useRef } from 'react';
-import { FieldValues } from 'react-hook-form';
+import { FieldErrors } from 'react-hook-form';
 import { HiEye, HiEyeOff } from 'react-icons/hi';
 
 export interface IPasswordField extends InputProps {
 	label: string;
-	errors?: FieldValues;
+	errors?: FieldErrors;
 	name: string;
 }
 
@@ -36,7 +36,7 @@ export const PasswordField = forwardRef<IPasswordField, 'input'>(({ label, error
 	};
 
 	return (
-		<FormControl id={id} isInvalid={errors?.[name]}>
+		<FormControl id={id} isInvalid={Boolean(errors?.[name])}>
 			<FormLabel>{label}</FormLabel>
 			<InputGroup>
 				<Input
