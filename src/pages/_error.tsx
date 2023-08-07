@@ -4,7 +4,7 @@ import NextErrorComponent, { ErrorProps } from 'next/error';
 import { Container, Heading, Image, Center } from '@chakra-ui/react';
 import Bugsnag, { Request } from '@bugsnag/js';
 
-interface ICustomErrorPageProps extends ErrorProps {
+export interface ICustomErrorPageProps extends ErrorProps {
 	err?: Error;
 	hasGetInitialPropsRun?: boolean;
 }

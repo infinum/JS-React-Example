@@ -13,7 +13,7 @@ export const MainFooter = () => (
 			>
 				<Stack align="start" minW="0" spacing={{ base: '6', md: '8' }}>
 					<NextLink href="/">
-						<Image htmlWidth="64px" src="/images/logo-infinum.png" />
+						<Image alt="Logo" htmlWidth="64px" src="/images/logo-infinum.png" />
 					</NextLink>
 					<Text color="muted">Create beautiful websites remarkably fast.</Text>
 				</Stack>

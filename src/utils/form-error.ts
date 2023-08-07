@@ -30,7 +30,7 @@ export function getErrors(error: ResponseError): Array<IApiError> {
 	}
 
 	return error?.map((error) => ({
-		name: error.source?.parameter?.split('.').map(camelCase).join('.'),
+		name: error.source?.parameter?.split('/').map(camelCase).pop() || 'error',
 		type: 'apiError',
 		message: error.detail,
 	}));

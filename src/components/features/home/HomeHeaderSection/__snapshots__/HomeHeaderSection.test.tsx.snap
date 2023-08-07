@@ -1,0 +1,347 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomeHeaderSection should matches snapshot 1`] = `
+<DocumentFragment>
+  .emotion-1 {
+  width: 100%;
+  -webkit-margin-start: auto;
+  margin-inline-start: auto;
+  -webkit-margin-end: auto;
+  margin-inline-end: auto;
+  max-width: var(--chakra-sizes-container-xl);
+  -webkit-padding-start: var(--chakra-space-4);
+  padding-inline-start: var(--chakra-space-4);
+  -webkit-padding-end: var(--chakra-space-4);
+  padding-inline-end: var(--chakra-space-4);
+  padding-top: var(--chakra-space-16);
+  padding-bottom: var(--chakra-space-16);
+}
+
+@media screen and (min-width: 48em) {
+  .emotion-1 {
+    padding-top: var(--chakra-space-24);
+    padding-bottom: var(--chakra-space-24);
+  }
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.emotion-2>*:not(style)~*:not(style) {
+  margin-top: var(--chakra-space-8);
+  -webkit-margin-end: 0px;
+  margin-inline-end: 0px;
+  margin-bottom: 0px;
+  -webkit-margin-start: 0px;
+  margin-inline-start: 0px;
+}
+
+@media screen and (min-width: 48em) {
+  .emotion-2>*:not(style)~*:not(style) {
+    margin-top: var(--chakra-space-10);
+  }
+}
+
+.emotion-3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.emotion-3>*:not(style)~*:not(style) {
+  margin-top: var(--chakra-space-4);
+  -webkit-margin-end: 0px;
+  margin-inline-end: 0px;
+  margin-bottom: 0px;
+  -webkit-margin-start: 0px;
+  margin-inline-start: 0px;
+}
+
+@media screen and (min-width: 48em) {
+  .emotion-3>*:not(style)~*:not(style) {
+    margin-top: var(--chakra-space-5);
+  }
+}
+
+.emotion-4 {
+  font-family: var(--chakra-fonts-heading);
+  font-weight: var(--chakra-fontWeights-bold);
+}
+
+@media screen and (min-width: 0em) and (max-width: 47.98em) {
+  .emotion-4 {
+    font-size: var(--chakra-fontSizes-md);
+    line-height: 1.2;
+  }
+}
+
+@media screen and (min-width: 48em) {
+  .emotion-4 {
+    font-size: var(--chakra-fontSizes-xl);
+    line-height: 1.2;
+  }
+}
+
+.emotion-5 {
+  max-width: var(--chakra-sizes-2xl);
+  color: muted;
+  font-size: var(--chakra-fontSizes-xl);
+  text-align: center;
+}
+
+.emotion-6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.emotion-6>*:not(style)~*:not(style) {
+  margin-top: var(--chakra-space-3);
+  -webkit-margin-end: 0px;
+  margin-inline-end: 0px;
+  margin-bottom: 0px;
+  -webkit-margin-start: 0px;
+  margin-inline-start: 0px;
+}
+
+@media screen and (min-width: 30em) {
+  .emotion-6 {
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+  }
+
+  .emotion-6>*:not(style)~*:not(style) {
+    margin-top: 0px;
+    -webkit-margin-end: 0px;
+    margin-inline-end: 0px;
+    margin-bottom: 0px;
+    -webkit-margin-start: var(--chakra-space-3);
+    margin-inline-start: var(--chakra-space-3);
+  }
+}
+
+.emotion-7 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+  white-space: nowrap;
+  vertical-align: middle;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  line-height: 1.2;
+  border-radius: var(--chakra-radii-md);
+  font-weight: var(--chakra-fontWeights-semibold);
+  transition-property: var(--chakra-transition-property-common);
+  transition-duration: var(--chakra-transition-duration-normal);
+  height: var(--chakra-sizes-12);
+  min-width: var(--chakra-sizes-12);
+  font-size: var(--chakra-fontSizes-lg);
+  -webkit-padding-start: var(--chakra-space-6);
+  padding-inline-start: var(--chakra-space-6);
+  -webkit-padding-end: var(--chakra-space-6);
+  padding-inline-end: var(--chakra-space-6);
+  background: var(--chakra-colors-red-500);
+  color: var(--chakra-colors-white);
+}
+
+.emotion-7:focus-visible,
+.emotion-7[data-focus-visible] {
+  box-shadow: var(--chakra-shadows-outline);
+}
+
+.emotion-7:disabled,
+.emotion-7[disabled],
+.emotion-7[aria-disabled=true],
+.emotion-7[data-disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: var(--chakra-shadows-none);
+}
+
+.emotion-7:hover,
+.emotion-7[data-hover] {
+  background: var(--chakra-colors-red-600);
+}
+
+.emotion-7:hover:disabled,
+.emotion-7[data-hover]:disabled,
+.emotion-7:hover[disabled],
+.emotion-7[data-hover][disabled],
+.emotion-7:hover[aria-disabled=true],
+.emotion-7[data-hover][aria-disabled=true],
+.emotion-7:hover[data-disabled],
+.emotion-7[data-hover][data-disabled] {
+  background: var(--chakra-colors-red-500);
+}
+
+.emotion-7:active,
+.emotion-7[data-active] {
+  background: var(--chakra-colors-red-700);
+}
+
+.emotion-8 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+  white-space: nowrap;
+  vertical-align: middle;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  line-height: 1.2;
+  border-radius: var(--chakra-radii-md);
+  font-weight: var(--chakra-fontWeights-semibold);
+  transition-property: var(--chakra-transition-property-common);
+  transition-duration: var(--chakra-transition-duration-normal);
+  height: var(--chakra-sizes-12);
+  min-width: var(--chakra-sizes-12);
+  font-size: var(--chakra-fontSizes-lg);
+  -webkit-padding-start: var(--chakra-space-6);
+  padding-inline-start: var(--chakra-space-6);
+  -webkit-padding-end: var(--chakra-space-6);
+  padding-inline-end: var(--chakra-space-6);
+  background: var(--chakra-colors-gray-100);
+}
+
+.emotion-8:focus-visible,
+.emotion-8[data-focus-visible] {
+  box-shadow: var(--chakra-shadows-outline);
+}
+
+.emotion-8:disabled,
+.emotion-8[disabled],
+.emotion-8[aria-disabled=true],
+.emotion-8[data-disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: var(--chakra-shadows-none);
+}
+
+.emotion-8:hover,
+.emotion-8[data-hover] {
+  background: var(--chakra-colors-gray-200);
+}
+
+.emotion-8:hover:disabled,
+.emotion-8[data-hover]:disabled,
+.emotion-8:hover[disabled],
+.emotion-8[data-hover][disabled],
+.emotion-8:hover[aria-disabled=true],
+.emotion-8[data-hover][aria-disabled=true],
+.emotion-8:hover[data-disabled],
+.emotion-8[data-hover][data-disabled] {
+  background: var(--chakra-colors-gray-100);
+}
+
+.emotion-8:active,
+.emotion-8[data-active] {
+  background: var(--chakra-colors-gray-300);
+}
+
+<section
+    class="emotion-0"
+  >
+    <div
+      class="chakra-container emotion-1"
+    >
+      <div
+        class="chakra-stack emotion-2"
+      >
+        <div
+          class="chakra-stack emotion-3"
+        >
+          <h2
+            class="chakra-heading emotion-4"
+          >
+            Ready to Fly?
+          </h2>
+          <p
+            class="chakra-text emotion-5"
+          >
+            With this beautiful and responsive React components you will realize your next project in no time.
+          </p>
+        </div>
+        <div
+          class="chakra-stack emotion-6"
+        >
+          <button
+            class="chakra-button emotion-7"
+            type="button"
+          >
+            Learn more
+          </button>
+          <a
+            class="chakra-button emotion-8"
+            href="/flights"
+          >
+            Check Flights
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <span
+    hidden=""
+    id="__chakra_env"
+  />
+</DocumentFragment>
+`;

@@ -6,14 +6,17 @@ import { MainLayout } from '@/components/shared/layouts/MainLayout/MainLayout';
 import { createClient } from '@/datx/create-client';
 import { getSafeLocale } from '@/utils/locale';
 import { Hydrate } from '@datx/swr';
+import { Flights } from '@/components/features/flights/Flights/Flights';
 
-type HomeProps = InferGetServerSidePropsType<typeof getServerSideProps>;
+export type FlightsProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
-const Home: NextPage<HomeProps> = ({ fallback }) => {
+const FlightsPage: NextPage<FlightsProps> = ({ fallback }) => {
 	return (
 		<Hydrate fallback={fallback}>
 			<MainLayout>
-				<FlightListSection />
+				<FlightListSection>
+					<Flights />
+				</FlightListSection>
 			</MainLayout>
 		</Hydrate>
 	);
@@ -32,4 +35,4 @@ export const getServerSideProps = async ({ locale }: GetServerSidePropsContext) 
 	};
 };
 
-export default Home;
+export default FlightsPage;

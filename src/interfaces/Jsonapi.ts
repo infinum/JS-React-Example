@@ -169,12 +169,12 @@ export type JsonapiResourceRelationships<TModel> = Partial<
  *
  * @see https://jsonapi.org/format/#document-resource-objects
  */
-export interface JsonapiResource<TModelConstructor extends IModelConstructor> {
+export interface JsonapiResource<TModelConstructor extends IJsonapiModel> {
 	id?: string;
 	lid?: string;
-	type: TModelConstructor['type'];
-	attributes: JsonapiResourceAttributes<InstanceType<TModelConstructor>>;
-	relationships?: JsonapiResourceRelationships<InstanceType<TModelConstructor>>;
+	type: IModelConstructor<TModelConstructor>['type'];
+	attributes: JsonapiResourceAttributes<TModelConstructor>;
+	relationships?: JsonapiResourceRelationships<TModelConstructor>;
 }
 
 /**
@@ -185,13 +185,15 @@ export interface JsonapiResource<TModelConstructor extends IModelConstructor> {
  *
  * @see https://jsonapi.org/format/#document-structure:~:text=The%20document%E2%80%99s%20%E2%80%9Cprimary%20data%E2%80%9D%20is%20a%20representation%20of%20the%20resource%20or%20collection%20of%20resources%20targeted%20by%20a%20request.
  */
-export type JsonapiPrimaryData<TResourceConstructor extends IModelConstructor> =
+export type JsonapiPrimaryData<TResourceConstructor extends IJsonapiModel> =
 	| JsonapiResource<TResourceConstructor>
 	| Array<JsonapiResource<TResourceConstructor>>
 	| null
 	| [];
 
-export interface JsonapiDocument<TResourceConstructor extends IModelConstructor> {
+export interface JsonapiDocument<TResourceConstructor extends IJsonapiModel> {
 	data: JsonapiPrimaryData<TResourceConstructor>;
 	links?: JsonapiTopLevelLinks;
+	// TODO: checkout if this can be more specific than IJsonapiModel
+	included?: Array<JsonapiResource<IJsonapiModel>>;
 }

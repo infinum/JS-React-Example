@@ -45,7 +45,7 @@ export const MainNavigation: FC = () => {
 		<Box as="nav" borderBottom="1px" borderBottomColor="chakra-border-color">
 			<Container as={Flex} align="center" justify="space-between" py={2} size="xl">
 				<NextLink href="/">
-					<Text as="h1" color="red.500" fontSize="3xl">
+					<Text color="red.500" fontSize="3xl">
 						Cekila
 					</Text>
 				</NextLink>

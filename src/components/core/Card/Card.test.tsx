@@ -1,8 +1,6 @@
-import React from 'react';
 import { axe } from 'jest-axe';
-
-import { Card } from './Card';
 import { render } from 'test-utils';
+import { Card } from './Card';
 
 describe('Card', () => {
 	it('should matches snapshot', () => {

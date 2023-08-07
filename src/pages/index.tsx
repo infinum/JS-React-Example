@@ -7,7 +7,7 @@ import { createClient } from '@/datx/create-client';
 import { getSafeLocale } from '@/utils/locale';
 import { Hydrate } from '@datx/swr';
 
-type HomeProps = InferGetServerSidePropsType<typeof getServerSideProps>;
+export type HomeProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 const Home: NextPage<HomeProps> = ({ fallback }) => {
 	return (
