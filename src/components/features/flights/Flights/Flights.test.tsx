@@ -31,6 +31,7 @@ describe('Flights', () => {
 	it('should render loading state', () => {
 		server.use(
 			rest.get(MOCKED_URLS.Flights, (req, res, ctx) => {
+				// @ts-expect-error fix typing in @datx/test-data-factory
 				return res(ctx.status(200), ctx.json(flightsFactory(5, { map: modelToJsonApi })));
 			})
 		);
@@ -64,6 +65,7 @@ describe('Flights', () => {
 
 		server.use(
 			rest.get(MOCKED_URLS.Flights, (req, res, ctx) => {
+				// @ts-expect-error fix typing in @datx/test-data-factory
 				const data = flightsFactory(10, { map: modelToJsonApi, overrides: { name: flightName } });
 
 				return res(

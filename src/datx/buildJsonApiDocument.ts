@@ -14,9 +14,9 @@ import uniqWith from 'lodash/uniqWith';
 export function buildJsonApiDocument<TModel extends IJsonapiModel>(model: TModel | Array<TModel>) {
 	const isCollection = Array.isArray(model);
 
-	const data: JsonapiResource<TModel> | Array<JsonapiResource<TModel>> = isCollection
-		? model.map((m) => modelToJsonApi(m))
-		: modelToJsonApi(model);
+	const data = isCollection
+		? (model.map((m) => modelToJsonApi(m)) as Array<JsonapiResource<TModel>>)
+		: (modelToJsonApi(model) as JsonapiResource<TModel>);
 
 	const relationships = (
 		Array.isArray(data)
@@ -44,6 +44,11 @@ export function buildJsonApiDocument<TModel extends IJsonapiModel>(model: TModel
 
 	return {
 		data,
-		...(included.length && { included: uniqWith(included, (a, b) => a.type === b.type && a.id === b.id) }),
+		...(included.length && {
+			included: uniqWith(
+				included as Array<JsonapiResource<IJsonapiModel>>,
+				(a, b) => a.type === b.type && a.id === b.id
+			),
+		}),
 	} satisfies JsonapiDocument<TModel>;
 }

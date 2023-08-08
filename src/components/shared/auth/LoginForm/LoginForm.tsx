@@ -36,7 +36,11 @@ export const LoginForm: FC<BoxProps> = (props) => {
 			await mutate(() => login(client, { data }), false);
 		} catch (errors) {
 			if (errors instanceof Response) {
-				getErrors(errors.error).forEach(({ name, type, message = t('error') }) => setError(name, { type, message }));
+				getErrors(errors.error).forEach(({ name, type, message = t('error') }) => {
+					if (name === 'email' || name === 'password') {
+						setError(name, { type, message });
+					}
+				});
 			}
 		}
 	}

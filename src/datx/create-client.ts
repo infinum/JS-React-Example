@@ -33,11 +33,11 @@ export function createClient() {
 	};
 
 	config.transformResponse = (opts: IRawResponse) => {
-		return { ...opts, data: deapify(opts.data) };
+		return { ...opts, data: deapify(opts.data) } as IRawResponse;
 	};
 
 	config.transformRequest = (opts: ICollectionFetchOpts) => {
-		return { ...opts, data: apify(opts.data) };
+		return { ...opts, data: apify(opts.data) as IRawResponse };
 	};
 
 	const client = new JsonapiSwrClient();
