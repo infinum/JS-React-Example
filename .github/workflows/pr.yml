@@ -8,6 +8,6 @@ jobs:
     name: 'Run'
     uses: infinum/js-pipeline/.github/workflows/pipeline.yml@master
     with:
-      ci_steps: 'lint jest analyze'
+      ci_steps: 'lint test analyze'
       workflow: '.github/workflows/pr.yml'
       environment: 'staging'
