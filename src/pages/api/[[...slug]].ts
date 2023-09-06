@@ -1,5 +1,6 @@
 import { IncomingMessage } from 'http';
 import { createProxyMiddleware } from 'http-proxy-middleware';
+import noop from 'lodash/noop';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 let apiUrl: string;
@@ -36,7 +37,7 @@ const proxy = createProxyMiddleware({
 		proxyRes.headers['set-cookie'] = adaptCookiesForLocalhost;
 	},
 	onError: (err: Error) => console.error(err),
-}) as (req: NextApiRequest, res: NextApiResponse<unknown>) => void;
+});
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<unknown>) {
 	// Don't allow requests to hit the proxy when not in development mode
@@ -45,7 +46,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<unknow
 		return res.status(404).json({ message: 'Not found' });
 	}
 
-	return proxy(req, res);
+	// @ts-expect-error TODO: fix this type
+	return proxy(req, res, noop);
 }
 
 export const config = {
