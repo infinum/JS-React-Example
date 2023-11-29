@@ -2,7 +2,7 @@ import { IncomingMessage } from 'http';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-const apiUrl = 'http://localhost:8080';
+const apiUrl = 'http://127.0.0.1:8080';
 
 const proxy = createProxyMiddleware({
 	target: apiUrl,
