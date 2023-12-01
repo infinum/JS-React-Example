@@ -21,9 +21,6 @@ const gtHaptik = localFont({
 	],
 });
 
-theme.fonts.body = gtHaptik.style.fontFamily;
-theme.fonts.heading = gtHaptik.style.fontFamily;
-
 interface IExampleAppProps extends AppProps {
 	err: Error;
 }
@@ -35,6 +32,14 @@ function ExampleApp({ Component, pageProps, err }: IExampleAppProps) {
 
 	return (
 		<DatxProvider client={client}>
+			{/* eslint-disable-next-line react/no-unknown-property */}
+			<style jsx global>
+				{`
+					:root {
+						--font-haptik: ${gtHaptik.style.fontFamily};
+					}
+				`}
+			</style>
 			<ChakraProvider theme={theme}>
 				<SWRConfig
 					value={{

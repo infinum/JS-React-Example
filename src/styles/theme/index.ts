@@ -16,8 +16,8 @@ const overrides = {
 	styles,
 	colors,
 	fonts: {
-		body: fontFamilyFallback,
-		heading: fontFamilyFallback,
+		body: `var(--font-haptik), ${fontFamilyFallback}`,
+		heading: `var(--font-haptik), ${fontFamilyFallback}`,
 	},
 	semanticTokens: {
 		colors: {
