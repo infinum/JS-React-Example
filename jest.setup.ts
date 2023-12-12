@@ -4,7 +4,7 @@
 // Used for __tests__/testing-library.js
 // Learn more: https://github.com/testing-library/jest-dom
 import { server } from '@/mocks/server';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 import 'jest-axe/extend-expect';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-return
