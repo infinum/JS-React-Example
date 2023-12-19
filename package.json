@@ -40,7 +40,7 @@
 		"@emotion/styled": "~11.11.0",
 		"@hookform/error-message": "~2.0.1",
 		"@rive-app/react-canvas": "~4.6.2",
-		"date-fns": "~2.30.0",
+		"date-fns": "~3.0.0",
 		"focus-visible": "~5.2.0",
 		"framer-motion": "~10.16.16",
 		"http-proxy-middleware": "~2.0.6",
