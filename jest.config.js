@@ -39,6 +39,9 @@ const customJestConfig = {
 	collectCoverageFrom: ['./src/**/*.{js,jsx,ts,tsx}', '!./src/**/*.stories.{js,jsx,ts,tsx}', '!./src/interfaces/**/*'],
 	watchPlugins: ['jest-watch-typeahead/filename', 'jest-watch-typeahead/testname'],
 	snapshotSerializers: ['@emotion/jest/serializer'],
+	testEnvironmentOptions: {
+		customExportConditions: [''],
+	},
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async

@@ -32,20 +32,12 @@ exports[`HomeHeaderSection should matches snapshot 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-}
-
-.emotion-2>*:not(style)~*:not(style) {
-  margin-top: var(--chakra-space-8);
-  -webkit-margin-end: 0px;
-  margin-inline-end: 0px;
-  margin-bottom: 0px;
-  -webkit-margin-start: 0px;
-  margin-inline-start: 0px;
+  gap: var(--chakra-space-8);
 }
 
 @media screen and (min-width: 48em) {
-  .emotion-2>*:not(style)~*:not(style) {
-    margin-top: var(--chakra-space-10);
+  .emotion-2 {
+    gap: var(--chakra-space-10);
   }
 }
 
@@ -61,20 +53,12 @@ exports[`HomeHeaderSection should matches snapshot 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-}
-
-.emotion-3>*:not(style)~*:not(style) {
-  margin-top: var(--chakra-space-4);
-  -webkit-margin-end: 0px;
-  margin-inline-end: 0px;
-  margin-bottom: 0px;
-  -webkit-margin-start: 0px;
-  margin-inline-start: 0px;
+  gap: var(--chakra-space-4);
 }
 
 @media screen and (min-width: 48em) {
-  .emotion-3>*:not(style)~*:not(style) {
-    margin-top: var(--chakra-space-5);
+  .emotion-3 {
+    gap: var(--chakra-space-5);
   }
 }
 
@@ -116,15 +100,7 @@ exports[`HomeHeaderSection should matches snapshot 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-}
-
-.emotion-6>*:not(style)~*:not(style) {
-  margin-top: var(--chakra-space-3);
-  -webkit-margin-end: 0px;
-  margin-inline-end: 0px;
-  margin-bottom: 0px;
-  -webkit-margin-start: 0px;
-  margin-inline-start: 0px;
+  gap: var(--chakra-space-3);
 }
 
 @media screen and (min-width: 30em) {
@@ -132,15 +108,6 @@ exports[`HomeHeaderSection should matches snapshot 1`] = `
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
-  }
-
-  .emotion-6>*:not(style)~*:not(style) {
-    margin-top: 0px;
-    -webkit-margin-end: 0px;
-    margin-inline-end: 0px;
-    margin-bottom: 0px;
-    -webkit-margin-start: var(--chakra-space-3);
-    margin-inline-start: var(--chakra-space-3);
   }
 }
 
@@ -260,6 +227,7 @@ exports[`HomeHeaderSection should matches snapshot 1`] = `
   -webkit-padding-end: var(--chakra-space-6);
   padding-inline-end: var(--chakra-space-6);
   background: var(--chakra-colors-gray-100);
+  color: var(--chakra-colors-gray-800);
 }
 
 .emotion-8:focus-visible,
