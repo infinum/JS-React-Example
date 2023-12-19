@@ -114,7 +114,7 @@
 		"source-map-explorer": "~2.5.3",
 		"storybook": "~7.6.5",
 		"tsconfig-paths-webpack-plugin": "~4.1.0",
-		"typescript": "~5.3.3",
+		"typescript": "~5.0.4",
 		"webpack-bugsnag-plugins": "~1.8.0"
 	}
 }
