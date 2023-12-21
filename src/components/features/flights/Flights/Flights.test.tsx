@@ -3,7 +3,7 @@ import { server } from '@/mocks/server';
 import { modelToJsonApi } from '@datx/jsonapi';
 import { flightsFactory } from '__mocks__/factories';
 import { axe } from 'jest-axe';
-import { rest } from 'msw';
+import { HttpResponse, http } from 'msw';
 import { render, screen, waitForElementToBeRemoved } from 'test-utils';
 import { Flights } from './Flights';
 
@@ -13,11 +13,7 @@ describe('Flights', () => {
 	});
 
 	it('should be accessible', async () => {
-		server.use(
-			rest.get(MOCKED_URLS.Flights, (req, res, ctx) => {
-				return res(ctx.status(200), ctx.json({ data: [] }));
-			})
-		);
+		server.use(http.get(MOCKED_URLS.Flights, () => HttpResponse.json({ data: [] }, { status: 200 })));
 
 		const { container } = render(<Flights />);
 
@@ -30,9 +26,9 @@ describe('Flights', () => {
 
 	it('should render loading state', () => {
 		server.use(
-			rest.get(MOCKED_URLS.Flights, (req, res, ctx) => {
+			http.get(MOCKED_URLS.Flights, () => {
 				// @ts-expect-error fix typing in @datx/test-data-factory
-				return res(ctx.status(200), ctx.json(flightsFactory(5, { map: modelToJsonApi })));
+				return HttpResponse.json(flightsFactory(5, { map: modelToJsonApi }), { status: 200 });
 			})
 		);
 
@@ -42,16 +38,7 @@ describe('Flights', () => {
 	});
 
 	it('should render error state', async () => {
-		server.use(
-			rest.get(MOCKED_URLS.Flights, (req, res, ctx) => {
-				return res(
-					ctx.status(404),
-					ctx.json({
-						error: 'Error',
-					})
-				);
-			})
-		);
+		server.use(http.get(MOCKED_URLS.Flights, () => HttpResponse.json({ error: 'Error' }, { status: 404 })));
 
 		render(<Flights />);
 
@@ -64,16 +51,11 @@ describe('Flights', () => {
 		const flightName = 'Air Force One';
 
 		server.use(
-			rest.get(MOCKED_URLS.Flights, (req, res, ctx) => {
+			http.get(MOCKED_URLS.Flights, () => {
 				// @ts-expect-error fix typing in @datx/test-data-factory
 				const data = flightsFactory(10, { map: modelToJsonApi, overrides: { name: flightName } });
 
-				return res(
-					ctx.status(200),
-					ctx.json({
-						data,
-					})
-				);
+				return HttpResponse.json({ data }, { status: 200 });
 			})
 		);
 

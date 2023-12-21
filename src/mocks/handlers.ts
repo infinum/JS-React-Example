@@ -1,7 +1,7 @@
 import { buildJsonApiDocument } from '@/datx/buildJsonApiDocument';
 import { TEST_INVALID_EMAIL, TEST_INVALID_PASSWORD } from '__mocks__/constants';
 import { sessionFactory } from '__mocks__/factories';
-import { rest } from 'msw';
+import { HttpResponse, http } from 'msw';
 
 export const generateTestApiUrl = (path: string) => {
 	if (!process.env.API_TEST_ENDPOINT) {
@@ -19,10 +19,9 @@ export const MOCKED_URLS = {
 } as const;
 
 export const handlers = [
-	rest.get(MOCKED_URLS.SessionCurrent, async (_req, res, ctx) => {
-		return res(
-			ctx.status(401),
-			ctx.json({
+	http.get(MOCKED_URLS.SessionCurrent, () =>
+		HttpResponse.json(
+			{
 				errors: [
 					{
 						status: 'unauthorized',
@@ -31,19 +30,17 @@ export const handlers = [
 						detail: 'Must be logged in to perform this action',
 					},
 				],
-			})
-		);
-	}),
-	rest.delete(MOCKED_URLS.SessionMe, async (_req, res, ctx) => {
-		return res(ctx.status(204));
-	}),
+			},
+			{ status: 401 }
+		)
+	),
+	http.delete(MOCKED_URLS.SessionMe, () => new Response(null, { status: 204 })),
 ];
 
 export const handlerOverrides = {
-	invalidEmailLogin: rest.post(MOCKED_URLS.Session, (_req, res, ctx) => {
-		return res(
-			ctx.status(422),
-			ctx.json({
+	invalidEmailLogin: http.post(MOCKED_URLS.Session, () =>
+		HttpResponse.json(
+			{
 				errors: [
 					{
 						status: 'unprocessable entity',
@@ -53,13 +50,13 @@ export const handlerOverrides = {
 						source: { parameter: 'email', pointer: 'data/attributes/email' },
 					},
 				],
-			})
-		);
-	}),
-	invalidPasswordLogin: rest.post(MOCKED_URLS.Session, (_req, res, ctx) => {
-		return res(
-			ctx.status(422),
-			ctx.json({
+			},
+			{ status: 422 }
+		)
+	),
+	invalidPasswordLogin: http.post(MOCKED_URLS.Session, () =>
+		HttpResponse.json(
+			{
 				errors: [
 					{
 						status: 'unprocessable entity',
@@ -69,12 +66,13 @@ export const handlerOverrides = {
 						source: { parameter: 'password', pointer: 'data/attributes/password' },
 					},
 				],
-			})
-		);
-	}),
-	activeCurrentSession: rest.get(MOCKED_URLS.SessionCurrent, async (req, res, ctx) => {
-		const session = sessionFactory();
-
-		return res(ctx.status(200), ctx.json(buildJsonApiDocument(session)));
-	}),
+			},
+			{ status: 422 }
+		)
+	),
+	activeCurrentSession: http.get(MOCKED_URLS.SessionCurrent, () =>
+		HttpResponse.json(buildJsonApiDocument(sessionFactory()), {
+			status: 200,
+		})
+	),
 };

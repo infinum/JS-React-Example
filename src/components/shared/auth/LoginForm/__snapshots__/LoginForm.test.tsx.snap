@@ -10,15 +10,7 @@ exports[`LoginForm should matches snapshot 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-}
-
-.emotion-0>*:not(style)~*:not(style) {
-  margin-top: var(--chakra-space-6);
-  -webkit-margin-end: 0px;
-  margin-inline-end: 0px;
-  margin-bottom: 0px;
-  -webkit-margin-start: 0px;
-  margin-inline-start: 0px;
+  gap: var(--chakra-space-6);
 }
 
 .emotion-1 {
@@ -29,15 +21,7 @@ exports[`LoginForm should matches snapshot 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-}
-
-.emotion-1>*:not(style)~*:not(style) {
-  margin-top: var(--chakra-space-5);
-  -webkit-margin-end: 0px;
-  margin-inline-end: 0px;
-  margin-bottom: 0px;
-  -webkit-margin-start: 0px;
-  margin-inline-start: 0px;
+  gap: var(--chakra-space-5);
 }
 
 .emotion-2 {
@@ -67,6 +51,13 @@ exports[`LoginForm should matches snapshot 1`] = `
 
 .emotion-4 {
   width: 100%;
+  height: var(--input-height);
+  font-size: var(--input-font-size);
+  -webkit-padding-start: var(--input-padding);
+  padding-inline-start: var(--input-padding);
+  -webkit-padding-end: var(--input-padding);
+  padding-inline-end: var(--input-padding);
+  border-radius: var(--input-border-radius);
   min-width: 0px;
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -77,13 +68,10 @@ exports[`LoginForm should matches snapshot 1`] = `
   appearance: none;
   transition-property: var(--chakra-transition-property-common);
   transition-duration: var(--chakra-transition-duration-normal);
-  font-size: var(--chakra-fontSizes-md);
-  -webkit-padding-start: var(--chakra-space-4);
-  padding-inline-start: var(--chakra-space-4);
-  -webkit-padding-end: var(--chakra-space-4);
-  padding-inline-end: var(--chakra-space-4);
-  height: var(--chakra-sizes-10);
-  border-radius: var(--chakra-radii-md);
+  --input-font-size: var(--chakra-fontSizes-md);
+  --input-padding: var(--chakra-space-4);
+  --input-border-radius: var(--chakra-radii-md);
+  --input-height: var(--chakra-sizes-10);
   border: 1px solid;
   border-color: inherit;
   background: inherit;
@@ -133,10 +121,21 @@ exports[`LoginForm should matches snapshot 1`] = `
   display: flex;
   position: relative;
   isolation: isolate;
+  --input-font-size: var(--chakra-fontSizes-md);
+  --input-padding: var(--chakra-space-4);
+  --input-border-radius: var(--chakra-radii-md);
+  --input-height: var(--chakra-sizes-10);
 }
 
 .emotion-8 {
   width: 100%;
+  height: var(--input-height);
+  font-size: var(--input-font-size);
+  -webkit-padding-start: var(--input-padding);
+  padding-inline-start: var(--input-padding);
+  -webkit-padding-end: var(--input-height);
+  padding-inline-end: var(--input-height);
+  border-radius: var(--input-border-radius);
   min-width: 0px;
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -147,13 +146,10 @@ exports[`LoginForm should matches snapshot 1`] = `
   appearance: none;
   transition-property: var(--chakra-transition-property-common);
   transition-duration: var(--chakra-transition-duration-normal);
-  font-size: var(--chakra-fontSizes-md);
-  -webkit-padding-start: var(--chakra-space-4);
-  padding-inline-start: var(--chakra-space-4);
-  -webkit-padding-end: var(--chakra-space-10);
-  padding-inline-end: var(--chakra-space-10);
-  height: var(--chakra-sizes-10);
-  border-radius: var(--chakra-radii-md);
+  --input-font-size: var(--chakra-fontSizes-md);
+  --input-padding: var(--chakra-space-4);
+  --input-border-radius: var(--chakra-radii-md);
+  --input-height: var(--chakra-sizes-10);
   border: 1px solid;
   border-color: inherit;
   background: inherit;
@@ -197,9 +193,9 @@ exports[`LoginForm should matches snapshot 1`] = `
 
 .emotion-9 {
   right: 0;
-  width: var(--chakra-sizes-10);
-  height: var(--chakra-sizes-10);
-  font-size: var(--chakra-fontSizes-md);
+  width: var(--input-height);
+  height: var(--input-height);
+  font-size: var(--input-font-size);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -312,15 +308,7 @@ exports[`LoginForm should matches snapshot 1`] = `
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-}
-
-.emotion-11>*:not(style)~*:not(style) {
-  margin-top: 0px;
-  -webkit-margin-end: 0px;
-  margin-inline-end: 0px;
-  margin-bottom: 0px;
-  -webkit-margin-start: 0.5rem;
-  margin-inline-start: 0.5rem;
+  gap: 0.5rem;
 }
 
 .emotion-12 {

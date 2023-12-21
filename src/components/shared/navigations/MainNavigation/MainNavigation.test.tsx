@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { render, screen, waitFor, within } from 'test-utils';
 import { MainNavigation } from './MainNavigation';
-import { rest } from 'msw';
+import { HttpResponse, http } from 'msw';
 import routerMock from 'next/router';
 import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider';
 
@@ -132,10 +132,9 @@ describe('MainNavigation', () => {
 
 		it('should display error from API on failed logout', async () => {
 			server.use(
-				rest.delete(MOCKED_URLS.SessionMe, (req, res, ctx) => {
-					return res(
-						ctx.status(401),
-						ctx.json({
+				http.delete(MOCKED_URLS.SessionMe, () =>
+					HttpResponse.json(
+						{
 							errors: [
 								{
 									status: 'unauthorized',
@@ -144,9 +143,10 @@ describe('MainNavigation', () => {
 									detail: 'Must be logged in to perform this action',
 								},
 							],
-						})
-					);
-				})
+						},
+						{ status: 401 }
+					)
+				)
 			);
 
 			render(<MainNavigation />);
@@ -167,11 +167,7 @@ describe('MainNavigation', () => {
 		});
 
 		it('should display fetch error on failed logout', async () => {
-			server.use(
-				rest.delete(MOCKED_URLS.SessionMe, (req, res) => {
-					return res.networkError('Must be logged in to perform this action');
-				})
-			);
+			server.use(http.delete(MOCKED_URLS.SessionMe, () => HttpResponse.error()));
 
 			render(<MainNavigation />);
 
@@ -188,9 +184,7 @@ describe('MainNavigation', () => {
 			await user.click(logoutButton);
 
 			expect(
-				screen.getByText(
-					'request to http://api.example.com/sessions/me failed, reason: Must be logged in to perform this action'
-				)
+				screen.getByText('request to http://api.example.com/sessions/me failed, reason: Network error')
 			).toBeInTheDocument();
 		});
 	});

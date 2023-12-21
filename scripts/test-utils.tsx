@@ -9,7 +9,7 @@ import { SWRConfig } from 'swr';
 import { createClient } from '@/datx/create-client';
 import { server } from '@/mocks/server';
 import theme from '@/styles/theme';
-import { MockedRequest, matchRequestUrl } from 'msw';
+import { matchRequestUrl } from 'msw';
 import common from '../public/locales/en-US/common.json';
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -52,30 +52,32 @@ export * from '@testing-library/react';
 export { customRender as render };
 
 export function waitForRequest(method: string, url: string) {
-	let requestId = '';
+	let reqId = '';
 
-	return new Promise<MockedRequest>((resolve, reject) => {
-		server.events.on('request:start', (req) => {
-			if (req.method.toLowerCase() !== method.toLowerCase()) {
+	return new Promise<Request>((resolve, reject) => {
+		server.events.on('request:start', ({ request, requestId }) => {
+			if (request.method.toLowerCase() !== method.toLowerCase()) {
 				return;
 			}
 
-			if (!matchRequestUrl(req.url, url).matches) {
+			if (!matchRequestUrl(new URL(request.url), url).matches) {
 				return;
 			}
 
-			requestId = req.id;
+			reqId = requestId;
 		});
 
-		server.events.on('request:match', (req) => {
-			if (req.id === requestId) {
-				resolve(req);
+		server.events.on('request:match', ({ request, requestId }) => {
+			if (requestId === reqId) {
+				resolve(request);
 			}
 		});
 
-		server.events.on('request:unhandled', (req) => {
-			if (req.id === requestId) {
-				reject(new Error(`The ${req.method} ${req.url.href} request was unhandled.`));
+		server.events.on('request:unhandled', ({ request, requestId }) => {
+			if (requestId === reqId) {
+				const url = new URL(request.url);
+
+				reject(new Error(`The ${request.method} ${url.href} request was unhandled.`));
 			}
 		});
 	});

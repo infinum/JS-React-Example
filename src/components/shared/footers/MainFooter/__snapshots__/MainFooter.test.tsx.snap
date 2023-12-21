@@ -30,17 +30,9 @@ exports[`MainFooter should matches snapshot 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
+  gap: var(--chakra-space-8);
   padding-top: var(--chakra-space-12);
   padding-bottom: var(--chakra-space-12);
-}
-
-.emotion-2>*:not(style)~*:not(style) {
-  margin-top: var(--chakra-space-8);
-  -webkit-margin-end: 0px;
-  margin-inline-end: 0px;
-  margin-bottom: 0px;
-  -webkit-margin-start: 0px;
-  margin-inline-start: 0px;
 }
 
 @media screen and (min-width: 48em) {
@@ -50,15 +42,6 @@ exports[`MainFooter should matches snapshot 1`] = `
     flex-direction: row;
     padding-top: var(--chakra-space-16);
     padding-bottom: var(--chakra-space-16);
-  }
-
-  .emotion-2>*:not(style)~*:not(style) {
-    margin-top: 0px;
-    -webkit-margin-end: 0px;
-    margin-inline-end: 0px;
-    margin-bottom: 0px;
-    -webkit-margin-start: var(--chakra-space-8);
-    margin-inline-start: var(--chakra-space-8);
   }
 }
 
@@ -74,21 +57,13 @@ exports[`MainFooter should matches snapshot 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
+  gap: var(--chakra-space-6);
   min-width: 0px;
 }
 
-.emotion-3>*:not(style)~*:not(style) {
-  margin-top: var(--chakra-space-6);
-  -webkit-margin-end: 0px;
-  margin-inline-end: 0px;
-  margin-bottom: 0px;
-  -webkit-margin-start: 0px;
-  margin-inline-start: 0px;
-}
-
 @media screen and (min-width: 48em) {
-  .emotion-3>*:not(style)~*:not(style) {
-    margin-top: var(--chakra-space-8);
+  .emotion-3 {
+    gap: var(--chakra-space-8);
   }
 }
 
@@ -106,22 +81,8 @@ exports[`MainFooter should matches snapshot 1`] = `
   flex-direction: column-reverse;
   --chakra-space-y-reverse: 1;
   --chakra-divide-y-reverse: 1;
+  gap: var(--chakra-space-12);
   min-width: 0px;
-}
-
-.emotion-6>*:not(style)~*:not(style) {
-  margin-top: 0px;
-  -webkit-margin-end: 0px;
-  margin-inline-end: 0px;
-  margin-bottom: var(--chakra-space-12);
-  -webkit-margin-start: 0px;
-  margin-inline-start: 0px;
-}
-
-@media screen and (min-width: 48em) {
-  .emotion-6>*:not(style)~*:not(style) {
-    margin-bottom: var(--chakra-space-8);
-  }
 }
 
 @media screen and (min-width: 48em) {
@@ -129,21 +90,7 @@ exports[`MainFooter should matches snapshot 1`] = `
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
     flex-direction: column;
-  }
-
-  .emotion-6>*:not(style)~*:not(style) {
-    margin-top: var(--chakra-space-12);
-    -webkit-margin-end: 0px;
-    margin-inline-end: 0px;
-    margin-bottom: 0px;
-    -webkit-margin-start: 0px;
-    margin-inline-start: 0px;
-  }
-
-  @media screen and (min-width: 48em) {
-    .emotion-6>*:not(style)~*:not(style) {
-      margin-top: var(--chakra-space-8);
-    }
+    gap: var(--chakra-space-8);
   }
 }
 
@@ -152,22 +99,6 @@ exports[`MainFooter should matches snapshot 1`] = `
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
-  }
-
-  .emotion-6>*:not(style)~*:not(style) {
-    margin-top: 0px;
-    -webkit-margin-end: 0px;
-    margin-inline-end: 0px;
-    margin-bottom: 0px;
-    -webkit-margin-start: var(--chakra-space-12);
-    margin-inline-start: var(--chakra-space-12);
-  }
-
-  @media screen and (min-width: 48em) {
-    .emotion-6>*:not(style)~*:not(style) {
-      -webkit-margin-start: var(--chakra-space-8);
-      margin-inline-start: var(--chakra-space-8);
-    }
   }
 }
 
@@ -179,15 +110,7 @@ exports[`MainFooter should matches snapshot 1`] = `
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-}
-
-.emotion-7>*:not(style)~*:not(style) {
-  margin-top: 0px;
-  -webkit-margin-end: 0px;
-  margin-inline-end: 0px;
-  margin-bottom: 0px;
-  -webkit-margin-start: var(--chakra-space-8);
-  margin-inline-start: var(--chakra-space-8);
+  gap: var(--chakra-space-8);
 }
 
 .emotion-8 {
@@ -198,19 +121,11 @@ exports[`MainFooter should matches snapshot 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
+  gap: var(--chakra-space-4);
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
   min-width: var(--chakra-sizes-36);
-}
-
-.emotion-8>*:not(style)~*:not(style) {
-  margin-top: var(--chakra-space-4);
-  -webkit-margin-end: 0px;
-  margin-inline-end: 0px;
-  margin-bottom: 0px;
-  -webkit-margin-start: 0px;
-  margin-inline-start: 0px;
 }
 
 .emotion-9 {
@@ -227,15 +142,7 @@ exports[`MainFooter should matches snapshot 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-}
-
-.emotion-10>*:not(style)~*:not(style) {
-  margin-top: var(--chakra-space-3);
-  -webkit-margin-end: 0px;
-  margin-inline-end: 0px;
-  margin-bottom: 0px;
-  -webkit-margin-start: 0px;
-  margin-inline-start: 0px;
+  gap: var(--chakra-space-3);
 }
 
 .emotion-11 {
@@ -334,15 +241,7 @@ exports[`MainFooter should matches snapshot 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-}
-
-.emotion-26>*:not(style)~*:not(style) {
-  margin-top: var(--chakra-space-4);
-  -webkit-margin-end: 0px;
-  margin-inline-end: 0px;
-  margin-bottom: 0px;
-  -webkit-margin-start: 0px;
-  margin-inline-start: 0px;
+  gap: var(--chakra-space-4);
 }
 
 .emotion-28 {
@@ -353,15 +252,7 @@ exports[`MainFooter should matches snapshot 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-}
-
-.emotion-28>*:not(style)~*:not(style) {
-  margin-top: var(--chakra-space-4);
-  -webkit-margin-end: 0px;
-  margin-inline-end: 0px;
-  margin-bottom: 0px;
-  -webkit-margin-start: 0px;
-  margin-inline-start: 0px;
+  gap: var(--chakra-space-4);
 }
 
 @media screen and (min-width: 30em) {
@@ -369,15 +260,6 @@ exports[`MainFooter should matches snapshot 1`] = `
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
-  }
-
-  .emotion-28>*:not(style)~*:not(style) {
-    margin-top: 0px;
-    -webkit-margin-end: 0px;
-    margin-inline-end: 0px;
-    margin-bottom: 0px;
-    -webkit-margin-start: var(--chakra-space-4);
-    margin-inline-start: var(--chakra-space-4);
   }
 }
 
@@ -389,6 +271,13 @@ exports[`MainFooter should matches snapshot 1`] = `
 
 .emotion-29 {
   width: 100%;
+  height: var(--input-height);
+  font-size: var(--input-font-size);
+  -webkit-padding-start: var(--input-padding);
+  padding-inline-start: var(--input-padding);
+  -webkit-padding-end: var(--input-padding);
+  padding-inline-end: var(--input-padding);
+  border-radius: var(--input-border-radius);
   min-width: 0px;
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -399,13 +288,10 @@ exports[`MainFooter should matches snapshot 1`] = `
   appearance: none;
   transition-property: var(--chakra-transition-property-common);
   transition-duration: var(--chakra-transition-duration-normal);
-  font-size: var(--chakra-fontSizes-md);
-  -webkit-padding-start: var(--chakra-space-4);
-  padding-inline-start: var(--chakra-space-4);
-  -webkit-padding-end: var(--chakra-space-4);
-  padding-inline-end: var(--chakra-space-4);
-  height: var(--chakra-sizes-10);
-  border-radius: var(--chakra-radii-md);
+  --input-font-size: var(--chakra-fontSizes-md);
+  --input-padding: var(--chakra-space-4);
+  --input-border-radius: var(--chakra-radii-md);
+  --input-height: var(--chakra-sizes-10);
   border: 1px solid;
   border-color: inherit;
   background: inherit;
@@ -553,17 +439,9 @@ exports[`MainFooter should matches snapshot 1`] = `
   flex-direction: column-reverse;
   --chakra-space-y-reverse: 1;
   --chakra-divide-y-reverse: 1;
+  gap: 0.5rem;
   padding-top: var(--chakra-space-8);
   padding-bottom: var(--chakra-space-12);
-}
-
-.emotion-32>*:not(style)~*:not(style) {
-  margin-top: 0px;
-  -webkit-margin-end: 0px;
-  margin-inline-end: 0px;
-  margin-bottom: 0.5rem;
-  -webkit-margin-start: 0px;
-  margin-inline-start: 0px;
 }
 
 @media screen and (min-width: 48em) {
@@ -571,15 +449,6 @@ exports[`MainFooter should matches snapshot 1`] = `
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
-  }
-
-  .emotion-32>*:not(style)~*:not(style) {
-    margin-top: 0px;
-    -webkit-margin-end: 0px;
-    margin-inline-end: 0px;
-    margin-bottom: 0px;
-    -webkit-margin-start: 0.5rem;
-    margin-inline-start: 0.5rem;
   }
 }
 
@@ -638,7 +507,7 @@ exports[`MainFooter should matches snapshot 1`] = `
   padding-inline-start: var(--chakra-space-4);
   -webkit-padding-end: var(--chakra-space-4);
   padding-inline-end: var(--chakra-space-4);
-  color: inherit;
+  color: var(--chakra-colors-gray-800);
   padding: 0px;
 }
 
