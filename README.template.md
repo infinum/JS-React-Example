@@ -14,7 +14,9 @@
   - [End to end tests](#end-to-end-tests)
   - [Code quality](#code-quality)
 - [Environments](#environments)
-- [Environment variables](#environment-variables)
+- [Environment variables \[TODO: Remove non-applicable\]](#environment-variables-todo-remove-non-applicable)
+  - [React](#react)
+  - [Angular](#angular)
   - [List of environment variables](#list-of-environment-variables)
 - [Deployment](#deployment)
 - [Releases](#releases)
@@ -48,8 +50,10 @@ To build the app you can use some of the following commands:
 
 ```
 npm run build
-npm run build:dev
-npm run build:prod    # builds the app for production
+
+# TODO: development and production builds if applicable
+# npm run build:dev
+# npm run build:prod
 
 ```
 
@@ -61,8 +65,8 @@ To start the unit tests you can use one of the following commands:
 
 ```
 npm run test
-npm run test:watch              # runs all tests in watch mode and without code coverage report
-npm run test:watch:coverage     # runs all tests in watch mode with code coverage report
+npm run test:watch
+npm run test:coverage
 
 ```
 
@@ -76,10 +80,9 @@ The following tools are used in the project to ensure code quality:
 
 Prettier: for consistent code formatting.
 ESLint: for identifying and fixing code quality issues.
-Stylelint: for identifying and fixing CSS code quality issues.
 Husky: Git hooks to automate code quality checks with ESLint and Prettier
 
-Local code quality checks (Prettier, ESLint, and Stylelint) are run before a user can commit their code through Husky's _pre-commit_ hook, which ensures that the code pushed to Git is consistent and doesn't include any obvious issues that can be detected with static analysis.
+Local code quality checks (Prettier, ESLint) are run before a user can commit their code through Husky's _pre-commit_ hook, which ensures that the code pushed to Git is consistent and doesn't include any obvious issues that can be detected with static analysis.
 
 ## Environments
 
@@ -92,7 +95,13 @@ There are currently two application environments:
    - API: [TODO:PROD_BACKEND_API_URL]
    - Frontend: [TODO:PROD_APP_URL]
 
-## Environment variables
+## Environment variables [TODO: Remove non-applicable]
+
+### React
+
+You can specify your environment variables in the `.env` file based on `.env.example`.
+
+### Angular
 
 You can specify environment variables as per the guide in the [Nuts & Bolts](https://infinum.github.io/ngx-nuts-and-bolts/docs/environment-variables).
 
@@ -102,7 +111,6 @@ You can specify environment variables as per the guide in the [Nuts & Bolts](htt
 | ---------------- | ----------- | ---------------------------------------------------------- |
 | API_HOST         | required    | API endpoint URL                                           |
 | ENV              | required    | Available options: development, production                 |
-| ASSETS_BASE_HREF | optional    | Specifies the base path for the static assets (default: /) |
 
 ## Deployment
 
