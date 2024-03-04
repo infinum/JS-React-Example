@@ -21,13 +21,12 @@
 - [Deployment](#deployment)
 - [Releases](#releases)
 - [Translations](#translations)
-- [Licencing](#licencing)
 
 ## Setup
 
 ### Prerequisites / Dependencies
 
-You will need to have NodeJS and NPM installed to run this application. It's recommended to use a NodeJS version manager to manage your versions. Required NodeJS versions will typically match LTS (long-term support) versions and you can check which exact version to install by checking `.node-version` file in the repository root.
+You will need to have NodeJS and NPM installed to run this application. Use the [handbook guide](https://infinum.com/handbook/frontend/node/managing-node-npm-versions) to set up the correct NodeJS version.
 
 ### Installation
 
@@ -42,7 +41,7 @@ You will need to have NodeJS and NPM installed to run this application. It's rec
 
 ### Running the app
 
-To run the app, you can simply run `npm start`. This starts the application in the environment dependent on your environment setup.
+To run the app, you can simply run `[TODO:NPM_START_COMMAND]`. This starts the application in the environment dependent on your environment setup.
 
 ### Building the app
 
@@ -125,23 +124,3 @@ Releases are handled through GitHub Releases feature and documentation for it ca
 ## Translations
 
 The application uses [Polyglot](TODO:PROJECT_POLYGLOT_LINK) for handling translations. More information can be found on the [Translations handling wiki page](TODO:GITHUB_WIKI_PAGE).
-
-## Licencing
-
-The application uses a licence header for all TypeScript files. To help out with setting this up for new files, you can install `licenser` extension.
-
-```
-# CMD + P
-ext install licenser
-
-```
-
-This extension will add proper license headers to each new file.
-
-You can also add license headers manually:
-
-```
-# CMD + SHIFT + P
-licenser: Insert license header
-
-```
