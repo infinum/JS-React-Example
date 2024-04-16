@@ -5,7 +5,7 @@ import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider';
 import mockRouter from 'next-router-mock';
 import { server } from '@/mocks/server';
 import { MOCKED_URLS, handlerOverrides } from '@/mocks/handlers';
-import { rest } from 'msw';
+import { HttpResponse, http } from 'msw';
 
 export const TestAuthRedirect: FC<IAuthRedirectProps> = ({ to = '/', ifFound = true }) => (
 	<MemoryRouterProvider>
@@ -34,10 +34,9 @@ describe('AuthRedirect', () => {
 
 	it('should redirect based on condition', async () => {
 		server.use(
-			rest.get(MOCKED_URLS.SessionCurrent, (req, res, ctx) => {
-				return res(
-					ctx.status(200),
-					ctx.json({
+			http.get(MOCKED_URLS.SessionCurrent, () =>
+				HttpResponse.json(
+					{
 						data: {
 							id: 'current',
 							type: 'sessions',
@@ -45,9 +44,10 @@ describe('AuthRedirect', () => {
 								email: 'admin@infinum.com',
 							},
 						},
-					})
-				);
-			})
+					},
+					{ status: 200 }
+				)
+			)
 		);
 
 		await mockRouter.push('/login');

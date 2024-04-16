@@ -31,6 +31,13 @@ exports[`TextareaField should matches snapshot 1`] = `
 
 .emotion-2 {
   width: 100%;
+  height: var(--input-height);
+  font-size: var(--input-font-size);
+  -webkit-padding-start: var(--input-padding);
+  padding-inline-start: var(--input-padding);
+  -webkit-padding-end: var(--input-padding);
+  padding-inline-end: var(--input-padding);
+  border-radius: var(--input-border-radius);
   min-width: 0px;
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -46,13 +53,10 @@ exports[`TextareaField should matches snapshot 1`] = `
   min-height: var(--chakra-sizes-20);
   line-height: var(--chakra-lineHeights-short);
   vertical-align: top;
-  font-size: var(--chakra-fontSizes-md);
-  -webkit-padding-start: var(--chakra-space-4);
-  padding-inline-start: var(--chakra-space-4);
-  -webkit-padding-end: var(--chakra-space-4);
-  padding-inline-end: var(--chakra-space-4);
-  height: var(--chakra-sizes-10);
-  border-radius: var(--chakra-radii-md);
+  --input-font-size: var(--chakra-fontSizes-md);
+  --input-padding: var(--chakra-space-4);
+  --input-border-radius: var(--chakra-radii-md);
+  --input-height: var(--chakra-sizes-10);
   border: 1px solid;
   border-color: inherit;
   background: inherit;

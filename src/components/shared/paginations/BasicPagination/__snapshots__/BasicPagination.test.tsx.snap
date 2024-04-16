@@ -18,16 +18,8 @@ exports[`BasicPagination should matches snapshot with falsy values: falsy values
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  gap: var(--chakra-space-2);
   padding: 50px;
-}
-
-.emotion-0>*:not(style)~*:not(style) {
-  margin-top: 0px;
-  -webkit-margin-end: 0px;
-  margin-inline-end: 0px;
-  margin-bottom: 0px;
-  -webkit-margin-start: var(--chakra-space-2);
-  margin-inline-start: var(--chakra-space-2);
 }
 
 .emotion-1 {
@@ -69,6 +61,7 @@ exports[`BasicPagination should matches snapshot with falsy values: falsy values
   -webkit-padding-end: var(--chakra-space-4);
   padding-inline-end: var(--chakra-space-4);
   background: var(--chakra-colors-gray-100);
+  color: var(--chakra-colors-gray-800);
 }
 
 .emotion-1:focus-visible,
@@ -156,16 +149,8 @@ exports[`BasicPagination should matches snapshot with truthy values: truthy valu
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  gap: var(--chakra-space-2);
   padding: 50px;
-}
-
-.emotion-0>*:not(style)~*:not(style) {
-  margin-top: 0px;
-  -webkit-margin-end: 0px;
-  margin-inline-end: 0px;
-  margin-bottom: 0px;
-  -webkit-margin-start: var(--chakra-space-2);
-  margin-inline-start: var(--chakra-space-2);
 }
 
 .emotion-1 {
@@ -207,6 +192,7 @@ exports[`BasicPagination should matches snapshot with truthy values: truthy valu
   -webkit-padding-end: var(--chakra-space-4);
   padding-inline-end: var(--chakra-space-4);
   background: var(--chakra-colors-gray-100);
+  color: var(--chakra-colors-gray-800);
 }
 
 .emotion-1:focus-visible,

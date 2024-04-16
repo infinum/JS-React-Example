@@ -11,5 +11,5 @@ export const getFlightsQuery = (user: User | undefined, page: string | undefined
 					include: ['company'],
 					custom: [...(page ? [{ key: 'page[number]', value: page }] : [])],
 				},
-		  } as const satisfies IGetManyExpression<typeof Flight>)
+			} as const satisfies IGetManyExpression<typeof Flight>)
 		: null;

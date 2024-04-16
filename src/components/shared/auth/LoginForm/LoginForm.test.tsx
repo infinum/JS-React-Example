@@ -8,7 +8,7 @@ import { FC } from 'react';
 import { render, screen } from 'test-utils';
 import { LoginForm } from './LoginForm';
 import { FormProvider, useForm } from 'react-hook-form';
-import { rest } from 'msw';
+import { HttpResponse, http } from 'msw';
 import { sessionFactory } from '__mocks__/factories';
 import { TEST_INVALID_EMAIL, TEST_INVALID_PASSWORD } from '__mocks__/constants';
 
@@ -61,20 +61,11 @@ describe('LoginForm', () => {
 
 	it('should not display error when value is valid', async () => {
 		server.use(
-			rest.post(MOCKED_URLS.Session, async (req, res, ctx) => {
-				const body = await req.json<{ data?: { attributes?: { email?: string } } }>();
+			http.post(MOCKED_URLS.Session, async ({ request }) => {
+				const body = (await request.json()) as { data?: { attributes?: { email?: string } } };
 				const emailOverride = body.data?.attributes?.email || undefined;
 
-				return res(
-					ctx.status(200),
-					ctx.json(
-						sessionFactory({
-							overrides: {
-								email: emailOverride,
-							},
-						})
-					)
-				);
+				return HttpResponse.json(sessionFactory({ overrides: { email: emailOverride } }), { status: 200 });
 			})
 		);
 
