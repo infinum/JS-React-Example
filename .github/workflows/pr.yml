@@ -6,7 +6,7 @@ on:
 jobs:
   test-analyze:
     name: 'Run'
-    uses: infinum/js-pipeline/.github/workflows/pipeline.yml@master
+    uses: infinum/js-pipeline/.github/workflows/pipeline.yml@main
     with:
       ci_steps: 'lint test analyze'
       workflow: '.github/workflows/pr.yml'
