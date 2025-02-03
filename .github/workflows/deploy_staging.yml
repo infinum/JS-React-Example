@@ -21,7 +21,3 @@ jobs:
       deploy_port: 229
     secrets:
       SSH_PRIVATE_KEY: ${{ secrets.STAGING_KEY }}
-      VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
-      VAULT_AUTH_METHOD: ${{ secrets.VAULT_AUTH_METHOD }}
-      VAULT_AUTH_ROLE_ID: ${{ secrets.VAULT_AUTH_ROLE_ID }}
-      VAULT_AUTH_SECRET_ID: ${{ secrets.VAULT_AUTH_SECRET_ID }}

@@ -11,3 +11,4 @@ jobs:
       ci_steps: 'lint test'
       workflow: '.github/workflows/pr.yml'
       environment: 'staging'
+      package_manager: 'pnpm'

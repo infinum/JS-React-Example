@@ -1,0 +1,13 @@
+**/node_modules/
+**/build/
+**/dist/
+**/.next/
+**/tsconfig.tsbuildinfo
+
+**/Dockerfile*
+**/.dockerignore
+
+**/*.log
+**/.env*
+
+**/coverage-summary
