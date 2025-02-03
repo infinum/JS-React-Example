@@ -1,6 +1,6 @@
 import { IncomingMessage } from 'http';
 import { createProxyMiddleware } from 'http-proxy-middleware';
-import noop from 'lodash/noop';
+import { noop } from 'lodash-es';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 let apiUrl: string;

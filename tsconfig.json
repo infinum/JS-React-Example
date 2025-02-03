@@ -16,7 +16,7 @@
 		"jsx": "preserve",
 		"baseUrl": ".",
 		"paths": {
-			"@/*": ["src/*"],
+			"@/*": ["./src/*"],
 			"test-utils": ["scripts/test-utils.tsx"]
 		},
 		"incremental": true

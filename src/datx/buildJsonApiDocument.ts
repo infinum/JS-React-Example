@@ -1,6 +1,6 @@
 import { JsonapiDocument, JsonapiResource } from '@/interfaces/Jsonapi';
 import { IJsonapiModel, modelToJsonApi } from '@datx/jsonapi';
-import uniqWith from 'lodash/uniqWith';
+import { uniqWith } from 'lodash-es';
 
 /**
  * This function is used to build a JSON:API document from a model or a collection of models.

@@ -24,10 +24,10 @@
 
 ```bash
 # Install dependencies
-npm ci
+pnpm i
 
 # Start the dev server
-npm run dev
+pnpm dev
 ```
 
 Use one of the user credentials to log in to the application
@@ -120,13 +120,13 @@ If you need to start a new project from this template, you have these options:
 1. Stripped down version of the App from `project-starter-template` branch
 
 ```bash
-npx create-next-app@latest PROJECT_NAME -e https://github.com/infinum/JS-React-Example/tree/project-starter-template --use-npm
+pnpx create-next-app@latest PROJECT_NAME -e https://github.com/infinum/JS-React-Example/tree/project-starter-template --use-pnpm
 ```
 
 2. Full-blown example App from the `master` branch
 
 ```bash
-npx create-next-app@latest PROJECT_NAME -e https://github.com/infinum/JS-React-Example --use-npm
+pnpx create-next-app@latest PROJECT_NAME -e https://github.com/infinum/JS-React-Example --use-pnpm
 ```
 
 > Note: replace PROJECT_NAME with the name of your project
@@ -140,7 +140,6 @@ git push -u origin main
 ```
 
 > Note: Replace REPOSITORY_NAME with the name of your repository. These commands will add the remote repository, rename the branch to main, and push your changes to the remote repository.
-
 
 # Credits
 

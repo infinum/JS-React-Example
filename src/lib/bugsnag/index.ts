@@ -5,6 +5,7 @@ import { BugsnagPluginAwsLambdaResult } from '@bugsnag/plugin-aws-lambda';
 import BugsnagPluginReact from '@bugsnag/plugin-react';
 import { PHASE_PRODUCTION_BUILD } from 'next/constants';
 import React, { Fragment } from 'react';
+import type { Plugin } from '@bugsnag/js';
 
 export function start() {
 	// next.js executes top-level code at build time. See https://github.com/vercel/next.js/discussions/16840 for further example
@@ -30,18 +31,18 @@ export function start() {
 				...commonConfig,
 				appType: 'server',
 				plugins: [
-					bugsnagPluginReact,
+					bugsnagPluginReact as Plugin,
 					// @bugsnag/plugin-aws-lambda must only be imported on the server
 					require('@bugsnag/plugin-aws-lambda'),
 				],
-			} satisfies NodeConfig);
+			} satisfies BrowserConfig & NodeConfig);
 		} else {
 			// If preferred two separate Bugsnag projects e.g. a javascript and a node project could be used rather than a single one
 			Bugsnag.start({
 				...commonConfig,
 				appType: 'client',
-				plugins: [bugsnagPluginReact],
-			} satisfies BrowserConfig);
+				plugins: [bugsnagPluginReact as Plugin],
+			} satisfies BrowserConfig & NodeConfig);
 		}
 	}
 }

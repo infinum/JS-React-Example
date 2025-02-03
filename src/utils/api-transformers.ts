@@ -1,10 +1,4 @@
-import camelCase from 'lodash/camelCase';
-import isArray from 'lodash/isArray';
-import isObject from 'lodash/isObject';
-import map from 'lodash/map';
-import mapKeys from 'lodash/mapKeys';
-import mapValues from 'lodash/mapValues';
-import snakeCase from 'lodash/snakeCase';
+import { camelCase, isArray, isObject, map, mapKeys, mapValues, snakeCase } from 'lodash-es';
 
 /**
  * Deep iteration trough an object and transformation
