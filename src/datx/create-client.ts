@@ -19,7 +19,7 @@ export function createClient() {
 
 	if (process.env.NODE_ENV === 'test') {
 		// @ts-expect-error MSW cannot intercept requests when using Node 18 Fetch API
-		config.fetchReference = nodeFetch;
+		config.fetchReference = nodeFetch as typeof fetch;
 		config.baseUrl = process.env.API_TEST_ENDPOINT as string;
 	}
 

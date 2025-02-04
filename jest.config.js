@@ -23,6 +23,7 @@ const customJestConfig = {
 		// Handle module aliases (this will be automatically configured for you soon)
 		'^@/(.*)$': '<rootDir>/src/$1',
 		'^test-utils$': '<rootDir>/scripts/test-utils',
+		'lodash-es': 'lodash',
 	},
 	// if using TypeScript with a baseUrl set to the root directory then you need the below for alias' to work
 	moduleDirectories: ['node_modules', '<rootDir>/'],

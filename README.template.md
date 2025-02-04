@@ -26,12 +26,12 @@
 
 ### Prerequisites / Dependencies
 
-You will need to have NodeJS and NPM installed to run this application. Use the [handbook guide](https://infinum.com/handbook/frontend/node/managing-node-npm-versions) to set up the correct NodeJS version.
+You will need to have NodeJS and pNPM installed to run this application. Use the Infinum handbooks to set up the [package manager](https://infinum.com/handbook/frontend/node/package-managers-guidelines) and [NodeJS version](https://infinum.com/handbook/frontend/node/managing-node-npm-versions).
 
 ### Installation
 
 1. clone this repository: `git clone [TODO:GIT_LINK]`
-2. install all the dependencies: `npm ci`
+2. install all the dependencies: `pnpm i`
 
 ### Post-install
 
@@ -51,8 +51,8 @@ To build the app you can use some of the following commands:
 npm run build
 
 # TODO: development and production builds if applicable
-# npm run build:dev
-# npm run build:prod
+# pnpm build:dev
+# pnpm build:prod
 
 ```
 
@@ -63,9 +63,9 @@ npm run build
 To start the unit tests you can use one of the following commands:
 
 ```
-npm run test
-npm run test:watch
-npm run test:coverage
+pnpm test
+pnpm test:watch
+pnpm test:coverage
 
 ```
 
@@ -106,10 +106,10 @@ You can specify environment variables as per the guide in the [Nuts & Bolts](htt
 
 ### List of environment variables
 
-| Variable         | Requirement | Description                                                |
-| ---------------- | ----------- | ---------------------------------------------------------- |
-| API_HOST         | required    | API endpoint URL                                           |
-| ENV              | required    | Available options: development, production                 |
+| Variable | Requirement | Description                                |
+| -------- | ----------- | ------------------------------------------ |
+| API_HOST | required    | API endpoint URL                           |
+| ENV      | required    | Available options: development, production |
 
 ## Deployment
 

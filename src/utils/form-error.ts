@@ -1,5 +1,5 @@
 import { SingleResponse, CollectionResponse } from '@datx/swr';
-import camelCase from 'lodash/camelCase';
+import { camelCase } from 'lodash-es';
 
 export type ResponseError = SingleResponse['error'] | CollectionResponse['error'];
 
