@@ -79,9 +79,9 @@ jobs:
       environment: ${{ inputs.environment }}
       aws_region: ${{ needs.context.outputs.aws_region }}
       ecs_cluster: ${{ needs.context.outputs.aws_ecs_cluster }}
-      ecs_service: js-revisor
+      ecs_service: js-react-example
       task_def_path: .aws/ecs/task-definition-app-staging.json
-      container_name: js-revisor
+      container_name: js-react-example
     secrets: inherit
 
   deploy-image-manual:
@@ -94,7 +94,7 @@ jobs:
       environment: ${{ inputs.environment }}
       aws_region: ${{ needs.context.outputs.aws_region }}
       ecs_cluster: ${{ needs.context.outputs.aws_ecs_cluster }}
-      ecs_service: js-revisor
+      ecs_service: js-react-example
       task_def_path: .aws/ecs/task-definition-app-staging.json
-      container_name: js-revisor
+      container_name: js-react-example
     secrets: inherit
