@@ -45,7 +45,7 @@ jobs:
   build-push-image:
     if: ${{ github.event_name == 'push' }}
     name: Build deploy image and push to registry
-    uses: infinum/devops-pipelines/.github/workflows/docker-build-push.yml@v1.12.16
+    uses: infinum/devops-pipelines/.github/workflows/docker-build-push.yml@v2.1.2
     needs: context
     with:
       environment: ${{ inputs.environment }}
@@ -59,7 +59,7 @@ jobs:
   build-push-image-manual:
     if: ${{ github.event_name == 'workflow_dispatch' }}
     name: Run on workflow dispatch
-    uses: infinum/devops-pipelines/.github/workflows/docker-build-push.yml@v1.12.16
+    uses: infinum/devops-pipelines/.github/workflows/docker-build-push.yml@v2.1.2
     needs: context
     with:
       environment: ${{ inputs.environment }}
@@ -72,7 +72,7 @@ jobs:
   deploy-image:
     if: ${{ github.event_name == 'push' }}
     name: Deploy backend
-    uses: infinum/devops-pipelines/.github/workflows/deploy-ecs-task-definition.yml@v1.12.16
+    uses: infinum/devops-pipelines/.github/workflows/deploy-ecs-task-definition.yml@v2.1.2
     needs: [context, build-push-image]
     with:
       image_uri: ${{ needs.context.outputs.aws_ecr_uri }}:${{ github.sha }}
@@ -87,7 +87,7 @@ jobs:
   deploy-image-manual:
     if: ${{ github.event_name == 'workflow_dispatch' }}
     name: Deploy backend
-    uses: infinum/devops-pipelines/.github/workflows/deploy-ecs-task-definition.yml@v1.12.16
+    uses: infinum/devops-pipelines/.github/workflows/deploy-ecs-task-definition.yml@v2.1.2
     needs: [context, build-push-image-manual]
     with:
       image_uri: ${{ needs.context.outputs.aws_ecr_uri }}:${{ inputs.custom_tag }}
