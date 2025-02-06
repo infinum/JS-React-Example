@@ -69,70 +69,11 @@ jobs:
       aws_ecr_account_id: ${{ needs.context.outputs.aws_ecr_account_id }}
     secrets: inherit
 
-  run-migrations:
-    name: Run Prisma db migrations
-    runs-on: ubuntu-latest
-    needs: [context, build-push-image]
-    environment: ${{ inputs.environment }}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Set up Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: '20'
-      - name: Install dependencies
-        run: npm ci
-      - name: Open SSH tunnel
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ needs.context.outputs.aws_region }}
-        run: |
-          aws ssm start-session \
-            --target  i-0cb09814d228ec31d \
-            --document-name AWS-StartPortForwardingSessionToRemoteHost \
-            --parameters host="${{ secrets.JUMPHOST_HOST }}",portNumber="5432",localPortNumber="5432" &
-          sleep 10
-      - name: Run migrations
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: npx prisma migrate deploy
-
-  run-migrations-manual:
-    name: Run Prisma db migrations
-    runs-on: ubuntu-latest
-    needs: [context, build-push-image-manual]
-    environment: ${{ inputs.environment }}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Set up Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: '20'
-      - name: Install dependencies
-        run: npm ci
-      - name: Open SSH tunnel
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ needs.context.outputs.aws_region }}
-        run: |
-          aws ssm start-session \
-            --target ${{ vars.JUMPHOST_ID }} \
-            --document-name AWS-StartPortForwardingSessionToRemoteHost \
-            --parameters host="${{ secrets.JUMPHOST_HOST }}",portNumber="${{ vars.JUMPHOST_PORT }}",localPortNumber="${{ vars.SERVER_PORT }}" &
-      - name: Run migrations
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: npx prisma migrate deploy
-
   deploy-image:
     if: ${{ github.event_name == 'push' }}
     name: Deploy backend
     uses: infinum/devops-pipelines/.github/workflows/deploy-ecs-task-definition.yml@v1.12.16
-    needs: [context, build-push-image, run-migrations]
+    needs: [context, build-push-image]
     with:
       image_uri: ${{ needs.context.outputs.aws_ecr_uri }}:${{ github.sha }}
       environment: ${{ inputs.environment }}
@@ -147,7 +88,7 @@ jobs:
     if: ${{ github.event_name == 'workflow_dispatch' }}
     name: Deploy backend
     uses: infinum/devops-pipelines/.github/workflows/deploy-ecs-task-definition.yml@v1.12.16
-    needs: [context, build-push-image-manual, run-migrations-manual]
+    needs: [context, build-push-image-manual]
     with:
       image_uri: ${{ needs.context.outputs.aws_ecr_uri }}:${{ inputs.custom_tag }}
       environment: ${{ inputs.environment }}
@@ -156,24 +97,4 @@ jobs:
       ecs_service: js-revisor
       task_def_path: .aws/ecs/task-definition-app-staging.json
       container_name: js-revisor
-    secrets: inherit
-
-  notify-deployment-automatic:
-    name: Send Slack notification
-    uses: infinum/devops-pipelines/.github/workflows/slack-notification.yml@v1.12.16
-    needs:
-      [
-        context,
-        build-push-image,
-        build-push-image-manual,
-        run-migrations,
-        run-migrations-manual,
-        deploy-image,
-        deploy-image-manual,
-      ]
-    with:
-      channel: project-js-revisor-notifications
-      outcome: ${{ needs.build-push-image.result  == 'success' ||  needs.build-push-image-manual.result  == 'success'}}
-      color: ${{ needs.build-push-image.result  == 'success' ||  needs.build-push-image-manual.result  == 'success' }}
-      title: "[Staging] deploy js-revisor: ${{ needs.build-push-image.result  == 'success' ||  needs.build-push-image-manual.result  == 'success'}}"
     secrets: inherit
