@@ -11,74 +11,7 @@ on:
         type: string
         required: true
         default: 'staging'
-      aws_region:
-        description: AWS region
-        required: false
-        type: string
-      aws_ecr_region:
-        description: AWS region where ECR is set up
-        required: false
-        type: string
-      aws_ecr_account_id:
-        description: AWS ECR account id (if ECR is on a separate AWS account)
-        required: false
-        type: string
-      timeout_minutes:
-        required: false
-        type: number
-        default: 30
-      context:
-        required: false
-        type: string
-        default: "."
-      file:
-        required: false
-        type: string
-      target:
-        required: false
-        type: string
-        description: Target stage to build
-      platforms:
-        required: false
-        type: string
-        default: "linux/amd64"
-      provenance:
-        required: false
-        type: boolean
-        default: false
-      build_args:
-        required: false
-        type: string
-      ssm_param_store_prefix:
-        required: false
-        type: string
-      ssm_param_store_destination_path:
-        required: false
-        type: string
-      secret_files:
-        description: Docker build secrets
-        required: false
-        type: string
-      aws_role_to_assume:
-        description: AWS IAM role to assume
-        required: false
-        type: string
-      task_def_path:
-        required: true
-        type: string
-        default: '.aws/ecs/task-definition-app-staging.json'
-      container_name:
-        required: true
-        type: string
-        description: Name of the container in task definition
-        default: 'js-react-example'
-      ecs_service:
-        required: true
-        type: string
-        default: 'js-react-example'
-      ecs_cluster:
-        required: true
-        type: string
+
   push:
     branches:
       - main
@@ -90,7 +23,7 @@ jobs:
   build-push-image:
     name: Build deploy image and push to registry
     runs-on: ubuntu-latest
-    environment: ${{ vars.environment }}
+    environment: ${{ inputs.environment }}
     timeout-minutes: ${{ vars.timeout_minutes }}
     steps:
     - name: Check out code
@@ -147,7 +80,7 @@ jobs:
   deploy-to-ecs:
     name: 'Deploy to ECS'
     runs-on: ubuntu-latest
-    environment: ${{ vars.environment }}
+    environment: ${{ inputs.environment }}
     timeout-minutes: ${{ vars.timeout_minutes }}
     steps:
     - name: Check out code
