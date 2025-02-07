@@ -24,7 +24,7 @@ jobs:
     name: Build deploy image and push to registry
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
-    timeout-minutes: ${{ vars.timeout_minutes }}
+    timeout-minutes: ${{ vars.timeout_minutes || 30 }}
     steps:
     - name: Check out code
       uses: actions/checkout@v4
@@ -65,23 +65,23 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v6
       with:
-        context: ${{ vars.context }}
-        platforms: ${{ vars.platforms }}
-        provenance: ${{ vars.provenance }}
-        file: ${{ vars.file }}
-        target: ${{ vars.target }}
+        context: ${{ vars.context || '.' }}
+        platforms: ${{ vars.platforms || 'linux/amd64'  }}
+        provenance: ${{ vars.provenance || false }}
+        file: ${{ vars.file || '' }}
+        target: ${{ vars.target || ''}}
         push: true
-        build-args: ${{ vars.build_args }}
-        tags: ${{ vars.aws_ecr_uri }}:${{ vars.tags }}
+        build-args: ${{ vars.build_args || '' }}
+        tags: ${{ vars.aws_ecr_uri }}:${{ inputs.tags }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
-        secret-files: ${{ vars.secret_files }}
+        secret-files: ${{ vars.secret_files || '' }}
     
   deploy-to-ecs:
     name: 'Deploy to ECS'
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
-    timeout-minutes: ${{ vars.timeout_minutes }}
+    timeout-minutes: ${{ vars.timeout_minutes || 30 }}
     steps:
     - name: Check out code
       uses: actions/checkout@v4
@@ -97,14 +97,14 @@ jobs:
       id: gen-task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1.6.2
       with:
-        task-definition: ${{ vars.task_def_path }}
-        container-name: ${{ vars.container_name }}
-        image: ${{ vars.aws_ecr_uri }}:${{ vars.tags }}
+        task-definition: '.aws/ecs/task-definition-app-staging.json'
+        container-name: 'js-react-example'
+        image: ${{ vars.aws_ecr_uri }}:${{ inputs.tags }}
     
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v2
       with:
         task-definition: ${{ steps.gen-task-def.outputs.task-definition }}
-        service: ${{ vars.ecs_service }}
+        service: 'js-react-example'
         cluster: ${{ vars.ecs_cluster }}
         wait-for-service-stability: true
