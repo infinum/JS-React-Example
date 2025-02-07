@@ -82,6 +82,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     timeout-minutes: ${{ vars.timeout_minutes || 30 }}
+    needs: build-push-image
     steps:
     - name: Check out code
       uses: actions/checkout@v4
