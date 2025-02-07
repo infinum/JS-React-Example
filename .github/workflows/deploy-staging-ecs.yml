@@ -43,13 +43,6 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID || '' }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY || '' }}
     
-    - name: Pull secrets from AWS SSM parameter store
-      if: ${{ vars.ssm_param_store_prefix }}
-      uses: infinum/action-pull-from-parameter-store@v1.0.0
-      with:
-        prefix: ${{ vars.ssm_param_store_prefix }}
-        destination_path: ${{ vars.ssm_param_store_destination_path }}
-    
     - name: Configure custom region for AWS ECR
       if: ${{ vars.aws_ecr_region != vars.aws_region  }}
       uses: aws-actions/configure-aws-credentials@v4
