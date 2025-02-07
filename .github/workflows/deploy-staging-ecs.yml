@@ -1,20 +1,84 @@
-name: Deploy-staging
+name: Deploy-staging-ecs
 
 on:
   workflow_dispatch:
     inputs:
-      custom_tag:
+      tags:
         description: 'Set custom tag for image'
         required: true
         type: string
       environment:
-        type: choice
-        description: 'The environment to deploy to'
-        options:
-          - staging
-          - production
+        type: string
         required: true
         default: 'staging'
+      aws_region:
+        description: AWS region
+        required: false
+        type: string
+      aws_ecr_region:
+        description: AWS region where ECR is set up
+        required: false
+        type: string
+      aws_ecr_account_id:
+        description: AWS ECR account id (if ECR is on a separate AWS account)
+        required: false
+        type: string
+      timeout_minutes:
+        required: false
+        type: number
+        default: 30
+      context:
+        required: false
+        type: string
+        default: "."
+      file:
+        required: false
+        type: string
+      target:
+        required: false
+        type: string
+        description: Target stage to build
+      platforms:
+        required: false
+        type: string
+        default: "linux/amd64"
+      provenance:
+        required: false
+        type: boolean
+        default: false
+      build_args:
+        required: false
+        type: string
+      ssm_param_store_prefix:
+        required: false
+        type: string
+      ssm_param_store_destination_path:
+        required: false
+        type: string
+      secret_files:
+        description: Docker build secrets
+        required: false
+        type: string
+      aws_role_to_assume:
+        description: AWS IAM role to assume
+        required: false
+        type: string
+      task_def_path:
+        required: true
+        type: string
+        default: '.aws/ecs/task-definition-app-staging.json'
+      container_name:
+        required: true
+        type: string
+        description: Name of the container in task definition
+        default: 'js-react-example'
+      ecs_service:
+        required: true
+        type: string
+        default: 'js-react-example'
+      ecs_cluster:
+        required: true
+        type: string
   push:
     branches:
       - main
@@ -23,78 +87,91 @@ on:
       - '**.md'
 
 jobs:
-  context:
-    name: Setup context
-    runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
-    outputs:
-      aws_region: ${{ steps.get.outputs.aws_region }}
-      aws_ecr_uri: ${{ steps.get.outputs.aws_ecr_uri }}
-      aws_ecr_region: ${{ steps.get.outputs.aws_ecr_region }}
-      aws_ecr_account_id: ${{ steps.get.outputs.aws_ecr_account_id }}
-      aws_ecs_cluster: ${{ steps.get.outputs.aws_ecs_cluster }}
-    steps:
-      - id: get
-        run: |
-          echo "aws_region=${{ vars.AWS_REGION }}" >> "$GITHUB_OUTPUT"
-          echo "aws_ecr_uri=${{ vars.AWS_ECR_URI }}" >> "$GITHUB_OUTPUT"
-          echo "aws_ecr_region=${{ vars.AWS_ECR_REGION }}" >> "$GITHUB_OUTPUT"
-          echo "aws_ecr_account_id=${{ vars.AWS_ECR_ACCOUNT_ID }}" >> "$GITHUB_OUTPUT"
-          echo "aws_ecs_cluster=${{ vars.AWS_ECS_CLUSTER }}" >> "$GITHUB_OUTPUT"
-
   build-push-image:
-    if: ${{ github.event_name == 'push' }}
     name: Build deploy image and push to registry
-    uses: infinum/devops-pipelines/.github/workflows/docker-build-push.yml@v2.1.2
-    needs: context
-    with:
-      environment: ${{ inputs.environment }}
-      cloud: AWS
-      tags: ${{ needs.context.outputs.aws_ecr_uri }}:${{ github.sha }}
-      aws_ecr_region: ${{ needs.context.outputs.aws_ecr_region }}
-      aws_ecr_account_id: ${{ needs.context.outputs.aws_ecr_account_id }}
-      target: deploy
-    secrets: inherit
+    runs-on: ubuntu-latest
+    environment: ${{ vars.environment }}
+    timeout-minutes: ${{ vars.timeout_minutes }}
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v4
+    
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      with:
+        driver: docker-container
+    
+    - name: Configure AWS credentials (with OIDC or access keys)
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: ${{ vars.aws_role_to_assume || '' }}
+        aws-region: ${{ vars.aws_region }}
+        role-session-name: "github-actions-session"
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID || '' }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY || '' }}
+    
+    - name: Pull secrets from AWS SSM parameter store
+      if: ${{ vars.ssm_param_store_prefix }}
+      uses: infinum/action-pull-from-parameter-store@v1.0.0
+      with:
+        prefix: ${{ vars.ssm_param_store_prefix }}
+        destination_path: ${{ vars.ssm_param_store_destination_path }}
+    
+    - name: Configure custom region for AWS ECR
+      if: ${{ vars.aws_ecr_region != vars.aws_region  }}
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-region: ${{ vars.aws_ecr_region }}
+    
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
+      with:
+        registries: ${{ vars.aws_ecr_account_id }}
+    
+    - name: Build and push
+      uses: docker/build-push-action@v6
+      with:
+        context: ${{ vars.context }}
+        platforms: ${{ vars.platforms }}
+        provenance: ${{ vars.provenance }}
+        file: ${{ vars.file }}
+        target: ${{ vars.target }}
+        push: true
+        build-args: ${{ vars.build_args }}
+        tags: ${{ vars.aws_ecr_uri }}:${{ vars.tags }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        secret-files: ${{ vars.secret_files }}
+    
+  deploy-to-ecs:
+    name: 'Deploy to ECS'
+    runs-on: ubuntu-latest
+    environment: ${{ vars.environment }}
+    timeout-minutes: ${{ vars.timeout_minutes }}
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v4
 
-  build-push-image-manual:
-    if: ${{ github.event_name == 'workflow_dispatch' }}
-    name: Run on workflow dispatch
-    uses: infinum/devops-pipelines/.github/workflows/docker-build-push.yml@v2.1.2
-    needs: context
-    with:
-      environment: ${{ inputs.environment }}
-      cloud: AWS
-      tags: ${{ needs.context.outputs.aws_ecr_uri }}:${{ inputs.custom_tag }}
-      aws_ecr_region: ${{ needs.context.outputs.aws_ecr_region }}
-      aws_ecr_account_id: ${{ needs.context.outputs.aws_ecr_account_id }}
-    secrets: inherit
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ vars.aws_region }}
 
-  deploy-image:
-    if: ${{ github.event_name == 'push' }}
-    name: Deploy backend
-    uses: infinum/devops-pipelines/.github/workflows/deploy-ecs-task-definition.yml@v2.1.2
-    needs: [context, build-push-image]
-    with:
-      image_uri: ${{ needs.context.outputs.aws_ecr_uri }}:${{ github.sha }}
-      environment: ${{ inputs.environment }}
-      aws_region: ${{ needs.context.outputs.aws_region }}
-      ecs_cluster: ${{ needs.context.outputs.aws_ecs_cluster }}
-      ecs_service: js-react-example
-      task_def_path: .aws/ecs/task-definition-app-staging.json
-      container_name: js-react-example
-    secrets: inherit
-
-  deploy-image-manual:
-    if: ${{ github.event_name == 'workflow_dispatch' }}
-    name: Deploy backend
-    uses: infinum/devops-pipelines/.github/workflows/deploy-ecs-task-definition.yml@v2.1.2
-    needs: [context, build-push-image-manual]
-    with:
-      image_uri: ${{ needs.context.outputs.aws_ecr_uri }}:${{ inputs.custom_tag }}
-      environment: ${{ inputs.environment }}
-      aws_region: ${{ needs.context.outputs.aws_region }}
-      ecs_cluster: ${{ needs.context.outputs.aws_ecs_cluster }}
-      ecs_service: js-react-example
-      task_def_path: .aws/ecs/task-definition-app-staging.json
-      container_name: js-react-example
-    secrets: inherit
+    - name: Fill in the new image ID in the Amazon ECS task definition
+      id: gen-task-def
+      uses: aws-actions/amazon-ecs-render-task-definition@v1.6.2
+      with:
+        task-definition: ${{ vars.task_def_path }}
+        container-name: ${{ vars.container_name }}
+        image: ${{ vars.aws_ecr_uri }}:${{ vars.tags }}
+    
+    - name: Deploy Amazon ECS task definition
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+      with:
+        task-definition: ${{ steps.gen-task-def.outputs.task-definition }}
+        service: ${{ vars.ecs_service }}
+        cluster: ${{ vars.ecs_cluster }}
+        wait-for-service-stability: true
