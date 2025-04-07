@@ -1,0 +1,8 @@
+{
+	"compilerOptions": {
+		"jsx": "preserve",
+		"esModuleInterop": true
+	},
+	"include": ["src"],
+	"exclude": ["node_modules", "lib/**/*.stories.tsx", "lib/**/*.test.tsx"]
+}

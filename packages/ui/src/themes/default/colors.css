@@ -1,0 +1,6 @@
+@theme {
+	--color-background: var(--color-slate-200);
+	--color-foreground: var(--color-slate-900);
+	--color-border: var(--color-slate-300);
+	--color-ring: var(--color-slate-300);
+}

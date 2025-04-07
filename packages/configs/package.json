@@ -1,0 +1,20 @@
+{
+	"name": "@infinum/configs",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {},
+	"devDependencies": {
+		"@changesets/cli": "2.28.0",
+		"eslint": "9.20.1",
+		"eslint-plugin-prettier": "5.2.3",
+		"husky": "9.1.7",
+		"lint-staged": "15.4.3",
+		"prettier": "3.5.1",
+		"prettier-plugin-tailwindcss": "0.6.11",
+		"stylelint": "16.14.1",
+		"stylelint-config-recess-order": "6.0.0",
+		"stylelint-prettier": "5.0.3",
+		"turbo": "2.4.2",
+		"typescript": "5.7.3"
+	}
+}

@@ -1,8 +1,42 @@
 {
-	"name": "js-react-example",
-	"version": "0.1.0",
+	"name": "@infinum/js-react-example",
+	"version": "0.0.0",
 	"private": true,
-	"scripts": {},
-	"dependencies": {},
-	"devDependencies": {}
+	"packageManager": "pnpm@10.4.1",
+	"engines": {
+		"node": "22.14.0"
+	},
+	"scripts": {
+		"build": "turbo run build",
+		"dev": "turbo run dev --parallel",
+		"docker:prod": "docker compose -f ./docker/docker-compose.yml",
+		"prepare": "husky",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix",
+		"prettier:check": "prettier --check .",
+		"prettier:fix": "prettier --write .",
+		"test": "turbo run test"
+	},
+	"devDependencies": {
+		"@changesets/cli": "2.28.0",
+		"@eslint/compat": "1.2.6",
+		"@eslint/js": "9.20.0",
+		"@next/eslint-plugin-next": "15.1.7",
+		"eslint": "9.20.1",
+		"eslint-config-prettier": "10.0.1",
+		"eslint-plugin-jest": "28.11.0",
+		"eslint-plugin-prettier": "5.2.3",
+		"eslint-plugin-react": "7.37.4",
+		"eslint-plugin-react-hooks": "5.1.0",
+		"globals": "15.15.0",
+		"husky": "9.1.7",
+		"lint-staged": "15.4.3",
+		"prettier": "3.5.1",
+		"prettier-plugin-tailwindcss": "0.6.11",
+		"remark": "15.0.1",
+		"remark-cli": "12.0.1",
+		"turbo": "2.4.2",
+		"typescript": "5.7.3",
+		"typescript-eslint": "8.24.1"
+	}
 }

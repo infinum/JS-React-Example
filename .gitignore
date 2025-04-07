@@ -1,0 +1,30 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# Dependencies
+node_modules
+pnpm-debug.log*
+
+# Production
+build
+dist
+.next
+out
+storybook-static
+
+# Typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# Misc
+.DS_Store
+*.pem
+
+# Testing
+/coverage
+
+# Cache
+.turbo
+
+# Environment variables
+.env*
+!.env.local

@@ -1,0 +1,17 @@
+{
+	"name": "@infinum/web-modules",
+	"version": "0.1.0",
+	"private": true,
+	"sideEffects": false,
+	"scripts": {
+		"test": "echo \"Warning: no test specified\" && exit 0"
+	},
+	"exports": {
+		"./*": "./src/*"
+	},
+	"files": [
+		"src"
+	],
+	"devDependencies": {},
+	"dependencies": {}
+}

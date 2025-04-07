@@ -1,0 +1,15 @@
+name: infinum-react-example
+
+services:
+  web:
+    container_name: infinum-react-example-web
+    image: infinum-react-example-web
+    restart: unless-stopped
+    build:
+      context: ..
+      dockerfile: ./apps/web/Dockerfile
+      target: production
+    ports:
+      - '3000:3000'
+    env_file:
+      - ../apps/web/.env.example
