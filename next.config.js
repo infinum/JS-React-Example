@@ -1,9 +1,7 @@
-const { i18n } = require('./next-i18next.config');
 const { BugsnagSourceMapUploaderPlugin, BugsnagBuildReporterPlugin } = require('webpack-bugsnag-plugins');
 
 /** @type {import('next').NextConfig} */
 module.exports = {
-	i18n,
 	productionBrowserSourceMaps: true,
 	reactStrictMode: true,
 	output: 'standalone',

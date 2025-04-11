@@ -1,7 +1,6 @@
+import { TodoLists } from '@/app/(todolist)/_components/TodoLists/TodoLists';
+import { Layout } from '@/app/_components/Layout/Layout';
 import { NextPage } from 'next';
-
-import { Layout } from '@/components/shared/layouts/Layout/Layout';
-import { TodoLists } from '@/components/features/todo-lists/TodoLists';
 
 const Home: NextPage = () => {
 	return (

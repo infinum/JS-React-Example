@@ -1,3 +1,5 @@
+'use client';
+
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { NextPage, NextPageContext } from 'next';
 import NextErrorComponent, { ErrorProps } from 'next/error';
@@ -24,7 +26,7 @@ const CustomErrorPage: NextPage<ICustomErrorPageProps> = ({ statusCode, hasGetIn
 		<div>
 			<h1>Error occurred!</h1>
 			<p>{statusCode}</p>
-			<Image alt="presentation" src="/images/infinum-contruction.png" />
+			<Image width={100} height={100} alt="presentation" src="/images/infinum-contruction.png" />
 		</div>
 	);
 };

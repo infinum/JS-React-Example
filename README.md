@@ -4,14 +4,9 @@
 
 - [Next.js](https://nextjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
-- [SWR](https://swr.vercel.app/)
-- [Chakra UI](https://chakra-ui.com/)
 - [React Hook Form](https://react-hook-form.com/)
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) and [Jest](https://jestjs.io/) for unit and integration tests
 - [Storybook](https://storybook.js.org/)
-- [I18Next](https://www.i18next.com/)
-- [Plop](https://plopjs.com/)
-- [Plop Next.js Generators](https://github.com/infinum/react-nuts-and-bolts/tree/main/packages/plop-next-ts-generators)
 
 ## Next.js plugins
 
@@ -22,7 +17,7 @@
 
 ```bash
 # Install dependencies
-npm ci
+pnpm i
 
 # create .env file from .env.example
 cp .env.example .env
@@ -32,16 +27,12 @@ cp .env.example .env
 
 ```bash
 # Start the dev server
-npm run dev
+pnpm dev
 ```
-
-## Styleguide
-
-This project is using the styleguide as defined in the [Infinum Handbook](https://infinum.com/handbook/frontend/react/chakra-ui).
 
 ## Project Structure
 
-- [Infinum Handbook - Project Structure](https://infinum.com/handbook/frontend/react/project-structure)
+- [Infinum Handbook - Project Structure](https://infinum.com/handbook/frontend/react/project-structure#app-router)
 
 # Credits
 
