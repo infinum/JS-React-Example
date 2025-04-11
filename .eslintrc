@@ -1,17 +1,8 @@
 {
-	"extends": ["plugin:@next/next/recommended", "@infinumjs/eslint-config-react-js"],
+	"extends": ["plugin:@next/next/recommended"],
 	"plugins": [],
-	"overrides": [
-		{
-			"extends": ["@infinumjs/eslint-config-nextjs-ts"],
-			"files": ["*.ts", "*.tsx"],
-			"parserOptions": {
-				"project": ["./tsconfig.json"]
-			}
-		}
-	],
 	"rules": {
 		"newline-before-return": "error",
-		"padding-line-between-statements": ["error", { "blankLine": "always", "prev": "*", "next": "if" }]
-	}
+		"padding-line-between-statements": ["error", { "blankLine": "always", "prev": "*", "next": "if" }],
+	},
 }

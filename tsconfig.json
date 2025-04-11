@@ -1,26 +1,48 @@
 {
-	"compilerOptions": {
-		"experimentalDecorators": true,
-		"target": "es5",
-		"lib": ["dom", "dom.iterable", "esnext"],
-		"allowJs": true,
-		"skipLibCheck": true,
-		"strict": true,
-		"forceConsistentCasingInFileNames": true,
-		"noEmit": true,
-		"esModuleInterop": true,
-		"module": "esnext",
-		"moduleResolution": "node",
-		"resolveJsonModule": true,
-		"isolatedModules": true,
-		"jsx": "preserve",
-		"baseUrl": ".",
-		"paths": {
-			"@/*": ["src/*"],
-			"test-utils": ["scripts/test-utils.tsx"]
-		},
-		"incremental": true
-	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/lib/bugsnag.tjs", "__tests__/.gitkeep"],
-	"exclude": ["node_modules"]
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "test-utils": [
+        "scripts/test-utils.tsx"
+      ]
+    },
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "__tests__/.gitkeep",
+    "next-env.d.ts",
+    "src/lib/bugsnag.tjs",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
