@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { NextPage, NextPageContext } from 'next';
 import NextErrorComponent, { ErrorProps } from 'next/error';
-import { Container, Heading, Image, Center } from '@chakra-ui/react';
 import Bugsnag, { Request } from '@bugsnag/js';
+import Image from 'next/image';
 
 interface ICustomErrorPageProps extends ErrorProps {
 	err?: Error;
@@ -21,15 +21,11 @@ const CustomErrorPage: NextPage<ICustomErrorPageProps> = ({ statusCode, hasGetIn
 	}
 
 	return (
-		<Container h="100%">
-			<Center flexDir="column" h="100%">
-				<Heading my={8} size="4xl">
-					{statusCode}
-				</Heading>
-				<Heading size="xl">Error occurred!</Heading>
-				<Image w="100%" alt="presentation" src="/images/infinum-contruction.png" />
-			</Center>
-		</Container>
+		<div>
+			<h1>Error occurred!</h1>
+			<p>{statusCode}</p>
+			<Image alt="presentation" src="/images/infinum-contruction.png" />
+		</div>
 	);
 };
 

@@ -37,6 +37,7 @@ export const fetcher = async <TData>(input: RequestInfo, init?: RequestInit) => 
 
 	if (data) {
 		const totalCount = res.headers.get('x-total-count');
+
 		data['totalCount'] = totalCount;
 	}
 

@@ -1,6 +1,6 @@
 {
 	"extends": ["plugin:@next/next/recommended", "@infinumjs/eslint-config-react-js"],
-	"plugins": ["chakra-ui"],
+	"plugins": [],
 	"overrides": [
 		{
 			"extends": ["@infinumjs/eslint-config-nextjs-ts"],
@@ -11,9 +11,6 @@
 		}
 	],
 	"rules": {
-		"chakra-ui/props-order": "error",
-		"chakra-ui/props-shorthand": "error",
-		"chakra-ui/require-specific-component": "error",
 		"newline-before-return": "error",
 		"padding-line-between-statements": ["error", { "blankLine": "always", "prev": "*", "next": "if" }]
 	}
