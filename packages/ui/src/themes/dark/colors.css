@@ -1,0 +1,6 @@
+@variant dark {
+	--color-background: var(--color-slate-900);
+	--color-foreground: var(--color-slate-100);
+	--color-border: var(--color-slate-700);
+	--color-ring: var(--color-slate-600);
+}

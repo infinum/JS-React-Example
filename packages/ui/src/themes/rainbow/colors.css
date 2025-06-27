@@ -1,0 +1,6 @@
+@variant rainbow {
+	--color-background: var(--color-rose-100);
+	--color-foreground: var(--color-fuchsia-900);
+	--color-border: var(--color-amber-400);
+	--color-ring: var(--color-sky-400);
+}

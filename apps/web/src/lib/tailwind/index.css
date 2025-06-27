@@ -1,6 +1,9 @@
 @import 'tailwindcss';
 
 @import '@infinum/ui/themes/base.css';
+
 @import '@infinum/ui/themes/default/index.css';
+@import '@infinum/ui/themes/dark/index.css';
+@import '@infinum/ui/themes/rainbow/index.css';
 
 @source '../../../node_modules/@infinum/ui/';
