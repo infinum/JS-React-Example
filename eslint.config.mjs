@@ -1,3 +1,5 @@
+// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
+import storybook from 'eslint-plugin-storybook';
 import pluginJs from '@eslint/js';
 import pluginJest from 'eslint-plugin-jest';
 import pluginPrettier from 'eslint-plugin-prettier/recommended';
@@ -61,5 +63,6 @@ export default tseslint.config(
 			'@next/next/no-html-link-for-pages': 'off',
 			'@next/next/no-duplicate-head': 'off',
 		},
-	}
+	},
+	storybook.configs['flat/recommended']
 );

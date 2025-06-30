@@ -1,6 +1,21 @@
 @variant dark {
-	--color-background: var(--color-slate-900);
-	--color-foreground: var(--color-slate-100);
-	--color-border: var(--color-slate-700);
-	--color-ring: var(--color-slate-600);
+	--color-background: var(--color-zinc-950);
+	--color-foreground: var(--color-zinc-50);
+	--color-card: var(--color-zinc-950);
+	--color-card-foreground: var(--color-zinc-50);
+	--color-popover: var(--color-zinc-950);
+	--color-popover-foreground: var(--color-zinc-50);
+	--color-primary: var(--color-zinc-50);
+	--color-primary-foreground: var(--color-zinc-900);
+	--color-secondary: var(--color-zinc-800);
+	--color-secondary-foreground: var(--color-zinc-50);
+	--color-muted: var(--color-zinc-800);
+	--color-muted-foreground: var(--color-zinc-400);
+	--color-accent: var(--color-zinc-800);
+	--color-accent-foreground: var(--color-zinc-50);
+	--color-destructive: var(--color-rose-700);
+	--color-destructive-foreground: var(--color-zinc-50);
+	--color-border: var(--color-zinc-800);
+	--color-input: var(--color-zinc-800);
+	--color-ring: var(--color-zinc-300);
 }

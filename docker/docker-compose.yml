@@ -12,4 +12,14 @@ services:
     ports:
       - '3000:3000'
     env_file:
-      - ../apps/web/.env.example
+      - ../apps/web/.env.local
+  storybook:
+    container_name: infinum-react-example-storybook
+    image: infinum-react-example-storybook
+    restart: unless-stopped
+    build:
+      context: ..
+      dockerfile: ./apps/storybook/Dockerfile
+      target: production
+    ports:
+      - '6006:80'
