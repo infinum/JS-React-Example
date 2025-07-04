@@ -10,6 +10,6 @@ module.exports = {
 	singleQuote: true,
 	semi: true,
 	trailingComma: 'es5',
-	plugins: ['prettier-plugin-tailwindcss'], // Enables Tailwind classes sorting
+	plugins: ['prettier-plugin-tailwindcss', 'prettier-plugin-sh'], // Enables Tailwind classes sorting and shell script formatting
 	tailwindFunctions: ['cva', 'cn'], // Enables sorting of Tailwind classes in "cva" and "cn" functions, IntelliSense is configured in ".vscode/settings.json"
 };

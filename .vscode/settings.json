@@ -27,6 +27,9 @@
 	"[markdown]": {
 		"editor.defaultFormatter": "unifiedjs.vscode-remark" // Set VSCode Remark extension as the formatter for Markdown files
 	},
+	"[shellscript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode" // Set Prettier as the formatter for shell scripts
+	},
 	/**
 	 * Infinum brand colors
 	 */

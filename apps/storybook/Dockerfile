@@ -30,4 +30,7 @@ FROM nginx:1.29.0-alpine-slim AS production
 
 COPY --from=builder /app/apps/storybook/storybook-static /usr/share/nginx/html
 
+COPY --from=builder /app/apps/storybook/docker-entrypoint.sh /docker-entrypoint.d/docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.d/docker-entrypoint.sh
+
 EXPOSE 80

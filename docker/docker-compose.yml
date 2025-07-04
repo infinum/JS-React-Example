@@ -11,8 +11,11 @@ services:
       target: production
     ports:
       - '3000:3000'
+    environment:
+      - HOSTNAME=0.0.0.0
     env_file:
-      - ../apps/web/.env.local
+      - ../apps/web/.env.compose
+      - ../apps/web/.env.compose.local
   storybook:
     container_name: infinum-react-example-storybook
     image: infinum-react-example-storybook

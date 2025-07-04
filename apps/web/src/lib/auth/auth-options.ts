@@ -1,5 +1,6 @@
 import { getServerSession as getNextAuthServerSession, NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { env } from 'next-runtime-env';
 
 const MOCK_USER = {
 	id: '1',
@@ -20,6 +21,7 @@ export const authOptions: NextAuthOptions = {
 	session: {
 		strategy: 'jwt',
 	},
+	secret: env('NEXTAUTH_SECRET'),
 	providers: [
 		CredentialsProvider({
 			name: 'Credentials',

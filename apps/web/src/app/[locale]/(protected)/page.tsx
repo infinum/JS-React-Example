@@ -14,7 +14,7 @@ const HomePage = async () => {
 		<div className="flex h-screen flex-col items-center justify-center space-y-4">
 			<div className="flex flex-col">
 				<Image src="/assets/images/logo.png" alt="Infinum logo" width={180} height={38} priority />
-				<ExampleComponent className="text-center" text={`Welcome to ${process.env.NEXT_PUBLIC_WEB_APP_NAME}`} />
+				<ExampleComponent className="text-center" text="Welcome to Infinum" />
 				<h1>{t('title')}</h1>
 				<Link href="/">{t('about')}</Link>
 				<LocaleSwitcher />
