@@ -9,7 +9,8 @@
 		"./eslint/nextjs": "./src/eslint-config/nextjs.mjs",
 		"./eslint/react": "./src/eslint-config/react.mjs",
 		"./eslint/storybook": "./src/eslint-config/storybook.mjs",
-		"./eslint/typescript": "./src/eslint-config/typescript.mjs"
+		"./eslint/typescript": "./src/eslint-config/typescript.mjs",
+		"./jest": "./src/jest-config/index.js"
 	},
 	"scripts": {
 		"check-licenses": "node ../../scripts/check-licenses-workspace.js",

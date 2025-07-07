@@ -1,7 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import { fn } from 'storybook/test';
 
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, CardAction } from './card';
+import {
+	Card,
+	CardHeader,
+	CardTitle,
+	CardDescription,
+	CardContent,
+	CardFooter,
+	CardAction,
+} from '@infinum/ui/components/card';
 
 const meta = {
 	title: 'UI/Card',

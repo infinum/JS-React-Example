@@ -5,6 +5,9 @@ import { translationNamespaces } from '@/lib/i18n/request';
 
 const nextConfig: NextConfig = {
 	output: 'standalone',
+	typescript: {
+		tsconfigPath: './tsconfig.build.json',
+	},
 };
 
 const withBundleAnalyzer = bundleAnalyzer({

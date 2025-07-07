@@ -36,9 +36,18 @@
 		"//#prettier:fix:root": {
 			"inputs": ["$TURBO_DEFAULT$", "!apps/**", "!packages/**"]
 		},
-		"test": {
-			"outputs": ["coverage/**"],
-			"inputs": ["**/*.test.{ts,tsx}"]
+		"test": {},
+		"test:watch": {
+			"cache": false,
+			"persistent": true
+		},
+		"test:coverage": {
+			"outputs": ["../../coverage/**"]
+		},
+		"test:coverage:watch": {
+			"outputs": ["../../coverage/**"],
+			"cache": false,
+			"persistent": true
 		},
 		"start": {
 			"dependsOn": ["^build"],

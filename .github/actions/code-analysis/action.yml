@@ -17,5 +17,9 @@ runs:
       shell: bash
 
     - name: 🧪 Test
-      run: pnpm test
+      run: pnpm test:coverage
+      shell: bash
+
+    - name: 📊 Aggregate coverage results
+      run: node scripts/aggregate-coverage-results.js
       shell: bash
