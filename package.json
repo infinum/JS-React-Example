@@ -19,7 +19,7 @@
 		"lint:fix": "eslint . --fix",
 		"lint:fix:root": "eslint . --fix --ignore-pattern '{apps,packages}/**'",
 		"postinstall": "pnpm run bootstrap",
-		"prettier:check": "turbo run prettier:check",
+		"prettier:check": "turbo run prettier:check prettier:check:root",
 		"prettier:check:root": "prettier --check . '!apps/**' '!packages/**'",
 		"prettier:fix": "turbo run prettier:fix",
 		"prettier:fix:root": "prettier --write . '!apps/**' '!packages/**'",

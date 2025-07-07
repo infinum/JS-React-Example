@@ -18,11 +18,22 @@
 			"dependsOn": ["^lint"],
 			"inputs": ["**/*.{js,ts,jsx,tsx,mjs,cjs}"]
 		},
+		"lint:fix": {
+			"dependsOn": ["^lint"],
+			"inputs": ["**/*.{js,ts,jsx,tsx,mjs,cjs}"]
+		},
 		"//#lint:root": {
 			"inputs": ["$TURBO_DEFAULT$", "!apps/**", "!packages/**"]
 		},
+		"//#lint:fix:root": {
+			"inputs": ["$TURBO_DEFAULT$", "!apps/**", "!packages/**"]
+		},
 		"prettier:check": {},
-		"//#prettier:check": {
+		"prettier:fix": {},
+		"//#prettier:check:root": {
+			"inputs": ["$TURBO_DEFAULT$", "!apps/**", "!packages/**"]
+		},
+		"//#prettier:fix:root": {
 			"inputs": ["$TURBO_DEFAULT$", "!apps/**", "!packages/**"]
 		},
 		"test": {
