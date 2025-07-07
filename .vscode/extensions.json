@@ -6,7 +6,6 @@
 		"dbaeumer.vscode-eslint",
 		"christian-kohler.path-intellisense",
 		"esbenp.prettier-vscode",
-		"stylelint.vscode-stylelint",
 		"jonnythemonke.tw-breakpoint",
 		"bradlc.vscode-tailwindcss",
 		"stivo.tailwind-fold",
