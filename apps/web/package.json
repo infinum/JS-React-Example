@@ -5,6 +5,7 @@
 	"scripts": {
 		"build": "next build",
 		"build:analyze": "ANALYZE=true pnpm build",
+		"check-licenses": "node ../../scripts/check-licenses-workspace.js",
 		"dev": "NODE_OPTIONS='--inspect' next dev",
 		"lint": "next lint",
 		"start": "next start"

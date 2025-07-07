@@ -1,0 +1,21 @@
+name: 👁️‍🗨️ Code Analysis
+description: 'Run code analysis'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: 🧐 Check with Prettier
+      run: pnpm prettier:check
+      shell: bash
+
+    - name: 🫣 Lint
+      run: pnpm lint
+      shell: bash
+
+    - name: 🗳️ Check licenses
+      run: pnpm check-licenses
+      shell: bash
+
+    - name: 🧪 Test
+      run: pnpm test
+      shell: bash

@@ -1,1 +1,10 @@
 .husky/_
+
+pnpm-lock.yaml
+
+*.md
+Dockerfile
+
+*.d.json.ts
+
+.pnpm-store

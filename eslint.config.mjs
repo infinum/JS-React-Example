@@ -12,9 +12,6 @@ import { fixupPluginRules } from '@eslint/compat';
 
 export default tseslint.config(
 	{
-		ignores: ['**/node_modules', '**/dist', '**/build', '**/coverage', '**/.next', '**/.turbo', '**/storybook-static'],
-	},
-	{
 		languageOptions: {
 			globals: { ...globals.browser, ...globals.node },
 			parserOptions: {
@@ -64,5 +61,17 @@ export default tseslint.config(
 			'@next/next/no-duplicate-head': 'off',
 		},
 	},
-	storybook.configs['flat/recommended']
+	storybook.configs['flat/recommended'],
+	{
+		ignores: [
+			'**/node_modules',
+			'**/dist',
+			'**/build',
+			'**/coverage',
+			'**/.next',
+			'**/.turbo',
+			'**/storybook-static',
+			'**/*.d.json.ts',
+		],
+	}
 );

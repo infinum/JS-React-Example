@@ -30,4 +30,5 @@ const config: StorybookConfig = {
 		defaultName: 'Docs',
 	},
 };
+
 export default config;

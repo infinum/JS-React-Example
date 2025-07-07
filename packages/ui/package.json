@@ -4,6 +4,7 @@
 	"private": true,
 	"sideEffects": false,
 	"scripts": {
+		"check-licenses": "node ../../scripts/check-licenses-workspace.js",
 		"test": "echo \"Warning: no test specified\" && exit 0"
 	},
 	"exports": {

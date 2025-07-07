@@ -24,6 +24,9 @@
 		"start": {
 			"dependsOn": ["^build"],
 			"inputs": ["$TURBO_DEFAULT$", ".env", ".env.local"]
+		},
+		"check-licenses": {
+			"cache": false
 		}
 	}
 }

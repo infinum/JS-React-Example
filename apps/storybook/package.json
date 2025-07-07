@@ -3,8 +3,9 @@
 	"version": "0.0.0",
 	"private": true,
 	"scripts": {
-		"dev": "storybook dev -p 6006",
-		"build": "storybook build"
+		"build": "storybook build",
+		"check-licenses": "node ../../scripts/check-licenses-workspace.js",
+		"dev": "storybook dev -p 6006"
 	},
 	"dependencies": {
 		"@infinum/ui": "workspace:*",

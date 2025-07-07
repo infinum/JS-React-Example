@@ -2,7 +2,9 @@
 	"name": "@infinum/configs",
 	"version": "0.1.0",
 	"private": true,
-	"scripts": {},
+	"scripts": {
+		"check-licenses": "node ../../scripts/check-licenses-workspace.js"
+	},
 	"devDependencies": {
 		"@changesets/cli": "2.28.0",
 		"eslint": "9.20.1",

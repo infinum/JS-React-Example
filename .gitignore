@@ -2,7 +2,6 @@
 
 # Dependencies
 node_modules
-pnpm-debug.log*
 
 # Production
 build
@@ -30,4 +29,6 @@ next-env.d.ts
 !.env.local
 !.env.compose
 
+# Logs
 *storybook.log
+pnpm-debug.log*
