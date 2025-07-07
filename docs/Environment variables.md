@@ -39,10 +39,10 @@ Each frontend application should have its own environment file referenced in `do
 
 ```yaml
 services:
-  web:
+  frontend:
     # ... other config
     env_file:
-      - ../apps/web/.env.compose
+      - ../apps/frontend/.env.compose
 
   # Future applications would follow the same pattern:
   # admin:
@@ -60,16 +60,16 @@ Each application maintains two separate environment files because service addres
 
 This separation ensures that services can properly communicate regardless of where they're running.
 
-## Next.js Runtime Environment (Example: Web App)
+## Next.js Runtime Environment (Example: Frontend App)
 
-The web application demonstrates the complete setup pattern:
+The frontend application demonstrates the complete setup pattern:
 
 ### PublicEnvScript Component
 
 The app uses `next-runtime-env` to allow dynamic environment variables for client components:
 
 ```tsx
-// apps/web/src/app/layout.tsx
+// apps/frontend/src/app/layout.tsx
 import { PublicEnvScript } from 'next-runtime-env';
 
 <head>
@@ -87,16 +87,16 @@ This component automatically exposes all environment variables prefixed with `NE
 
 ### Type-Safe Environment Access
 
-The web app overrides the `next-runtime-env` `env()` method in `apps/web/src/lib/env/env.d.ts` for better developer experience, providing full TypeScript support and autocomplete for environment variables.
+The frontend app overrides the `next-runtime-env` `env()` method in `apps/frontend/src/lib/env/env.d.ts` for better developer experience, providing full TypeScript support and autocomplete for environment variables.
 
 ## Environment Validation
 
 ### Envsafe Integration
 
-Applications use `envsafe` in their `instrumentation.ts` to validate environment variables at startup. The web app example:
+Applications use `envsafe` in their `instrumentation.ts` to validate environment variables at startup. The frontend app example:
 
 ```typescript
-// apps/web/src/instrumentation.ts
+// apps/frontend/src/instrumentation.ts
 import { validateEnvironmentVariables } from './lib/env/validate-env';
 
 export function register() {
@@ -113,10 +113,10 @@ Environment variable validation is configured in each app's `validate-env.ts` fi
 - Descriptions for better documentation
 - Default values where appropriate
 
-Example from the web app:
+Example from the frontend app:
 
 ```typescript
-// apps/web/src/lib/env/validate-env.ts
+// apps/frontend/src/lib/env/validate-env.ts
 export const validateEnvironmentVariables = () => {
 	const env = envsafe({
 		NODE_ENV: str({
@@ -271,7 +271,7 @@ The environment variable setup follows this structure for each application:
 
 ```
 apps/
-├── web/
+├── frontend/
 │   ├── .env.local
 │   ├── .env.compose
 │   └── src/

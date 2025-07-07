@@ -14,7 +14,7 @@ Each application in the monorepo maintains its own Dockerfile in its respective 
 
 ```
 apps/
-├── web/
+├── frontend/
 │   └── Dockerfile
 └── storybook/
     └── Dockerfile
@@ -61,7 +61,7 @@ Each Dockerfile uses Turbo's prune feature to optimize the build context:
 ```dockerfile
 FROM base AS turbo
 COPY . .
-RUN pnpm dlx turbo@2.4.2 prune @infinum/web --docker
+RUN pnpm dlx turbo@2.4.2 prune @infinum/frontend --docker
 ```
 
 This creates a minimal subset of the monorepo containing only the files needed for the specific application, significantly reducing build time and image size.
@@ -74,7 +74,7 @@ Each application maintains its environment variables within its own directory:
 
 ```
 apps/
-├── web/
+├── frontend/
 │   ├── .env.local
 │   └── .env.compose
 └── storybook/
@@ -95,9 +95,9 @@ The `docker-compose.yml` references each application's environment file:
 
 ```yaml
 services:
-  web:
+  frontend:
     env_file:
-      - ../apps/web/.env.compose
+      - ../apps/frontend/.env.compose
   storybook:
     # No env_file needed for storybook in this example
 ```
@@ -144,20 +144,20 @@ Each service in the compose file follows a consistent pattern:
 
 ```yaml
 services:
-  web:
-    container_name: infinum-react-example-web
-    image: infinum-react-example-web
+  frontend:
+    container_name: infinum-react-example-frontend
+    image: infinum-react-example-frontend
     restart: unless-stopped
     build:
       context: ..              # Build from repository root
-      dockerfile: ./apps/web/Dockerfile
+      dockerfile: ./apps/frontend/Dockerfile
       target: production       # Use production stage
     ports:
       - '3000:3000'
     environment:
       - HOSTNAME=0.0.0.0      # Next.js specific
     env_file:
-      - ../apps/web/.env.compose
+      - ../apps/frontend/.env.compose
 ```
 
 ## Docker Scripts and Usage
@@ -183,19 +183,19 @@ This script can be used in multiple ways:
 pnpm docker:prod up --build
 
 # Start specific service
-pnpm docker:prod up web --build
+pnpm docker:prod up frontend --build
 
 # Start in detached mode
 pnpm docker:prod up -d
 
 # View logs
-pnpm docker:prod logs -f web
+pnpm docker:prod logs -f frontend
 
 # Stop all services
 pnpm docker:prod down
 
 # Rebuild specific service
-pnpm docker:prod build web
+pnpm docker:prod build frontend
 ```
 
 ### Development vs Production
@@ -239,7 +239,7 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install
 
 ## Application-Specific Considerations
 
-### Next.js Applications (Web)
+### Next.js Applications (Frontend)
 
 - Uses `output: 'standalone'` for optimized Docker images
 - Requires `HOSTNAME=0.0.0.0` environment variable

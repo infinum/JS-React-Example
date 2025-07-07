@@ -60,65 +60,7 @@ importers:
         specifier: 5.7.3
         version: 5.7.3
 
-  apps/storybook:
-    dependencies:
-      '@infinum/ui':
-        specifier: workspace:*
-        version: link:../../packages/ui
-      react:
-        specifier: 19.0.0
-        version: 19.0.0
-      react-dom:
-        specifier: 19.0.0
-        version: 19.0.0(react@19.0.0)
-      tailwindcss:
-        specifier: 4.1.11
-        version: 4.1.11
-    devDependencies:
-      '@infinum/configs':
-        specifier: workspace:*
-        version: link:../../packages/configs
-      '@storybook/addon-a11y':
-        specifier: 9.0.14
-        version: 9.0.14(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.1))
-      '@storybook/addon-designs':
-        specifier: ^10.0.1
-        version: 10.0.1(@storybook/addon-docs@9.0.14(@types/react@19.0.10)(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.1)))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.1))
-      '@storybook/addon-docs':
-        specifier: 9.0.14
-        version: 9.0.14(@types/react@19.0.10)(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.1))
-      '@storybook/addon-themes':
-        specifier: 9.0.14
-        version: 9.0.14(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.1))
-      '@storybook/nextjs':
-        specifier: ^9.0.14
-        version: 9.0.14(esbuild@0.25.5)(next@15.1.7(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.1))(type-fest@4.39.1)(typescript@5.7.3)(webpack-hot-middleware@2.26.1)(webpack@5.99.9(esbuild@0.25.5))
-      '@tailwindcss/postcss':
-        specifier: 4.0.7
-        version: 4.0.7
-      '@types/react':
-        specifier: 19.0.10
-        version: 19.0.10
-      '@types/react-dom':
-        specifier: 19.0.4
-        version: 19.0.4(@types/react@19.0.10)
-      eslint-plugin-storybook:
-        specifier: ^9.0.14
-        version: 9.0.14(eslint@9.20.1(jiti@2.4.2))(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.1))(typescript@5.7.3)
-      prettier:
-        specifier: 3.5.1
-        version: 3.5.1
-      prettier-plugin-sh:
-        specifier: 0.18.0
-        version: 0.18.0(prettier@3.5.1)
-      prettier-plugin-tailwindcss:
-        specifier: 0.6.11
-        version: 0.6.11(prettier@3.5.1)
-      storybook:
-        specifier: ^9.0.14
-        version: 9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.1)
-
-  apps/web:
+  apps/frontend:
     dependencies:
       '@infinum/ui':
         specifier: workspace:*
@@ -187,6 +129,64 @@ importers:
       typescript:
         specifier: 5.7.3
         version: 5.7.3
+
+  apps/storybook:
+    dependencies:
+      '@infinum/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+      tailwindcss:
+        specifier: 4.1.11
+        version: 4.1.11
+    devDependencies:
+      '@infinum/configs':
+        specifier: workspace:*
+        version: link:../../packages/configs
+      '@storybook/addon-a11y':
+        specifier: 9.0.14
+        version: 9.0.14(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.1))
+      '@storybook/addon-designs':
+        specifier: ^10.0.1
+        version: 10.0.1(@storybook/addon-docs@9.0.14(@types/react@19.0.10)(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.1)))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.1))
+      '@storybook/addon-docs':
+        specifier: 9.0.14
+        version: 9.0.14(@types/react@19.0.10)(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.1))
+      '@storybook/addon-themes':
+        specifier: 9.0.14
+        version: 9.0.14(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.1))
+      '@storybook/nextjs':
+        specifier: ^9.0.14
+        version: 9.0.14(esbuild@0.25.5)(next@15.1.7(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.1))(type-fest@4.39.1)(typescript@5.7.3)(webpack-hot-middleware@2.26.1)(webpack@5.99.9(esbuild@0.25.5))
+      '@tailwindcss/postcss':
+        specifier: 4.0.7
+        version: 4.0.7
+      '@types/react':
+        specifier: 19.0.10
+        version: 19.0.10
+      '@types/react-dom':
+        specifier: 19.0.4
+        version: 19.0.4(@types/react@19.0.10)
+      eslint-plugin-storybook:
+        specifier: ^9.0.14
+        version: 9.0.14(eslint@9.20.1(jiti@2.4.2))(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.1))(typescript@5.7.3)
+      prettier:
+        specifier: 3.5.1
+        version: 3.5.1
+      prettier-plugin-sh:
+        specifier: 0.18.0
+        version: 0.18.0(prettier@3.5.1)
+      prettier-plugin-tailwindcss:
+        specifier: 0.6.11
+        version: 0.6.11(prettier@3.5.1)
+      storybook:
+        specifier: ^9.0.14
+        version: 9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.1)
 
   packages/configs:
     devDependencies:
@@ -323,21 +323,6 @@ importers:
       typescript:
         specifier: 5.7.3
         version: 5.7.3
-
-  packages/web-modules:
-    devDependencies:
-      '@infinum/configs':
-        specifier: workspace:*
-        version: link:../configs
-      prettier:
-        specifier: 3.5.1
-        version: 3.5.1
-      prettier-plugin-sh:
-        specifier: 0.18.0
-        version: 0.18.0(prettier@3.5.1)
-      prettier-plugin-tailwindcss:
-        specifier: 0.6.11
-        version: 0.6.11(prettier@3.5.1)
 
 packages:
 

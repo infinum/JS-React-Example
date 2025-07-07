@@ -7,7 +7,7 @@ RUN corepack enable
 # # # TURBO PRUNE
 FROM base AS turbo
 COPY . .
-RUN pnpm dlx turbo@2.4.2 prune @infinum/web --docker
+RUN pnpm dlx turbo@2.4.2 prune @infinum/frontend --docker
 
 # # # Dependencies
 FROM base AS dependencies
@@ -34,10 +34,10 @@ RUN pnpm build
 # # # Production
 FROM base AS production
 
-COPY --from=builder /app/apps/web/public ./apps/web/public
-COPY --from=builder /app/apps/web/.next/standalone ./
-COPY --from=builder /app/apps/web/.next/static ./apps/web/.next/static
+COPY --from=builder /app/apps/frontend/public ./apps/frontend/public
+COPY --from=builder /app/apps/frontend/.next/standalone ./
+COPY --from=builder /app/apps/frontend/.next/static ./apps/frontend/.next/static
 
 EXPOSE 3000
 
-CMD ["node", "apps/web/server.js"]
+CMD ["node", "apps/frontend/server.js"]

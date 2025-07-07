@@ -9,6 +9,7 @@
 	"scripts": {
 		"bootstrap": "bash ./scripts/bootstrap.sh",
 		"build": "turbo run build",
+		"clean": "pnpm turbo clean && rm -rf node_modules && rm -rf .turbo",
 		"check-licenses": "turbo run check-licenses && node scripts/aggregate-license-results.js",
 		"dev": "turbo run dev --parallel",
 		"docker:prod": "docker compose -f ./docker/docker-compose.yml",
