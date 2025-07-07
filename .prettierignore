@@ -1,5 +1,5 @@
 # Root level
-.husky/_
+.husky/
 pnpm-lock.yaml
 .pnpm-store
 

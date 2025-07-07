@@ -7,8 +7,10 @@
 		"build:analyze": "ANALYZE=true pnpm build",
 		"check-licenses": "node ../../scripts/check-licenses-workspace.js",
 		"dev": "NODE_OPTIONS='--inspect' next dev",
-		"lint": "eslint .",
+		"lint": "eslint . --cache",
+		"lint:fix": "eslint . --cache --fix",
 		"prettier:check": "prettier --check .",
+		"prettier:fix": "prettier --write .",
 		"start": "next start"
 	},
 	"dependencies": {

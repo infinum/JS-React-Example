@@ -5,7 +5,8 @@
 	"sideEffects": false,
 	"scripts": {
 		"check-licenses": "node ../../scripts/check-licenses-workspace.js",
-		"lint": "eslint .",
+		"lint": "eslint . --cache",
+		"lint:fix": "eslint . --cache --fix",
 		"prettier:check": "prettier --check .",
 		"prettier:fix": "prettier --write .",
 		"test": "echo \"Warning: no test specified\" && exit 0"

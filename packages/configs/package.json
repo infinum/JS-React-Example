@@ -13,8 +13,10 @@
 	},
 	"scripts": {
 		"check-licenses": "node ../../scripts/check-licenses-workspace.js",
-		"lint": "eslint .",
-		"prettier:check": "prettier --check ."
+		"lint": "eslint . --cache",
+		"lint:fix": "eslint . --cache --fix",
+		"prettier:check": "prettier --check .",
+		"prettier:fix": "prettier --write ."
 	},
 	"devDependencies": {
 		"@eslint/compat": "1.2.6",
