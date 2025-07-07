@@ -1,10 +1,13 @@
+# Root level
 .husky/_
-
 pnpm-lock.yaml
+.pnpm-store
 
+# Docs
 *.md
 Dockerfile
 
-*.d.json.ts
-
-.pnpm-store
+# Build outputs
+.next/
+dist/
+build/

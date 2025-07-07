@@ -5,6 +5,9 @@
 	"sideEffects": false,
 	"scripts": {
 		"check-licenses": "node ../../scripts/check-licenses-workspace.js",
+		"lint": "eslint .",
+		"prettier:check": "prettier --check .",
+		"prettier:fix": "prettier --write .",
 		"test": "echo \"Warning: no test specified\" && exit 0"
 	},
 	"exports": {
@@ -18,12 +21,17 @@
 		"src/themes/*"
 	],
 	"devDependencies": {
+		"@infinum/configs": "workspace:*",
 		"@storybook/nextjs": "^9.0.14",
 		"@types/node": "22.12.0",
 		"@types/react": "19.0.8",
 		"@types/react-dom": "19.0.3",
 		"autoprefixer": "10.4.20",
+		"eslint": "9.20.1",
 		"postcss": "8.5.1",
+		"prettier": "3.5.1",
+		"prettier-plugin-sh": "0.18.0",
+		"prettier-plugin-tailwindcss": "0.6.11",
 		"react": "19.0.0",
 		"react-dom": "19.0.0",
 		"shadcn": "2.4.0-canary.17",

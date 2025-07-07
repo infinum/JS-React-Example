@@ -15,15 +15,24 @@
 			"persistent": true
 		},
 		"lint": {
-			"dependsOn": ["^lint"]
+			"dependsOn": ["^lint"],
+			"inputs": ["**/*.{js,ts,jsx,tsx,mjs,cjs}"]
+		},
+		"//#lint:root": {
+			"inputs": ["$TURBO_DEFAULT$", "!apps/**", "!packages/**"]
+		},
+		"prettier:check": {},
+		"//#prettier:check": {
+			"inputs": ["$TURBO_DEFAULT$", "!apps/**", "!packages/**"]
 		},
 		"test": {
 			"outputs": ["coverage/**"],
-			"inputs": ["$TURBO_DEFAULT$", ".env", ".env.local"]
+			"inputs": ["**/*.test.{ts,tsx}"]
 		},
 		"start": {
 			"dependsOn": ["^build"],
-			"inputs": ["$TURBO_DEFAULT$", ".env", ".env.local"]
+			"cache": false,
+			"persistent": true
 		},
 		"check-licenses": {
 			"cache": false

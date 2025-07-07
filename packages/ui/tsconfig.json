@@ -1,7 +1,17 @@
 {
 	"compilerOptions": {
+		"target": "ES2017",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"allowJs": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"noEmit": true,
 		"jsx": "preserve",
 		"esModuleInterop": true,
+		"module": "esnext",
+		"moduleResolution": "bundler",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
 		"baseUrl": ".",
 		"paths": {
 			"@infinum/ui/*": ["./src/*"]

@@ -5,7 +5,9 @@
 	"scripts": {
 		"build": "storybook build",
 		"check-licenses": "node ../../scripts/check-licenses-workspace.js",
-		"dev": "storybook dev -p 6006"
+		"dev": "storybook dev -p 6006",
+		"lint": "eslint .",
+		"prettier:check": "prettier --check ."
 	},
 	"dependencies": {
 		"@infinum/ui": "workspace:*",
@@ -14,6 +16,7 @@
 		"tailwindcss": "4.1.11"
 	},
 	"devDependencies": {
+		"@infinum/configs": "workspace:*",
 		"@storybook/addon-a11y": "9.0.14",
 		"@storybook/addon-designs": "^10.0.1",
 		"@storybook/addon-docs": "9.0.14",
@@ -23,6 +26,9 @@
 		"@types/react": "19.0.10",
 		"@types/react-dom": "19.0.4",
 		"eslint-plugin-storybook": "^9.0.14",
+		"prettier": "3.5.1",
+		"prettier-plugin-sh": "0.18.0",
+		"prettier-plugin-tailwindcss": "0.6.11",
 		"storybook": "^9.0.14"
 	}
 }

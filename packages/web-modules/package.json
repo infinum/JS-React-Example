@@ -5,6 +5,8 @@
 	"sideEffects": false,
 	"scripts": {
 		"check-licenses": "node ../../scripts/check-licenses-workspace.js",
+		"lint": "eslint .",
+		"prettier:check": "prettier --check .",
 		"test": "echo \"Warning: no test specified\" && exit 0"
 	},
 	"exports": {
@@ -13,6 +15,11 @@
 	"files": [
 		"src"
 	],
-	"devDependencies": {},
+	"devDependencies": {
+		"@infinum/configs": "workspace:*",
+		"prettier": "3.5.1",
+		"prettier-plugin-sh": "0.18.0",
+		"prettier-plugin-tailwindcss": "0.6.11"
+	},
 	"dependencies": {}
 }

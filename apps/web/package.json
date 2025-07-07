@@ -7,7 +7,8 @@
 		"build:analyze": "ANALYZE=true pnpm build",
 		"check-licenses": "node ../../scripts/check-licenses-workspace.js",
 		"dev": "NODE_OPTIONS='--inspect' next dev",
-		"lint": "next lint",
+		"lint": "eslint .",
+		"prettier:check": "prettier --check .",
 		"start": "next start"
 	},
 	"dependencies": {
@@ -25,11 +26,15 @@
 		"tailwindcss": "4.0.7"
 	},
 	"devDependencies": {
+		"@infinum/configs": "workspace:*",
 		"@next/bundle-analyzer": "15.1.7",
 		"@next/env": "15.3.5",
 		"@types/node": "22.13.4",
 		"@types/react": "19.0.10",
 		"@types/react-dom": "19.0.4",
+		"prettier": "3.5.1",
+		"prettier-plugin-sh": "0.18.0",
+		"prettier-plugin-tailwindcss": "0.6.11",
 		"typescript": "5.7.3"
 	}
 }
