@@ -1,0 +1,11 @@
+{
+	"compilerOptions": {
+		"module": "ESNext",
+		"moduleResolution": "node",
+		"strict": true,
+		"target": "ESNext",
+		"noEmit": true
+	},
+	"include": ["**/*"],
+	"exclude": ["node_modules", "dist", "build", "coverage", "storybook-static"]
+}

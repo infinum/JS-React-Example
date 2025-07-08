@@ -1,0 +1,1 @@
+# Infinum Configs - Changelog

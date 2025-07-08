@@ -1,0 +1,12 @@
+{
+	"extends": "./tsconfig.build.json",
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["./src/*"],
+			"@infinum/ui/*": ["../../packages/ui/src/*"]
+		}
+	},
+	"include": ["**/*.ts", "**/*.tsx", "src/tests/**/*"],
+	"exclude": ["node_modules", ".next"]
+}

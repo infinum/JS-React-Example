@@ -1,0 +1,13 @@
+# Root level
+.husky/
+pnpm-lock.yaml
+.pnpm-store
+
+# Docs
+*.md
+Dockerfile
+
+# Build outputs
+.next/
+dist/
+build/

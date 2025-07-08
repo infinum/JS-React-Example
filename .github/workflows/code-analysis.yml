@@ -1,0 +1,25 @@
+name: 🩺 Code Analysis
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+jobs:
+  code-analysis:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 💻 Node setup
+        uses: ./.github/actions/node-setup
+
+      - name: 👁️‍🗨️ Code Analysis
+        uses: ./.github/actions/code-analysis
+
+      - name: 🏗️ Build packages
+        run: pnpm build
+        shell: bash

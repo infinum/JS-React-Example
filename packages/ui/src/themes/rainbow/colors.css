@@ -1,0 +1,21 @@
+@variant rainbow {
+	--color-background: var(--color-fuchsia-300);
+	--color-foreground: var(--color-lime-900);
+	--color-card: var(--color-orange-200);
+	--color-card-foreground: var(--color-blue-900);
+	--color-popover: var(--color-emerald-200);
+	--color-popover-foreground: var(--color-red-900);
+	--color-primary: var(--color-violet-600);
+	--color-primary-foreground: var(--color-yellow-50);
+	--color-secondary: var(--color-teal-400);
+	--color-secondary-foreground: var(--color-pink-900);
+	--color-muted: var(--color-rose-200);
+	--color-muted-foreground: var(--color-indigo-700);
+	--color-accent: var(--color-yellow-300);
+	--color-accent-foreground: var(--color-purple-900);
+	--color-destructive: var(--color-red-500);
+	--color-destructive-foreground: var(--color-green-50);
+	--color-border: var(--color-cyan-500);
+	--color-input: var(--color-amber-400);
+	--color-ring: var(--color-lime-500);
+}

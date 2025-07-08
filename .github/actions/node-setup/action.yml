@@ -1,0 +1,45 @@
+name: 💻 Node.js setup
+description: 'Setup Node.js environment and install dependencies'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: 🗃️ Enable corepack
+      run: corepack enable
+      shell: bash
+
+    - name: 🎰 Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: 'package.json'
+
+    - name: 🎈 Install pNPM
+      uses: pnpm/action-setup@v3
+      with:
+        run_install: false
+
+    - name: 📀 Get pnpm store directory
+      run: |
+        echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+      shell: bash
+
+    - name: 💾 Setup pnpm cache
+      uses: actions/cache@v4
+      with:
+        path: ${{ env.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
+
+    - name: 📥 Install dependencies
+      run: pnpm install --frozen-lockfile --prefer-offline --ignore-scripts
+      shell: bash
+
+    - name: 💾 Cache turbo build setup
+      uses: actions/cache@v4
+      with:
+        path: .turbo
+        key: ${{ runner.os }}-turbo-${{ github.head_ref || github.ref_name }}-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-turbo-${{ github.head_ref || github.ref_name }}-
+          ${{ runner.os }}-turbo-
