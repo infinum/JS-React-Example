@@ -1,0 +1,53 @@
+{
+	"name": "@infinum/js-react-example",
+	"version": "0.0.0",
+	"private": true,
+	"packageManager": "pnpm@10.12.4",
+	"engines": {
+		"node": "22.17.0"
+	},
+	"scripts": {
+		"bootstrap": "bash ./scripts/bootstrap.sh",
+		"build": "turbo run build --parallel --log-order=grouped",
+		"clean": "pnpm turbo clean && rm -rf node_modules .turbo coverage .eslintcache",
+		"check-licenses": "turbo run check-licenses check-licenses:root && node scripts/aggregate-license-results.js --parallel --log-order=grouped",
+		"check-licenses:root": "node scripts/check-licenses-workspace.js",
+		"dev": "turbo run dev --parallel --ui=tui --continue",
+		"docker:prod": "docker compose -f ./docker/docker-compose.yml",
+		"prepare": "husky",
+		"lint": "turbo run lint lint:root --parallel --log-order=grouped --continue",
+		"lint:root": "eslint . --cache --ignore-pattern '{apps,packages}/**'",
+		"lint:fix": "turbo run lint:fix lint:fix:root --parallel --log-order=grouped",
+		"lint:fix:root": "eslint . --fix --ignore-pattern '{apps,packages}/**'",
+		"postinstall": "pnpm run bootstrap",
+		"pre-commit": "lint-staged --allow-empty",
+		"pre-push": "pnpm lint && pnpm prettier:check && pnpm test:coverage",
+		"prettier:check": "turbo run prettier:check prettier:check:root --parallel --log-order=grouped --continue",
+		"prettier:check:root": "prettier --check . '!apps/**' '!packages/**'",
+		"prettier:fix": "turbo run prettier:fix --parallel --log-order=grouped",
+		"prettier:fix:root": "prettier --write . '!apps/**' '!packages/**'",
+		"test": "turbo run test --parallel --log-order=grouped --continue",
+		"test:watch": "turbo run test:watch --ui=tui --continue",
+		"test:coverage": "turbo run test:coverage --parallel --log-order=grouped --continue",
+		"test:coverage:watch": "turbo run test:coverage:watch --ui=tui --continue"
+	},
+	"devDependencies": {
+		"@actions/core": "1.11.1",
+		"@changesets/cli": "2.29.5",
+		"@eslint/compat": "1.3.1",
+		"@eslint/js": "9.31.0",
+		"@infinum/configs": "workspace:*",
+		"@next/eslint-plugin-next": "15.4.4",
+		"eslint": "9.31.0",
+		"husky": "9.1.7",
+		"license-checker-rseidelsohn": "4.4.2",
+		"lint-staged": "16.1.2",
+		"prettier": "3.6.2",
+		"prettier-plugin-sh": "0.18.0",
+		"prettier-plugin-tailwindcss": "0.6.14",
+		"remark": "15.0.1",
+		"remark-cli": "12.0.1",
+		"turbo": "2.5.5",
+		"typescript": "5.8.3"
+	}
+}

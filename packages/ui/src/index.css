@@ -1,0 +1,5 @@
+@import 'tailwindcss';
+
+@import '@infinum/ui/themes/base.css';
+
+@import '@infinum/ui/themes/default/index.css';

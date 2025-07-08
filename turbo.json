@@ -1,0 +1,100 @@
+{
+	"$schema": "https://turbo.build/schema.json",
+	"ui": "stream",
+	"tasks": {
+		"build": {
+			"dependsOn": ["^build"]
+		},
+		"@infinum/frontend#build": {
+			"dependsOn": ["^build"],
+			"inputs": [
+				"$TURBO_DEFAULT$",
+				".env*",
+				"../../packages/ui/src/**",
+				"!../../packages/ui/src/**/*.{stories,test}.{ts,tsx}"
+			],
+			"outputs": [".next/**", "!.next/cache/**"]
+		},
+		"@infinum/storybook#build": {
+			"dependsOn": ["^build"],
+			"inputs": ["$TURBO_DEFAULT$", "../../packages/ui/src/**", "!../../packages/ui/src/**/*.test.{ts,tsx}"],
+			"outputs": ["storybook-static/**"]
+		},
+		"clean": {
+			"cache": false
+		},
+		"dev": {
+			"cache": false,
+			"persistent": true
+		},
+		"lint": {
+			"dependsOn": ["^lint"],
+			"inputs": [
+				"**/*.{js,ts,jsx,tsx,mjs,cjs}",
+				"../../packages/configs/**",
+				"!../../packages/configs/src/jest-config/**"
+			]
+		},
+		"lint:fix": {
+			"dependsOn": ["^lint"],
+			"inputs": [
+				"**/*.{js,ts,jsx,tsx,mjs,cjs}",
+				"../../packages/configs/**",
+				"!../../packages/configs/src/jest-config/**"
+			]
+		},
+		"//#lint:root": {
+			"inputs": [
+				"$TURBO_DEFAULT$",
+				"!apps/**",
+				"!packages/**",
+				"./packages/configs/**",
+				"!./packages/configs/src/jest-config/**"
+			]
+		},
+		"//#lint:fix:root": {
+			"inputs": [
+				"$TURBO_DEFAULT$",
+				"!apps/**",
+				"!packages/**",
+				"./packages/configs/**",
+				"!./packages/configs/src/jest-config/**"
+			]
+		},
+		"prettier:check": {},
+		"prettier:fix": {},
+		"//#prettier:check:root": {
+			"inputs": ["$TURBO_DEFAULT$", "!apps/**", "!packages/**", "./packages/configs/**"]
+		},
+		"//#prettier:fix:root": {
+			"inputs": ["$TURBO_DEFAULT$", "!apps/**", "!packages/**", "./packages/configs/**"]
+		},
+		"test": {
+			"inputs": ["**/*.test.{js,ts,jsx,tsx,mjs,cjs}", "../../packages/configs/src/jest-config/**"]
+		},
+		"test:watch": {
+			"cache": false,
+			"persistent": true
+		},
+		"test:coverage": {
+			"inputs": ["**/*.test.{js,ts,jsx,tsx,mjs,cjs}", "../../packages/configs/src/jest-config/**"],
+			"outputs": ["../../coverage/**"]
+		},
+		"test:coverage:watch": {
+			"outputs": ["../../coverage/**"],
+			"cache": false,
+			"persistent": true
+		},
+		"start": {
+			"dependsOn": ["^build"],
+			"cache": false,
+			"persistent": true
+		},
+		"check-licenses": {
+			"cache": false
+		},
+		"//#check-licenses:root": {
+			"cache": false
+		}
+	}
+}

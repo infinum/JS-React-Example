@@ -1,0 +1,14 @@
+{
+	"recommendations": [
+		"ms-vscode-remote.remote-containers",
+		"ms-azuretools.vscode-docker",
+		"editorconfig.editorconfig",
+		"dbaeumer.vscode-eslint",
+		"christian-kohler.path-intellisense",
+		"esbenp.prettier-vscode",
+		"jonnythemonke.tw-breakpoint",
+		"bradlc.vscode-tailwindcss",
+		"stivo.tailwind-fold",
+		"unifiedjs.vscode-remark"
+	]
+}

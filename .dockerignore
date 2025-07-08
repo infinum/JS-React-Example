@@ -1,0 +1,52 @@
+# Ignore dependencies
+**/node_modules/
+
+# Ignore build outputs
+**/build/
+**/dist/
+**/.next/
+**/out/
+**/.turbo/
+**/.vercel/
+**/next-env.d.ts
+
+# Ignore TypeScript build info
+**/tsconfig.tsbuildinfo
+
+# Ignore Docker-related files
+**/Dockerfile*
+**/.dockerignore
+**/docker-compose*
+
+# Ignore logs & environment files
+**/*.log
+**/.env*
+**/.DS_Store
+
+# Ignore test coverage & reports
+**/coverage/
+**/coverage-summary
+**/jest.config.js
+**/.nyc_output/
+**/reports/
+
+# Ignore Git metadata
+**/.git/
+**/.gitignore
+**/.gitattributes
+
+# Ignore IDE/editor settings
+**/.vscode/
+**/.idea/
+
+# Ignore linting & formatting files
+**/.editorconfig
+**/.prettierignore
+**/.prettierrc.js
+**/.eslintcache
+**/.eslintrc*
+**/eslint.config*
+
+# Ignore CHANGELOG and README files
+**/CHANGELOG.md
+**/README.md

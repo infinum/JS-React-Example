@@ -1,0 +1,12 @@
+# Build outputs
+.next/
+.turbo/
+
+# Dependencies
+node_modules/
+
+# Next specific
+next-env.d.ts
+
+# Other
+Dockerfile

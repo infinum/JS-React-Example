@@ -1,0 +1,8 @@
+# Build outputs
+storybook-static/
+
+# Dependencies
+node_modules/
+
+# Other
+Dockerfile

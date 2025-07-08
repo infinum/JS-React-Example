@@ -1,0 +1,17 @@
+{
+	"common": {
+		"components": {
+			"LocaleSwitcher": {
+				"label": "Promijeni jezik",
+				"languageNames": {
+					"pl": "🇵🇱 Poljski",
+					"en": "🇺🇸 Engleski",
+					"de": "🇩🇪 Njemački",
+					"fr": "🇫🇷 Francuski",
+					"hr": "🇭🇷 Hrvatski",
+					"unknown": "Nepoznat"
+				}
+			}
+		}
+	}
+}
