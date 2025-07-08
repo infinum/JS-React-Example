@@ -1,0 +1,26 @@
+name: 💻 Node.js setup
+description: 'Setup Node.js environment and install dependencies'
+
+inputs:
+  install-dependencies:
+    description: 'Set to false to skip pnpm install (for tooling-only jobs)'
+    default: 'true'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: 🗃️ Enable corepack
+      run: corepack enable
+      shell: bash
+
+    - name: 🎰 Setup Node
+      uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+      with:
+        node-version-file: 'package.json'
+        cache: 'pnpm'
+        cache-dependency-path: 'pnpm-lock.yaml'
+
+    - name: 📥 Install dependencies
+      if: inputs.install-dependencies == 'true'
+      run: pnpm install --frozen-lockfile --prefer-offline --ignore-scripts
+      shell: bash
