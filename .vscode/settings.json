@@ -11,11 +11,7 @@
 	},
 	// Enables Tailwind CSS IntelliSense extension in "cva" and "cn" functions,
 	// sorting is configured in Prettier settings
-	"tailwindCSS.experimental.classRegex": [
-		["cva\\(((?:[^()]|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
-		["cn\\(((?:[^()]|\\([^()]*\\))*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
-	],
-
+	"tailwindCSS.classFunctions": ["cva", "cn"],
 	/**
 	 * VSCode formatting and static code analysis settings
 	 */
