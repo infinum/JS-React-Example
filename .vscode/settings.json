@@ -25,5 +25,5 @@
 	},
 	"[shellscript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode" // Set Prettier as the formatter for shell scripts
-	},
+	}
 }
