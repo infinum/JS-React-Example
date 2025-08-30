@@ -22,7 +22,7 @@
 		"@infinum/ui": "workspace:*",
 		"@tailwindcss/postcss": "4.1.11",
 		"envsafe": "2.0.3",
-		"next": "15.4.4",
+		"next": "15.4.7",
 		"next-auth": "4.24.11",
 		"next-intl": "4.3.4",
 		"next-runtime-env": "3.3.0",
