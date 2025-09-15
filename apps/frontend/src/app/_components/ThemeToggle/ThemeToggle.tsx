@@ -57,7 +57,7 @@ export const ThemeToggle = ({ children, ...props }: React.ButtonHTMLAttributes<H
 	return (
 		<Tooltip>
 			<TooltipTrigger asChild>
-				<Button onClick={handleSwitchTheme} variant="outline" size="icon" {...props}>
+				<Button onClick={handleSwitchTheme} variant="outline" size="icon" data-testid="theme-toggle" {...props}>
 					{icons[resolvedTheme]}
 				</Button>
 			</TooltipTrigger>
