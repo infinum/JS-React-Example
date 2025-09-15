@@ -126,8 +126,8 @@ describe('HomePage', () => {
 
 		const logo = screen.getByAltText('Infinum logo');
 		expect(logo).toHaveAttribute('src', '/assets/images/logo.png');
-		expect(logo).toHaveAttribute('width', '180');
-		expect(logo).toHaveAttribute('height', '38');
+		expect(logo).toHaveAttribute('width', '360');
+		expect(logo).toHaveAttribute('height', '76');
 		expect(logo).toHaveAttribute('data-priority', 'true');
 	});
 
