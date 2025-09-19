@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
+import path from 'path';
 
 /**
  * Read environment variables from file.
@@ -39,6 +40,7 @@ export default defineConfig({
 			use: { ...devices['Desktop Chrome'] },
 		},
 	],
+	globalTeardown: path.join(__dirname, 'tests/utils/summary.js'),
 
 	/* Run your local dev server before starting the tests */
 	// webServer: {
