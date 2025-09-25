@@ -19,7 +19,7 @@ const { execSync } = require('child_process');
 
 // List of allowed licenses, if you want to allow more licenses, you can add them to the list
 // If any of the installed dependencies has a license that is not in the list, the license check will fail
-const ALLOWED_LICENSES = ['MIT', 'ISC', 'BSD-2-Clause', 'BSD-3-Clause', 'Apache-2.0'];
+const ALLOWED_LICENSES = ['MIT', 'ISC', 'BSD-2-Clause', 'BSD-3-Clause', 'Apache-2.0', 'MPL-2.0'];
 
 // List of dependencies that you want to ignore during the license check
 // If you're excluding a dependency, make sure to add a comment explaining why it's excluded,
