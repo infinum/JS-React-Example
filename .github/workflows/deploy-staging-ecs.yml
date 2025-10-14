@@ -9,6 +9,7 @@ on:
         type: string
       environment:
         type: string
+        description: 'The environment to deploy to'
         required: true
         default: 'staging'
 
@@ -34,14 +35,13 @@ jobs:
       with:
         driver: docker-container
     
-    - name: Configure AWS credentials (with OIDC or access keys)
+    - name: Configure AWS credentials with OIDC
       uses: aws-actions/configure-aws-credentials@v4
       with:
-        role-to-assume: ${{ vars.aws_role_to_assume || '' }}
+        role-to-assume: ${{ vars.aws_role_to_assume }}
         aws-region: ${{ vars.aws_region }}
         role-session-name: "github-actions-session"
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID || '' }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY || '' }}
+
     
     - name: Configure custom region for AWS ECR
       if: ${{ vars.aws_ecr_region != vars.aws_region  }}
@@ -83,8 +83,8 @@ jobs:
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v4
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        role-to-assume: ${{ vars.aws_role_to_assume }}
+        role-session-name: "github-actions-session"
         aws-region: ${{ vars.aws_region }}
 
     - name: Fill in the new image ID in the Amazon ECS task definition
