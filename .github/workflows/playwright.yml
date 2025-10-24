@@ -34,6 +34,16 @@ jobs:
         run: pnpm --filter @infinum/frontend build
         shell: bash
 
+      - name: � Debug Build Output
+        run: |
+          echo "Checking build output structure:"
+          ls -la apps/frontend/.next/
+          echo "Checking for standalone directory:"
+          ls -la apps/frontend/.next/standalone/ || echo "No standalone directory found"
+          echo "Checking for server.js:"
+          find apps/frontend/.next -name "server.js" -type f || echo "No server.js found"
+        shell: bash
+
       - name: 🚀 Start Frontend App (Background)
         run: |
           node .next/standalone/apps/frontend/server.js &
