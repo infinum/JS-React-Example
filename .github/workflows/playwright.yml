@@ -67,9 +67,14 @@ jobs:
 
       - name: 🚀 Start Frontend App (Background)
         run: |
-          node .next/standalone/apps/frontend/server.js &
+          node apps/frontend/.next/standalone/apps/frontend/server.js &
           echo "FRONTEND_PID=$!" >> $GITHUB_ENV
         shell: bash
+        env:
+          NODE_ENV: production
+          NEXTAUTH_SECRET: 'test-secret-for-ci-only'
+          NEXT_PUBLIC_EXAMPLE_VARIABLE: 'CI Test Variable'
+          PRIVATE_EXAMPLE_VARIABLE: 'Private CI Test Variable'
 
       - name: ⏳ Wait for Frontend to be Ready
         run: |
