@@ -44,8 +44,18 @@ jobs:
 
       - name: 🚀 Start Frontend App (Background)
         run: |
+          echo "🔧 Environment variables:"
+          echo "NODE_ENV: $NODE_ENV"
+          echo "NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:0:10}..."
+          echo ""
+          echo "🚀 Starting server..."
           node apps/frontend/.next/standalone/apps/frontend/server.js &
-          echo "FRONTEND_PID=$!" >> $GITHUB_ENV
+          SERVER_PID=$!
+          echo "FRONTEND_PID=$SERVER_PID" >> $GITHUB_ENV
+          echo "✅ Server started with PID: $SERVER_PID"
+          sleep 2
+          echo "📊 Server process status:"
+          ps aux | grep $SERVER_PID || echo "❌ Server process not found"
         shell: bash
         env:
           NODE_ENV: production
@@ -55,19 +65,42 @@ jobs:
 
       - name: ⏳ Wait for Frontend to be Ready
         run: |
-          echo "Waiting for frontend to start on http://localhost:3000..."
-          timeout 20s bash -c 'until curl -f http://localhost:3000 > /dev/null 2>&1; do
-            echo "Waiting for frontend..."
+          echo "⏳ Waiting for frontend to start on http://localhost:3000..."
+          ATTEMPT=0
+          MAX_ATTEMPTS=20
+
+          until curl -f http://localhost:3000 > /dev/null 2>&1; do
+            ATTEMPT=$((ATTEMPT + 1))
+            echo "🔄 Attempt $ATTEMPT/$MAX_ATTEMPTS - waiting for frontend..."
+
+            if [ $ATTEMPT -eq $MAX_ATTEMPTS ]; then
+              echo "❌ Frontend failed to start after $MAX_ATTEMPTS attempts"
+              echo "📊 Current processes:"
+              ps aux | grep -E "(node|next)" | grep -v grep
+              echo "🔍 Checking port 3000:"
+              netstat -tulpn | grep 3000 || echo "No process on port 3000"
+              exit 1
+            fi
+
             sleep 3
-          done'
-          echo "Frontend is ready!"
+          done
+
+          echo "✅ Frontend is ready!"
         shell: bash
 
-      - name: 🔍 Health Check
+      - name: 🔍 Detailed Health Check
         run: |
-          echo "Running health check..."
-          curl -f http://localhost:3000 -I | head -5
-          echo "Health check passed!"
+          echo "🏥 Running detailed health check..."
+          echo "📡 HTTP response:"
+          curl -f http://localhost:3000 -I | head -10
+          echo ""
+          echo "📄 Basic page content:"
+          curl -s http://localhost:3000 | head -20
+          echo ""
+          echo "🔗 Testing login page:"
+          curl -s http://localhost:3000/login | head -10 || echo "❌ Login page not accessible"
+          echo ""
+          echo "✅ Health check completed!"
         shell: bash
 
       - name: 🧪 Run Playwright E2E Tests
