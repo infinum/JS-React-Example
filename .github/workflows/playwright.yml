@@ -36,7 +36,11 @@ jobs:
 
       - name: 🚀 Start Frontend App (Background)
         run: |
+          echo "📂 Current directory:" && pwd
+          echo "📁 Listing files recursively:" && tree -L 3 || ls -R
           cd apps/frontend
+          echo "📂 Now inside apps/frontend:" && pwd
+          echo "📁 Files here:" && ls -la
           node .next/standalone/server.js &
           echo "FRONTEND_PID=$!" >> $GITHUB_ENV
         shell: bash
