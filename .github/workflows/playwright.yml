@@ -34,14 +34,23 @@ jobs:
         run: pnpm --filter @infinum/frontend build
         shell: bash
 
-      - name: 🚀 Start Frontend App (Background)
+      - name: � Debug Build Output
         run: |
           echo "📂 Current directory:" && pwd
-          echo "📁 Listing files recursively:" && tree -L 3 || ls -R
           cd apps/frontend
-          echo "📂 Now inside apps/frontend:" && pwd
-          echo "📁 Files here:" && ls -la
-          node .next/standalone/server.js &
+          echo "📁 Checking .next directory structure:"
+          ls -la .next/ || echo "No .next directory found"
+          echo "� Looking for standalone directory:"
+          ls -la .next/standalone/ || echo "No standalone directory found"
+          echo "📁 Looking for any server files:"
+          find .next -name "*.js" -path "*/server*" || echo "No server files found"
+        shell: bash
+
+      - name: 🚀 Start Frontend App (Background)
+        run: |
+          cd apps/frontend
+          echo "🚀 Starting frontend with next start..."
+          pnpm start &
           echo "FRONTEND_PID=$!" >> $GITHUB_ENV
         shell: bash
 
