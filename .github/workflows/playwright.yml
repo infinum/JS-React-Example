@@ -15,6 +15,7 @@ jobs:
       NODE_ENV: test
       NEXTAUTH_SECRET: 'test-secret-for-ci-only'
       NEXT_PUBLIC_EXAMPLE_VARIABLE: 'CI Test Variable'
+      PRIVATE_EXAMPLE_VARIABLE: 'Private CI Test Variable'
       CI: true
 
     steps:
@@ -29,13 +30,14 @@ jobs:
         with:
           browsers: 'chromium'
 
-      - name: �️ Build Frontend App
+      - name: 🏗️ Build Frontend App
         run: pnpm --filter @infinum/frontend build
         shell: bash
 
       - name: 🚀 Start Frontend App (Background)
         run: |
-          pnpm --filter @infinum/frontend start &
+          cd apps/frontend
+          node .next/standalone/server.js &
           echo "FRONTEND_PID=$!" >> $GITHUB_ENV
         shell: bash
 
