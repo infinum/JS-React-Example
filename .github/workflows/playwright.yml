@@ -25,6 +25,15 @@ jobs:
       - name: 💻 Node setup
         uses: ./.github/actions/node-setup
 
+      - name: ♻️ Restore Turbo Cache
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: turbo-${{ github.ref }}-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ github.ref }}-
+            turbo-
+
       - name: 🎭 E2E Setup
         uses: ./.github/actions/e2e-setup
         with:
@@ -34,14 +43,26 @@ jobs:
         run: pnpm --filter @infinum/frontend build
         shell: bash
 
-      - name: � Debug Build Output
+      - name: 🔍 Debug Build Output
         run: |
-          echo "Checking build output structure:"
-          ls -la apps/frontend/.next/
-          echo "Checking for standalone directory:"
-          ls -la apps/frontend/.next/standalone/ || echo "No standalone directory found"
-          echo "Checking for server.js:"
-          find apps/frontend/.next -name "server.js" -type f || echo "No server.js found"
+          echo "📂 Current working directory:"
+          pwd
+          echo ""
+          echo "📁 Contents of apps/frontend:"
+          ls -la apps/frontend/ | head -10
+          echo ""
+          echo "🏗️ Contents of apps/frontend/.next:"
+          ls -la apps/frontend/.next/ || echo "❌ No .next directory found"
+          echo ""
+          echo "📦 Checking for standalone server:"
+          if [ -f "apps/frontend/.next/standalone/apps/frontend/server.js" ]; then
+            echo "✅ Found: apps/frontend/.next/standalone/apps/frontend/server.js"
+          else
+            echo "❌ NOT found: apps/frontend/.next/standalone/apps/frontend/server.js"
+          fi
+          echo ""
+          echo "🔎 Looking for any server.js files:"
+          find apps/frontend/.next -name "server.js" -type f 2>/dev/null || echo "❌ No server.js files found"
         shell: bash
 
       - name: 🚀 Start Frontend App (Background)
