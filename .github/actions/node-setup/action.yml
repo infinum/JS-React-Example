@@ -35,25 +35,11 @@ runs:
       run: pnpm install --frozen-lockfile --prefer-offline --ignore-scripts
       shell: bash
 
-    - name: 🏷️ Generate cache key
-      run: |
-        # Create a reliable branch name for caching
-        if [ "${{ github.event_name }}" = "pull_request" ]; then
-          BRANCH_NAME="${{ github.head_ref }}"
-        else
-          BRANCH_NAME="${{ github.ref_name }}"
-        fi
-        # Clean branch name for cache key (remove special characters)
-        CLEAN_BRANCH=$(echo "$BRANCH_NAME" | sed 's/[^a-zA-Z0-9-]/-/g')
-        echo "TURBO_CACHE_KEY=$CLEAN_BRANCH" >> $GITHUB_ENV
-        echo "Using cache key: $CLEAN_BRANCH"
-      shell: bash
-
     - name: 💾 Cache turbo build setup
       uses: actions/cache@v4
       with:
         path: .turbo
-        key: ${{ runner.os }}-turbo-${{ env.TURBO_CACHE_KEY }}-${{ github.sha }}
+        key: ${{ runner.os }}-turbo-${{ github.head_ref || github.ref_name }}-${{ github.sha }}
         restore-keys: |
-          ${{ runner.os }}-turbo-${{ env.TURBO_CACHE_KEY }}-
+          ${{ runner.os }}-turbo-${{ github.head_ref || github.ref_name }}-
           ${{ runner.os }}-turbo-

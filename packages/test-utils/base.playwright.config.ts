@@ -7,7 +7,7 @@ const baseConfig: PlaywrightTestConfig = {
 	forbidOnly: !!process.env.CI,
 	retries: process.env.CI ? 2 : 0,
 	workers: process.env.CI ? 1 : undefined,
-	reporter: 'dot',
+	reporter: process.env.CI ? [['github'], ['line']] : 'list',
 	use: {
 		trace: 'on-first-retry',
 		viewport: { width: 1280, height: 720 },

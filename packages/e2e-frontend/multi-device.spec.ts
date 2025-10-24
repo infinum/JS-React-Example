@@ -1,6 +1,5 @@
-import { test, expect, Browser } from '@playwright/test';
+import { Browser, expect, test } from '@playwright/test';
 import { LoginPage } from './pages/login';
-import { wait } from './utils';
 
 async function createContext(
 	browser: Browser,
@@ -13,9 +12,13 @@ async function createContext(
 
 	const login = new LoginPage(page);
 	await login.goto();
+	console.log('🔗 URL after login.goto():', page.url());
+
 	await login.login(email, password);
+	console.log('🔗 URL after login.login():', page.url());
 
 	await page.waitForURL('/en');
+	console.log("🔗 URL after waitForURL('/en'):", page.url());
 	await expect(page.locator('text=Logged in')).toBeVisible();
 	return { context, page };
 }

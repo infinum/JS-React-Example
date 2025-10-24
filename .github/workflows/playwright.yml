@@ -25,14 +25,13 @@ jobs:
       - name: 💻 Node setup
         uses: ./.github/actions/node-setup
 
-      - name: ♻️ Restore Turbo Cache
+      - name: 💾 Cache Playwright browsers
         uses: actions/cache@v4
         with:
-          path: .turbo
-          key: turbo-${{ github.ref }}-${{ github.sha }}
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            turbo-${{ github.ref }}-
-            turbo-
+            ${{ runner.os }}-playwright-
 
       - name: 🎭 E2E Setup
         uses: ./.github/actions/e2e-setup
@@ -41,28 +40,6 @@ jobs:
 
       - name: 🏗️ Build Frontend App
         run: pnpm --filter @infinum/frontend build
-        shell: bash
-
-      - name: 🔍 Debug Build Output
-        run: |
-          echo "📂 Current working directory:"
-          pwd
-          echo ""
-          echo "📁 Contents of apps/frontend:"
-          ls -la apps/frontend/ | head -10
-          echo ""
-          echo "🏗️ Contents of apps/frontend/.next:"
-          ls -la apps/frontend/.next/ || echo "❌ No .next directory found"
-          echo ""
-          echo "📦 Checking for standalone server:"
-          if [ -f "apps/frontend/.next/standalone/apps/frontend/server.js" ]; then
-            echo "✅ Found: apps/frontend/.next/standalone/apps/frontend/server.js"
-          else
-            echo "❌ NOT found: apps/frontend/.next/standalone/apps/frontend/server.js"
-          fi
-          echo ""
-          echo "🔎 Looking for any server.js files:"
-          find apps/frontend/.next -name "server.js" -type f 2>/dev/null || echo "❌ No server.js files found"
         shell: bash
 
       - name: 🚀 Start Frontend App (Background)
@@ -79,7 +56,7 @@ jobs:
       - name: ⏳ Wait for Frontend to be Ready
         run: |
           echo "Waiting for frontend to start on http://localhost:3000..."
-          timeout 60s bash -c 'until curl -f http://localhost:3000 > /dev/null 2>&1; do
+          timeout 20s bash -c 'until curl -f http://localhost:3000 > /dev/null 2>&1; do
             echo "Waiting for frontend..."
             sleep 3
           done'
@@ -94,34 +71,17 @@ jobs:
         shell: bash
 
       - name: 🧪 Run Playwright E2E Tests
-        run: pnpm e2e
-        shell: bash
-        env:
-          PLAYWRIGHT_JUNIT_OUTPUT_NAME: test-results.xml
+        run: |
+          echo "🎬 Starting Playwright E2E Tests..."
+          echo "================================================"
+          pnpm e2e
+          echo "================================================"
+          echo "✅ E2E Tests completed!"
 
       - name: 🛑 Stop Frontend App
+        shell: bash
         if: always()
         run: |
           if [ ! -z "$FRONTEND_PID" ]; then
             kill $FRONTEND_PID || true
           fi
-        shell: bash
-
-      - name: 📊 Upload Playwright Report
-        uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
-        with:
-          name: playwright-report-${{ github.run_id }}
-          path: |
-            packages/e2e-frontend/playwright-report/
-            packages/e2e-frontend/test-results/
-          retention-days: 30
-
-      - name: 📊 Upload Coverage Reports
-        uses: actions/upload-artifact@v4
-        if: success()
-        with:
-          name: e2e-coverage-${{ github.run_id }}
-          path: |
-            reports/a11y/
-          retention-days: 7
