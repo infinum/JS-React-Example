@@ -30,9 +30,9 @@
 		"test:watch": "turbo run test:watch --ui=tui --continue",
 		"test:coverage": "turbo run test:coverage --parallel --log-order=grouped --continue",
 		"test:coverage:watch": "turbo run test:coverage:watch --ui=tui --continue",
-		"e2e": "npx playwright test packages/e2e-frontend --config=packages/e2e-frontend/playwright.config.ts",
-		"e2e:headed": "npx playwright test packages/e2e-frontend --config=packages/e2e-frontend/playwright.config.ts --headed",
-		"e2e:ui": "npx playwright test packages/e2e-frontend --config=packages/e2e-frontend/playwright.config.ts --ui"
+		"e2e": "turbo run test --filter='e2e-*' --parallel --log-order=grouped",
+		"e2e:headed": "turbo run test:headed --filter='e2e-*' --parallel --log-order=grouped",
+		"e2e:ui": "turbo run test:ui --filter='e2e-*' --parallel --log-order=grouped"
 	},
 	"devDependencies": {
 		"@actions/core": "1.11.1",
