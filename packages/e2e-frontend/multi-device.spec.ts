@@ -7,23 +7,17 @@ async function createContext(
 	password: string,
 	viewport: { width: number; height: number }
 ) {
-	console.log(`🖥️ Creating context for ${email} with viewport ${viewport.width}x${viewport.height}`);
-
 	const context = await browser.newContext({ viewport });
 	const page = await context.newPage();
 
 	// Test basic connectivity
-	console.log('🌐 Testing basic connectivity...');
+
 	try {
 		await page.goto('/', { waitUntil: 'networkidle', timeout: 30000 });
-		console.log('🔗 Root page URL:', page.url());
 
 		// Check if page loaded successfully
 		const title = await page.title();
-		console.log('📄 Page title:', title);
-	} catch (error) {
-		console.log('❌ Failed to load root page:', error instanceof Error ? error.message : String(error));
-	}
+	} catch (error) {}
 
 	const login = new LoginPage(page);
 	await login.goto();
@@ -32,14 +26,11 @@ async function createContext(
 	await login.login(email, password);
 	console.log('🔗 URL after login.login():', page.url());
 
-	console.log('⏳ Waiting for URL to change to /en...');
 	try {
 		await page.waitForURL('/en', { timeout: 30000 });
-		console.log("✅ URL after waitForURL('/en'):", page.url());
+		console.log('🔗 Successfully navigated to /en');
 	} catch (error) {
-		console.log('❌ waitForURL failed:', error instanceof Error ? error.message : String(error));
-		console.log('🔗 Current URL:', page.url());
-
+		console.log('🔗 Failed to navigate to /en, current URL:', page.url());
 		// Take screenshot for debugging
 		await page.screenshot({ path: `debug-${email}-failed.png` });
 		throw error;

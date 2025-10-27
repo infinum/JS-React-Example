@@ -9,8 +9,6 @@ export const test = base.extend<{
 		await loginPage.goto();
 		await loginPage.login('user@example.com', 'password123');
 
-		console.log('🔗 URL after login.goto():', page.url());
-
 		await page.waitForURL('/en');
 
 		const homePage = {
@@ -26,8 +24,6 @@ export const test = base.extend<{
 test.describe('Home Page', () => {
 	test('should match home-page-content screenshot', async ({ page, browserName, homePage }) => {
 		await homePage.goto();
-
-		console.log('🔗 URL after login.goto():', page.url());
 
 		// run `playwright test --update-snapshots` to update the screenshot
 		const screenshotPath = `reports/screenshots/${browserName}-home-en.png`;
