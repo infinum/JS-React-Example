@@ -133,8 +133,8 @@ jobs:
 
       - name: 🧪 Run Playwright Tests for ${{ matrix.e2e_package }}
         run: |
-          echo "🎬 Running pnpm ${{ matrix.e2e_package }}..."
-          pnpm ${{ matrix.e2e_package }}
+          echo "🎬 Running Playwright tests for ${{ matrix.e2e_package }}..."
+          pnpm --filter ${{ matrix.e2e_package }} test:debug
         shell: bash
 
       - name: 🛑 Stop App

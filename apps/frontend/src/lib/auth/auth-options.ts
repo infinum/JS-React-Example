@@ -14,6 +14,10 @@ const findUserByEmail = (_email: string) => {
 	return MOCK_USER;
 };
 const verifyPassword = (_password: string, _hashedPassword: string) => {
+	if (_password === 'invalid') {
+		return false;
+	}
+
 	return true;
 };
 

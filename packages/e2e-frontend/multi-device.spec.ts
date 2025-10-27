@@ -21,16 +21,12 @@ async function createContext(
 
 	const login = new LoginPage(page);
 	await login.goto();
-	console.log('🔗 URL after login.goto():', page.url());
 
 	await login.login(email, password);
-	console.log('🔗 URL after login.login():', page.url());
 
 	try {
 		await page.waitForURL('/en', { timeout: 30000 });
-		console.log('🔗 Successfully navigated to /en');
 	} catch (error) {
-		console.log('🔗 Failed to navigate to /en, current URL:', page.url());
 		// Take screenshot for debugging
 		await page.screenshot({ path: `debug-${email}-failed.png` });
 		throw error;
