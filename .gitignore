@@ -33,3 +33,9 @@ next-env.d.ts
 # Logs
 *storybook.log
 pnpm-debug.log*
+
+# Playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/reports/

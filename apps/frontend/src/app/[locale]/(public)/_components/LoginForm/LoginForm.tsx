@@ -17,12 +17,6 @@ export const LoginForm = () => {
 		e.preventDefault();
 		setError('');
 
-		// for testing purposes
-		if (password === 'invalid') {
-			setError('Invalid password');
-			return;
-		}
-
 		const res = await signIn('credentials', {
 			redirect: false,
 			email,

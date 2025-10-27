@@ -1,0 +1,16 @@
+{
+	"name": "e2e-frontend",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"test": "playwright test",
+		"test:headed": "playwright test --headed",
+		"test:debug": "playwright test --debug",
+		"test:ui": "playwright test --ui",
+		"test:report": "playwright show-report",
+		"test:update-snapshots": "playwright test --update-snapshots"
+	},
+	"devDependencies": {
+		"@playwright/test": "^1.55.0"
+	}
+}

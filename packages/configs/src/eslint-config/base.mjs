@@ -22,6 +22,15 @@ export default [
 		...pluginJs.configs.recommended,
 	},
 	{
-		ignores: ['**/node_modules', '**/dist', '**/build', '**/.turbo', '**/storybook-static'],
+		ignores: [
+			'**/node_modules',
+			'**/dist',
+			'**/build',
+			'**/.turbo',
+			'**/storybook-static',
+			'**/.next',
+			'**/coverage',
+			'public/**',
+		],
 	},
 ];

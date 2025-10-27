@@ -1,0 +1,146 @@
+name: 🎭 Playwright E2E Tests
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+jobs:
+  detect-e2e-projects:
+    name: 🔍 Detect Changed Projects
+    runs-on: ubuntu-22.04
+    outputs:
+      e2e_packages: ${{ steps.detect.outputs.e2e_packages }}
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 💻 Node setup
+        uses: ./.github/actions/node-setup
+
+      - name: 🧩 Detect changed apps and related E2E packages
+        id: detect
+        run: |
+          echo "🔍 Detecting changed packages..."
+          CHANGED=$(pnpm turbo run build --filter=[HEAD^1]... --dry=json | jq -r '.packages[].name' | tr '\n' ' ')
+          echo "Changed packages: $CHANGED"
+
+          E2E_PACKAGES=""
+          for PKG in $CHANGED; do
+            NAME=$(echo "$PKG" | sed 's/@infinum\///')
+            E2E_NAME="e2e-$NAME"
+            if [ -d "packages/$E2E_NAME" ]; then
+              E2E_PACKAGES="$E2E_PACKAGES $E2E_NAME"
+            fi
+          done
+
+          if [ -z "$E2E_PACKAGES" ]; then
+            echo "⚠️ No changed E2E packages found. Defaulting to e2e-frontend."
+            E2E_PACKAGES="e2e-frontend"
+          fi
+
+          echo "✅ Detected E2E packages: $E2E_PACKAGES"
+
+          # Convert space-separated list into JSON array for matrix
+          JSON_ARRAY=$(jq -cn --arg list "$E2E_PACKAGES" '{e2e_packages: ($list | split(" ") | map(select(length > 0)))}')
+          echo "$JSON_ARRAY"
+          echo "e2e_packages=$(echo $JSON_ARRAY | jq -r '.e2e_packages | @json')" >> $GITHUB_OUTPUT
+
+  e2e-tests:
+    name: 🧪 Run E2E Tests (${{ matrix.e2e_package }})
+    needs: detect-e2e-projects
+    runs-on: ubuntu-22.04
+    timeout-minutes: 60
+
+    strategy:
+      fail-fast: false
+      matrix:
+        e2e_package: ${{ fromJSON(needs.detect-e2e-projects.outputs.e2e_packages) }}
+
+    env:
+      NODE_ENV: test
+      NEXTAUTH_SECRET: 'test-secret-for-ci-only'
+      NEXTAUTH_URL: 'http://localhost:3000'
+      NEXT_PUBLIC_EXAMPLE_VARIABLE: 'CI Test Variable'
+      PRIVATE_EXAMPLE_VARIABLE: 'Private CI Test Variable'
+      CI: true
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 💻 Node setup
+        uses: ./.github/actions/node-setup
+
+      - name: 💾 Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-
+
+      - name: 🎭 E2E Setup
+        uses: ./.github/actions/e2e-setup
+        with:
+          browsers: 'chromium'
+
+      # Build only the related app (derived from e2e-{project})
+      - name: 🏗️ Build Related App
+        run: |
+          APP_NAME=$(echo "${{ matrix.e2e_package }}" | sed 's/^e2e-//')
+          echo "🏗️ Building @infinum/$APP_NAME..."
+          pnpm --filter @infinum/$APP_NAME build
+        shell: bash
+
+      - name: 🚀 Start Related App (Background)
+        run: |
+          APP_NAME=$(echo "${{ matrix.e2e_package }}" | sed 's/^e2e-//')
+          echo "🚀 Starting $APP_NAME..."
+          node apps/$APP_NAME/.next/standalone/apps/$APP_NAME/server.js &
+          SERVER_PID=$!
+          echo "FRONTEND_PID=$SERVER_PID" >> $GITHUB_ENV
+          echo "✅ $APP_NAME started with PID: $SERVER_PID"
+          sleep 2
+          ps aux | grep $SERVER_PID || echo "❌ Server process not found"
+        shell: bash
+        env:
+          NODE_ENV: production
+          NEXTAUTH_SECRET: 'test-secret-for-ci-only'
+          NEXTAUTH_URL: 'http://localhost:3000'
+          NEXT_PUBLIC_EXAMPLE_VARIABLE: 'CI Test Variable'
+          PRIVATE_EXAMPLE_VARIABLE: 'Private CI Test Variable'
+
+      - name: ⏳ Wait for App to be Ready
+        run: |
+          echo "⏳ Waiting for app to start on http://localhost:3000..."
+          ATTEMPT=0
+          MAX_ATTEMPTS=20
+
+          until curl -f http://localhost:3000 > /dev/null 2>&1; do
+            ATTEMPT=$((ATTEMPT + 1))
+            echo "🔄 Attempt $ATTEMPT/$MAX_ATTEMPTS - waiting..."
+
+            if [ $ATTEMPT -eq $MAX_ATTEMPTS ]; then
+              echo "❌ App failed to start after $MAX_ATTEMPTS attempts"
+              ps aux | grep -E "(node|next)" | grep -v grep
+              exit 1
+            fi
+            sleep 3
+          done
+          echo "✅ App is ready!"
+        shell: bash
+
+      - name: 🧪 Run Playwright Tests for ${{ matrix.e2e_package }}
+        run: |
+          echo "🎬 Running Playwright tests for ${{ matrix.e2e_package }}..."
+          pnpm --filter ${{ matrix.e2e_package }} test
+        shell: bash
+
+      - name: 🛑 Stop App
+        shell: bash
+        if: always()
+        run: |
+          if [ ! -z "$FRONTEND_PID" ]; then
+            kill $FRONTEND_PID || true
+          fi

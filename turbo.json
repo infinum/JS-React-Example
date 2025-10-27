@@ -95,6 +95,11 @@
 		},
 		"//#check-licenses:root": {
 			"cache": false
+		},
+		"e2e": {
+			"dependsOn": ["^build"],
+			"cache": false,
+			"inputs": ["packages/e2e-frontend/**/*.{ts,js}", "packages/test-utils/**/*.ts"]
 		}
 	}
 }
