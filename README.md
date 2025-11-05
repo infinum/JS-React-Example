@@ -21,12 +21,14 @@ pnpm install && pnpm dev
 ```
 
 **Access the applications:**
+
 - **Frontend**: http://localhost:3000
 - **Storybook**: http://localhost:6006
 
 ### Authentication
 
 The application uses NextAuth.js with multiple providers:
+
 - **Development**: Uses mock authentication - any email/password combination works
 - **Production**: Configure OAuth providers (Google, GitHub) via environment variables
 
@@ -57,12 +59,14 @@ scripts/              # Automation and tooling
 ## Technology Stack
 
 ### Core Technologies
+
 - **Next.js 15**: React framework with App Router and React 19
 - **TypeScript 5.7**: Type safety and enhanced developer experience
 - **Tailwind CSS 4**: Utility-first styling with design tokens
 - **pnpm + Turborepo**: Efficient monorepo management and build optimization
 
 ### Key Features
+
 - **Authentication**: NextAuth.js with multiple OAuth providers
 - **Internationalization**: next-intl with 3 languages (EN, PL, HR)
 - **Theming**: Dark/light mode with next-themes
@@ -70,6 +74,7 @@ scripts/              # Automation and tooling
 - **Testing**: Jest + React Testing Library + Playwright
 
 ### Development Tools
+
 - **Storybook**: Component development and documentation
 - **ESLint 9 + Prettier**: Code quality and formatting
 - **Husky**: Git hooks for quality gates
@@ -88,6 +93,7 @@ API patterns and development guide: [API Development Guide](documentation/API%20
 ## Third-Party Services
 
 ### Development
+
 - **Authentication**: NextAuth.js (supports Google, GitHub, SAML, credentials)
 - **Styling**: Tailwind CSS with shadcn/ui components
 - **Icons**: Radix UI icons and Lucide React
@@ -95,6 +101,7 @@ API patterns and development guide: [API Development Guide](documentation/API%20
 ## App Specifics
 
 ### Internationalization
+
 - **Languages**: English (default), Polish, Croatian
 - **Routing**: Locale-based URLs (`/en/`, `/pl/`, `/hr/`)
 - **Management**: JSON-based translations with TypeScript declarations
@@ -103,12 +110,14 @@ API patterns and development guide: [API Development Guide](documentation/API%20
 **Detailed setup**: [Internationalization Guide](documentation/Internationalization%20Guide.md)
 
 ### Accessibility
+
 - **Standards**: WCAG 2.1 AA compliance target
 - **Components**: Built-in a11y with Radix UI primitives
 - **Testing**: Jest-axe integration for automated accessibility testing
 - **Focus Management**: Proper keyboard navigation and focus indicators
 
 ### Performance
+
 - **Core Web Vitals**: Optimized for LCP, FID, CLS
 - **Image Optimization**: Next.js Image component with responsive loading
 - **Code Splitting**: Automatic route-based and component-based splitting
@@ -119,11 +128,13 @@ API patterns and development guide: [API Development Guide](documentation/API%20
 ### Local Development
 
 ### Key Variables
+
 - **`NEXTAUTH_SECRET`**: Authentication secret (auto-generated in dev)
 - **`NEXTAUTH_URL`**: Application URL for OAuth callbacks
 - **OAuth providers**: `GOOGLE_CLIENT_ID`, `GITHUB_CLIENT_ID`, etc.
 
 ### Environment Files
+
 - **`.env.local`**: Local development overrides
 - **`.env.compose`**: Docker Compose environment
 
@@ -132,6 +143,7 @@ API patterns and development guide: [API Development Guide](documentation/API%20
 ## Development Workflow
 
 ### Daily Development
+
 ```bash
 # Start new feature with ticket number
 git checkout -b feature/PROJ-123-feature-name
@@ -144,11 +156,13 @@ pnpm pre-commit
 ```
 
 ### Code Quality
+
 - **Pre-commit hooks**: Automatic linting and formatting
 - **Conventional commits**: Standardized commit messages with ticket numbers
 - **Type checking**: Full TypeScript validation across monorepo
 
 ### Testing Strategy
+
 ```bash
 # Run all tests
 pnpm test
@@ -165,12 +179,14 @@ pnpm --filter frontend test:e2e
 ## Git Branching Strategy
 
 ### Branch Types
+
 - **`feature/PROJ-123-description`**: New features with JIRA/Productive ticket numbers
 - **`bugfix/PROJ-456-description`**: Bug fixes
 - **`hotfix/PROJ-789-description`**: Critical production fixes
 - **`chore/PROJ-012-description`**: Maintenance and tooling
 
 ### Workflow Philosophy
+
 We use a simplified Git Flow focused on rapid iteration and continuous deployment:
 
 1. **Feature branches** from `main` with descriptive names and ticket numbers
@@ -185,6 +201,7 @@ This model works for our team because it maintains code quality while enabling f
 ## Contributing
 
 ### Quick Start
+
 1. **Create feature branch**: `git checkout -b feature/PROJ-123-your-feature`
 2. **Make changes**: Follow existing patterns and conventions
 3. **Quality checks**: `pnpm lint && pnpm test`
@@ -192,13 +209,16 @@ This model works for our team because it maintains code quality while enabling f
 5. **Code review**: Address feedback and ensure CI passes
 
 ### Code Standards
+
 - **TypeScript**: Strict mode enabled, no `any` types
 - **React**: Functional components with hooks
 - **Styling**: Tailwind CSS with design system tokens
 - **Testing**: Unit tests for components, integration tests for features
 
 ### Component Development
+
 New UI components should:
+
 - Use CVA for variant management
 - Include Storybook stories
 - Have comprehensive unit tests
@@ -210,6 +230,7 @@ New UI components should:
 ## Documentation
 
 ### Available Guides
+
 - [Monorepo Structure](documentation/Monorepo%20Structure.md) - Project organization and architecture
 - [Development Workflow](documentation/Development%20Workflow%20Guide.md) - Git workflow, code review, releases
 - [UI Components](documentation/UI%20Components%20Guide.md) - ShadCN component generation and customization
@@ -219,11 +240,13 @@ New UI components should:
 - [Docker Setup](documentation/Docker%20setup.md) - Containerized development and deployment
 
 ### Architecture Decisions
+
 Technical decisions are documented in [Architecture Decision Records](documentation/decision-record/) following the ADR format for traceability and team alignment.
 
 ## Docker Development
 
 ### Production Build
+
 ```bash
 # Build and run production containers
 pnpm docker:prod build
@@ -235,6 +258,16 @@ pnpm docker:prod up -d
 ```
 
 **Complete Docker guide**: [Docker Setup](documentation/Docker%20setup.md)
+
+## pnpm Config
+
+- `minimumReleaseAge` - Only install package versions that are at least X minutes old (helps avoid fresh compromised releases).
+- `onlyBuiltDependencies` - Only run build/postinstall scripts for this allowlist of dependencies. This reduces the overall attack surface, but scripts for these packages will still run if a compromised version is installed.
+- `strictPeerDependencies` - If this is enabled, commands will fail if there is a missing or invalid peer dependency in the tree.
+- `peerDependencyRules.allowedVersions` - Allow next-runtime-env to run with Next 15 + React 19. Library declares peer deps for Next 14 / React 18, but works fine with newer versions.
+- `strictDepBuilds` - When strictDepBuilds is enabled, the installation will exit with a non-zero exit code if any dependencies have unreviewed build scripts (aka postinstall scripts).
+- `engineStrict` - If this is enabled, pnpm will not install any package that claims to not be compatible with the current Node version.
+- `catalog` - Catalogs can be used for defining dependency version ranges as reusable constants. Constants defined in catalogs can later be referenced in package.json files.
 
 ## Credits
 
