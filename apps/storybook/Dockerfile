@@ -26,7 +26,7 @@ COPY --from=turbo /app/out/full ./
 RUN pnpm build
 
 # # # Production
-FROM nginx:1.29.0-alpine-slim AS production
+FROM nginx:1.29.3-alpine-slim AS production
 
 COPY --from=builder /app/apps/storybook/storybook-static /usr/share/nginx/html
 
