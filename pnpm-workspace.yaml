@@ -1,3 +1,26 @@
 packages:
-  - 'apps/*'
-  - 'packages/*'
+  - apps/*
+  - packages/*
+
+# Only install package versions that are at least X minutes old (helps avoid fresh compromised releases).
+minimumReleaseAge: 2880 # 48h in minutes
+
+# Only run build/postinstall scripts for this allowlist of dependencies.
+# This reduces the overall attack surface, but scripts for these packages will still run
+# if a compromised version is installed.
+onlyBuiltDependencies:
+  - '@tailwindcss/oxide@4.1.11'
+  - core-js-pure@3.44.0
+  - esbuild@0.25.8
+  - msw@2.10.4
+  - sharp@0.34.3
+  - unrs-resolver@1.11.1
+
+# If this is enabled, commands will fail if there is a missing or invalid peer dependency in the tree.
+strictPeerDependencies: true
+
+# When strictDepBuilds is enabled, the installation will exit with a non-zero exit code if any dependencies have unreviewed build scripts (aka postinstall scripts).
+strictDepBuilds: true
+
+# If this is enabled, pnpm will not install any package that claims to not be compatible with the current Node version.
+engineStrict: true
