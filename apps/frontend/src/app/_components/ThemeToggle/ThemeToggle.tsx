@@ -13,6 +13,9 @@ export const ThemeToggle = ({ children, ...props }: React.ButtonHTMLAttributes<H
 
 	// Only after mount do we trust next-themes to give us the real class
 	useEffect(() => {
+		// This exact pattern is used in the React docs, Next.js docs, and next-themes docs,
+		// and there are active GitHub issues saying the rule is overly strict / buggy for it.
+		// eslint-disable-next-line react-hooks/set-state-in-effect
 		setMounted(true);
 	}, []);
 

@@ -1,4 +1,4 @@
-FROM node:22.17.0-alpine AS base
+FROM node:24.11.0-alpine AS base
 WORKDIR /app
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
@@ -26,7 +26,7 @@ COPY --from=turbo /app/out/full ./
 RUN pnpm build
 
 # # # Production
-FROM nginx:1.29.0-alpine-slim AS production
+FROM nginx:1.29.3-alpine-slim AS production
 
 COPY --from=builder /app/apps/storybook/storybook-static /usr/share/nginx/html
 
