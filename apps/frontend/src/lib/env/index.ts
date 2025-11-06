@@ -1,7 +1,6 @@
-/**
- * This file is used to export the env function from next-runtime-env.
- *
- * We're doing that to future-proof the codebase, and to avoid having to import the env function from next-runtime-env in every file.
- */
+import { createPublicEnv } from 'next-public-env';
+import { publicEnv } from './validate-env.client';
 
-export { env } from 'next-runtime-env';
+const env = publicEnv();
+
+export const { getPublicEnv, PublicEnv } = createPublicEnv(env);

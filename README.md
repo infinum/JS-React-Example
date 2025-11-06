@@ -264,7 +264,6 @@ pnpm docker:prod up -d
 - `minimumReleaseAge` - Only install package versions that are at least X minutes old (helps avoid fresh compromised releases).
 - `onlyBuiltDependencies` - Only run build/postinstall scripts for this allowlist of dependencies. This reduces the overall attack surface, but scripts for these packages will still run if a compromised version is installed.
 - `strictPeerDependencies` - If this is enabled, commands will fail if there is a missing or invalid peer dependency in the tree.
-- `peerDependencyRules.allowedVersions` - Allow next-runtime-env to run with Next 15 + React 19. Library declares peer deps for Next 14 / React 18, but works fine with newer versions.
 - `strictDepBuilds` - When strictDepBuilds is enabled, the installation will exit with a non-zero exit code if any dependencies have unreviewed build scripts (aka postinstall scripts).
 - `engineStrict` - If this is enabled, pnpm will not install any package that claims to not be compatible with the current Node version.
 - `catalog` - Catalogs can be used for defining dependency version ranges as reusable constants. Constants defined in catalogs can later be referenced in package.json files.

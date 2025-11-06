@@ -2,295 +2,265 @@
 
 > **TL;DR Cheat-Sheet**
 >
-> 1. **Two template files per app** &mdash; `.env.local` (host) and `.env.compose` (Docker).
-> 1. **Override with secrets** in `.env.$(NODE_ENV).local`.
-> 1. **Validate everything** in `src/lib/env/validate-env.ts` using **envsafe**.
-> 1. Only keys that start with **`NEXT_PUBLIC_`** should be used in client components.
-> 1. Treat any private key in a client component as a **production-blocking bug**.
+> 1. **Committed templates** &mdash; `.env` and `.env.compose` are tracked in git with non-secret defaults.
+> 1. **Developer overrides** &mdash; All `*.local` files are ignored and never committed.
+> 1. **Two validators** &mdash; `validate-env.client.ts` for public vars, `validate-env.server.ts` for secrets.
+> 1. **Type-safe access** &mdash; Use `getPublicEnv()` for public vars, `secretEnv()` for secrets.
+> 1. Variables in `validate-env.client.ts` are exposed to the browser (no `NEXT_PUBLIC_` prefix needed).
+> 1. Never put secrets in `validate-env.client.ts` - only in `validate-env.server.ts`.
 >
 > **!! WARNING !!**
 >
-> If you accidentally reference a private key in a client component the browser will log an error after the sensitive value has already been shipped. Treat this as a fatal mistake.
+> Variables in `validate-env.client.ts` are automatically exposed to the browser. Never put secrets there.
+>
+> If you try to use `secretEnv()` in a client component, it will throw a build error due to the `'server-only'` import.
 
 ## Overview
 
-The monorepo uses a repeatable pattern for environment variables that works both on the host machine and inside Docker containers.
+The monorepo uses a repeatable pattern for environment variables that works both on the host machine and inside Docker containers. Each app maintains committed template files with non-secret defaults, while developers add their own secrets and overrides in local files that are never committed.
+
+### High-Level Goals
+
+Each application has:
+
+- **`.env`** &mdash; Committed, non-secret host defaults for running the app on your local machine.
+- **`.env.compose`** &mdash; Committed, non-secret Docker defaults for running the app in containers.
+- **`*.local` files** &mdash; Developer-specific overrides and secrets, never committed to git.
+
+We use:
+
+- **envsafe** for runtime validation of environment variables (fail-fast on missing/invalid values).
+- **next-public-env** for accessing environment variables in a type-safe way, with separate client and server validators.
+- Two validator files: `validate-env.client.ts` for public variables and `validate-env.server.ts` for server-only variables.
+
 Key goals:
 
-- **No “works on my machine” bugs** - host and container values are isolated.
-- **Early failure** - missing or malformed variables abort the start-up sequence via **envsafe**.
-- **Type safety** - the `env()` helper supplies autocomplete and correct types.
+- **No "works on my machine" bugs** - host and container values are isolated.
+- **No secrets in git** - templates provide defaults; developers add secrets locally.
+- **Early failure** - missing or malformed variables abort the start-up sequence.
+- **Type safety** - the `envsafe()` helper supplies autocomplete and correct types.
 
-## File Layout
+## Git & File Rules
 
-| File                     | Purpose                                                                                                                                              | Tracked in Git? |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
-| `.env.local`             | Template values for host-side Node.js processes (`next dev`, Storybook, etc. - ignored when `NODE_ENV=test`)                                         | **Yes**         |
-| `.env.compose`           | Template values for the same app when run via Docker Compose.                                                                                        | **Yes**         |
-| `.env.$(NODE_ENV).local` | Files created during bootstrap, used to override the example variables with secrets, for example `.env.development.local` or `.env.production.local` | **No**          |
+The apps should use the following `.gitignore` rules for environment files:
 
-Commiting a **template** file keeps secrets out of the repo while giving new contributors a friction-free setup.
+```gitignore
+# Environment variables
+.env*
+!.env
+!.env.compose
+```
 
-## Configuration Pattern
+### What This Means
 
-### Docker Compose Configuration
+**Only `.env` and `.env.compose` are tracked in git.**
 
-Each frontend application should have its own environment file referenced in `docker/docker-compose.yml`:
+All other `.env*` files are ignored, including:
+
+- `.env.local`
+- `.env.development.local`
+- `.env.production.local`
+- `.env.test.local`
+- `.env.compose.local`
+
+### Important Rules
+
+1. **Never put secrets in `.env` or `.env.compose`** &mdash; these files are committed and visible to everyone.
+2. **Use `.local` files for secrets** &mdash; add API keys, passwords, and other sensitive values to `.env.local` or `.env.compose.local`.
+3. **Templates are for defaults** &mdash; committed files should contain example values, localhost URLs, and other non-sensitive defaults.
+
+## Next.js Environment File Reference
+
+Each application uses multiple environment files with different purposes and precedence:
+
+| File                          | Purpose                                                      | Tracked in Git? | Used Where |
+| ----------------------------- | ------------------------------------------------------------ | --------------- | ---------- |
+| `.env`                        | Host defaults (local dev on your machine)                    | **Yes**         | Host       |
+| `.env.local`                  | Host-only overrides & secrets for this developer             | **No**          | Host       |
+| `.env.development.local`      | Optional host-only overrides when `NODE_ENV=development`     | **No**          | Host       |
+| `.env.production.local`       | Optional host-only overrides when `NODE_ENV=production`      | **No**          | Host       |
+| `.env.test.local`             | Optional host-only overrides when `NODE_ENV=test`            | **No**          | Host       |
+| `.env.compose`                | Docker defaults (typically using service names)              | **Yes**         | Docker     |
+| `.env.compose.local`          | Docker-only overrides & secrets for this developer           | **No**          | Docker     |
+
+### Host vs Docker Usage
+
+**Host (Running on Your Machine):**
+
+When you run `next dev` or similar commands directly on your machine (not in Docker), Next.js reads `.env*` files in a specific order (see next section). Typically you'll use:
+
+- `.env` for generic defaults
+- `.env.local` to override values or add secrets
+
+**Docker (Running in Containers):**
+
+When you run via `docker-compose up`, the `env_file` entries in `docker-compose.yml` load variables directly into the container's `process.env`. These bypass the Next.js file loading and take highest precedence. Typically you'll use:
+
+- `.env` for generic defaults
+- `.env.compose` for container-specific defaults (e.g., `http://postgres:5432` instead of `localhost`)
+- `.env.compose.local` to override values or add secrets for Docker
+
+## Next.js Environment Variable Load Order
+
+When running on the **host** (not Docker), Next.js resolves each environment variable by checking the following sources in order, stopping at the first match:
+
+1. **`process.env`** &mdash; Values injected by the shell, CI, or other external sources
+2. **`.env.$(NODE_ENV).local`** &mdash; e.g., `.env.development.local` or `.env.production.local`
+3. **`.env.local`** &mdash; Ignored when `NODE_ENV=test`
+4. **`.env.$(NODE_ENV)`** &mdash; e.g., `.env.development`, `.env.production`, or `.env.test`
+5. **`.env`** &mdash; Base defaults
+
+This means that variables set in `.env.local` override those in `.env`, and variables set in `.env.development.local` override both.
+
+**Important:** When using Docker Compose, variables loaded via `env_file` become part of `process.env` inside the container, so they override all `.env*` files for those variables.
+
+**Reference:** [Next.js Environment Variables Documentation](https://nextjs.org/docs/app/guides/environment-variables)
+
+## Host vs Docker Configuration
+
+### On the Host (No Docker)
+
+Developers mainly use `.env` + `.env.local` (and optionally `.env.development.local` or `.env.production.local`).
+
+When you run `next dev` or `next build`, Next.js reads the files according to the load order described above.
+
+**Example workflow:**
+
+1. Clone the repo - `.env` is already there with sensible defaults.
+2. `postinstall` script creates `.env.local` which is a copy of `.env` file; add your secrets there (API keys, database passwords, etc.).
+3. Run `next dev` - your local overrides take precedence.
+
+### In Docker (via `docker-compose`)
+
+The `docker-compose.yml` file uses `env_file` to inject variables into the container:
 
 ```yaml
 services:
   frontend:
-    # ... other config
+    container_name: infinum-react-example-frontend
     env_file:
+      - ../apps/frontend/.env
       - ../apps/frontend/.env.compose
-
-  # Future applications would follow the same pattern:
-  # admin:
-  #   env_file:
-  #     - ../apps/admin/.env.compose
-  #     - ../apps/admin/.env.compose.local
+      - ../apps/frontend/.env.compose.local
+    # ... other config
 ```
 
-### Separate Environment Files
+**How this works:**
 
-Each application maintains two separate environment files because service addresses differ between processes running in Node.js on the host machine and in Docker containers:
+1. **`.env`** provides generic defaults.
+2. **`.env.compose`** provides container-specific defaults (e.g., service names like `postgres` instead of `localhost`).
+3. **`.env.compose.local`** allows per-developer Docker overrides and secrets.
 
-- **`.env.local`** - Used for local development (Node.js processes on host machine)
-- **`.env.compose`** - Used for Docker containerized processes
+Because Docker Compose loads these files into `process.env`, they override any `.env*` files inside the container for those variables. Next.js sees them as already-set environment variables and uses them directly.
 
-This separation ensures that services can properly communicate regardless of where they're running.
+**Example workflow:**
 
-## Next.js Runtime Environment (Example: Frontend App)
+1. Clone the repo - both `.env` and `.env.compose` are already there.
+2. `postinstall` script creates `.env.compose.local` which is a copy of `.env.compose` file; add your Docker-specific secrets there.
+3. Run `docker-compose up` - your local overrides take precedence.
 
-The frontend application demonstrates the complete setup pattern:
+## Security & Public Variables
 
-### PublicEnvScript Component
+### Public vs Private Variables
 
-The app uses `next-runtime-env` to allow dynamic environment variables for client components:
+With `next-public-env`, the distinction between public and private variables is enforced by which validator you add them to:
 
-```tsx
-// apps/frontend/src/app/layout.tsx
-import { PublicEnvScript } from 'next-runtime-env';
+- **Public variables** &mdash; Defined in `validate-env.client.ts`, exposed to the browser via `getPublicEnv()`
+- **Private variables** &mdash; Defined in `validate-env.server.ts`, only available on the server via `secretEnv()`
 
-<head>
-	<PublicEnvScript />
-</head>;
-```
+**Important:** Unlike traditional Next.js, you **don't need the `NEXT_PUBLIC_` prefix**. Any variable in `validate-env.client.ts` is automatically public, regardless of its name.
 
-This component automatically exposes all environment variables prefixed with `NEXT_PUBLIC_` to the browser.
+**Rules:**
 
-### ⚠️ Important Security Warning
+1. **Only variables from `validate-env.client.ts` can be used in client components** (accessed via `getPublicEnv()`).
+2. **Variables from `validate-env.server.ts` can only be used in server components** (accessed via `secretEnv()`).
+3. **Never put secrets in `validate-env.client.ts`** - they will be exposed to the browser.
 
-**Using private variables in client components will show a browser error during rendering, BUT IT WILL NOT PREVENT the variable from being included in the initial HTML document.**
+### ⚠️ Critical Security Warning
 
-`next-runtime-env` is isomorphic - the server renders the variable and it hydrates in the browser, but then throws an error. You must be aware of this behavior and careful about what you expose to client components.
+With `next-public-env`, the separation between client and server variables is enforced at build time:
 
-### Type-Safe Environment Access
+- **Client components** can only access `getPublicEnv()` - these values are publicly visible in the browser
+- **Server components** can access both `getPublicEnv()` and `secretEnv()`
+- If you try to import `secretEnv()` in a client component, the `'server-only'` package will throw a build error
 
-The frontend app overrides the `next-runtime-env` `env()` method in `apps/frontend/src/lib/env/env.d.ts` for better developer experience, providing full TypeScript support and autocomplete for environment variables.
+**You must still be vigilant:**
 
-## Environment Validation
+- Never put secrets in `validate-env.client.ts` - anything there will be bundled and sent to the browser
+- Only define secrets in `validate-env.server.ts` with the `'server-only'` import
+- Always audit which validator you're adding new variables to
+- When in doubt, start with server-only and only move to client if absolutely necessary
 
-### Envsafe Integration
+## Environment Validation with Envsafe
 
-Applications use `envsafe` in their `instrumentation.ts` to validate environment variables at startup. The frontend app example:
+### Two-Validator Approach
+
+The application uses a split validation approach:
+
+- **`validate-env.client.ts`** - Validates public environment variables accessible in both client and server code
+- **`validate-env.server.ts`** - Validates server-only environment variables (secrets, API keys, etc.)
+
+This separation ensures that secrets are never accidentally bundled into the client code.
+
+### Integration via `instrumentation.ts`
+
+Both validators are called in `instrumentation.ts` at startup. If any required variable is missing or invalid, the app will crash immediately with a clear error message.
 
 ```typescript
 // apps/frontend/src/instrumentation.ts
-import { validateEnvironmentVariables } from './lib/env/validate-env';
+import { publicEnv } from './lib/env/validate-env.client';
+import { secretEnv } from './lib/env/validate-env.server';
+
+const validateEnv = () => {
+	publicEnv();
+	secretEnv();
+};
 
 export function register() {
-	validateEnvironmentVariables();
+	validateEnv();
 }
 ```
 
-### Validation Configuration
+## Usage Patterns
 
-Environment variable validation is configured in each app's `validate-env.ts` file. This file defines:
+**In Client Components:**
 
-- Required vs optional variables
-- Type constraints and choices
-- Descriptions for better documentation
-- Default values where appropriate
-
-Example from the frontend app:
+Use `getPublicEnv()` to access public environment variables:
 
 ```typescript
-// apps/frontend/src/lib/env/validate-env.ts
-export const validateEnvironmentVariables = () => {
-	const env = envsafe({
-		NODE_ENV: str({
-			input: process.env.NODE_ENV,
-			choices: ['development', 'test', 'production'],
-		}),
-		NEXTAUTH_SECRET: str({
-			input: process.env.NEXTAUTH_SECRET,
-			desc: 'A secure random string used by NextAuth',
-		}),
-		NEXT_PUBLIC_EXAMPLE_VARIABLE: str({
-			input: process.env.NEXT_PUBLIC_EXAMPLE_VARIABLE,
-			allowEmpty: true,
-		}),
-		PRIVATE_EXAMPLE_VARIABLE: str({
-			input: process.env.PRIVATE_EXAMPLE_VARIABLE,
-		}),
-	});
+'use client';
 
-	console.info('✅ Environment variables validated.');
-	return env;
-};
-```
+import { getPublicEnv } from '@/lib/env';
 
-## Adding New Environment Variables
+export function ClientComponent() {
+	const env = getPublicEnv();
 
-When adding a new environment variable to any application, follow these steps:
+	// Type-safe access with autocomplete
+	const apiUrl = env.API_BASE_URL;
+	const nodeEnv = env.NODE_ENV;
 
-### 1. Add to Environment Files
-
-Add the variable to both `.env.local` and `.env.compose` files with appropriate comments:
-
-```bash
-# apps/your-app/.env.local
-NEXT_PUBLIC_NEW_VARIABLE="Local Development Value"
-
-# apps/your-app/.env.compose
-NEXT_PUBLIC_NEW_VARIABLE="Docker Container Value"
-```
-
-### 2. Add to Validation
-
-Add the variable to the app's `validate-env.ts` file:
-
-```typescript
-NEXT_PUBLIC_NEW_VARIABLE: str({
-  input: process.env.NEXT_PUBLIC_NEW_VARIABLE,
-  allowEmpty: true, // if optional
-  desc: 'Description of what this variable does',
-}),
-```
-
-### 3. Security Considerations
-
-- **Public variables** (prefixed with `NEXT_PUBLIC_`) are exposed to the browser and can be used in client components
-- **Private variables** should never be used in client components as they will cause runtime errors and may expose sensitive data
-- Always validate that private variables are not accidentally included in the client bundle
-
-### 4. Usage
-
-Access environment variables using the `env()` function:
-
-```typescript
-import { env } from '@/lib/env';
-
-// In server components
-const value = env('NEXT_PUBLIC_NEW_VARIABLE');
-
-// In client components (only public variables)
-const publicValue = env('NEXT_PUBLIC_NEW_VARIABLE');
-```
-
-## Setting Up Environment Variables for New Applications
-
-### 1. Create Environment Files
-
-For each new frontend application, create two environment files in the app directory:
-
-```bash
-# apps/your-app/.env.local
-# apps/your-app/.env.compose
-```
-
-### 2. Configure Docker Compose
-
-Add the new service to `docker/docker-compose.yml` with its environment file:
-
-```yaml
-services:
-  your-app:
-    container_name: infinum-react-example-your-app
-    env_file:
-      - ../apps/your-app/.env.compose
-      - ../apps/your-app/.env.compose.local
-    # ... other config
-```
-
-### 3. Set Up Validation (For Next.js Applications)
-
-Create validation infrastructure in your app:
-
-```typescript
-// apps/your-app/src/lib/env/validate-env.ts
-import { envsafe, str } from 'envsafe';
-
-export const validateEnvironmentVariables = () => {
-	const env = envsafe({
-		NODE_ENV: str({
-			input: process.env.NODE_ENV,
-			choices: ['development', 'test', 'production'],
-		}),
-		// Add your app-specific variables here
-	});
-
-	console.info('✅ Environment variables validated.');
-	return env;
-};
-```
-
-### 4. Add Instrumentation
-
-Create instrumentation file:
-
-```typescript
-// apps/your-app/src/instrumentation.ts
-import { validateEnvironmentVariables } from './lib/env/validate-env';
-
-export function register() {
-	validateEnvironmentVariables();
+	return <div>API: {apiUrl}</div>;
 }
 ```
 
-### 5. Set Up Type Safety
+**In Server Components:**
 
-Create type override for better developer experience:
+Use `getPublicEnv()` for public variables, or `secretEnv()` for server-only secrets:
 
 ```typescript
-// apps/your-app/src/lib/env/env.d.ts
-import 'next-runtime-env';
-import { validateEnvironmentVariables } from './validate-env';
+import { getPublicEnv } from '@/lib/env';
+import { secretEnv } from '@/lib/env/validate-env.server';
 
-type Environment = ReturnType<typeof validateEnvironmentVariables>;
+export async function ServerComponent() {
+	// Access public variables
+	const publicEnv = getPublicEnv();
+	const apiUrl = publicEnv.API_BASE_URL;
 
-declare module 'next-runtime-env' {
-	export function env<T extends keyof Environment>(key: T): Environment[T];
+	// Access server-only secrets
+	const serverVars = secretEnv();
+	const secret = serverVars.NEXTAUTH_SECRET;
+	const dbUrl = serverVars.DATABASE_URL;
+
+	return <div>...</div>;
 }
 ```
-
-## Repository Structure
-
-The environment variable setup follows this structure for each application:
-
-```
-apps/
-├── frontend/
-│   ├── .env.local
-│   ├── .env.compose
-│   └── src/
-│       ├── instrumentation.ts
-│       └── lib/
-│           └── env/
-│               ├── validate-env.ts
-│               ├── env.d.ts
-│               └── index.ts
-└── your-new-app/
-    ├── .env.local
-    ├── .env.compose
-    └── src/
-        ├── instrumentation.ts
-        └── lib/
-            └── env/
-                ├── validate-env.ts
-                ├── env.d.ts
-                └── index.ts
-```
-
-This pattern ensures consistency across all applications while maintaining proper isolation and type safety.

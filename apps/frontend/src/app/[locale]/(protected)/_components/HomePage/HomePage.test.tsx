@@ -107,17 +107,6 @@ describe('HomePage', () => {
 		expect(mockGetTranslations).toHaveBeenCalledWith('example.ExamplePage');
 	});
 
-	it('renders the correct link structure', async () => {
-		mockGetServerSession.mockResolvedValue(null);
-
-		const HomePageComponent = await HomePage();
-		render(HomePageComponent);
-
-		const link = screen.getByRole('link');
-		expect(link).toHaveAttribute('href', '/');
-		expect(link).toHaveTextContent('This is example page.');
-	});
-
 	it('renders the logo with correct attributes', async () => {
 		mockGetServerSession.mockResolvedValue(null);
 

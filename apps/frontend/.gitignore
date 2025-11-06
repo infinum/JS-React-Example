@@ -1,2 +1,7 @@
 # i18n Messages type augments
 src/lib/i18n/locales/en/*.d.json.ts
+
+# Environment variables
+.env*
+!.env
+!.env.compose

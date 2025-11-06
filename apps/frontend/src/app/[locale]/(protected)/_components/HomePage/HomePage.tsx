@@ -4,7 +4,6 @@ import { getServerSession } from '@/lib/auth';
 import { ExampleComponent } from '@infinum/ui/components/example';
 import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
-import Link from 'next/link';
 
 export const HomePage = async () => {
 	const t = await getTranslations('example.ExamplePage');
@@ -16,7 +15,7 @@ export const HomePage = async () => {
 				<Image src="/assets/images/logo.png" alt="Infinum logo" width={180} height={38} priority />
 				<ExampleComponent className="text-center" text="Welcome to Infinum" />
 				<h1>{t('title')}</h1>
-				<Link href="/">{t('about')}</Link>
+				<p>{t('about')}</p>
 				<LocaleSwitcher />
 				<ThemeToggle />
 				<p className="rainbow:text-green-500 text-blue-600 dark:text-red-500">Colors depend on current variant</p>

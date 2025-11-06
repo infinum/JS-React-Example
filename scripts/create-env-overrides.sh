@@ -3,28 +3,26 @@
 echo "🔧 Creating environment overrides..."
 
 for app in apps/*/; do
-	if [ ! -d "$app" ]; then
-		continue
-	fi
+	[ -d "$app" ] || continue
 
 	app_name=$(basename "$app")
 	echo "   📁 Processing $app_name..."
 
-	# Check if .env.local exists and .env.development.local doesn't exist
-	if [ -f "${app}.env.local" ] && [ ! -f "${app}.env.development.local" ]; then
-		cp "${app}.env.local" "${app}.env.development.local"
-		echo "      ✅ Created .env.development.local"
+	# 1) .env.local from .env
+	if [ -f "${app}.env" ] && [ ! -f "${app}.env.local" ]; then
+		cp "${app}.env" "${app}.env.local"
+		echo "      ✅ Created .env.local from .env"
 	elif [ -f "${app}.env.local" ]; then
-		echo "      ⏭️  .env.development.local already exists"
+		echo "      ⏭️  .env.local already exists"
 	else
-		echo "      ⚠️  .env.local not found"
+		echo "      ⚠️  .env not found (skipping .env.local)"
 	fi
 
-	# Check if .env.compose exists and .env.compose.local doesn't exist
+	# 2) .env.compose.local from .env.compose
 	if [ -f "${app}.env.compose" ] && [ ! -f "${app}.env.compose.local" ]; then
 		cp "${app}.env.compose" "${app}.env.compose.local"
-		echo "      ✅ Created .env.compose.local"
-	elif [ -f "${app}.env.compose" ]; then
+		echo "      ✅ Created .env.compose.local from .env.compose"
+	elif [ -f "${app}.env.compose.local" ]; then
 		echo "      ⏭️  .env.compose.local already exists"
 	else
 		echo "      ⚠️  .env.compose not found"
