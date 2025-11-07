@@ -25,11 +25,6 @@ next-env.d.ts
 .turbo
 .eslintcache
 
-# Environment variables
-.env*
-!.env.local
-!.env.compose
-
 # Logs
 *storybook.log
 pnpm-debug.log*

@@ -147,9 +147,6 @@ catalogs:
     next-intl:
       specifier: 4.4.0
       version: 4.4.0
-    next-runtime-env:
-      specifier: 3.3.0
-      version: 3.3.0
     next-themes:
       specifier: 0.4.6
       version: 0.4.6
@@ -284,9 +281,9 @@ importers:
       next-intl:
         specifier: 'catalog:'
         version: 4.4.0(next@16.0.1(@babel/core@7.28.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)(typescript@5.8.3)
-      next-runtime-env:
-        specifier: 'catalog:'
-        version: 3.3.0(next@16.0.1(@babel/core@7.28.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)
+      next-public-env:
+        specifier: 1.0.0
+        version: 1.0.0(next@16.0.1(@babel/core@7.28.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)(zod@3.25.76)
       next-themes:
         specifier: 'catalog:'
         version: 0.4.6(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -5718,11 +5715,13 @@ packages:
       typescript:
         optional: true
 
-  next-runtime-env@3.3.0:
-    resolution: {integrity: sha512-JgKVnog9mNbjbjH9csVpMnz2tB2cT5sLF+7O47i6Ze/s/GoiKdV7dHhJHk1gwXpo6h5qPj5PTzryldtSjvrHuQ==}
+  next-public-env@1.0.0:
+    resolution: {integrity: sha512-U+FEGBKFNUaxrhR+6RvHHRpPe+VllIpNkRoOaf8uJ/6k/OBm8oRAdsBK8B38WwGBqeGX6kno81tpjqZ6rDE8Fw==}
+    engines: {node: '>=20.0.0'}
     peerDependencies:
-      next: ^14
-      react: ^18
+      next: ^14.0.0 || ^15.0.0 || ^16.0.0
+      react: ^17.0.0 || ^18.0.0 || ^19.0.0
+      zod: ^3.25.0 || ^4.0.0
 
   next-themes@0.4.6:
     resolution: {integrity: sha512-pZvgD5L0IEvX5/9GWyHMf3m8BKiVQwsCMHfoFosXtXBMnaS0ZnIJ9ST4b4NqLVKDEm8QBxoNNGNaBv2JNF6XNA==}
@@ -13655,10 +13654,11 @@ snapshots:
     optionalDependencies:
       typescript: 5.8.3
 
-  next-runtime-env@3.3.0(next@16.0.1(@babel/core@7.28.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0):
+  next-public-env@1.0.0(next@16.0.1(@babel/core@7.28.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)(zod@3.25.76):
     dependencies:
       next: 16.0.1(@babel/core@7.28.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       react: 19.2.0
+      zod: 3.25.76
 
   next-themes@0.4.6(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
     dependencies:
