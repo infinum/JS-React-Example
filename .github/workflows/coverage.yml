@@ -1,0 +1,126 @@
+name: 📊 Tests & Coverage
+
+# Configuration
+# Set to 'true' for monorepo, 'false' for single repository
+env:
+  MONOREPO: 'true'
+  BASE_BRANCH: 'main'
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+concurrency:
+  group: coverage-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read # required so checkout/actions using GITHUB_TOKEN can read repo
+  actions: read # required to download base coverage artifact via workflow run APIs
+  pull-requests: write # required to post/update coverage diff comments on PRs
+
+jobs:
+  coverage:
+    runs-on: ubuntu-24.04
+    permissions:
+      actions: read # download base coverage artifact via workflow run APIs
+      contents: read # checkout
+      pull-requests: write # comment coverage diff on PRs
+    env:
+      EVENT_TYPE: ${{ github.event_name == 'push' && 'push' || 'pr' }}
+      # Workflow-level env variables (MONOREPO, BASE_BRANCH) are automatically inherited by jobs
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+
+      - name: 💻 Node setup
+        uses: ./.github/actions/node-setup
+
+      - name: 🧪 Test
+        run: pnpm test:coverage
+        shell: bash
+        # Note: If tests fail, the workflow will fail and coverage steps won't run.
+        # This ensures we only report coverage for passing tests.
+
+      - name: 📊 Aggregate coverage results and create summary
+        # MONOREPO is inherited from workflow-level env
+        run: node scripts/aggregate-coverage-results.js
+        shell: bash
+
+      - name: 🔍 Locate base coverage workflow run
+        id: locate-base-coverage
+        if: env.EVENT_TYPE == 'pr'
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+        env:
+          BASE_WORKFLOW: coverage.yml
+          # BASE_BRANCH is inherited from workflow-level env
+        with:
+          script: |
+            const workflowId = process.env.BASE_WORKFLOW;
+            const baseBranch = process.env.BASE_BRANCH || 'main';
+
+            // Get the latest successful workflow run from the base branch
+            const { data } = await github.rest.actions.listWorkflowRuns({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: workflowId,
+              branch: baseBranch,
+              per_page: 20,
+            });
+
+            const run = data.workflow_runs.find((run) => run.conclusion === 'success');
+            if (run) {
+              core.info(`Found base coverage run ${run.id} from ${baseBranch} branch`);
+              core.setOutput('run-id', String(run.id));
+            } else {
+              core.warning(`No successful base coverage run found for ${baseBranch} branch`);
+              core.setOutput('run-id', '');
+            }
+
+      - name: 📥 Download base branch coverage artifact
+        if: env.EVENT_TYPE == 'pr' && steps.locate-base-coverage.outputs.run-id != ''
+        continue-on-error: true
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          name: base-coverage
+          path: base-coverage
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: ${{ steps.locate-base-coverage.outputs.run-id }}
+
+      - name: 💬 Comment coverage diff
+        if: env.EVENT_TYPE == 'pr'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          BASE_COVERAGE_ROOT: base-coverage
+          # MONOREPO and BASE_BRANCH are inherited from workflow-level env
+        run: node scripts/comment-coverage-diff.js
+        shell: bash
+
+      - name: ♻️ Collect coverage summaries
+        if: env.EVENT_TYPE == 'push' && github.ref_name == 'main'
+        # MONOREPO is inherited from workflow-level env
+        run: |
+          rm -rf base-coverage
+          if [ "$MONOREPO" = "true" ]; then
+            rsync -a \
+              --include '*/' \
+              --include 'coverage-summary.json' \
+              --exclude '*' \
+              coverage/ base-coverage/
+          else
+            mkdir -p base-coverage
+            cp coverage/coverage-summary.json base-coverage/coverage-summary.json
+          fi
+        shell: bash
+
+      - name: 📤 Upload coverage artifact
+        if: env.EVENT_TYPE == 'push' && github.ref_name == 'main'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: base-coverage
+          path: base-coverage
+          retention-days: 14 # Artifacts expire after 14 days. Adjust if needed, but note that PRs opened after expiration won't have base coverage to compare against.
