@@ -26,6 +26,7 @@
 		"next-auth": "catalog:",
 		"next-intl": "catalog:",
 		"next-public-env": "1.0.0",
+		"next-runtime-env": "3.3.0",
 		"next-themes": "catalog:",
 		"postcss": "catalog:",
 		"react": "catalog:",

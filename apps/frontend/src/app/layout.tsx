@@ -7,6 +7,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import { headers } from 'next/headers';
 import { ReactNode } from 'react';
 import { ThemeProvider } from './_components/ThemeProvider/ThemeProvider';
+import { PublicEnvScript } from 'next-runtime-env';
 
 const geistSans = Geist({
 	variable: '--font-geist-sans',
@@ -44,6 +45,9 @@ const RootLayout = async ({ children }: RootLayoutProps) => {
 			// This property only applies one level deep, so it won't block hydration warnings on other elements.
 			suppressHydrationWarning
 		>
+			<head>
+				<PublicEnvScript />
+			</head>
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} bg-background text-foreground font-(family-name:--font-geist-mono) antialiased`}
 			>

@@ -72,7 +72,7 @@ catalog:
 
 engineStrict: true
 
-minimumReleaseAge: 10080
+minimumReleaseAge: 20160
 
 onlyBuiltDependencies:
   - '@tailwindcss/oxide@4.1.11'
