@@ -14,11 +14,11 @@ catalog:
   '@radix-ui/react-select': 2.2.6
   '@radix-ui/react-slot': 1.2.3
   '@radix-ui/react-tooltip': 1.2.8
-  '@storybook/addon-a11y': 10.0.3
+  '@storybook/addon-a11y': 10.1.4
   '@storybook/addon-designs': 11.0.1
-  '@storybook/addon-docs': 10.0.3
-  '@storybook/addon-themes': 10.0.3
-  '@storybook/nextjs': 10.0.3
+  '@storybook/addon-docs': 10.1.4
+  '@storybook/addon-themes': 10.1.4
+  '@storybook/nextjs': 10.1.4
   '@tailwindcss/postcss': 4.1.16
   '@testing-library/dom': 10.4.1
   '@testing-library/jest-dom': 6.9.1
@@ -39,7 +39,7 @@ catalog:
   eslint-plugin-prettier: 5.5.4
   eslint-plugin-react: 7.37.5
   eslint-plugin-react-hooks: 7.0.1
-  eslint-plugin-storybook: 10.0.3
+  eslint-plugin-storybook: 10.1.4
   globals: 16.5.0
   husky: 9.1.7
   jest: 30.2.0
@@ -47,7 +47,7 @@ catalog:
   license-checker-rseidelsohn: 4.4.2
   lint-staged: 16.2.6
   lucide-react: 0.552.0
-  next: 16.0.1
+  next: 16.0.7
   next-auth: 4.24.13
   next-intl: 4.4.0
   next-themes: 0.4.6
@@ -60,7 +60,7 @@ catalog:
   remark: 15.0.1
   remark-cli: 12.0.1
   shadcn: 3.5.0
-  storybook: 10.0.3
+  storybook: 10.1.4
   tailwind-merge: 3.3.1
   tailwindcss: 4.1.16
   ts-jest: 29.4.5
@@ -72,7 +72,28 @@ catalog:
 
 engineStrict: true
 
-minimumReleaseAge: 10080
+minimumReleaseAge: 28800 # 20 days
+
+minimumReleaseAgeExclude:
+  # CVE-2025-66478
+  - next@16.0.7
+  - '@next/env@16.0.7'
+  - '@next/swc-linux-x64-gnu@16.0.7'
+  # Storybook CVE-2025-66478
+  - '@storybook/addon-a11y@10.1.4'
+  - '@storybook/addon-docs@10.1.4'
+  - '@storybook/addon-themes@10.1.4'
+  - '@storybook/builder-webpack5@10.1.4'
+  - '@storybook/core-webpack@10.1.4'
+  - '@storybook/csf-plugin@10.1.4'
+  - '@storybook/preset-react-webpack@10.1.4'
+  - '@storybook/react@10.1.4'
+  - '@storybook/react-dom-shim@10.1.4'
+  - '@storybook/nextjs@10.1.4'
+  - eslint-plugin-storybook@10.1.4
+  - storybook@10.1.4
+  # glob version released 17 Nov 2025
+  - glob@11.1.0
 
 onlyBuiltDependencies:
   - '@tailwindcss/oxide@4.1.11'
@@ -85,3 +106,12 @@ onlyBuiltDependencies:
 strictDepBuilds: true
 
 strictPeerDependencies: true
+
+overrides:
+  # high CVE - glob CLI: Command injection via -c/--cmd executes matches with shell:true
+  # Note: Only used by license-checker-rseidelsohn>read-installed-packages>read-package-json>glob
+  # pnpm doesn't support deep transitive overrides, so we override globally
+  glob: '>=11.1.0'
+  # Fix Node 24 compatibility - test-exclude@6.0.0 has promisify issue with Node 24
+  # Used by babel-plugin-istanbul for coverage collection
+  test-exclude: '>=6.0.1'
