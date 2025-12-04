@@ -112,3 +112,6 @@ overrides:
   # Note: Only used by license-checker-rseidelsohn>read-installed-packages>read-package-json>glob
   # pnpm doesn't support deep transitive overrides, so we override globally
   glob: '>=11.1.0'
+  # Fix Node 24 compatibility - test-exclude@6.0.0 has promisify issue with Node 24
+  # Used by babel-plugin-istanbul for coverage collection
+  test-exclude: '>=6.0.1'
