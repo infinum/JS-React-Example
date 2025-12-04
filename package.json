@@ -28,6 +28,7 @@
 		"test": "turbo run test --parallel --log-order=grouped --continue",
 		"test:watch": "turbo run test:watch --ui=tui --continue",
 		"test:coverage": "turbo run test:coverage --parallel --log-order=grouped --continue",
+		"test:coverage:aggregate": "pnpm test:coverage && MONOREPO=true node scripts/aggregate-coverage-results.js",
 		"test:coverage:watch": "turbo run test:coverage:watch --ui=tui --continue"
 	},
 	"devDependencies": {

@@ -20,6 +20,8 @@ next-env.d.ts
 
 # Testing
 /coverage
+/base-coverage
+.actrc
 
 # Cache
 .turbo

@@ -1,0 +1,51 @@
+name: 🧪 CI
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+permissions:
+  contents: read # required so checkout/actions using GITHUB_TOKEN can read repo
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+
+      - name: 💻 Node setup
+        uses: ./.github/actions/node-setup
+
+      - name: 👁️‍🗨️ Code Analysis
+        uses: ./.github/actions/code-analysis
+
+  licenses:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+
+      - name: 💻 Node setup
+        uses: ./.github/actions/node-setup
+
+      - name: 🗳️ Check Licenses
+        uses: ./.github/actions/check-licenses
+
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+
+      - name: 💻 Node setup
+        uses: ./.github/actions/node-setup
+
+      - name: 🏗️ Build packages
+        run: pnpm build
+        shell: bash

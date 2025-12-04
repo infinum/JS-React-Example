@@ -1,0 +1,9 @@
+name: 🗳️ Check Licenses
+description: 'Check package licenses for compliance'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: 🗳️ Check licenses
+      run: pnpm check-licenses
+      shell: bash

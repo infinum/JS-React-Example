@@ -11,15 +11,3 @@ runs:
     - name: 🫣 Lint
       run: pnpm lint
       shell: bash
-
-    - name: 🗳️ Check licenses
-      run: pnpm check-licenses
-      shell: bash
-
-    - name: 🧪 Test
-      run: pnpm test:coverage
-      shell: bash
-
-    - name: 📊 Aggregate coverage results
-      run: node scripts/aggregate-coverage-results.js
-      shell: bash
