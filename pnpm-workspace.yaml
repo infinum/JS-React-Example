@@ -47,7 +47,7 @@ catalog:
   license-checker-rseidelsohn: 4.4.2
   lint-staged: 16.2.6
   lucide-react: 0.552.0
-  next: 16.0.1
+  next: 16.0.7
   next-auth: 4.24.13
   next-intl: 4.4.0
   next-themes: 0.4.6
@@ -72,7 +72,14 @@ catalog:
 
 engineStrict: true
 
-minimumReleaseAge: 10080
+minimumReleaseAge: 28800 # 20 days
+
+# CVE-2025-66478
+minimumReleaseAgeExclude:
+  - next@16.0.7
+  - '@next/env@16.0.7'
+  - '@next/swc-linux-x64-gnu@16.0.7'
+  - glob@11.1.0 # 17 Nov 2025
 
 onlyBuiltDependencies:
   - '@tailwindcss/oxide@4.1.11'
@@ -85,3 +92,9 @@ onlyBuiltDependencies:
 strictDepBuilds: true
 
 strictPeerDependencies: true
+
+overrides:
+  # high CVE - glob CLI: Command injection via -c/--cmd executes matches with shell:true
+  # Note: Only used by license-checker-rseidelsohn>read-installed-packages>read-package-json>glob
+  # pnpm doesn't support deep transitive overrides, so we override globally
+  glob: '>=11.1.0'
