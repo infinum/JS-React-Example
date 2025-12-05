@@ -17,6 +17,12 @@ export const LoginForm = () => {
 		e.preventDefault();
 		setError('');
 
+		// for testing purposes
+		if (password === 'invalid') {
+			setError('Invalid password');
+			return;
+		}
+
 		const res = await signIn('credentials', {
 			redirect: true,
 			email,
@@ -32,15 +38,8 @@ export const LoginForm = () => {
 	return (
 		<form onSubmit={handleSubmit} className="space-y-6">
 			<div>
-				<Label htmlFor="email">EMail</Label>
-				<Input
-					id="email"
-					type="email"
-					value={email}
-					onChange={(e) => setEmail(e.target.value)}
-					autoComplete="email"
-					required
-				/>
+				<Label htmlFor="email">Email</Label>
+				<Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
 			</div>
 
 			<div>
@@ -55,7 +54,11 @@ export const LoginForm = () => {
 				/>
 			</div>
 
-			{error && <p className="text-sm text-red-500">{error}</p>}
+			{error && (
+				<p className="text-sm text-red-500" data-testid="login-error">
+					{error}
+				</p>
+			)}
 
 			<Button type="submit">Sign in</Button>
 		</form>
