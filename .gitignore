@@ -36,3 +36,4 @@ pnpm-debug.log*
 /playwright-report/
 /playwright/.cache/
 /reports/
+.last-run.json
