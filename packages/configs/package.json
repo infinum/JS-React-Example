@@ -10,7 +10,12 @@
 		"./eslint/react": "./src/eslint-config/react.mjs",
 		"./eslint/storybook": "./src/eslint-config/storybook.mjs",
 		"./eslint/typescript": "./src/eslint-config/typescript.mjs",
-		"./jest": "./src/jest-config/index.js"
+		"./eslint/playwright": "./src/eslint-config/playwright.mjs",
+		"./jest": "./src/jest-config/index.js",
+		"./playwright/base": {
+			"types": "./src/playwright-config/base.d.ts",
+			"default": "./src/playwright-config/base.js"
+		}
 	},
 	"scripts": {
 		"check-licenses": "node ../../scripts/check-licenses-workspace.js",
@@ -24,10 +29,12 @@
 		"@eslint/compat": "catalog:",
 		"@eslint/js": "catalog:",
 		"@next/eslint-plugin-next": "catalog:",
+		"@playwright/test": "catalog:",
 		"@typescript-eslint/eslint-plugin": "catalog:",
 		"eslint": "catalog:",
 		"eslint-config-prettier": "catalog:",
 		"eslint-plugin-jest": "catalog:",
+		"eslint-plugin-playwright": "catalog:",
 		"eslint-plugin-prettier": "catalog:",
 		"eslint-plugin-react": "catalog:",
 		"eslint-plugin-react-hooks": "catalog:",

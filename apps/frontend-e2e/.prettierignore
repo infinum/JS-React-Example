@@ -1,0 +1,10 @@
+# Dependencies
+node_modules/
+
+# Cache
+.turbo/
+
+# Playwright artifacts
+**/test-results/
+**/playwright-report/
+**/reports/

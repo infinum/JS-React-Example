@@ -1,0 +1,7 @@
+# Playwright artifacts (keep snapshots committed)
+/test-results/
+/playwright-report/
+/reports/
+/playwright/.cache/
+.last-run.json
+/artifacts/

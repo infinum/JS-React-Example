@@ -1,6 +1,6 @@
 import { test as base, expect } from '@playwright/test';
 
-import { LoginPage } from './pages/login';
+import { LoginPage } from '../pages/login';
 
 export const test = base.extend<{
 	loginPage: LoginPage;
@@ -28,5 +28,6 @@ test.describe('LoginForm tests', () => {
 		await loginPage.login('user@example.com', 'valid');
 
 		await page.waitForURL('/en', { timeout: 2000 });
+		await expect(page.getByText('Logged in')).toBeVisible();
 	});
 });

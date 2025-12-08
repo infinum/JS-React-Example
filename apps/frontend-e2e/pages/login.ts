@@ -1,14 +1,14 @@
 import { Page, Locator } from '@playwright/test';
+import { BasePage } from '@infinum/e2e-utils/pages';
 
-export class LoginPage {
-	readonly page: Page;
+export class LoginPage extends BasePage {
 	readonly emailInput: Locator;
 	readonly passwordInput: Locator;
 	readonly submitButton: Locator;
 	readonly errorMessage: Locator;
 
 	constructor(page: Page) {
-		this.page = page;
+		super(page);
 
 		// Semantic locators
 		this.emailInput = page.getByLabel('Email');
@@ -18,27 +18,21 @@ export class LoginPage {
 	}
 
 	async goto() {
-		await this.page.goto('/en/login');
-
-		// Wait for page to be fully loaded
-		await this.page.waitForLoadState('networkidle');
+		await this.navigateTo('/en/login');
+		await this.waitForLoad();
 	}
 
 	async login(email: string, password: string) {
 		// Check if form elements are available
-		await this.emailInput.waitFor({ state: 'visible', timeout: 10000 });
-		await this.passwordInput.waitFor({ state: 'visible', timeout: 10000 });
-		await this.submitButton.waitFor({ state: 'visible', timeout: 10000 });
+		await this.waitForVisible(this.emailInput);
+		await this.waitForVisible(this.passwordInput);
+		await this.waitForVisible(this.submitButton);
 
 		await this.emailInput.fill(email);
-
 		await this.passwordInput.fill(password);
-
 		await this.submitButton.click();
 
 		// Wait for navigation to complete
-		try {
-			await this.page.waitForLoadState('networkidle', { timeout: 15000 });
-		} catch (error) {}
+		await this.waitForNavigation();
 	}
 }

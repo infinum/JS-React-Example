@@ -1,0 +1,28 @@
+{
+	"name": "@infinum/frontend-e2e",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"check-licenses": "node ../../scripts/check-licenses-workspace.js",
+		"clean": "rm -rf node_modules .turbo .eslintcache",
+		"e2e": "playwright test --reporter=html",
+		"e2e:install": "playwright install",
+		"e2e:report": "playwright show-report",
+		"lint": "eslint . --cache",
+		"lint:fix": "eslint . --cache --fix",
+		"prettier:check": "prettier --check .",
+		"prettier:fix": "prettier --write ."
+	},
+	"devDependencies": {
+		"@axe-core/playwright": "catalog:",
+		"@infinum/configs": "workspace:*",
+		"@infinum/e2e-utils": "workspace:*",
+		"@playwright/test": "catalog:",
+		"@types/node": "catalog:",
+		"axe-core": "catalog:",
+		"axe-html-reporter": "catalog:",
+		"eslint": "catalog:",
+		"prettier": "catalog:",
+		"typescript": "catalog:"
+	}
+}
