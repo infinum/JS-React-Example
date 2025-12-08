@@ -1,0 +1,61 @@
+name: 🎭 Playwright E2E
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+concurrency:
+  group: playwright-e2e-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  NODE_ENV: test
+  CI: true
+  E2E_BASE_URL: http://localhost:3000
+
+jobs:
+  e2e:
+    runs-on: ubuntu-24.04
+    # container: mcr.microsoft.com/playwright:v1.50.0-noble
+    timeout-minutes: 60
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+
+      - name: 💨 Cache turbo
+        uses: actions/cache@v4
+        with:
+          path: |
+            .turbo
+          key: ${{ runner.os }}-turbo-${{ hashFiles('pnpm-lock.yaml', 'turbo.json') }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
+
+      - name: 💻 Node setup
+        uses: ./.github/actions/node-setup
+
+      - name: 🎭 E2E setup
+        uses: ./.github/actions/e2e-setup
+
+      - name: 🏗️ Build apps
+        run: pnpm build
+        shell: bash
+
+      - name: 🧪 Run E2E (HTML report)
+        run: pnpm e2e
+        shell: bash
+
+      - name: 📤 Upload Playwright artifacts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: playwright-artifacts
+          path: |
+            apps/frontend-e2e/playwright-report/
+            apps/frontend-e2e/test-results/
+            apps/frontend-e2e/reports/
+          if-no-files-found: ignore

@@ -1,19 +1,21 @@
 name: 🎭 E2E Test Setup
 description: 'Setup Playwright and install browsers for E2E testing'
 
-inputs:
-  browsers:
-    description: 'Browsers to install (chromium, firefox, webkit, or all)'
-    required: false
-    default: 'chromium'
-
 runs:
   using: 'composite'
   steps:
-    - name: 🎭 Install Playwright Browsers
-      run: pnpm exec playwright install --with-deps ${{ inputs.browsers }}
+    - name: 💾 Cache Playwright browsers
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/ms-playwright
+        key: ${{ runner.os }}-playwright-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-playwright-
+
+    - name: 🎭 Install Playwright browsers
+      run: pnpm e2e:install
       shell: bash
 
-    - name: 📋 Verify Playwright Installation
+    - name: 📋 Verify Playwright installation
       run: pnpm exec playwright --version
       shell: bash
