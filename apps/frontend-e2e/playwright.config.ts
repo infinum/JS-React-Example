@@ -15,9 +15,12 @@ export default defineConfig({
 	],
 	webServer: process.env.CI
 		? {
-				command: 'pnpm --filter @infinum/frontend dev',
+				command: 'pnpm --filter @infinum/frontend start',
 				port: 3000,
 				reuseExistingServer: !process.env.CI,
+				env: {
+					NODE_OPTIONS: '',
+				},
 			}
 		: undefined,
 });

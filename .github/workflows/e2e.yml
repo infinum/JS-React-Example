@@ -20,7 +20,7 @@ env:
 jobs:
   e2e:
     runs-on: ubuntu-24.04
-    # container: mcr.microsoft.com/playwright:v1.50.0-noble
+    container: mcr.microsoft.com/playwright:v1.57.0-noble
     timeout-minutes: 60
     steps:
       - name: 📥 Checkout
@@ -38,15 +38,17 @@ jobs:
       - name: 💻 Node setup
         uses: ./.github/actions/node-setup
 
-      - name: 🎭 E2E setup
-        uses: ./.github/actions/e2e-setup
-
       - name: 🏗️ Build apps
         run: pnpm build
         shell: bash
 
+      - name: 🎭 E2E setup
+        uses: ./.github/actions/e2e-setup
+
       - name: 🧪 Run E2E (HTML report)
         run: pnpm e2e
+        env:
+          PWDEBUG: '0'
         shell: bash
 
       - name: 📤 Upload Playwright artifacts
@@ -55,7 +57,7 @@ jobs:
         with:
           name: playwright-artifacts
           path: |
-            apps/frontend-e2e/playwright-report/
-            apps/frontend-e2e/test-results/
-            apps/frontend-e2e/reports/
+            apps/*-e2e/playwright-report/
+            apps/*-e2e/test-results/
+            apps/*-e2e/reports/
           if-no-files-found: ignore
