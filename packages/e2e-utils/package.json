@@ -1,0 +1,36 @@
+{
+	"name": "@infinum/e2e-utils",
+	"version": "0.0.0",
+	"private": true,
+	"main": "./src/index.ts",
+	"types": "./src/index.ts",
+	"files": [
+		"src"
+	],
+	"exports": {
+		".": "./src/index.ts",
+		"./accessibility": "./src/accessibility/index.ts",
+		"./pages": "./src/pages/index.ts",
+		"./devices": "./src/devices/index.ts",
+		"./reports": "./src/reports/index.ts",
+		"./utils": "./src/utils/index.ts"
+	},
+	"scripts": {
+		"check-licenses": "node ../../scripts/check-licenses-workspace.js",
+		"clean": "rm -rf node_modules .turbo .eslintcache",
+		"lint": "eslint . --cache",
+		"lint:fix": "eslint . --cache --fix",
+		"prettier:check": "prettier --check .",
+		"prettier:fix": "prettier --write ."
+	},
+	"peerDependencies": {
+		"@playwright/test": "catalog:"
+	},
+	"devDependencies": {
+		"@infinum/configs": "workspace:*",
+		"@types/node": "catalog:",
+		"eslint": "catalog:",
+		"prettier": "catalog:",
+		"typescript": "catalog:"
+	}
+}

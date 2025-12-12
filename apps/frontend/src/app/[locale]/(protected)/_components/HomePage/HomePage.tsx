@@ -12,7 +12,7 @@ export const HomePage = async () => {
 
 	return (
 		<div className="flex h-screen flex-col items-center justify-center space-y-4">
-			<div className="flex flex-col items-center gap-8">
+			<div className="flex flex-col items-center gap-8" data-testid="home-page-content">
 				<Image src="/assets/images/logo.png" alt="Infinum logo" width={360} height={76} priority />
 				<div className="flex flex-col items-center">
 					<ExampleComponent className="text-center" text="Welcome to Infinum" />

@@ -95,6 +95,23 @@
 		},
 		"//#check-licenses:root": {
 			"cache": false
+		},
+		"e2e": {
+			"dependsOn": ["^build"],
+			"cache": false,
+			"inputs": [
+				"$TURBO_DEFAULT$",
+				"**/*.e2e.{spec,test}.{ts,tsx,js,jsx}",
+				"../../packages/e2e-utils/src/**/*.{ts,js}",
+				"../../packages/configs/src/playwright-config/**/*.{js,ts}"
+			]
+		},
+		"e2e:report": {
+			"dependsOn": ["^e2e"],
+			"cache": false
+		},
+		"e2e:install": {
+			"cache": false
 		}
 	}
 }
