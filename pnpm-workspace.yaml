@@ -5,22 +5,22 @@ packages:
 catalog:
   '@actions/core': 1.11.1
   '@axe-core/playwright': 4.10.2
-  '@changesets/cli': 2.29.7
+  '@changesets/cli': 2.29.8
   '@eslint/compat': 1.4.1
   '@eslint/js': 9.39.0
-  '@next/bundle-analyzer': 16.0.1
-  '@next/env': 16.0.1
-  '@next/eslint-plugin-next': 16.0.1
-  '@playwright/test': 1.55.0
+  '@next/bundle-analyzer': 16.1.1
+  '@next/env': 16.1.1
+  '@next/eslint-plugin-next': 16.1.1
+  '@playwright/test': 1.55.1
   '@radix-ui/react-label': 2.1.7
   '@radix-ui/react-select': 2.2.6
   '@radix-ui/react-slot': 1.2.3
   '@radix-ui/react-tooltip': 1.2.8
-  '@storybook/addon-a11y': 10.1.4
-  '@storybook/addon-designs': 11.0.1
-  '@storybook/addon-docs': 10.1.4
-  '@storybook/addon-themes': 10.1.4
-  '@storybook/nextjs': 10.1.4
+  '@storybook/addon-a11y': 10.1.11
+  '@storybook/addon-designs': 11.1.1
+  '@storybook/addon-docs': 10.1.11
+  '@storybook/addon-themes': 10.1.11
+  '@storybook/nextjs': 10.1.11
   '@tailwindcss/postcss': 4.1.16
   '@testing-library/dom': 10.4.1
   '@testing-library/jest-dom': 6.9.1
@@ -44,7 +44,7 @@ catalog:
   eslint-plugin-prettier: 5.5.4
   eslint-plugin-react: 7.37.5
   eslint-plugin-react-hooks: 7.0.1
-  eslint-plugin-storybook: 10.1.4
+  eslint-plugin-storybook: 10.1.11
   globals: 16.5.0
   husky: 9.1.7
   jest: 30.2.0
@@ -52,7 +52,7 @@ catalog:
   license-checker-rseidelsohn: 4.4.2
   lint-staged: 16.2.6
   lucide-react: 0.552.0
-  next: 16.0.7
+  next: 16.1.1
   next-auth: 4.24.13
   next-intl: 4.4.0
   next-themes: 0.4.6
@@ -64,8 +64,8 @@ catalog:
   react-dom: 19.2.0
   remark: 15.0.1
   remark-cli: 12.0.1
-  shadcn: 3.5.0
-  storybook: 10.1.4
+  shadcn: 3.6.2
+  storybook: 10.1.11
   tailwind-merge: 3.3.1
   tailwindcss: 4.1.16
   ts-jest: 29.4.5
@@ -77,28 +77,13 @@ catalog:
 
 engineStrict: true
 
-minimumReleaseAge: 28800 # 20 days
+minimumReleaseAge: 10080
 
 minimumReleaseAgeExclude:
-  # CVE-2025-66478
-  - next@16.0.7
-  - '@next/env@16.0.7'
-  - '@next/swc-linux-x64-gnu@16.0.7'
-  # Storybook CVE-2025-66478
-  - '@storybook/addon-a11y@10.1.4'
-  - '@storybook/addon-docs@10.1.4'
-  - '@storybook/addon-themes@10.1.4'
-  - '@storybook/builder-webpack5@10.1.4'
-  - '@storybook/core-webpack@10.1.4'
-  - '@storybook/csf-plugin@10.1.4'
-  - '@storybook/preset-react-webpack@10.1.4'
-  - '@storybook/react@10.1.4'
-  - '@storybook/react-dom-shim@10.1.4'
-  - '@storybook/nextjs@10.1.4'
-  - eslint-plugin-storybook@10.1.4
-  - storybook@10.1.4
-  # glob version released 17 Nov 2025
-  - glob@11.1.0
+  # Needed to resolve vulnerabilities in shadcn
+  - '@modelcontextprotocol/sdk@1.25.2'
+  # Needed to resolve vulnerabilities in next-auth
+  - 'preact@10.28.2'
 
 onlyBuiltDependencies:
   - '@tailwindcss/oxide@4.1.11'
@@ -108,15 +93,18 @@ onlyBuiltDependencies:
   - sharp@0.34.4
   - unrs-resolver@1.11.1
 
+overrides:
+  # 08.01.2026 - No shadcn>@modelcontextprotocol/sdk version with fix for https://github.com/advisories/GHSA-8r9q-7v3j-jr4g
+  '@modelcontextprotocol/sdk@<1.25.2': '>=1.25.2'
+  # 08.01.2026 - No @changesets/cli>@manypkg/get-packages>read-yaml-file>js-yaml fix for https://github.com/advisories/GHSA-mh29-5h37-fv8m
+  js-yaml@<3.14.2: '>=3.14.2'
+  # 08.01.2026 - No Ceslint>@eslint/eslintrc>js-yaml fix for https://github.com/advisories/GHSA-mh29-5h37-fv8m
+  js-yaml@>=4.0.0 <4.1.1: '>=4.1.1'
+  # 08.01.2026 - No next-auth>preact version with fix for https://github.com/advisories/GHSA-36hm-qxxp-pg3m
+  preact@>=10.28.0 <10.28.2: '>=10.28.2'
+  # 08.01.2026 - No @storybook/nextjs>node-polyfill-webpack-plugin>url>qs version with fix for https://github.com/advisories/GHSA-6rw7-vpxm-498p
+  qs@<6.14.1: '>=6.14.1'
+
 strictDepBuilds: true
 
 strictPeerDependencies: true
-
-overrides:
-  # high CVE - glob CLI: Command injection via -c/--cmd executes matches with shell:true
-  # Note: Only used by license-checker-rseidelsohn>read-installed-packages>read-package-json>glob
-  # pnpm doesn't support deep transitive overrides, so we override globally
-  glob: '>=11.1.0'
-  # Fix Node 24 compatibility - test-exclude@6.0.0 has promisify issue with Node 24
-  # Used by babel-plugin-istanbul for coverage collection
-  test-exclude: '>=6.0.1'
