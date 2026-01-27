@@ -3,7 +3,7 @@ packages:
   - packages/*
 
 catalog:
-  '@actions/core': 1.11.1
+  '@actions/core': 2.0.2
   '@axe-core/playwright': 4.10.2
   '@changesets/cli': 2.29.8
   '@eslint/compat': 1.4.1
@@ -46,6 +46,7 @@ catalog:
   eslint-plugin-react-hooks: 7.0.1
   eslint-plugin-storybook: 10.1.11
   globals: 16.5.0
+  hono: 4.11.7
   husky: 9.1.7
   jest: 30.2.0
   jest-environment-jsdom: 30.2.0
@@ -64,7 +65,7 @@ catalog:
   react-dom: 19.2.0
   remark: 15.0.1
   remark-cli: 12.0.1
-  shadcn: 3.6.2
+  shadcn: 3.7.0
   storybook: 10.1.11
   tailwind-merge: 3.3.1
   tailwindcss: 4.1.16
@@ -84,6 +85,10 @@ minimumReleaseAgeExclude:
   - '@modelcontextprotocol/sdk@1.25.2'
   # Needed to resolve vulnerabilities in next-auth
   - 'preact@10.28.2'
+  # 27.01.2026 - Needed for vulnerability in Storybook plugins
+  - 'lodash@4.17.23'
+  # 27.01.2026 - Needed for vulnerability in hono (requires >=4.11.4)
+  - 'hono@4.11.7'
 
 onlyBuiltDependencies:
   - '@tailwindcss/oxide@4.1.11'
@@ -96,14 +101,27 @@ onlyBuiltDependencies:
 overrides:
   # 08.01.2026 - No shadcn>@modelcontextprotocol/sdk version with fix for https://github.com/advisories/GHSA-8r9q-7v3j-jr4g
   '@modelcontextprotocol/sdk@<1.25.2': '>=1.25.2'
+  # 27.01.2026 - Both shadcn and ts-node are still using old versions of these dependencies
+  diff@<4.0.4: '>=4.0.4'
+  diff@>=6.0.0 <8.0.3: '>=8.0.3'
+  'hono@<4.11.4': '4.11.7'
+  'hono@4.11.3': '4.11.7'
   # 08.01.2026 - No @changesets/cli>@manypkg/get-packages>read-yaml-file>js-yaml fix for https://github.com/advisories/GHSA-mh29-5h37-fv8m
   js-yaml@<3.14.2: '>=3.14.2'
   # 08.01.2026 - No Ceslint>@eslint/eslintrc>js-yaml fix for https://github.com/advisories/GHSA-mh29-5h37-fv8m
   js-yaml@>=4.0.0 <4.1.1: '>=4.1.1'
+  # 27.01.2026 - Storybook plugins are still using old versions of lodash
+  lodash@>=4.0.0 <=4.17.22: '>=4.17.23'
   # 08.01.2026 - No next-auth>preact version with fix for https://github.com/advisories/GHSA-36hm-qxxp-pg3m
   preact@>=10.28.0 <10.28.2: '>=10.28.2'
   # 08.01.2026 - No @storybook/nextjs>node-polyfill-webpack-plugin>url>qs version with fix for https://github.com/advisories/GHSA-6rw7-vpxm-498p
   qs@<6.14.1: '>=6.14.1'
+  # 27.01.2026 - Needed for vulnerability in @actions/core
+  'undici@<6.23.0': '>=6.23.0'
+  # 27.01.2026 - elliptic vulnerability (GHSA-848j-6mx2-7j84): No patch available yet (latest 6.6.1 still vulnerable)
+  # Low severity, dev-only (Storybook webpack polyfills). Waiting for upstream fix.
+  # Path: storybook>@storybook/nextjs>node-polyfill-webpack-plugin>crypto-browserify>browserify-sign>elliptic
+  # https://github.com/advisories/GHSA-848j-6mx2-7j84
 
 strictDepBuilds: true
 
