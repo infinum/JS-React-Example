@@ -20,4 +20,9 @@ export const secretEnv = () =>
 			desc: 'A secure random string used by NextAuth for signing and encrypting JWT tokens and cookies. Required in production, especially when using JWT sessions.',
 			docs: 'https://next-auth.js.org/configuration/options#nextauth_secret',
 		}),
+		TEST_SECRET: str({
+			input: process.env.TEST_SECRET,
+			devDefault: 'Missing injected variable',
+			desc: 'Used to test if the mise env variables are injected correctly.',
+		}),
 	});

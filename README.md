@@ -17,7 +17,8 @@ A modern React monorepo showcasing Next.js 15, TypeScript, and best practices fo
 # Clone, install, and start development
 git clone <repository-url>
 cd JS-React-Example
-pnpm install && pnpm dev
+mise trust && mise install && pnpm install
+mise dev
 ```
 
 **Access the applications:**
@@ -139,6 +140,20 @@ API patterns and development guide: [API Development Guide](documentation/API%20
 - **`.env.compose`**: Docker Compose environment
 
 **Complete setup**: [Environment Variables Guide](documentation/Environment%20variables.md)
+
+### Environment secrets
+
+The goal is not to have any secrets written to the disk or even available outside of the processes that need them. For that, we're using 1password CLI in combination with Mise. Secrets are stored in 1password vault and accessed via `op read` command in the `mise.toml` file, which injects them as environment variables when running development tasks.
+
+To set up your local environment, you need to have 1password CLI installed and authenticated:
+
+> brew install op
+
+In the 1password app, in the Settings > Developer, turn on the CLI integration.
+
+Then, make sure you have access to the vault where the secrets are stored.
+
+When running `mise dev`, you should be prompted by 1password to allow access to the secrets. Once you allow it, the secrets will be injected into the environment variables for the development process. In the example, this would mean that the text "Hello Infinum!" would be rendered on the login page.
 
 ## Development Workflow
 

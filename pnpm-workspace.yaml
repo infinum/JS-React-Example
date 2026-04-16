@@ -1,3 +1,19 @@
+engineStrict: true
+
+minimumReleaseAge: 10080
+
+allowBuilds:
+  sharp@0.34.5: true
+  core-js: false
+
+strictDepBuilds: true
+
+strictPeerDependencies: true
+
+blockExoticSubdeps: true
+
+trustPolicy: no-downgrade
+
 packages:
   - apps/*
   - packages/*
@@ -76,10 +92,6 @@ catalog:
   typescript: 5.8.3
   typescript-eslint: 8.46.2
 
-engineStrict: true
-
-minimumReleaseAge: 10080
-
 minimumReleaseAgeExclude:
   # Needed to resolve vulnerabilities in shadcn
   - '@modelcontextprotocol/sdk@1.25.2'
@@ -122,7 +134,3 @@ overrides:
   # Low severity, dev-only (Storybook webpack polyfills). Waiting for upstream fix.
   # Path: storybook>@storybook/nextjs>node-polyfill-webpack-plugin>crypto-browserify>browserify-sign>elliptic
   # https://github.com/advisories/GHSA-848j-6mx2-7j84
-
-strictDepBuilds: true
-
-strictPeerDependencies: true
