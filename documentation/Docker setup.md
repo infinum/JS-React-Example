@@ -111,7 +111,7 @@ services:
 
 ### Running compose through mise
 
-There is a root-level `mise docker:prod` task that simply forwards arguments to `docker compose -f ./docker/docker-compose.yml`. The root mise config is intentionally secret-free (see [Environment Variables — Secrets](./Environment%20variables.md#secrets)), so `mise docker:prod` on its own does **not** fetch secrets from the vault.
+There is a root-level `mise docker:prod` task that simply forwards arguments to `docker compose -f ./docker/docker-compose.yml`. The root mise config is intentionally secret-free (see [Tool Management](./Tool%20management.md) for the layering rationale and [Environment Variables — Secrets](./Environment%20variables.md#secrets) for the pipeline), so `mise docker:prod` on its own does **not** fetch secrets from the vault.
 
 To run compose locally with secrets available:
 

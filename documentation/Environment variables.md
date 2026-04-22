@@ -2,13 +2,13 @@
 
 > **TL;DR Cheat-Sheet**
 >
-> 1. **Committed templates** &mdash; `.env` and `.env.compose` are tracked in git with non-secret defaults.
-> 1. **Developer overrides** &mdash; All `*.local` files are ignored and never committed. Use them for personal non-secret tweaks (ports, feature flags), not real secrets.
-> 1. **Secrets** &mdash; Never written to disk. Injected at task-run time by [mise](https://mise.jdx.dev/) from a secret-store CLI (1Password by default — see [Secrets](#secrets)).
-> 1. **Two validators** &mdash; `validate-env.client.ts` for public vars, `validate-env.server.ts` for secrets.
-> 1. **Type-safe access** &mdash; Use `getPublicEnv()` for public vars, `secretEnv()` for secrets.
-> 1. Variables in `validate-env.client.ts` are exposed to the browser (no `NEXT_PUBLIC_` prefix needed).
-> 1. Never put secrets in `validate-env.client.ts` - only in `validate-env.server.ts`.
+> 1. **Committed templates** — `.env` and `.env.compose` are tracked in git with non-secret defaults.
+> 2. **Developer overrides** — All `*.local` files are ignored and never committed. Use them for personal non-secret tweaks (ports, feature flags), not real secrets.
+> 3. **Secrets** — Never written to disk. Injected at task-run time by [mise](https://mise.jdx.dev/) from a secret-store CLI (1Password by default — see [Secrets](#secrets)).
+> 4. **Two validators** — `validate-env.client.ts` for public vars, `validate-env.server.ts` for secrets.
+> 5. **Type-safe access** — Use `getPublicEnv()` for public vars, `secretEnv()` for secrets.
+> 6. Variables in `validate-env.client.ts` are exposed to the browser (no `NEXT_PUBLIC_` prefix needed).
+> 7. Never put secrets in `validate-env.client.ts` - only in `validate-env.server.ts`.
 >
 > **!! WARNING !!**
 >
@@ -24,10 +24,10 @@ The monorepo uses a repeatable pattern for environment variables that works on t
 
 Each application has:
 
-- **`.env`** &mdash; Committed, non-secret host defaults for running the app on your local machine.
-- **`.env.compose`** &mdash; Committed, non-secret Docker defaults for running the app in containers.
-- **`*.local` files** &mdash; Developer-specific non-secret overrides, never committed to git.
-- **Secrets** &mdash; Not in any file. Injected at task-run time by mise from a secret-store CLI (1Password by default) locally, and from the pipeline's secret provider (e.g. GitHub Actions secrets) in CI.
+- **`.env`** — Committed, non-secret host defaults for running the app on your local machine.
+- **`.env.compose`** — Committed, non-secret Docker defaults for running the app in containers.
+- **`*.local` files** — Developer-specific non-secret overrides, never committed to git.
+- **Secrets** — Not in any file. Injected at task-run time by mise from a secret-store CLI (1Password by default) locally, and from the pipeline's secret provider (e.g. GitHub Actions secrets) in CI.
 
 We use:
 
@@ -68,9 +68,9 @@ All other `.env*` files are ignored, including:
 
 ### Important Rules
 
-1. **Never put secrets in any env file** &mdash; not in committed templates (`.env`, `.env.compose`) and not in gitignored `.local` files. Secrets always come from the [Secrets](#secrets) pipeline.
-2. **Use `.local` files for non-secret developer overrides** &mdash; per-developer ports, feature flags, alternate URLs, etc. If a value is truly sensitive, it belongs in the secret store, not here.
-3. **Templates are for defaults** &mdash; committed files should contain example values, localhost URLs, and other non-sensitive defaults. When a secret-bearing variable is handled by mise, add a comment pointing at this guide so contributors don't re-add it to the file.
+1. **Never put secrets in any env file** — not in committed templates (`.env`, `.env.compose`) and not in gitignored `.local` files. Secrets always come from the [Secrets](#secrets) pipeline.
+2. **Use `.local` files for non-secret developer overrides** — per-developer ports, feature flags, alternate URLs, etc. If a value is truly sensitive, it belongs in the secret store, not here.
+3. **Templates are for defaults** — committed files should contain example values, localhost URLs, and other non-sensitive defaults. When a secret-bearing variable is handled by mise, add a comment pointing at this guide so contributors don't re-add it to the file.
 
 ## Next.js Environment File Reference
 
@@ -110,11 +110,11 @@ When you run via `docker-compose up`, the `env_file` entries in `docker-compose.
 
 When running on the **host** (not Docker), Next.js resolves each environment variable by checking the following sources in order, stopping at the first match:
 
-1. **`process.env`** &mdash; Values injected by the shell, CI, or other external sources
-2. **`.env.$(NODE_ENV).local`** &mdash; e.g., `.env.development.local` or `.env.production.local`
-3. **`.env.local`** &mdash; Ignored when `NODE_ENV=test`
-4. **`.env.$(NODE_ENV)`** &mdash; e.g., `.env.development`, `.env.production`, or `.env.test`
-5. **`.env`** &mdash; Base defaults
+1. **`process.env`** — Values injected by the shell, CI, or other external sources
+2. **`.env.$(NODE_ENV).local`** — e.g., `.env.development.local` or `.env.production.local`
+3. **`.env.local`** — Ignored when `NODE_ENV=test`
+4. **`.env.$(NODE_ENV)`** — e.g., `.env.development`, `.env.production`, or `.env.test`
+5. **`.env`** — Base defaults
 
 This means that variables set in `.env.local` override those in `.env`, and variables set in `.env.development.local` override both.
 
@@ -183,12 +183,14 @@ No secret values on disk. True secrets never live in `.env`, `.env.local`, `.env
 
 ### Reference setup: 1Password CLI + mise
 
-We use [mise](https://mise.jdx.dev/) tasks to inject secrets fetched via the 1Password CLI (`op`). The canonical configuration lives in [apps/frontend/mise.toml](../apps/frontend/mise.toml). Each entry under `[tasks.<name>].env` uses mise's command-substitution templating to shell out to `op read`, so the value is fetched on demand from a vault item such as `op://<vault>/<item>/<field>`.
+We use [mise](https://mise.jdx.dev/) tasks to inject secrets fetched via the 1Password CLI (`op`). For the bigger picture of why this project uses `mise` at all — tool pinning, checksum verification, and supply-chain security — see the [Tool Management guide](./Tool%20management.md) and the [Infinum handbook's Node.js security overview](https://infinum.com/handbook/frontend/node/security/overview) *(internal)*. This section focuses on the secrets piece specifically.
+
+The canonical configuration lives in [apps/frontend/mise.toml](../apps/frontend/mise.toml). Each entry under `[tasks.<name>].env` uses mise's command-substitution templating to shell out to `op read`, so the value is fetched on demand from a vault item such as `op://<vault>/<item>/<field>`.
 
 Relevant settings on the mise file:
 
-- `env_shell_expand = false` &mdash; critical, see [Why it matters](#why-env_shell_expand--false).
-- `[tasks.dev].env` &mdash; declares each secret variable and the `op read` call that resolves it.
+- `env_shell_expand = false` — critical, see [Why it matters](#why-env_shell_expand--false).
+- `[tasks.dev].env` — declares each secret variable and the `op read` call that resolves it.
 
 When `mise dev` runs, mise evaluates those templates and sets the resulting values as environment variables for the task process only — nothing is written to disk, nothing leaks to unrelated shell commands.
 
@@ -216,19 +218,34 @@ On first `mise dev`, 1Password prompts for authorization. After that, secrets ar
 
 The pattern is always the same: wrap the CLI call in mise's command-substitution template inside the relevant task's `env` block. The rest of the pipeline (validators, the `secretEnv()` accessor, container forwarding) does not care which backend produced the value.
 
-### Secrets in CI
+### Script naming: `:mise` is opt-in, plain is the default
 
-Local developer machines use mise + a local secret-store CLI, but CI runners have their own secret provider and don't need 1Password access. In GitHub Actions, for example, secrets are stored in repository/org secrets and injected via the job's `env:` block or `secrets:` context:
+The frontend exposes each runnable script in two forms:
+
+| Script | What it runs | Secret source |
+| ------ | ------------ | ------------- |
+| `pnpm dev`, `pnpm build`, `pnpm start` | Direct `next …` invocations | Whatever is already in `process.env` |
+| `pnpm dev:mise`, `pnpm build:mise`, `pnpm start:mise` | Delegates to `mise run <task>` | Fetched from the secret store at task-run time |
+
+The plain scripts are the default because they work identically in every context — a developer's shell with pre-exported env vars, a Docker container, or a CI runner. The `:mise` variants are local-dev sugar: they activate the mise + 1Password pipeline so you don't have to think about secrets during everyday work.
+
+Mise itself calls the plain scripts internally — `[tasks.dev].run = "pnpm run dev"` in [apps/frontend/mise.toml](../apps/frontend/mise.toml) — so there's a single build/start/dev command with two entry points. No duplicated logic.
+
+### CI
+
+Local developer machines use mise + a local secret-store CLI, but CI runners have their own secret provider and don't need 1Password access. CI just runs the plain scripts, with secrets supplied through the job's `env:` block:
 
 ```yaml
 jobs:
-  e2e:
+  build:
     env:
       NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
       TEST_SECRET:     ${{ secrets.TEST_SECRET }}
     steps:
-      - run: pnpm e2e
+      - run: pnpm build
 ```
+
+The Playwright config in [apps/frontend-e2e/playwright.config.ts](../apps/frontend-e2e/playwright.config.ts) uses plain `pnpm start` for the same reason.
 
 From the app's point of view the two paths are indistinguishable — by the time the Next.js process starts, the secret is already in `process.env`, regardless of whether it came from mise locally or from the pipeline runner in CI.
 
@@ -255,8 +272,8 @@ If you're onboarding and don't yet have access to the project's 1Password vault 
 
 With `next-public-env`, the distinction between public and private variables is enforced by which validator you add them to:
 
-- **Public variables** &mdash; Defined in `validate-env.client.ts`, exposed to the browser via `getPublicEnv()`
-- **Private variables** &mdash; Defined in `validate-env.server.ts`, only available on the server via `secretEnv()`
+- **Public variables** — Defined in `validate-env.client.ts`, exposed to the browser via `getPublicEnv()`
+- **Private variables** — Defined in `validate-env.server.ts`, only available on the server via `secretEnv()`
 
 **Important:** Unlike traditional Next.js, you **don't need the `NEXT_PUBLIC_` prefix**. Any variable in `validate-env.client.ts` is automatically public, regardless of its name.
 
