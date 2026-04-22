@@ -7,6 +7,7 @@
 		"check-licenses": "node ../../scripts/check-licenses-workspace.js",
 		"clean": "rm -rf node_modules .turbo storybook-static .eslintcache",
 		"dev": "storybook dev -p 6006",
+		"dev:mise": "pnpm run dev",
 		"lint": "eslint . --cache",
 		"lint:fix": "eslint . --cache --fix",
 		"prettier:check": "prettier --check .",

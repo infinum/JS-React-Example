@@ -5,21 +5,21 @@ idiomatic_version_file_enable_tools = ["node", "pnpm"]
 env_shell_expand = false
 
 [tasks.dev]
-run = "pnpm run _dev"
+run = "pnpm run dev"
 env = {
 	NEXTAUTH_SECRET = "{{exec(command='op read \"op://JS general/ReactExample/NextAuthSecret\"')}}",
 	TEST_SECRET = "{{exec(command='op read \"op://JS general/ReactExample/TestSecret\"')}}"
 }
 
 [tasks.build]
-run = "pnpm run _build"
+run = "pnpm run build"
 env = {
 	NEXTAUTH_SECRET = "{{exec(command='op read \"op://JS general/ReactExample/NextAuthSecret\"')}}",
 	TEST_SECRET = "{{exec(command='op read \"op://JS general/ReactExample/TestSecret\"')}}"
 }
 
 [tasks.start]
-run = "pnpm run _start"
+run = "pnpm run start"
 env = {
 	NEXTAUTH_SECRET = "{{exec(command='op read \"op://JS general/ReactExample/NextAuthSecret\"')}}",
 	TEST_SECRET = "{{exec(command='op read \"op://JS general/ReactExample/TestSecret\"')}}"

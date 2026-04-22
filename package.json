@@ -12,6 +12,7 @@
 		"check-licenses": "turbo run check-licenses check-licenses:root && node scripts/aggregate-license-results.js --parallel --log-order=grouped",
 		"check-licenses:root": "node scripts/check-licenses-workspace.js",
 		"dev": "turbo run dev --parallel --ui=tui --continue",
+		"dev:mise": "turbo run dev:mise --parallel --ui=tui --continue",
 		"docker:prod": "docker compose -f ./docker/docker-compose.yml",
 		"e2e": "turbo run e2e --parallel --log-order=grouped --continue",
 		"e2e:install": "turbo run e2e:install",
