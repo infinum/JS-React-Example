@@ -8,5 +8,32 @@ env_shell_expand = false
 node = "24.15.0"
 pnpm = "10.33.0"
 
+# Root-level tasks are plain delegates to pnpm/turbo.
+# They MUST NOT declare secret env — secrets are the responsibility of each
+# app's own mise.toml (see apps/<app>/mise.toml and documentation/Environment variables.md).
+# When turbo fans a task out to an app, the app's `pnpm <script>` delegates to
+# `mise run <task>` locally, at which point the app-level task env is applied.
+
 [tasks.dev]
 run = "pnpm run dev"
+description = "Start all apps in dev mode (each app injects its own secrets)"
+
+[tasks.build]
+run = "pnpm run build"
+description = "Build all apps and packages"
+
+[tasks.start]
+run = "pnpm run start"
+description = "Start all apps in production mode"
+
+[tasks.test]
+run = "pnpm run test"
+description = "Run unit tests across the monorepo"
+
+[tasks.e2e]
+run = "pnpm run e2e"
+description = "Run Playwright E2E tests"
+
+[tasks."docker:prod"]
+run = 'pnpm run docker:prod "$@"'
+description = "Run docker compose for the production image (args are forwarded, e.g. `mise docker:prod -- up -d`)"

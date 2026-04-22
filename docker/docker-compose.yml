@@ -13,6 +13,11 @@ services:
       - '3000:3000'
     environment:
       - HOSTNAME=0.0.0.0
+      # Secrets forwarded from the host process. These have no value here on purpose:
+      # compose passes through whatever is in the parent environment (populated locally
+      # by mise, or by the pipeline's secret provider in CI). Never inline real values.
+      - NEXTAUTH_SECRET
+      - TEST_SECRET
     env_file:
       - ../apps/frontend/.env
       - ../apps/frontend/.env.compose

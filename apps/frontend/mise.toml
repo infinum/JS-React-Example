@@ -11,5 +11,19 @@ env = {
 	TEST_SECRET = "{{exec(command='op read \"op://JS general/ReactExample/TestSecret\"')}}"
 }
 
+[tasks.build]
+run = "pnpm run _build"
+env = {
+	NEXTAUTH_SECRET = "{{exec(command='op read \"op://JS general/ReactExample/NextAuthSecret\"')}}",
+	TEST_SECRET = "{{exec(command='op read \"op://JS general/ReactExample/TestSecret\"')}}"
+}
+
+[tasks.start]
+run = "pnpm run _start"
+env = {
+	NEXTAUTH_SECRET = "{{exec(command='op read \"op://JS general/ReactExample/NextAuthSecret\"')}}",
+	TEST_SECRET = "{{exec(command='op read \"op://JS general/ReactExample/TestSecret\"')}}"
+}
+
 [env]
 _.file = ".env.local"

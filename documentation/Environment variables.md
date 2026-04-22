@@ -172,7 +172,8 @@ Because Docker Compose loads these files into `process.env`, they override any `
 1. Clone the repo — both `.env` and `.env.compose` are already there.
 2. `postinstall` script creates `.env.compose.local` as a copy of `.env.compose`; tweak per-developer non-secret values here.
 3. Set up the secret store once (see [Secrets](#secrets)).
-4. Run `mise docker:prod` (or whichever mise task wraps compose) — the task fetches secrets, exports them to its own environment, and then invokes `docker compose …` so the `environment:` block forwards them to the container.
+4. Put the secrets in your shell environment. Locally this is typically done with `op run`, e.g. `op run --env-file=.op.env -- mise docker:prod -- up`. In CI the pipeline exports them via the job's `env:` block.
+5. Run `mise docker:prod -- up` (or another subcommand). The root-level `docker:prod` task is a plain delegate — it does **not** fetch secrets itself (the root mise config is intentionally secret-free). Compose's `environment:` block forwards whatever is in the parent process's env into the container.
 
 ## Secrets
 

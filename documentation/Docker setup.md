@@ -111,7 +111,13 @@ services:
 
 ### Running compose through mise
 
-Because compose itself does not invoke mise, the compose command is wrapped by a mise task that fetches the secrets first and then calls `docker compose …`. That way the pattern for Docker matches the pattern for local development: one entry point (`mise <task>`) that produces the right environment, regardless of whether the app runs on the host or in a container.
+There is a root-level `mise docker:prod` task that simply forwards arguments to `docker compose -f ./docker/docker-compose.yml`. The root mise config is intentionally secret-free (see [Environment Variables — Secrets](./Environment%20variables.md#secrets)), so `mise docker:prod` on its own does **not** fetch secrets from the vault.
+
+To run compose locally with secrets available:
+
+- **1Password operator:** prefix with `op run` to populate the env for the child process, e.g. `op run --env-file=.op.env -- mise docker:prod -- up -d`.
+- **Manual export:** `export NEXTAUTH_SECRET=...; export TEST_SECRET=...; mise docker:prod -- up -d`.
+- **Per-app wrapper:** teams that prefer a one-shot command can add a secret-aware mise task under `apps/<app>/mise.toml` that shells out to `docker compose` with the app's own op reads — this keeps the root config secret-free while still giving a single command.
 
 In CI, secrets come from the pipeline's secret provider (e.g. GitHub Actions `secrets`) exported to the job's `env:` block, and compose forwards them to the container the same way. The compose file itself does not need to change between local and CI use.
 
