@@ -6,10 +6,11 @@ A modern React monorepo showcasing Next.js 15, TypeScript, and best practices fo
 
 ### Prerequisites
 
-- **Node.js**: Version specified in `package.json`
-- **pnpm**: Version specified in `package.json`
-- **Corepack**: Run `corepack enable` to manage package manager versions automatically
+- **[mise](https://mise.jdx.dev/)**: Required — installs and pins `node` and `pnpm` with checksum-verified binaries. Install with `brew install mise` on macOS (see the [Tool Management guide](documentation/Tool%20management.md) for other platforms and the full rationale).
 - **Docker**: For containerized development (optional but recommended)
+- **1Password CLI**: For injecting secrets into `mise` tasks (see [Environment secrets](#environment-secrets) below)
+
+`node` and `pnpm` are managed by `mise` — you do **not** install them separately. This is part of the project's [supply-chain security posture](https://infinum.com/handbook/frontend/node/security/overview) *(internal handbook)*; see [Tool Management](documentation/Tool%20management.md) for details.
 
 ### One-Command Setup
 
@@ -20,6 +21,8 @@ cd JS-React-Example
 mise trust && mise install && pnpm install
 mise dev
 ```
+
+`mise trust` approves this repo's `mise.toml`, `mise install` downloads and checksum-verifies `node` and `pnpm` against [mise.lock](mise.lock), and `mise dev` starts the dev server with secrets injected from 1Password. See [Tool Management](documentation/Tool%20management.md) for the full setup and [Environment Variables](documentation/Environment%20variables.md) for the secrets pipeline.
 
 **Access the applications:**
 
@@ -143,7 +146,7 @@ API patterns and development guide: [API Development Guide](documentation/API%20
 
 ### Environment secrets
 
-The goal is to keep secrets out of the filesystem entirely — nothing on disk, nothing leaked to unrelated shell commands, only available to the processes that need them. To achieve this we inject secrets into the process environment at task-run time via [mise](https://mise.jdx.dev/) tasks that shell out to a secret-store CLI.
+The goal is to keep secrets out of the filesystem entirely — nothing on disk, nothing leaked to unrelated shell commands, only available to the processes that need them. To achieve this we inject secrets into the process environment at task-run time via [mise](https://mise.jdx.dev/) tasks that shell out to a secret-store CLI. This is part of the project's [supply-chain security posture](https://infinum.com/handbook/frontend/node/security/overview) *(internal handbook)* — see the [Tool Management guide](documentation/Tool%20management.md) for the broader rationale.
 
 **Reference setup: 1Password CLI**
 
@@ -255,12 +258,17 @@ New UI components should:
 ### Available Guides
 
 - [Monorepo Structure](documentation/Monorepo%20Structure.md) - Project organization and architecture
+- [Tool Management (mise)](documentation/Tool%20management.md) - Why mise, how to install it, how tool pinning and task running work
 - [Development Workflow](documentation/Development%20Workflow%20Guide.md) - Git workflow, code review, releases
 - [UI Components](documentation/UI%20Components%20Guide.md) - ShadCN component generation and customization
 - [Semantic Tokens](documentation/Semantic%20Tokens%20Guide.md) - Design tokens and theming system
 - [Internationalization](documentation/Internationalization%20Guide.md) - next-intl setup and configuration
 - [Environment Variables](documentation/Environment%20variables.md) - Complete environment setup
 - [Docker Setup](documentation/Docker%20setup.md) - Containerized development and deployment
+
+### External references
+
+- [Infinum handbook — Node.js Security](https://infinum.com/handbook/frontend/node/security/overview) *(internal)* - The security rationale behind `mise`, pnpm hardening, and AI-assisted development guardrails used in this repo.
 
 ### Architecture Decisions
 
