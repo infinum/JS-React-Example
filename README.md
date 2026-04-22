@@ -130,30 +130,38 @@ API patterns and development guide: [API Development Guide](documentation/API%20
 
 ### Key Variables
 
-- **`NEXTAUTH_SECRET`**: Authentication secret (auto-generated in dev)
+- **`NEXTAUTH_SECRET`**: Authentication secret — injected at runtime via mise + 1Password (see **Environment secrets** below)
 - **`NEXTAUTH_URL`**: Application URL for OAuth callbacks
 - **OAuth providers**: `GOOGLE_CLIENT_ID`, `GITHUB_CLIENT_ID`, etc.
 
 ### Environment Files
 
-- **`.env.local`**: Local development overrides
-- **`.env.compose`**: Docker Compose environment
+- **`.env.local`**: Local development overrides (non-secret)
+- **`.env.compose`**: Docker Compose environment (non-secret)
 
 **Complete setup**: [Environment Variables Guide](documentation/Environment%20variables.md)
 
 ### Environment secrets
 
-The goal is not to have any secrets written to the disk or even available outside of the processes that need them. For that, we're using 1password CLI in combination with Mise. Secrets are stored in 1password vault and accessed via `op read` command in the `mise.toml` file, which injects them as environment variables when running development tasks.
+The goal is to keep secrets out of the filesystem entirely — nothing on disk, nothing leaked to unrelated shell commands, only available to the processes that need them. To achieve this we inject secrets into the process environment at task-run time via [mise](https://mise.jdx.dev/) tasks that shell out to a secret-store CLI.
 
-To set up your local environment, you need to have 1password CLI installed and authenticated:
+**Reference setup: 1Password CLI**
 
-> brew install op
+This project uses the 1Password CLI (`op`). Each secret is declared in [apps/frontend/mise.toml](apps/frontend/mise.toml) with an `op read` call wrapped in a mise templating block, so the value is fetched on demand rather than stored on disk.
 
-In the 1password app, in the Settings > Developer, turn on the CLI integration.
+To set up your local environment:
 
-Then, make sure you have access to the vault where the secrets are stored.
+1. Install the CLI: `brew install 1password-cli`
+2. In the 1Password app, open **Settings → Developer** and enable **Integrate with 1Password CLI**.
+3. Ensure your account has access to the vault where the project secrets are stored.
 
-When running `mise dev`, you should be prompted by 1password to allow access to the secrets. Once you allow it, the secrets will be injected into the environment variables for the development process. In the example, this would mean that the text "Hello Infinum!" would be rendered on the login page.
+On first `mise dev`, 1Password prompts for authorization. After that, secrets are injected transparently — the example app renders "Hello Infinum!" on the login page when `TEST_SECRET` is available.
+
+**Other backends**
+
+1Password is the reference for this project, but the same pattern works with any CLI-accessible secret store. Teams on other projects may prefer Apple Keychain (`security find-generic-password`), `pass`, Bitwarden CLI, HashiCorp Vault, AWS Secrets Manager, etc. Only the command inside the mise template changes.
+
+**Full details**: [Environment Variables Guide — Secrets](documentation/Environment%20variables.md#secrets)
 
 ## Development Workflow
 

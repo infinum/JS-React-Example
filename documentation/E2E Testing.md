@@ -1,5 +1,14 @@
 # E2E Testing (Playwright)
 
+## Prerequisites
+
+The frontend under test reads secrets (e.g. `NEXTAUTH_SECRET`, `TEST_SECRET`) that are injected at runtime rather than stored in env files. Before running E2E locally you need either:
+
+- The 1Password CLI installed and authenticated so `mise dev` can fetch secrets from the project vault (reference setup — see [Environment Variables — Secrets](./Environment%20variables.md#secrets)), **or**
+- Equivalent local access to whatever secret-store backend your project uses (Apple Keychain, `pass`, etc.).
+
+In CI, secrets come from the pipeline's secret provider (GitHub Actions `secrets` in this repo) and are exported into the job's `env:` block — no local CLI is needed on the runner.
+
 ## How to run
 
 - All E2E (root script): `pnpm e2e`

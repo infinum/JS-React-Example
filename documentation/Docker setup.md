@@ -70,7 +70,7 @@ This creates a minimal subset of the monorepo containing only the files needed f
 
 ### App-Level Environment Files
 
-Each application maintains its environment variables within its own directory:
+Each application maintains its (non-secret) environment variables within its own directory:
 
 ```
 apps/
@@ -89,18 +89,31 @@ apps/
 3. **Clarity** - Environment variables are co-located with the application that uses them
 4. **Flexibility** - Different environments (local vs Docker) can have different configurations
 
+Only non-secret values live in these files. Real secrets are injected at task-run time by [mise](https://mise.jdx.dev/) from a secret store (1Password by default; see the [Environment Variables guide](./Environment%20variables.md#secrets)) and forwarded into the container at runtime, not read from any committed or gitignored env file.
+
 ### Docker Compose Integration
 
-The `docker-compose.yml` references each application's environment file:
+The `docker-compose.yml` references each application's environment file for non-secret defaults, and forwards secrets from the outer mise-wrapped host process via `environment:` name-only entries:
 
 ```yaml
 services:
   frontend:
     env_file:
+      - ../apps/frontend/.env
       - ../apps/frontend/.env.compose
+    environment:
+      # Forwarded from the host process (populated by mise from the secret store).
+      # No value here — compose passes whatever is in the parent environment.
+      - NEXTAUTH_SECRET
   storybook:
-    # No env_file needed for storybook in this example
+    # No env_file or secrets needed for storybook in this example
 ```
+
+### Running compose through mise
+
+Because compose itself does not invoke mise, the compose command is wrapped by a mise task that fetches the secrets first and then calls `docker compose …`. That way the pattern for Docker matches the pattern for local development: one entry point (`mise <task>`) that produces the right environment, regardless of whether the app runs on the host or in a container.
+
+In CI, secrets come from the pipeline's secret provider (e.g. GitHub Actions `secrets`) exported to the job's `env:` block, and compose forwards them to the container the same way. The compose file itself does not need to change between local and CI use.
 
 ## Application Independence Principle
 
@@ -258,13 +271,15 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install
 When adding a new application to the monorepo:
 
 1. **Create Dockerfile** in the app directory following the established pattern
-2. **Add environment files** (`.env.local` and `.env.compose`)
-3. **Update docker-compose.yml** with the new service
-4. **Test independence** - ensure the app works without monorepo dependencies
+2. **Add non-secret environment files** (`.env`, `.env.compose`) with defaults only
+3. **Add secrets to the secret store** (1Password vault locally, GitHub Actions secrets in CI) and wire them into the app's `mise.toml` and compose `environment:` block per the [Environment Variables guide](./Environment%20variables.md#secrets)
+4. **Update docker-compose.yml** with the new service
+5. **Test independence** - ensure the app works without monorepo dependencies
 
 ### Security Considerations
 
-- **Environment variables** are properly isolated per application
+- **Non-secret env files** are isolated per application and contain no sensitive values
+- **Secrets** never touch disk — fetched on demand via mise + secret-store CLI (local) or injected by the pipeline (CI)
 - **Build context** is minimized using Turbo prune
 - **Production images** don't include development dependencies
 - **Base images** are regularly updated for security patches
