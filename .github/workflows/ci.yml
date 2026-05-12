@@ -41,7 +41,8 @@ jobs:
     runs-on: ubuntu-24.04
     env:
       # Secrets for the frontend build (envsafe validation runs under NODE_ENV=production).
-      # Locally these come from mise + 1Password; in CI we use GitHub Actions secrets directly.
+      # Locally these come from scripts/with-secrets.sh + 1Password; in CI we use
+      # GitHub Actions secrets directly and the wrapper's `none` fallback passes them through.
       NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
       TEST_SECRET: ${{ secrets.TEST_SECRET }}
     steps:
@@ -53,8 +54,8 @@ jobs:
 
       - name: 🏗️ Build packages
         # Secrets for the frontend's envsafe validation come from the job env above
-        # (workflow-level GitHub Actions secrets). `pnpm build` is plain `next build`
-        # on the frontend — the mise-wrapped variant lives under `pnpm build:mise`
-        # and is local-dev only.
+        # (workflow-level GitHub Actions secrets). `pnpm build` invokes the wrapper,
+        # which in CI auto-detects no provider CLI is present and falls through to
+        # plain exec — secrets are already in process.env.
         run: pnpm build
         shell: bash

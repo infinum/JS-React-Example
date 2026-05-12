@@ -9,6 +9,15 @@ services:
       context: ..
       dockerfile: ./apps/frontend/Dockerfile
       target: production
+      # Build-time secrets for envsafe validation during `next build`.
+      # Compose interpolates ${NAME} from the parent process's env — which
+      # the scripts/with-secrets.sh chain has already populated (locally
+      # via op, in CI via the pipeline's secret provider). Values flow:
+      # host env → compose interpolation → Dockerfile ARG → ENV in builder
+      # stage only (production stage starts FROM base, see Dockerfile).
+      args:
+        NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+        TEST_SECRET: ${TEST_SECRET}
     ports:
       - '3000:3000'
     environment:

@@ -8,7 +8,7 @@ A modern React monorepo showcasing Next.js 15, TypeScript, and best practices fo
 
 - **[mise](https://mise.jdx.dev/)**: Required — installs and pins `node` and `pnpm` with checksum-verified binaries. Install with `brew install mise` on macOS (see the [Tool Management guide](documentation/Tool%20management.md) for other platforms and the full rationale).
 - **Docker**: For containerized development (optional but recommended)
-- **1Password CLI**: For injecting secrets into `mise` tasks (see [Environment secrets](#environment-secrets) below)
+- **1Password CLI**: For injecting secrets when running locally (see [Environment secrets](#environment-secrets) below)
 
 `node` and `pnpm` are managed by `mise` — you do **not** install them separately. This is part of the project's [supply-chain security posture](https://infinum.com/handbook/frontend/node/security/overview) *(internal handbook)*; see [Tool Management](documentation/Tool%20management.md) for details.
 
@@ -19,10 +19,10 @@ A modern React monorepo showcasing Next.js 15, TypeScript, and best practices fo
 git clone <repository-url>
 cd JS-React-Example
 mise trust && mise install && pnpm install
-mise dev
+pnpm dev
 ```
 
-`mise trust` approves this repo's `mise.toml`, `mise install` downloads and checksum-verifies `node` and `pnpm` against [mise.lock](mise.lock), and `mise dev` starts the dev server with secrets injected from 1Password. See [Tool Management](documentation/Tool%20management.md) for the full setup and [Environment Variables](documentation/Environment%20variables.md) for the secrets pipeline.
+`mise trust` approves this repo's `mise.toml`, `mise install` downloads and checksum-verifies `node` and `pnpm` against [mise.lock](mise.lock), and `pnpm dev` starts the dev server with secrets injected by [scripts/with-secrets.sh](scripts/with-secrets.sh) from 1Password. See [Tool Management](documentation/Tool%20management.md) for the full setup and [Environment Variables](documentation/Environment%20variables.md) for the secrets pipeline.
 
 **Access the applications:**
 
@@ -133,7 +133,7 @@ API patterns and development guide: [API Development Guide](documentation/API%20
 
 ### Key Variables
 
-- **`NEXTAUTH_SECRET`**: Authentication secret — injected at runtime via mise + 1Password (see **Environment secrets** below)
+- **`NEXTAUTH_SECRET`**: Authentication secret — injected at runtime via [scripts/with-secrets.sh](scripts/with-secrets.sh) + 1Password (see **Environment secrets** below)
 - **`NEXTAUTH_URL`**: Application URL for OAuth callbacks
 - **OAuth providers**: `GOOGLE_CLIENT_ID`, `GITHUB_CLIENT_ID`, etc.
 
@@ -144,13 +144,20 @@ API patterns and development guide: [API Development Guide](documentation/API%20
 
 **Complete setup**: [Environment Variables Guide](documentation/Environment%20variables.md)
 
+**Adding a new env variable:**
+
+- **Non-secret** (feature flag, public URL, port, etc.) — see [Scenario A](documentation/Environment%20variables.md#scenario-a-non-secret-variable). Edit `.env` + validator; usually two files.
+- **Secret** (API key, auth secret, DB password, etc.) — see [Scenario B](documentation/Environment%20variables.md#scenario-b-secret-used-only-at-runtime) for runtime-only secrets, [Scenario C](documentation/Environment%20variables.md#scenario-c-secret-needed-at-build-time-too) if envsafe validates it during `next build`. Both include vault setup, the `.env.secret` manifest, compose forwarding, the server validator, and CI wiring.
+
+The canonical reference with every touch point per scenario plus a quick-scan matrix is [Adding a new environment variable](documentation/Environment%20variables.md#adding-a-new-environment-variable).
+
 ### Environment secrets
 
-The goal is to keep secrets out of the filesystem entirely — nothing on disk, nothing leaked to unrelated shell commands, only available to the processes that need them. To achieve this we inject secrets into the process environment at task-run time via [mise](https://mise.jdx.dev/) tasks that shell out to a secret-store CLI. This is part of the project's [supply-chain security posture](https://infinum.com/handbook/frontend/node/security/overview) *(internal handbook)* — see the [Tool Management guide](documentation/Tool%20management.md) for the broader rationale.
+The goal is to keep secrets out of the filesystem entirely — nothing resolved on disk, nothing leaked to unrelated shell commands, only available to the processes that need them. To achieve this, a small wrapper script — [scripts/with-secrets.sh](scripts/with-secrets.sh) — injects secrets into the process environment at task-run time by delegating to the configured secret-store CLI. This is part of the project's [supply-chain security posture](https://infinum.com/handbook/frontend/node/security/overview) *(internal handbook)* — see the [Tool Management guide](documentation/Tool%20management.md) for the broader rationale.
 
 **Reference setup: 1Password CLI**
 
-This project uses the 1Password CLI (`op`). Each secret is declared in [apps/frontend/mise.toml](apps/frontend/mise.toml) with an `op read` call wrapped in a mise templating block, so the value is fetched on demand rather than stored on disk.
+This project uses the 1Password CLI (`op`). Each app declares its secret references in [apps/frontend/.env.secret](apps/frontend/.env.secret) using `op://vault/item/field` syntax — the file is committed because it contains *pointers*, not values. When `pnpm dev` runs, the wrapper invokes `op run --env-file=.env.secret -- next dev` and `op` resolves each reference against your authenticated 1Password session.
 
 To set up your local environment:
 
@@ -158,11 +165,11 @@ To set up your local environment:
 2. In the 1Password app, open **Settings → Developer** and enable **Integrate with 1Password CLI**.
 3. Ensure your account has access to the vault where the project secrets are stored.
 
-On first `mise dev`, 1Password prompts for authorization. After that, secrets are injected transparently — the example app renders "Hello Infinum!" on the login page when `TEST_SECRET` is available.
+On first `pnpm dev`, 1Password prompts for authorization. After that, secrets are injected transparently — the example app renders "Hello Infinum!" on the login page when `TEST_SECRET` is available.
 
 **Other backends**
 
-1Password is the reference for this project, but the same pattern works with any CLI-accessible secret store. Teams on other projects may prefer Apple Keychain (`security find-generic-password`), `pass`, Bitwarden CLI, HashiCorp Vault, AWS Secrets Manager, etc. Only the command inside the mise template changes.
+1Password is the reference for this project, but the wrapper is the single integration point. Any other secret store with a `run`-style CLI (Doppler, Infisical, HashiCorp Vault, AWS Secrets Manager via `chamber`, Bitwarden, etc.) can be wired in by appending a `case` arm to [scripts/with-secrets.sh](scripts/with-secrets.sh) and using a corresponding manifest filename. Nothing else in the repo names a provider.
 
 **Full details**: [Environment Variables Guide — Secrets](documentation/Environment%20variables.md#secrets)
 
@@ -258,7 +265,7 @@ New UI components should:
 ### Available Guides
 
 - [Monorepo Structure](documentation/Monorepo%20Structure.md) - Project organization and architecture
-- [Tool Management (mise)](documentation/Tool%20management.md) - Why mise, how to install it, how tool pinning and task running work
+- [Tool Management (mise)](documentation/Tool%20management.md) - Why mise, how to install it, how tool pinning works
 - [Development Workflow](documentation/Development%20Workflow%20Guide.md) - Git workflow, code review, releases
 - [UI Components](documentation/UI%20Components%20Guide.md) - ShadCN component generation and customization
 - [Semantic Tokens](documentation/Semantic%20Tokens%20Guide.md) - Design tokens and theming system

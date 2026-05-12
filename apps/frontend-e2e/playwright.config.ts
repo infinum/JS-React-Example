@@ -15,10 +15,11 @@ export default defineConfig({
 	],
 	webServer: process.env.CI
 		? {
-				// Plain `pnpm start` — `next start` with no mise wrapper. Secrets are
-				// expected to be in the job env already (set from GitHub Actions secrets
-				// in .github/workflows/e2e.yml). Locally, devs use `pnpm start:mise` to
-				// fetch secrets from 1Password via mise.
+				// The frontend's `start` script wraps `next start` with
+				// scripts/with-secrets.sh. In CI the wrapper auto-detects no provider
+				// CLI is present and falls through to plain exec — secrets are already
+				// in the job env (set from GitHub Actions secrets in
+				// .github/workflows/e2e.yml).
 				command: 'pnpm --filter @infinum/frontend start',
 				port: 3000,
 				reuseExistingServer: !process.env.CI,

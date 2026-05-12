@@ -2,7 +2,10 @@ FROM node:24.15.0-alpine AS base
 WORKDIR /app
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
+# bash is needed by the wrapper shims under ./scripts (with-mise.sh,
+# with-secrets.sh) that root + per-app pnpm scripts route through.
+# Alpine ships only busybox sh, which lacks the bashisms ([[ ]], arrays).
+RUN apk add --no-cache bash && corepack enable
 
 # # # TURBO PRUNE
 FROM base AS turbo
@@ -22,6 +25,10 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 FROM dependencies AS builder
 
 COPY --from=turbo /app/out/full ./
+# Root `pnpm build` runs ./scripts/with-mise.sh; scripts/ isn't part of
+# `turbo prune --docker` output, so copy it explicitly. The wrapper falls
+# through to plain `exec` inside the container (no mise to delegate to).
+COPY scripts ./scripts
 
 RUN pnpm build
 
