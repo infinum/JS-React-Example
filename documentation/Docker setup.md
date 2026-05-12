@@ -33,7 +33,7 @@ All Dockerfiles follow a consistent multi-stage build pattern:
 
 ```dockerfile
 # Base stage - Common Node.js setup
-FROM node:24.11.0-alpine AS base
+FROM node:24.15.0-alpine AS base
 
 # Turbo prune stage - Monorepo optimization
 FROM base AS turbo
