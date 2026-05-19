@@ -2,3 +2,4 @@ typings/*.ts
 next-env.d.ts
 additional.d.ts
 coverage/
+storybook-static/

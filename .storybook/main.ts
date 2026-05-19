@@ -9,13 +9,14 @@ const config: StorybookConfig = {
 		'@storybook/addon-interactions',
 		'@storybook/addon-a11y',
 		'@chakra-ui/storybook-addon',
+		'@chromatic-com/storybook',
 	],
 	framework: {
 		name: '@storybook/nextjs',
 		options: {},
 	},
-	docs: {
-		autodocs: 'tag',
+	typescript: {
+		reactDocgen: 'react-docgen-typescript',
 	},
 };
 export default config;
