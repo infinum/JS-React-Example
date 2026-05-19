@@ -345,7 +345,7 @@ exports[`MainLayout should matches snapshot 1`] = `
             class="chakra-menu__menu-list emotion-10"
             id="menu-list-:r1:"
             role="menu"
-            style="transform-origin: var(--popper-transform-origin); opacity: 0; visibility: hidden; transform: scale(0.8) translateZ(0);"
+            style="transform-origin: var(--popper-transform-origin); opacity: 0; visibility: hidden; transform: scale(0.8);"
             tabindex="-1"
           />
         </div>

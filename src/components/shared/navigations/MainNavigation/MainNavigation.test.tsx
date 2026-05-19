@@ -91,9 +91,7 @@ describe('MainNavigation', () => {
 
 		await user.click(languageButton);
 
-		const languageMenu = screen.getByRole('menu');
-
-		expect(languageMenu).toBeInTheDocument();
+		const languageMenu = await screen.findByRole('menu');
 
 		expect(within(languageMenu).getByRole('menuitem')).toBeInTheDocument();
 	});
