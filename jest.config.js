@@ -18,6 +18,7 @@ const createInfinumJestConfig = infinumJest();
 // Add any custom config to be passed to Jest
 /** @type {import('jest').Config} */
 const customJestConfig = {
+	setupFiles: ['<rootDir>/jest.polyfills.js'],
 	setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 	moduleNameMapper: {
 		// Handle module aliases (this will be automatically configured for you soon)
