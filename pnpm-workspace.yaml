@@ -3,7 +3,7 @@ packages:
   - packages/*
 
 catalog:
-  '@actions/core': 2.0.2
+  '@actions/core': 3.0.1
   '@axe-core/playwright': 4.10.2
   '@changesets/cli': 2.29.8
   '@eslint/compat': 1.4.1
@@ -71,7 +71,7 @@ catalog:
   tailwindcss: 4.1.16
   ts-jest: 29.4.10
   ts-node: 10.9.2
-  turbo: 2.6.0
+  turbo: 2.9.14
   tw-animate-css: 1.4.0
   typescript: 5.8.3
   typescript-eslint: 8.46.2
@@ -102,6 +102,16 @@ minimumReleaseAgeExclude:
   - '@storybook/builder-webpack5@10.4.0'
   - '@storybook/react-dom-shim@10.4.0'
   - '@storybook/csf-plugin@10.4.0'
+  # 20.05.2026 - Needed for turbo vulnerability fix (>=2.9.14)
+  - 'turbo@2.9.14'
+  - '@turbo/darwin-64@2.9.14'
+  - '@turbo/linux-64@2.9.14'
+  - '@turbo/darwin-arm64@2.9.14'
+  - '@turbo/windows-64@2.9.14'
+  - '@turbo/windows-arm64@2.9.14'
+  - '@turbo/linux-arm64@2.9.14'
+  # 20.05.2026 - Needed for undici vulnerability fix (>=7.24.0)
+  - 'undici@7.24.0'
   # Needed to resolve vulnerabilities in shadcn
   - '@modelcontextprotocol/sdk@1.25.2'
   # Needed to resolve vulnerabilities in next-auth
@@ -139,6 +149,19 @@ overrides:
   qs@<6.14.2: '>=6.14.2'
   # 27.01.2026 - Needed for vulnerability in @actions/core
   'undici@<6.23.0': '>=6.23.0'
+  # 20.05.2026 - Needed for vulnerability in @actions/core>@actions/http-client>undici
+  'undici@<7.24.0': '>=7.24.0'
+  # 20.05.2026 - Root transitive fixes from audit
+  'flatted@<3.4.2': '>=3.4.2'
+  'minimatch@>=3.0.0 <3.1.3': 3.1.3
+  'minimatch@>=9.0.0 <9.0.6': 9.0.6
+  'minimatch@>=10.0.0 <10.2.1': 10.2.1
+  '@isaacs/brace-expansion@<=5.0.0': '>=5.0.1'
+  'picomatch@<2.3.2': '>=2.3.2'
+  'picomatch@>=4.0.0 <4.0.4': '>=4.0.4'
+  'ajv@>=6.0.0 <6.14.0': 6.14.0
+  'ajv@>=8.0.0 <8.18.0': '>=8.18.0'
+  'yaml@<2.8.3': '>=2.8.3'
   # 27.01.2026 - elliptic vulnerability (GHSA-848j-6mx2-7j84): No patch available yet (latest 6.6.1 still vulnerable)
   # Low severity, dev-only (Storybook webpack polyfills). Waiting for upstream fix.
   # Path: storybook>@storybook/nextjs>node-polyfill-webpack-plugin>crypto-browserify>browserify-sign>elliptic
