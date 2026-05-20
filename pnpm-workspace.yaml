@@ -81,45 +81,34 @@ engineStrict: true
 minimumReleaseAge: 10080
 
 minimumReleaseAgeExclude:
-  # 20.05.2026 - Needed for handlebars vulnerability fix (>=4.7.9) via ts-jest
-  - 'ts-jest@29.4.10'
-  # 20.05.2026 - Needed for postcss vulnerability fix (>=8.5.10)
-  - 'postcss@8.5.10'
-  # 20.05.2026 - Needed for next-intl vulnerability fix (>=4.9.1)
-  - 'next-intl@4.9.1'
-  # 20.05.2026 - Needed for next vulnerability fix (>=16.1.5)
-  - 'next@16.2.6'
-  # 20.05.2026 - Needed for storybook vulnerability fix (>=10.2.10)
-  - 'storybook@10.4.0'
+  - ts-jest@29.4.10
+  - postcss@8.5.10
+  - next-intl@4.9.1
+  - next@16.2.6
+  - storybook@10.4.0
   - '@storybook/nextjs@10.4.0'
   - '@storybook/addon-a11y@10.4.0'
   - '@storybook/addon-docs@10.4.0'
   - '@storybook/addon-themes@10.4.0'
-  - 'eslint-plugin-storybook@10.4.0'
+  - eslint-plugin-storybook@10.4.0
   - '@storybook/core-webpack@10.4.0'
   - '@storybook/preset-react-webpack@10.4.0'
   - '@storybook/react@10.4.0'
   - '@storybook/builder-webpack5@10.4.0'
   - '@storybook/react-dom-shim@10.4.0'
   - '@storybook/csf-plugin@10.4.0'
-  # 20.05.2026 - Needed for turbo vulnerability fix (>=2.9.14)
-  - 'turbo@2.9.14'
+  - turbo@2.9.14
   - '@turbo/darwin-64@2.9.14'
   - '@turbo/linux-64@2.9.14'
   - '@turbo/darwin-arm64@2.9.14'
   - '@turbo/windows-64@2.9.14'
   - '@turbo/windows-arm64@2.9.14'
   - '@turbo/linux-arm64@2.9.14'
-  # 20.05.2026 - Needed for undici vulnerability fix (>=7.24.0)
-  - 'undici@7.24.0'
-  # 20.05.2026 - Needed for @modelcontextprotocol/sdk vulnerability fix (>=1.26.0)
+  - undici@7.24.0
   - '@modelcontextprotocol/sdk@1.29.0'
-  # Needed to resolve vulnerabilities in next-auth
-  - 'preact@10.28.2'
-  # 27.01.2026 - Needed for vulnerability in Storybook plugins
-  - 'lodash@4.17.23'
-  # 20.05.2026 - Needed for hono vulnerability fix (>=4.12.4)
-  - 'hono@4.12.21'
+  - preact@10.28.2
+  - lodash@4.17.23
+  - hono@4.12.21
 
 onlyBuiltDependencies:
   - '@tailwindcss/oxide@4.1.11'
@@ -130,46 +119,40 @@ onlyBuiltDependencies:
   - unrs-resolver@1.11.1
 
 overrides:
-  # 20.05.2026 - shadcn>@modelcontextprotocol/sdk fix for https://github.com/advisories/GHSA-345p-7cg4-v4c7
+  '@babel/plugin-transform-modules-systemjs@<7.29.4': '>=7.29.4'
+  '@hono/node-server@<1.19.10': '>=1.19.10'
+  '@isaacs/brace-expansion@<=5.0.0': '>=5.0.1'
   '@modelcontextprotocol/sdk@<1.26.0': '>=1.26.0'
-  # 27.01.2026 - Both shadcn and ts-node are still using old versions of these dependencies
+  ajv@>=6.0.0 <6.14.0: 6.14.0
+  ajv@>=8.0.0 <8.18.0: '>=8.18.0'
+  bn.js@<4.12.3: '>=4.12.3'
+  bn.js@>=5.0.0 <5.2.3: '>=5.2.3'
   diff@<4.0.4: '>=4.0.4'
   diff@>=6.0.0 <8.0.3: '>=8.0.3'
-  'hono@<4.12.18': '4.12.21'
-  '@hono/node-server@<1.19.10': '>=1.19.10'
-  # 08.01.2026 - No @changesets/cli>@manypkg/get-packages>read-yaml-file>js-yaml fix for https://github.com/advisories/GHSA-mh29-5h37-fv8m
+  fast-uri@<3.1.2: '>=3.1.2'
+  flatted@<3.4.2: '>=3.4.2'
+  hono@<4.12.18: 4.12.21
   js-yaml@<3.14.2: '>=3.14.2'
-  # 08.01.2026 - No Ceslint>@eslint/eslintrc>js-yaml fix for https://github.com/advisories/GHSA-mh29-5h37-fv8m
   js-yaml@>=4.0.0 <4.1.1: '>=4.1.1'
-  # 27.01.2026 - Storybook plugins lodash (4.18 breaks webpack assignWith; see audit waiver)
+  lodash@<=4.17.23: '>=4.18.0'
   lodash@>=4.0.0 <=4.17.22: '>=4.17.23'
-  # 08.01.2026 - No next-auth>preact version with fix for https://github.com/advisories/GHSA-36hm-qxxp-pg3m
+  lodash@>=4.0.0 <=4.17.23: '>=4.18.0'
+  minimatch@>=10.0.0 <10.2.3: 10.2.3
+  minimatch@>=3.0.0 <3.1.4: 3.1.4
+  minimatch@>=9.0.0 <9.0.7: 9.0.7
+  next-intl@<=4.9.1: '>=4.9.2'
+  path-to-regexp@<8.4.0: 8.4.0
+  picomatch@>=2.0.0 <2.3.2: 2.3.2
+  picomatch@>=4.0.0 <4.0.4: 4.0.4
+  postcss@<8.5.10: '>=8.5.10'
   preact@>=10.28.0 <10.28.2: '>=10.28.2'
-  # 08.01.2026 - No @storybook/nextjs>node-polyfill-webpack-plugin>url>qs version with fix for https://github.com/advisories/GHSA-6rw7-vpxm-498p
   qs@<6.14.2: '>=6.14.2'
-  # 27.01.2026 - Needed for vulnerability in @actions/core
-  'undici@<6.23.0': '>=6.23.0'
-  # 20.05.2026 - Needed for vulnerability in @actions/core>@actions/http-client>undici
-  'undici@<7.24.0': '>=7.24.0'
-  # 20.05.2026 - Root transitive fixes from audit
-  'flatted@<3.4.2': '>=3.4.2'
-  'minimatch@>=3.0.0 <3.1.4': 3.1.4
-  'minimatch@>=9.0.0 <9.0.7': 9.0.7
-  'minimatch@>=10.0.0 <10.2.3': 10.2.3
-  '@isaacs/brace-expansion@<=5.0.0': '>=5.0.1'
-  'picomatch@>=2.0.0 <2.3.2': 2.3.2
-  'picomatch@>=4.0.0 <4.0.4': 4.0.4
-  'fast-uri@<3.1.2': '>=3.1.2'
-  'serialize-javascript@<7.0.3': 7.0.3
-  'path-to-regexp@<8.4.0': 8.4.0
-  '@babel/plugin-transform-modules-systemjs@<7.29.4': '>=7.29.4'
-  'ajv@>=6.0.0 <6.14.0': 6.14.0
-  'ajv@>=8.0.0 <8.18.0': '>=8.18.0'
-  'yaml@<2.8.3': '>=2.8.3'
-  # 27.01.2026 - elliptic vulnerability (GHSA-848j-6mx2-7j84): No patch available yet (latest 6.6.1 still vulnerable)
-  # Low severity, dev-only (Storybook webpack polyfills). Waiting for upstream fix.
-  # Path: storybook>@storybook/nextjs>node-polyfill-webpack-plugin>crypto-browserify>browserify-sign>elliptic
-  # https://github.com/advisories/GHSA-848j-6mx2-7j84
+  serialize-javascript@<7.0.3: 7.0.3
+  serialize-javascript@<7.0.5: '>=7.0.5'
+  undici@<6.23.0: '>=6.23.0'
+  undici@<7.24.0: '>=7.24.0'
+  ws@>=8.0.0 <8.20.1: '>=8.20.1'
+  yaml@<2.8.3: '>=2.8.3'
 
 strictDepBuilds: true
 
