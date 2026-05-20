@@ -4,12 +4,11 @@ const config: StorybookConfig = {
 	stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
 	addons: [
 		'@storybook/addon-links',
-		'@storybook/addon-essentials',
 		'@storybook/addon-onboarding',
-		'@storybook/addon-interactions',
 		'@storybook/addon-a11y',
 		'@chakra-ui/storybook-addon',
 		'@chromatic-com/storybook',
+		'@storybook/addon-docs',
 	],
 	framework: {
 		name: '@storybook/nextjs',
@@ -17,6 +16,15 @@ const config: StorybookConfig = {
 	},
 	typescript: {
 		reactDocgen: 'react-docgen-typescript',
+	},
+	webpackFinal: async (config) => {
+		config.resolve ??= {};
+		config.resolve.alias = {
+			...config.resolve.alias,
+			'@chakra-ui/react/extend-theme': require.resolve('@chakra-ui/react'),
+		};
+
+		return config;
 	},
 };
 export default config;
