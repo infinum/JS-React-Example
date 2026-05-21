@@ -103,10 +103,10 @@ minimumReleaseAgeExclude:
   - '@turbo/windows-64@2.9.14'
   - '@turbo/windows-arm64@2.9.14'
   - '@turbo/linux-arm64@2.9.14'
-  - undici@7.24.0
+  - undici@8.2.0
   - '@modelcontextprotocol/sdk@1.29.0'
   - preact@10.28.2
-  - lodash@4.17.23
+  - lodash@4.18.1
   - hono@4.12.21
 
 onlyBuiltDependencies:
@@ -132,9 +132,7 @@ overrides:
   hono@<4.12.18: 4.12.21
   js-yaml@<3.14.2: '>=3.14.2'
   js-yaml@>=4.0.0 <4.1.1: '>=4.1.1'
-  lodash@<=4.17.23: '>=4.18.0'
-  lodash@>=4.0.0 <=4.17.22: '>=4.17.23'
-  lodash@>=4.0.0 <=4.17.23: '>=4.18.0'
+  lodash@<=4.17.23: 4.18.1
   minimatch@>=10.0.0 <10.2.3: 10.2.3
   minimatch@>=3.0.0 <3.1.4: 3.1.4
   minimatch@>=9.0.0 <9.0.7: 9.0.7
@@ -144,10 +142,12 @@ overrides:
   postcss@<8.5.10: '>=8.5.10'
   preact@>=10.28.0 <10.28.2: '>=10.28.2'
   qs@<6.14.2: '>=6.14.2'
-  serialize-javascript@<7.0.3: 7.0.3
-  serialize-javascript@<7.0.5: '>=7.0.5'
-  undici@<6.23.0: '>=6.23.0'
-  undici@<7.24.0: '>=7.24.0'
+  # elliptic vulnerability (GHSA-848j-6mx2-7j84): No patch available yet (latest 6.6.1 still vulnerable)
+  # Low severity, dev-only (Storybook webpack polyfills). Waiting for upstream fix.
+  # Path: storybook>@storybook/nextjs>node-polyfill-webpack-plugin>crypto-browserify>browserify-sign>elliptic
+  # https://github.com/advisories/GHSA-848j-6mx2-7j84
+  serialize-javascript@<7.0.5: 7.0.5
+  undici@<8.2.0: 8.2.0
   ws@>=8.0.0 <8.20.1: '>=8.20.1'
   yaml@<2.8.3: '>=2.8.3'
 
