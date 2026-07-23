@@ -33,7 +33,7 @@ All Dockerfiles follow a consistent multi-stage build pattern:
 
 ```dockerfile
 # Base stage - Common Node.js setup
-FROM node:24.11.0-alpine AS base
+FROM node:24.15.0-alpine AS base
 
 # Turbo prune stage - Monorepo optimization
 FROM base AS turbo
@@ -70,7 +70,7 @@ This creates a minimal subset of the monorepo containing only the files needed f
 
 ### App-Level Environment Files
 
-Each application maintains its environment variables within its own directory:
+Each application maintains its (non-secret) environment variables within its own directory:
 
 ```
 apps/
@@ -89,18 +89,86 @@ apps/
 3. **Clarity** - Environment variables are co-located with the application that uses them
 4. **Flexibility** - Different environments (local vs Docker) can have different configurations
 
+Only non-secret values live in these files. Real secrets are injected at task-run time by [scripts/with-secrets.sh](../scripts/with-secrets.sh) from a secret store (1Password by default; see the [Environment Variables guide](./Environment%20variables.md#secrets)) and forwarded into the container at runtime, not read from any committed or gitignored env file.
+
 ### Docker Compose Integration
 
-The `docker-compose.yml` references each application's environment file:
+The `docker-compose.yml` references each application's environment file for non-secret defaults, forwards runtime secrets from the wrapped host process via `environment:` name-only entries, and passes the same secrets as `build.args` so `next build` can validate them via envsafe during static rendering:
 
 ```yaml
 services:
   frontend:
+    build:
+      context: ..
+      dockerfile: ./apps/frontend/Dockerfile
+      target: production
+      args:
+        # Build-time: compose interpolates ${NAME} from the host's env.
+        # The scripts/with-secrets.sh chain has already populated it.
+        # Declared as ARG in the Dockerfile's builder stage; ENV-promoted
+        # only inside that stage so `next build` can read it. The
+        # production stage restarts FROM base, so the value does not
+        # propagate into the final image.
+        NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+        TEST_SECRET: ${TEST_SECRET}
     env_file:
+      - ../apps/frontend/.env
       - ../apps/frontend/.env.compose
+    environment:
+      # Runtime: forwarded from the host process. Locally these are
+      # populated by scripts/with-secrets.sh resolving
+      # apps/frontend/.env.secret refs; in CI they come from the
+      # pipeline's secret provider. No value here — compose passes
+      # whatever is in the parent environment.
+      - NEXTAUTH_SECRET
   storybook:
-    # No env_file needed for storybook in this example
+    # No env_file or secrets needed for storybook in this example
 ```
+
+### Why both `build.args` and `environment:`
+
+`build.args` are baked into the *build* of the image (consumed by `next build` for envsafe validation during static rendering). They are scoped to the builder stage only — the production stage restarts `FROM base`, so the values never reach the final image's layers. `environment:` forwards the same values into the *running container* so the Next.js server (and its instrumentation hook) can see them at startup. Both are needed because the build container and the runtime container are distinct processes with separate env namespaces; both must carry the secret.
+
+### Running compose
+
+The root-level `pnpm docker:prod` script invokes [scripts/compose.sh](../scripts/compose.sh) — a generic driver that wraps `docker compose` with one [scripts/with-secrets.sh](../scripts/with-secrets.sh) layer per app under `apps/`. Each layer injects that app's secrets (resolved by the configured provider CLI) into the parent process; compose's per-service `environment:` blocks then forward only what each container asks for.
+
+```sh
+pnpm docker:prod -- up -d        # builds and starts the prod stack
+pnpm docker:prod -- up frontend  # brings up just one service
+pnpm docker:prod -- logs -f      # tails logs
+pnpm docker:prod -- down         # tears it down
+```
+
+Under the hood, the driver builds a chain like:
+
+```
+pnpm docker:prod -- up -d
+  → ./scripts/compose.sh up -d
+    → with-secrets.sh apps/storybook --
+      → with-secrets.sh apps/frontend-e2e --
+        → with-secrets.sh apps/frontend --
+          → op run --env-file=apps/frontend/.env.secret --
+            → docker compose -f docker/docker-compose.yml up -d
+```
+
+Apps without a `.env.secret` (or other supported manifest) fall through to plain `exec` inside their `with-secrets.sh` layer — wrapping them is one cheap shell hop, no provider work. Apps with a manifest but no matching CLI on PATH produce a warning to stderr so the misconfiguration is visible at the call site.
+
+### Adding a new app's secrets
+
+The driver discovers apps by globbing `apps/*/`, so adding a second app with its own vault is a zero-edit operation at the root — the next `pnpm docker:prod` run wraps the new manifest automatically. No changes to root `package.json`, `compose.sh`, or any other app's config.
+
+For the per-secret touch points (manifest, compose forwarding, build-args, Dockerfile `ARG`/`ENV`, CI workflow `env:` blocks, etc.) see the canonical checklist: [Environment Variables — Adding a new environment variable](./Environment%20variables.md#adding-a-new-environment-variable).
+
+### Multi-app secrets: one chain, per-service forwarding
+
+When multiple apps each declare their own secrets, the driver layers them so the host process has all secrets in env by the time `docker compose up` runs. **Compose's `environment:` block is what enforces isolation between services** — each service forwards only the names it lists. So even though the host process briefly holds both frontend's and backend's secrets, the frontend container only sees `NEXTAUTH_SECRET`, the backend container only sees `DATABASE_PASSWORD`, and storybook sees nothing.
+
+A subtle footgun worth knowing about: **don't share secret *names* between apps.** If `apps/frontend/.env.secret` and `apps/backend/.env.secret` both declare `API_KEY`, the layer that runs last wins for that name in the host process — and both services' `environment: - API_KEY` blocks will receive the same value. Use app-scoped names (`FRONTEND_API_KEY`, `BACKEND_API_KEY`) so each app's secret namespace stays disjoint.
+
+### CI
+
+The wrapper auto-detects that no provider CLI is present and falls through to plain `exec`. Secrets come from the pipeline's secret provider (e.g. GitHub Actions `secrets`) exported to the job's `env:` block, and compose forwards them to the container the same way. The compose file itself does not need to change between local and CI use.
 
 ## Application Independence Principle
 
@@ -164,15 +232,17 @@ services:
 
 ### Production Script
 
-The root `package.json` includes a convenient Docker script:
+The root `package.json` exposes the compose driver as `docker:prod`:
 
 ```json
 {
   "scripts": {
-    "docker:prod": "docker compose -f ./docker/docker-compose.yml"
+    "docker:prod": "./scripts/compose.sh"
   }
 }
 ```
+
+The driver ([scripts/compose.sh](../scripts/compose.sh)) wraps `docker compose -f docker/docker-compose.yml` with one [scripts/with-secrets.sh](../scripts/with-secrets.sh) layer per app under `apps/` — see [Running compose](#running-compose) for the full call chain.
 
 ### Flexible Usage Patterns
 
@@ -257,14 +327,16 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install
 
 When adding a new application to the monorepo:
 
-1. **Create Dockerfile** in the app directory following the established pattern
-2. **Add environment files** (`.env.local` and `.env.compose`)
-3. **Update docker-compose.yml** with the new service
-4. **Test independence** - ensure the app works without monorepo dependencies
+1. **Create Dockerfile** in the app directory following the established pattern.
+2. **Add non-secret environment files** (`.env`, `.env.compose`) with defaults only.
+3. **Add secrets** per the canonical checklist in [Environment Variables — Adding a new environment variable](./Environment%20variables.md#adding-a-new-environment-variable). Touch points include `.env.secret`, the compose service's `environment:` and `build.args:` blocks, the Dockerfile builder stage's `ARG`/`ENV` pairs, the validator, and the CI workflow `env:` blocks.
+4. **Update docker-compose.yml** with the new service.
+5. **Test independence** - ensure the app works without monorepo dependencies.
 
 ### Security Considerations
 
-- **Environment variables** are properly isolated per application
+- **Non-secret env files** are isolated per application and contain no sensitive values
+- **Secrets** never touch disk — fetched on demand via [scripts/with-secrets.sh](../scripts/with-secrets.sh) + secret-store CLI (local) or injected by the pipeline (CI)
 - **Build context** is minimized using Turbo prune
 - **Production images** don't include development dependencies
 - **Base images** are regularly updated for security patches

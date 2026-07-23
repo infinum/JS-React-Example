@@ -7,6 +7,9 @@ pnpm-lock.yaml
 *.md
 Dockerfile
 
+# Config files prettier can't parse natively
+*.toml
+
 # Build outputs
 .next/
 dist/

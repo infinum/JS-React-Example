@@ -5,3 +5,6 @@ src/lib/i18n/locales/en/*.d.json.ts
 .env*
 !.env
 !.env.compose
+# Provider-reference manifest for scripts/with-secrets.sh — pointers only,
+# never resolved values. See documentation/Environment variables.md.
+!.env.secret

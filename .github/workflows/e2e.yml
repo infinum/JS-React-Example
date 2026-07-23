@@ -16,6 +16,11 @@ env:
   NODE_ENV: test
   CI: true
   E2E_BASE_URL: http://localhost:3000
+  # Secrets used by the frontend (envsafe) at build + start. Locally these come from
+  # scripts/with-secrets.sh + 1Password; in CI we use GitHub Actions secrets directly
+  # and the wrapper's `none` fallback passes them through.
+  NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+  TEST_SECRET: ${{ secrets.TEST_SECRET }}
 
 jobs:
   e2e:
@@ -39,6 +44,10 @@ jobs:
         uses: ./.github/actions/node-setup
 
       - name: 🏗️ Build apps
+        # Secrets for the frontend's envsafe validation come from the workflow env
+        # above. `pnpm build` invokes the wrapper, which in CI auto-detects no
+        # provider CLI is present and falls through to plain exec — secrets are
+        # already in process.env.
         run: pnpm build
         shell: bash
 

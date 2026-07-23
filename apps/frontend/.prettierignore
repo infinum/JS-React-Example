@@ -8,5 +8,8 @@ node_modules/
 # Next specific
 next-env.d.ts
 
+# Config files prettier can't parse natively
+*.toml
+
 # Other
 Dockerfile
