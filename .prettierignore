@@ -2,6 +2,8 @@
 .husky/
 pnpm-lock.yaml
 .pnpm-store
+mise.lock
+mise.toml
 
 # Docs
 *.md

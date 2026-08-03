@@ -2,6 +2,15 @@ packages:
   - apps/*
   - packages/*
 
+allowBuilds:
+  '@parcel/watcher@2.5.6': true
+  '@swc/core@1.15.33': true
+  core-js-pure@3.47.0: true
+  esbuild@0.27.2: true
+  msw@2.12.7: true
+  sharp@0.34.5: true
+  unrs-resolver@1.11.1: true
+
 catalog:
   '@actions/core': 3.0.1
   '@axe-core/playwright': 4.10.2
@@ -108,14 +117,6 @@ minimumReleaseAgeExclude:
   - preact@10.28.2
   - lodash@4.18.1
   - hono@4.12.21
-
-onlyBuiltDependencies:
-  - '@tailwindcss/oxide@4.1.11'
-  - core-js-pure@3.44.0
-  - esbuild@0.25.8
-  - msw@2.10.4
-  - sharp@0.34.4
-  - unrs-resolver@1.11.1
 
 overrides:
   '@babel/plugin-transform-modules-systemjs@<7.29.4': '>=7.29.4'
