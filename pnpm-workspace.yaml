@@ -89,69 +89,6 @@ engineStrict: true
 
 minimumReleaseAge: 10080
 
-minimumReleaseAgeExclude:
-  - ts-jest@29.4.10
-  - postcss@8.5.10
-  - next@16.2.6
-  - storybook@10.4.0
-  - '@storybook/nextjs@10.4.0'
-  - '@storybook/addon-a11y@10.4.0'
-  - '@storybook/addon-docs@10.4.0'
-  - '@storybook/addon-themes@10.4.0'
-  - eslint-plugin-storybook@10.4.0
-  - '@storybook/core-webpack@10.4.0'
-  - '@storybook/preset-react-webpack@10.4.0'
-  - '@storybook/react@10.4.0'
-  - '@storybook/builder-webpack5@10.4.0'
-  - '@storybook/react-dom-shim@10.4.0'
-  - '@storybook/csf-plugin@10.4.0'
-  - turbo@2.9.14
-  - '@turbo/darwin-64@2.9.14'
-  - '@turbo/linux-64@2.9.14'
-  - '@turbo/darwin-arm64@2.9.14'
-  - '@turbo/windows-64@2.9.14'
-  - '@turbo/windows-arm64@2.9.14'
-  - '@turbo/linux-arm64@2.9.14'
-  - undici@8.2.0
-  - '@modelcontextprotocol/sdk@1.29.0'
-  - preact@10.28.2
-  - lodash@4.18.1
-  - hono@4.12.21
-
-overrides:
-  '@babel/plugin-transform-modules-systemjs@<7.29.4': '>=7.29.4'
-  '@hono/node-server@<1.19.10': '>=1.19.10'
-  '@isaacs/brace-expansion@<=5.0.0': '>=5.0.1'
-  '@modelcontextprotocol/sdk@<1.26.0': '>=1.26.0'
-  ajv@>=6.0.0 <6.14.0: 6.14.0
-  ajv@>=8.0.0 <8.18.0: '>=8.18.0'
-  bn.js: 5.2.3
-  diff@<4.0.4: '>=4.0.4'
-  diff@>=6.0.0 <8.0.3: '>=8.0.3'
-  fast-uri@<3.1.2: '>=3.1.2'
-  flatted@<3.4.2: '>=3.4.2'
-  hono@<4.12.18: 4.12.21
-  js-yaml@<3.14.2: '>=3.14.2'
-  js-yaml@>=4.0.0 <4.1.1: '>=4.1.1'
-  lodash@<=4.17.23: 4.18.1
-  minimatch@>=10.0.0 <10.2.3: 10.2.3
-  minimatch@>=3.0.0 <3.1.4: 3.1.4
-  minimatch@>=9.0.0 <9.0.7: 9.0.7
-  path-to-regexp@<8.4.0: 8.4.0
-  picomatch@>=2.0.0 <2.3.2: 2.3.2
-  picomatch@>=4.0.0 <4.0.4: 4.0.4
-  postcss@<8.5.10: '>=8.5.10'
-  preact@>=10.28.0 <10.28.2: '>=10.28.2'
-  qs@<6.14.2: '>=6.14.2'
-  # elliptic vulnerability (GHSA-848j-6mx2-7j84): No patch available yet (latest 6.6.1 still vulnerable)
-  # Low severity, dev-only (Storybook webpack polyfills). Waiting for upstream fix.
-  # Path: storybook>@storybook/nextjs>node-polyfill-webpack-plugin>crypto-browserify>browserify-sign>elliptic
-  # https://github.com/advisories/GHSA-848j-6mx2-7j84
-  serialize-javascript@<7.0.5: 7.0.5
-  undici@<8.2.0: 8.2.0
-  ws@>=8.0.0 <8.20.1: '>=8.20.1'
-  yaml@<2.8.3: '>=2.8.3'
-
 strictDepBuilds: true
 
 strictPeerDependencies: true
