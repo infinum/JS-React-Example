@@ -191,6 +191,39 @@ With `next-public-env`, the separation between client and server variables is en
 - Always audit which validator you're adding new variables to
 - When in doubt, start with server-only and only move to client if absolutely necessary
 
+## Development Tooling Variables
+
+### DISABLE_LINTERS_AUTO_FIX
+
+Controls auto-fix behavior in lint-staged pre-commit hooks.
+
+**Default behavior:** Auto-fix is enabled. ESLint runs with `--fix` flag and Prettier runs with `--write` flag, automatically fixing issues during git commits.
+
+**When set:** Auto-fix is disabled. ESLint runs without `--fix` and Prettier runs with `--check`, only reporting issues without fixing them.
+
+**Usage:**
+
+Set the variable in your shell session:
+
+```bash
+# macOS / Ubuntu (bash/zsh)
+export DISABLE_LINTERS_AUTO_FIX=1
+
+# Windows (cmd)
+set DISABLE_LINTERS_AUTO_FIX=1
+
+# Windows (PowerShell)
+$env:DISABLE_LINTERS_AUTO_FIX=1
+```
+
+For persistent configuration, add it to your shell profile (e.g., `~/.bashrc`, `~/.zshrc`):
+
+```bash
+export DISABLE_LINTERS_AUTO_FIX=1
+```
+
+**Note:** The variable only needs to be set (any value) to disable auto-fix. The code checks for existence, not a specific value.
+
 ## Environment Validation with Envsafe
 
 ### Two-Validator Approach
