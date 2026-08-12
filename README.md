@@ -1,6 +1,6 @@
 # Infinum - React Example
 
-A modern React monorepo showcasing Next.js 15, TypeScript, and best practices for enterprise development. Features internationalization, authentication, theming, and a comprehensive design system.
+A modern React monorepo showcasing Next.js 16, TypeScript, and best practices for enterprise development. Features internationalization, authentication, theming, and a comprehensive design system.
 
 ## Quick Start
 
@@ -36,7 +36,7 @@ No additional setup required for local development - authentication is pre-confi
 
 ## Architecture Overview
 
-This monorepo leverages Next.js 15's App Router with modern React patterns. The frontend uses Server Components for optimal performance, Route Handlers for API endpoints, and Edge Runtime middleware for authentication. Internationalization runs at the routing level with locale-aware navigation, while the design system provides consistent theming across light/dark modes. The component library uses composition patterns with CVA variants, enabling rapid UI development with type safety throughout.
+This monorepo leverages Next.js 16's App Router with modern React patterns. The frontend uses Server Components for optimal performance, Route Handlers for API endpoints, and Edge Runtime middleware for authentication. Internationalization runs at the routing level with locale-aware navigation, while the design system provides consistent theming across light/dark modes. The component library uses composition patterns with CVA variants, enabling rapid UI development with type safety throughout.
 
 ## Project Structure
 
@@ -60,7 +60,7 @@ scripts/              # Automation and tooling
 
 ### Core Technologies
 
-- **Next.js 15**: React framework with App Router and React 19
+- **Next.js 16**: React framework with App Router and React 19
 - **TypeScript 5.7**: Type safety and enhanced developer experience
 - **Tailwind CSS 4**: Utility-first styling with design tokens
 - **pnpm + Turborepo**: Efficient monorepo management and build optimization
