@@ -1,0 +1,6 @@
+allowBuilds:
+  '@swc/core': false
+  core-js: true
+  esbuild: true
+  msw: true
+  sharp: true
