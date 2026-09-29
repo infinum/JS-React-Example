@@ -5,14 +5,12 @@
 	"exports": {
 		"./prettier": "./src/prettier-config/index.js",
 		"./eslint/base": "./src/eslint-config/base.mjs",
-		"./eslint/jest": "./src/eslint-config/jest.mjs",
 		"./eslint/nextjs": "./src/eslint-config/nextjs.mjs",
 		"./eslint/react": "./src/eslint-config/react.mjs",
 		"./eslint/storybook": "./src/eslint-config/storybook.mjs",
 		"./eslint/typescript": "./src/eslint-config/typescript.mjs",
 		"./eslint/vitest": "./src/eslint-config/vitest.mjs",
 		"./eslint/playwright": "./src/eslint-config/playwright.mjs",
-		"./jest": "./src/jest-config/index.js",
 		"./playwright/base": {
 			"types": "./src/playwright-config/base.d.ts",
 			"default": "./src/playwright-config/base.js"
@@ -46,7 +44,6 @@
 		"@vitest/eslint-plugin": "catalog:",
 		"eslint": "catalog:",
 		"eslint-config-prettier": "catalog:",
-		"eslint-plugin-jest": "catalog:",
 		"eslint-plugin-playwright": "catalog:",
 		"eslint-plugin-prettier": "catalog:",
 		"eslint-plugin-react": "catalog:",

@@ -7,7 +7,7 @@ vi.mock('../locales/hr/common.json', () => ({ default: { hello: 'Zdravo' } }));
 
 describe('safeImportNamespace', () => {
 	it('successfully imports existing namespace', async () => {
-		// Note: This test may need adjustment based on how Jest handles dynamic imports
+		// Note: This test may need adjustment based on how Vitest handles dynamic imports
 		// The actual implementation uses dynamic imports which can be tricky to test
 		const result = await safeImportNamespace('en', 'common');
 		expect(result).toBeDefined();

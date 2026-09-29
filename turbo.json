@@ -29,37 +29,17 @@
 		},
 		"lint": {
 			"dependsOn": ["^lint"],
-			"inputs": [
-				"**/*.{js,ts,jsx,tsx,mjs,cjs}",
-				"../../packages/configs/**",
-				"!../../packages/configs/src/jest-config/**"
-			]
+			"inputs": ["**/*.{js,ts,jsx,tsx,mjs,cjs}", "../../packages/configs/**"]
 		},
 		"lint:fix": {
 			"dependsOn": ["^lint"],
-			"inputs": [
-				"**/*.{js,ts,jsx,tsx,mjs,cjs}",
-				"../../packages/configs/**",
-				"!../../packages/configs/src/jest-config/**"
-			]
+			"inputs": ["**/*.{js,ts,jsx,tsx,mjs,cjs}", "../../packages/configs/**"]
 		},
 		"//#lint:root": {
-			"inputs": [
-				"$TURBO_DEFAULT$",
-				"!apps/**",
-				"!packages/**",
-				"./packages/configs/**",
-				"!./packages/configs/src/jest-config/**"
-			]
+			"inputs": ["$TURBO_DEFAULT$", "!apps/**", "!packages/**", "./packages/configs/**"]
 		},
 		"//#lint:fix:root": {
-			"inputs": [
-				"$TURBO_DEFAULT$",
-				"!apps/**",
-				"!packages/**",
-				"./packages/configs/**",
-				"!./packages/configs/src/jest-config/**"
-			]
+			"inputs": ["$TURBO_DEFAULT$", "!apps/**", "!packages/**", "./packages/configs/**"]
 		},
 		"typecheck": {
 			"dependsOn": ["^typecheck"],
