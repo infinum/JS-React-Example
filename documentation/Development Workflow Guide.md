@@ -85,6 +85,8 @@ git fetch origin && git rebase origin/main
 git push origin feature/PROJ-123-your-feature-name
 ```
 
+The `pre-push` hook runs lint, the Prettier check and `pnpm test:affected`, which runs only the tests affected by your branch. CI runs the full test suite with coverage. See the [Testing Guide](Testing%20Guide.md).
+
 ### Claude Code Hooks
 
 `.claude/settings.json` gives Claude Code a feedback loop. Checks run automatically, and their failures are sent back to Claude so it can fix them itself.

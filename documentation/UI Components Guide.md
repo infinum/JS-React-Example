@@ -119,9 +119,12 @@ export default {
 
 ### 4. Write Tests
 
+Component tests run in headless Chromium (Vitest browser mode), so Radix gets real focus, pointer events and layout. See the [Testing Guide](Testing%20Guide.md) for which kind of test to write.
+
 ```typescript
 // packages/ui/src/components/__tests__/select.test.tsx
 import { render, screen } from '@testing-library/react';
+import { describe, it } from 'vitest';
 import { Select } from '../select';
 
 describe('Select', () => {
@@ -130,6 +133,21 @@ describe('Select', () => {
     // Test your customizations
   });
 });
+```
+
+## Storybook Stories Are Tests
+
+Every story runs as a test in headless Chromium (`pnpm --filter @infinum/storybook test`, or **Run tests** in the Storybook sidebar). A story test fails when the story throws while rendering, when its `play` function fails, or when the a11y addon finds any accessibility violation.
+
+Fix accessibility violations instead of hiding them. If a violation comes from something you can't fix yet, for example a known upstream Radix issue, opt that one story out of the check with `a11y: { test: 'todo' }` and a comment that explains why. The violation then shows as a warning in the Accessibility panel, but doesn't fail the test.
+
+```typescript
+export const KnownIssue: Story = {
+  parameters: {
+    // a11y: Radix Select trigger reports <reason>, tracked in <link>. Remove when fixed.
+    a11y: { test: 'todo' },
+  },
+};
 ```
 
 ## Best Practices
@@ -149,7 +167,8 @@ describe('Select', () => {
 
 ### File Organization
 
-# Also mention __stories__
+# Also mention **stories**
+
 ```
 packages/ui/src/components/
 ├── button.tsx           # Generated + customized
