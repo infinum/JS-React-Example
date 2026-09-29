@@ -5,6 +5,8 @@ import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 export default createTestConfig({
 	name: 'storybook',
 	environment: 'browser',
+	// The Storybook plugin finds the stories from .storybook/main.ts and warns when `include` is set
+	include: [],
 	// Stories render the packages/ui components, so measure those files. The pattern starts with `**/`
 	// on purpose: it matches the ui files that stories load, but Vitest doesn't list ui files that no story
 	// loads, because it can't transform files outside this package's root.

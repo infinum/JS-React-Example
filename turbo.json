@@ -75,15 +75,21 @@
 			"inputs": ["$TURBO_DEFAULT$", "!apps/**", "!packages/**", "./packages/configs/**"]
 		},
 		"test": {
-			"inputs": ["**/*.test.{js,ts,jsx,tsx,mjs,cjs}", "../../packages/configs/src/jest-config/**"]
+			"inputs": ["**/*.test.{js,ts,jsx,tsx,mjs,cjs}", "../../packages/configs/src/jest-config/**"],
+			"env": ["TEST_REPORT"]
 		},
 		"test:watch": {
 			"cache": false,
 			"persistent": true
 		},
+		"test:changed": {
+			"cache": false,
+			"passThroughEnv": ["TEST_CHANGED_BASE", "TEST_REPORT"]
+		},
 		"test:coverage": {
 			"inputs": ["**/*.test.{js,ts,jsx,tsx,mjs,cjs}", "../../packages/configs/src/jest-config/**"],
-			"outputs": ["../../coverage/**"]
+			"outputs": ["../../coverage/**"],
+			"env": ["TEST_REPORT"]
 		},
 		"test:coverage:watch": {
 			"outputs": ["../../coverage/**"],

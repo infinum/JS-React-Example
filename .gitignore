@@ -21,6 +21,8 @@ next-env.d.ts
 # Testing
 /coverage
 /base-coverage
+**/test-results
+**/__screenshots__
 .actrc
 
 # Cache

@@ -14,6 +14,7 @@
 		"test:watch": "vitest",
 		"test:coverage": "vitest run --coverage",
 		"test:coverage:watch": "vitest --coverage",
+		"test:changed": "vitest run --changed ${TEST_CHANGED_BASE:-origin/main}",
 		"typecheck": "tsc --noEmit"
 	},
 	"exports": {
