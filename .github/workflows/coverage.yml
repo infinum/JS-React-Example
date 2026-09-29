@@ -39,6 +39,9 @@ jobs:
       - name: 💻 Node setup
         uses: ./.github/actions/node-setup
 
+      - name: 🧪 Test browsers setup
+        uses: ./.github/actions/test-browsers-setup
+
       - name: 🧪 Test
         run: pnpm test:coverage
         shell: bash
