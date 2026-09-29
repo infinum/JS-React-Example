@@ -10,6 +10,7 @@
 		"./eslint/react": "./src/eslint-config/react.mjs",
 		"./eslint/storybook": "./src/eslint-config/storybook.mjs",
 		"./eslint/typescript": "./src/eslint-config/typescript.mjs",
+		"./eslint/vitest": "./src/eslint-config/vitest.mjs",
 		"./eslint/playwright": "./src/eslint-config/playwright.mjs",
 		"./jest": "./src/jest-config/index.js",
 		"./playwright/base": {
@@ -19,6 +20,10 @@
 		"./playwright/apps": {
 			"types": "./src/playwright-config/apps.d.ts",
 			"default": "./src/playwright-config/apps.js"
+		},
+		"./vitest": {
+			"types": "./src/vitest-config/index.d.mts",
+			"default": "./src/vitest-config/index.mjs"
 		}
 	},
 	"scripts": {

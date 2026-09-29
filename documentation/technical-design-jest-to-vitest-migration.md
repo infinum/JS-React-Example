@@ -117,7 +117,7 @@ All workspaces are `"type": "commonjs"`, so the config files use `.mts`/`.mjs` t
 
 ```ts
 // index.d.mts (sketch)
-import type { UserConfig } from 'vitest/config';
+import type { ViteUserConfig } from 'vitest/config';
 
 export type TestEnvironment = 'jsdom' | 'browser';
 
@@ -125,11 +125,13 @@ export interface CreateTestConfigOptions {
 	/** Package short name. It's used for coverage/<name> and test-results/<name>. */
 	name: string;
 	environment: TestEnvironment;
+	/** Replaces TEST_INCLUDE (see §16, deviation 3). */
+	include?: string[];
 	/** Merged last, so a package can override anything. */
-	overrides?: UserConfig;
+	overrides?: ViteUserConfig;
 }
 
-export function createTestConfig(options: CreateTestConfigOptions): UserConfig;
+export function createTestConfig(options: CreateTestConfigOptions): ViteUserConfig;
 
 export const TEST_INCLUDE: string[];
 export const COVERAGE_EXCLUDE: string[];
@@ -677,6 +679,8 @@ The PRD requires one PR (no coexistence on `main`). Build it as the ordered comm
 
 Changes made during implementation where the sketches above didn't fit the installed packages. Each one is the smallest change that still meets the PRD.
 
-| # | Step | Deviation                                                                                       | Why                                                                                                                                                                                                           |
-| - | ---- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1 | 1    | Added `peerDependencyRules.allowedVersions: tsconfck>typescript: '6'` to `pnpm-workspace.yaml`. | `vite-tsconfig-paths@6.1.1` depends on `tsconfck@3.1.6` (the latest), which caps its `typescript` peer at `^5`. The repo is on TypeScript 6 and has `strictPeerDependencies: true`, so `pnpm install` failed. |
+| # | Step | Deviation                                                                                       | Why                                                                                                                                                                                                                                                                                                       |
+| - | ---- | ----------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1 | 1    | Added `peerDependencyRules.allowedVersions: tsconfck>typescript: '6'` to `pnpm-workspace.yaml`. | `vite-tsconfig-paths@6.1.1` depends on `tsconfck@3.1.6` (the latest), which caps its `typescript` peer at `^5`. The repo is on TypeScript 6 and has `strictPeerDependencies: true`, so `pnpm install` failed.                                                                                             |
+| 2 | 2    | The `.d.mts` uses `ViteUserConfig` instead of `UserConfig`.                                     | `vitest/config` in Vitest 4.1 exports Vite's config type as `ViteUserConfig`. It has no `UserConfig` export.                                                                                                                                                                                              |
+| 3 | 2    | `createTestConfig()` takes an `include` option that replaces `TEST_INCLUDE`.                    | `mergeConfig` concatenates arrays (the risk in §4.2 and §14). With `overrides.test.include`, a package that splits into a `jsdom` and a `browser` project ran every test file in both projects, so R2 wasn't met. Checked with a two-project probe: 4 file runs and 2 failures before, 2/2 passing after. |
