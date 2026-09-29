@@ -9,6 +9,10 @@ export interface CreateTestConfigOptions {
 	environment: TestEnvironment;
 	/** Replaces `TEST_INCLUDE`. Use it to split one package into projects per environment (`overrides` would concatenate). */
 	include?: string[];
+	/** Replaces the coverage `include` list. Default: all `.ts`/`.tsx` files in `src`. */
+	coverageInclude?: string[];
+	/** Coverage thresholds, or `false` to only report. Default: 7% for branches, functions, lines and statements. */
+	coverageThresholds?: { branches?: number; functions?: number; lines?: number; statements?: number } | false;
 	/** Merged last with Vite's `mergeConfig`, so a package can override anything. Arrays are concatenated. */
 	overrides?: ViteUserConfig;
 }

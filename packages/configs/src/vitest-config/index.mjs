@@ -46,7 +46,14 @@ const presets = {
 };
 
 /** @type {import('./index.d.mts').createTestConfig} */
-export function createTestConfig({ name, environment, include = TEST_INCLUDE, overrides = {} }) {
+export function createTestConfig({
+	name,
+	environment,
+	include = TEST_INCLUDE,
+	coverageInclude = ['src/**/*.{ts,tsx}'],
+	coverageThresholds = { branches: 7, functions: 7, lines: 7, statements: 7 },
+	overrides = {},
+}) {
 	const base = defineConfig({
 		plugins: [react()],
 		// Resolve the `paths` aliases from the package's tsconfig.json (built into Vite 8)
@@ -74,9 +81,9 @@ export function createTestConfig({ name, environment, include = TEST_INCLUDE, ov
 				provider: 'v8',
 				reportsDirectory: path.join(repoRoot, 'coverage', name),
 				reporter: ['json', 'lcov', 'text', 'clover', 'html', 'json-summary'],
-				include: ['src/**/*.{ts,tsx}'],
+				include: coverageInclude,
 				exclude: COVERAGE_EXCLUDE,
-				thresholds: { branches: 7, functions: 7, lines: 7, statements: 7 },
+				...(coverageThresholds ? { thresholds: coverageThresholds } : {}),
 			},
 		},
 	});

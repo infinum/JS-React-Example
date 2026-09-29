@@ -84,11 +84,11 @@ export const WithFooter: Story = {
 				<div className="space-y-4">
 					<div className="flex items-center justify-between">
 						<span className="text-sm">Email notifications</span>
-						<input type="checkbox" defaultChecked />
+						<input type="checkbox" aria-label="Email notifications" defaultChecked />
 					</div>
 					<div className="flex items-center justify-between">
 						<span className="text-sm">Push notifications</span>
-						<input type="checkbox" />
+						<input type="checkbox" aria-label="Push notifications" />
 					</div>
 				</div>
 			</CardContent>
@@ -177,7 +177,7 @@ export const MultipleCards: Story = {
 				</CardHeader>
 				<CardContent>
 					<div className="text-2xl font-bold">$12,345</div>
-					<div className="text-xs text-green-600">+12% from last month</div>
+					<div className="text-xs text-green-700">+12% from last month</div>
 				</CardContent>
 			</Card>
 

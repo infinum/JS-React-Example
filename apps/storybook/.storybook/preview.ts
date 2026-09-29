@@ -23,6 +23,11 @@ const preview: Preview = {
 			},
 		},
 		layout: 'centered',
+		a11y: {
+			// Accessibility violations fail story tests. To opt out a single story, set `a11y: { test: 'todo' }`
+			// on it with a comment explaining why.
+			test: 'error',
+		},
 	},
 	decorators: [
 		withThemeByClassName({

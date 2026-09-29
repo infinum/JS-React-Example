@@ -11,6 +11,10 @@
 		"lint:fix": "eslint . --cache --fix",
 		"prettier:check": "prettier --check .",
 		"prettier:fix": "prettier --write .",
+		"test": "vitest run",
+		"test:watch": "vitest",
+		"test:coverage": "vitest run --coverage",
+		"test:coverage:watch": "vitest --coverage",
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {

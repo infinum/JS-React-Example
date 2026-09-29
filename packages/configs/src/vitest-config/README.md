@@ -45,6 +45,17 @@ export default createTestConfig({
 
 `overrides` is merged last with Vite's `mergeConfig`. Objects are merged deeply and **arrays are concatenated**, so an override adds to `setupFiles` or `plugins` instead of replacing them. To replace the test file patterns, pass the `include` option instead.
 
+### Options
+
+| Option               | Default                 | Description                                                               |
+| -------------------- | ----------------------- | ------------------------------------------------------------------------- |
+| `name`               | required                | Package short name, used for `coverage/<name>` and `test-results/<name>`. |
+| `environment`        | required                | `jsdom` or `browser`.                                                     |
+| `include`            | `TEST_INCLUDE`          | Replaces the test file patterns.                                          |
+| `coverageInclude`    | `['src/**/*.{ts,tsx}']` | Replaces the files that coverage measures.                                |
+| `coverageThresholds` | 7% for all four metrics | Coverage thresholds, or `false` to only report (Storybook does this).     |
+| `overrides`          | `{}`                    | Any other Vitest/Vite config, merged last.                                |
+
 ### Setup file
 
 Register the DOM matchers and React Testing Library cleanup in the package's setup file. RTL only cleans up by itself when `afterEach` is a global, and this config doesn't use globals.
