@@ -9,7 +9,8 @@ export default [
 	},
 	...tseslint.configs.stylisticTypeChecked,
 	{
-		files: ['**/*.{js,mjs,cjs}'],
+		// Config files (eslint.config.mjs, vitest.config.mts) aren't part of any tsconfig project
+		files: ['**/*.{js,mjs,cjs,mts,cts}'],
 		...tseslint.configs.disableTypeChecked,
 	},
 ];

@@ -31,7 +31,7 @@ All versions go into the pnpm catalog (`pnpm-workspace.yaml`) and are referenced
 | `playwright`                 | `1.62.0` | configs, ui, storybook           | **Same version as the existing `@playwright/test: 1.62.0`**, so the downloaded browsers are shared with E2E.                                                                                            |
 | `vite`                       | `8.3.0`  | configs, frontend, ui, storybook | Needed by Vitest, `@vitejs/plugin-react@6` and `@storybook/nextjs-vite`. `8.3.1` is inside the 7-day `minimumReleaseAge` window.                                                                        |
 | `@vitejs/plugin-react`       | `6.1.x`  | configs                          | Needs Vite 8. The optional peers (`oxc-transform-react`, React Compiler) are not needed.                                                                                                                |
-| `vite-tsconfig-paths`        | `6.1.x`  | configs                          | Resolves the `@/…` and `@infinum/ui/…` aliases from each package's `tsconfig.json` (R7). The Next.js Vitest guide recommends it.                                                                        |
+| ~~`vite-tsconfig-paths`~~    | —        | —                                | **Not used** (§16, deviation 4). Vite 8's built-in `resolve.tsconfigPaths` resolves the `@/…` and `@infinum/ui/…` aliases from each package's `tsconfig.json` (R7).                                     |
 | `jsdom`                      | `30.x`   | frontend                         | DOM environment for the jsdom preset (D3.1).                                                                                                                                                            |
 | `@storybook/nextjs-vite`     | `10.6.0` | storybook, ui                    | Replaces `@storybook/nextjs`. The version must match `storybook`.                                                                                                                                       |
 | `@storybook/addon-vitest`    | `10.6.0` | storybook                        | Runs stories as tests.                                                                                                                                                                                  |
@@ -89,6 +89,8 @@ packages/ui/
   vitest.config.mts    NEW  (replaces jest.config.js)
   src/tests/vitest.setup.ts   RENAMED from jest.setup.ts and slimmed down
   src/tests/styleMock.js      DELETE
+  tsconfig.jest.json   DELETE (Jest-only, §16 deviation 7)
+  postcss.config.js    RENAMED to postcss.config.mjs (§16 deviation 5)
 
 apps/storybook/
   vitest.config.mts    NEW
@@ -144,7 +146,6 @@ export const BROWSER_VIEWPORT: { width: number; height: number };
 // packages/configs/src/vitest-config/index.mjs (sketch)
 import path from 'node:path';
 import react from '@vitejs/plugin-react';
-import tsconfigPaths from 'vite-tsconfig-paths';
 import { playwright } from '@vitest/browser-playwright';
 import { configDefaults, defineConfig, mergeConfig } from 'vitest/config';
 
@@ -184,9 +185,10 @@ const presets = {
 
 export function createTestConfig({ name, environment, overrides = {} }) {
 	const base = defineConfig({
-		plugins: [tsconfigPaths(), react()],
+		plugins: [react()],
+		resolve: { tsconfigPaths: true }, // built into Vite 8 (§16, deviation 4)
 		test: {
-			include: TEST_INCLUDE,
+			include, // option, defaults to TEST_INCLUDE (§16, deviation 3)
 			exclude: TEST_EXCLUDE,
 			passWithNoTests: true, // PRD R17 (was --passWithNoTests)
 			clearMocks: true, // call history is reset between tests → deterministic (R31)
@@ -218,7 +220,7 @@ export function createTestConfig({ name, environment, overrides = {} }) {
 Notes:
 
 - `mergeConfig` **concatenates** arrays. To _replace_ an array (for example `coverage.include` in Storybook), the package sets it in `overrides`, and the result has to be checked. If concatenation gets in the way, add an explicit option to `createTestConfig`, such as `coverageInclude`, instead of relying on merge behavior.
-- `@vitejs/plugin-react`, `vite-tsconfig-paths`, `@vitest/browser-playwright` and `playwright` go into `packages/configs` `devDependencies`. The ESLint plugins are handled the same way today (the workspace link resolves them). The consuming packages also list `vitest` and `@vitest/coverage-v8` themselves, so their `vitest` binary resolves locally.
+- `@vitejs/plugin-react`, `@vitest/browser-playwright` and `playwright` go into `packages/configs` `devDependencies`. The ESLint plugins are handled the same way today (the workspace link resolves them). The consuming packages also list `vitest` and `@vitest/coverage-v8` themselves, so their `vitest` binary resolves locally.
 - **No `globals: true`** (D3.5). TypeScript then rejects a test that uses `describe` without importing it, so no extra lint rule is needed.
 - Add to `package.json` exports: `"./vitest": { "types": "./src/vitest-config/index.d.mts", "default": "./src/vitest-config/index.mjs" }`.
 
@@ -291,7 +293,7 @@ vi.mock('next/link', () => ({
 - The `next/router` spy in the old setup file is **dropped**. No app code imports `next/router` (checked with `grep -rn "next/router" apps/frontend/src`), so the spy had no effect (R8 is still met). `jest.spyOn` on an ESM namespace also isn't possible in Vitest.
 - `src/tests/utils.tsx` (`render`, `renderServer`) needs no changes (R9).
 - `tsconfig.build.json` excludes: replace `**/jest.setup.tsx` and `**/jest.config.ts` with `**/vitest.setup.tsx` and `vitest.config.mts`.
-- `vite-tsconfig-paths` reads `apps/frontend/tsconfig.json`, which already defines `@/*` and `@infinum/ui/*` (R7).
+- `resolve.tsconfigPaths` reads `apps/frontend/tsconfig.json`, which already defines `@/*` and `@infinum/ui/*` (R7).
 
 ### 5.2 `packages/ui` (browser)
 
@@ -679,8 +681,13 @@ The PRD requires one PR (no coexistence on `main`). Build it as the ordered comm
 
 Changes made during implementation where the sketches above didn't fit the installed packages. Each one is the smallest change that still meets the PRD.
 
-| # | Step | Deviation                                                                                       | Why                                                                                                                                                                                                                                                                                                       |
-| - | ---- | ----------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1 | 1    | Added `peerDependencyRules.allowedVersions: tsconfck>typescript: '6'` to `pnpm-workspace.yaml`. | `vite-tsconfig-paths@6.1.1` depends on `tsconfck@3.1.6` (the latest), which caps its `typescript` peer at `^5`. The repo is on TypeScript 6 and has `strictPeerDependencies: true`, so `pnpm install` failed.                                                                                             |
-| 2 | 2    | The `.d.mts` uses `ViteUserConfig` instead of `UserConfig`.                                     | `vitest/config` in Vitest 4.1 exports Vite's config type as `ViteUserConfig`. It has no `UserConfig` export.                                                                                                                                                                                              |
-| 3 | 2    | `createTestConfig()` takes an `include` option that replaces `TEST_INCLUDE`.                    | `mergeConfig` concatenates arrays (the risk in §4.2 and §14). With `overrides.test.include`, a package that splits into a `jsdom` and a `browser` project ran every test file in both projects, so R2 wasn't met. Checked with a two-project probe: 4 file runs and 2 failures before, 2/2 passing after. |
+| # | Step | Deviation                                                                                                                                 | Why                                                                                                                                                                                                                                                                                                                                                                           |
+| - | ---- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1 | 1    | Added `peerDependencyRules.allowedVersions: tsconfck>typescript: '6'` to `pnpm-workspace.yaml`.                                           | `tsconfck@3.1.6` (the latest) caps its `typescript` peer at `^5`. The repo is on TypeScript 6 with `strictPeerDependencies: true`, so `pnpm install` failed. It came in through `vite-tsconfig-paths`, and after deviation 4 it still comes in through `@storybook/nextjs-vite` > `vite-plugin-storybook-nextjs` > `vite-tsconfig-paths@5`, so the rule stays.                |
+| 2 | 2    | The `.d.mts` uses `ViteUserConfig` instead of `UserConfig`.                                                                               | `vitest/config` in Vitest 4.1 exports Vite's config type as `ViteUserConfig`. It has no `UserConfig` export.                                                                                                                                                                                                                                                                  |
+| 3 | 2    | `createTestConfig()` takes an `include` option that replaces `TEST_INCLUDE`.                                                              | `mergeConfig` concatenates arrays (the risk in §4.2 and §14). With `overrides.test.include`, a package that splits into a `jsdom` and a `browser` project ran every test file in both projects, so R2 wasn't met. Checked with a two-project probe: 4 file runs and 2 failures before, 2/2 passing after.                                                                     |
+| 4 | 3    | Dropped `vite-tsconfig-paths`. The shared config sets Vite 8's `resolve.tsconfigPaths: true` instead.                                     | With the plugin, every run printed Vite's warning _"The plugin vite-tsconfig-paths is detected. Vite now supports tsconfig paths resolution natively … remove the plugin"_ (noise, R30). The installed Vite wins over the sketch. Checked that the native option resolves both `@/…` and `@infinum/ui/…` from `apps/frontend`, with a negative control that fails without it. |
+| 5 | 3    | Renamed `packages/ui/postcss.config.js` to `postcss.config.mjs`.                                                                          | The file uses `export default` in a CommonJS package. Jest never loaded it, but Vite does, and Node printed a `MODULE_TYPELESS_PACKAGE_JSON` warning on every run (R30). `apps/frontend` already uses `postcss.config.mjs`.                                                                                                                                                   |
+| 6 | 3    | `@infinum/configs/eslint/typescript` disables type-aware rules for `**/*.{mts,cts}` too (it already did for `js`, `mjs`, `cjs`).          | `typescript-eslint`'s type-checked presets apply to `.mts`, but no package tsconfig includes `vitest.config.mts`, so `eslint` crashed with a parser-services error. The configs are type-checked once by hand with `tsc --ignoreConfig`.                                                                                                                                      |
+| 7 | 3    | Deleted `packages/ui/tsconfig.jest.json` (not listed in §3.2).                                                                            | It only exists for Jest (`types: ["jest", …]`), and R39 requires removing Jest config files.                                                                                                                                                                                                                                                                                  |
+| 8 | 3    | ui coverage totals are not within ±1% of the Jest baseline (lines 82.47% → 75.67%). Agreed with the requester to keep V8 and document it. | Jest used its default `babel` (istanbul) provider in ui, and V8 counts differently: a multi-line JSX return is 1 line, and implicit branches at line 1 count as branches. Per file, exactly the same code is covered (every tested file at 100% lines/statements/functions under both, `example.tsx` and `tooltip.tsx` at 0% under both).                                     |

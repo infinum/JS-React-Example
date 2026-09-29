@@ -18,7 +18,7 @@ The `browser` preset always uses Chromium, headless, with a 1280×720 viewport (
 ## What the base config sets
 
 - **Test files:** `**/__tests__/**` and `**/*.{test,spec}.{ts,tsx,js}`. Stories and Playwright `*.e2e.spec.*` files are excluded.
-- **Imports:** `vite-tsconfig-paths` resolves the `paths` from the package's `tsconfig.json`, and `@vitejs/plugin-react` handles JSX.
+- **Imports:** Vite's built-in `resolve.tsconfigPaths` resolves the `paths` from the package's `tsconfig.json`, and `@vitejs/plugin-react` handles JSX.
 - **No globals:** import `describe`, `it`, `expect` and `vi` from `vitest` in every test file.
 - **Isolation:** `clearMocks`, `unstubGlobals` and `unstubEnvs` are on, so tests don't leak state into each other.
 - **`passWithNoTests`:** a package with no test files still passes.
