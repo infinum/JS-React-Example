@@ -45,13 +45,17 @@
 		"@types/node": "catalog:",
 		"@types/react": "catalog:",
 		"@types/react-dom": "catalog:",
+		"@vitest/coverage-v8": "catalog:",
 		"jest": "catalog:",
 		"jest-environment-jsdom": "catalog:",
+		"jsdom": "catalog:",
 		"prettier": "catalog:",
 		"prettier-plugin-sh": "catalog:",
 		"prettier-plugin-tailwindcss": "catalog:",
 		"ts-jest": "catalog:",
 		"ts-node": "catalog:",
-		"typescript": "catalog:"
+		"typescript": "catalog:",
+		"vite": "catalog:",
+		"vitest": "catalog:"
 	}
 }

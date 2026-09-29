@@ -29,7 +29,7 @@ All versions go into the pnpm catalog (`pnpm-workspace.yaml`) and are referenced
 | `@vitest/browser`            | `4.1.11` | storybook                        | Peer of `@storybook/addon-vitest`.                                                                                                                                                                      |
 | `@vitest/coverage-v8`        | `4.1.11` | configs, frontend, ui, storybook | V8 coverage works in both Node and Chromium browser mode.                                                                                                                                               |
 | `playwright`                 | `1.62.0` | configs, ui, storybook           | **Same version as the existing `@playwright/test: 1.62.0`**, so the downloaded browsers are shared with E2E.                                                                                            |
-| `vite`                       | `8.3.x`  | configs, frontend, ui, storybook | Needed by Vitest, `@vitejs/plugin-react@6` and `@storybook/nextjs-vite`.                                                                                                                                |
+| `vite`                       | `8.3.0`  | configs, frontend, ui, storybook | Needed by Vitest, `@vitejs/plugin-react@6` and `@storybook/nextjs-vite`. `8.3.1` is inside the 7-day `minimumReleaseAge` window.                                                                        |
 | `@vitejs/plugin-react`       | `6.1.x`  | configs                          | Needs Vite 8. The optional peers (`oxc-transform-react`, React Compiler) are not needed.                                                                                                                |
 | `vite-tsconfig-paths`        | `6.1.x`  | configs                          | Resolves the `@/…` and `@infinum/ui/…` aliases from each package's `tsconfig.json` (R7). The Next.js Vitest guide recommends it.                                                                        |
 | `jsdom`                      | `30.x`   | frontend                         | DOM environment for the jsdom preset (D3.1).                                                                                                                                                            |
@@ -672,3 +672,11 @@ The PRD requires one PR (no coexistence on `main`). Build it as the ordered comm
 | R33–R37 monorepo, CI, cache  | §5.4, §7.1, §8, §9            |
 | R38–R43 cleanup, types, docs | §2, §3.2, §12 steps 9–10      |
 | D3.1–D3.5                    | §3.1, §6.4, §6.2, §10.3, §4.2 |
+
+## 16. Deviations from design
+
+Changes made during implementation where the sketches above didn't fit the installed packages. Each one is the smallest change that still meets the PRD.
+
+| # | Step | Deviation                                                                                       | Why                                                                                                                                                                                                           |
+| - | ---- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1 | 1    | Added `peerDependencyRules.allowedVersions: tsconfck>typescript: '6'` to `pnpm-workspace.yaml`. | `vite-tsconfig-paths@6.1.1` depends on `tsconfck@3.1.6` (the latest), which caps its `typescript` peer at `^5`. The repo is on TypeScript 6 and has `strictPeerDependencies: true`, so `pnpm install` failed. |

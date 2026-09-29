@@ -26,15 +26,24 @@
 		"@storybook/addon-docs": "catalog:",
 		"@storybook/addon-mcp": "catalog:",
 		"@storybook/addon-themes": "catalog:",
+		"@storybook/addon-vitest": "catalog:",
 		"@storybook/nextjs": "catalog:",
+		"@storybook/nextjs-vite": "catalog:",
 		"@tailwindcss/postcss": "catalog:",
 		"@types/react": "catalog:",
 		"@types/react-dom": "catalog:",
+		"@vitest/browser": "catalog:",
+		"@vitest/browser-playwright": "catalog:",
+		"@vitest/coverage-v8": "catalog:",
 		"eslint-plugin-storybook": "catalog:",
+		"next": "catalog:",
+		"playwright": "catalog:",
 		"prettier": "catalog:",
 		"prettier-plugin-sh": "catalog:",
 		"prettier-plugin-tailwindcss": "catalog:",
 		"storybook": "catalog:",
-		"typescript": "catalog:"
+		"typescript": "catalog:",
+		"vite": "catalog:",
+		"vitest": "catalog:"
 	}
 }
