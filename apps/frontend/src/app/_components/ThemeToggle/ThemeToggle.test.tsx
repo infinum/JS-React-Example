@@ -1,16 +1,17 @@
 import { useTheme } from 'next-themes';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import React from 'react';
 import { ThemeToggle } from './ThemeToggle';
 import { render, screen, fireEvent } from '@/tests/utils';
 
 // Mock next-themes
-const mockSetTheme = jest.fn();
-jest.mock('next-themes', () => ({
-	useTheme: jest.fn(),
+const mockSetTheme = vi.fn();
+vi.mock('next-themes', () => ({
+	useTheme: vi.fn(),
 }));
 
 // Mock UI components
-jest.mock('@infinum/ui/components/button', () => ({
+vi.mock('@infinum/ui/components/button', () => ({
 	Button: ({ children, onClick, ...props }: any) => (
 		<button onClick={onClick} {...props}>
 			{children}
@@ -18,17 +19,17 @@ jest.mock('@infinum/ui/components/button', () => ({
 	),
 }));
 
-jest.mock('@infinum/ui/components/tooltip', () => ({
+vi.mock('@infinum/ui/components/tooltip', () => ({
 	Tooltip: ({ children }: any) => <div data-testid="tooltip">{children}</div>,
 	TooltipTrigger: ({ children }: any) => <div data-testid="tooltip-trigger">{children}</div>,
 	TooltipContent: ({ children }: any) => <div data-testid="tooltip-content">{children}</div>,
 }));
 
-const mockUseTheme = useTheme as jest.MockedFunction<typeof useTheme>;
+const mockUseTheme = vi.mocked(useTheme);
 
 describe('ThemeToggle Component', () => {
 	beforeEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 		mockSetTheme.mockClear();
 	});
 
@@ -71,24 +72,24 @@ describe('ThemeToggle Component', () => {
 	describe('After mounted state', () => {
 		beforeEach(() => {
 			// Mock useEffect to simulate mounted state
-			const mockUseEffect = jest.spyOn(React, 'useEffect');
+			const mockUseEffect = vi.spyOn(React, 'useEffect');
 			mockUseEffect.mockImplementation((effect: any) => {
 				if (typeof effect === 'function') {
 					effect();
 				}
 			});
 
-			const mockUseState = jest.spyOn(React, 'useState');
+			const mockUseState = vi.spyOn(React, 'useState');
 			mockUseState.mockImplementation(((initial: any) => {
 				if (initial === false) {
-					return [true, jest.fn()]; // mounted = true
+					return [true, vi.fn()]; // mounted = true
 				}
-				return [initial, jest.fn()];
+				return [initial, vi.fn()];
 			}) as any);
 		});
 
 		afterEach(() => {
-			jest.restoreAllMocks();
+			vi.restoreAllMocks();
 		});
 
 		it('displays light theme icon correctly', () => {
@@ -155,24 +156,24 @@ describe('ThemeToggle Component', () => {
 	describe('Theme switching functionality', () => {
 		beforeEach(() => {
 			// Mock mounted state
-			const mockUseEffect = jest.spyOn(React, 'useEffect');
+			const mockUseEffect = vi.spyOn(React, 'useEffect');
 			mockUseEffect.mockImplementation((effect: any) => {
 				if (typeof effect === 'function') {
 					effect();
 				}
 			});
 
-			const mockUseState = jest.spyOn(React, 'useState');
+			const mockUseState = vi.spyOn(React, 'useState');
 			mockUseState.mockImplementation(((initial: any) => {
 				if (initial === false) {
-					return [true, jest.fn()]; // mounted = true
+					return [true, vi.fn()]; // mounted = true
 				}
-				return [initial, jest.fn()];
+				return [initial, vi.fn()];
 			}) as any);
 		});
 
 		afterEach(() => {
-			jest.restoreAllMocks();
+			vi.restoreAllMocks();
 		});
 
 		it('switches from light to dark theme', () => {
@@ -267,19 +268,19 @@ describe('ThemeToggle Component', () => {
 
 		it('handles theme switching when mounted', () => {
 			// Mock mounted state
-			const mockUseEffect = jest.spyOn(React, 'useEffect');
+			const mockUseEffect = vi.spyOn(React, 'useEffect');
 			mockUseEffect.mockImplementation((effect: any) => {
 				if (typeof effect === 'function') {
 					effect();
 				}
 			});
 
-			const mockUseState = jest.spyOn(React, 'useState');
+			const mockUseState = vi.spyOn(React, 'useState');
 			mockUseState.mockImplementation(((initial: any) => {
 				if (initial === false) {
-					return [true, jest.fn()]; // mounted = true
+					return [true, vi.fn()]; // mounted = true
 				}
-				return [initial, jest.fn()];
+				return [initial, vi.fn()];
 			}) as any);
 
 			// Ensure the mock is properly set up for this test

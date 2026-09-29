@@ -29,8 +29,8 @@
 		"node_modules",
 		"**/*.test.ts",
 		"**/*.test.tsx",
-		"**/jest.setup.tsx",
-		"**/jest.config.ts",
+		"**/vitest.setup.tsx",
+		"vitest.config.mts",
 		"**/*.stories.tsx",
 		"coverage",
 		"__mocks__"

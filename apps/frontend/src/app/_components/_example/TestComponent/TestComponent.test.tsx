@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { renderServer } from '@/tests/utils';
 import { TestComponent } from './TestComponent';
 

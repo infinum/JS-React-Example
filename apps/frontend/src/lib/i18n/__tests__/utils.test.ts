@@ -1,8 +1,9 @@
+import { describe, expect, it, vi } from 'vitest';
 import { safeImportNamespace } from '../utils';
 
 // Mock dynamic imports
-jest.mock('../locales/en/common.json', () => ({ default: { hello: 'Hello' } }), { virtual: true });
-jest.mock('../locales/hr/common.json', () => ({ default: { hello: 'Zdravo' } }), { virtual: true });
+vi.mock('../locales/en/common.json', () => ({ default: { hello: 'Hello' } }));
+vi.mock('../locales/hr/common.json', () => ({ default: { hello: 'Zdravo' } }));
 
 describe('safeImportNamespace', () => {
 	it('successfully imports existing namespace', async () => {
