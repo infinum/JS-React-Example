@@ -1,5 +1,6 @@
 steps=(
 	"create-env-overrides.sh"
+	"install-playwright-harness.sh"
 )
 
 echo "🚀 Bootstrapping the project..."

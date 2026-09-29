@@ -16,7 +16,8 @@
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"test:coverage": "jest --coverage",
-		"test:coverage:watch": "jest --coverage --watch"
+		"test:coverage:watch": "jest --coverage --watch",
+		"typecheck": "next typegen && tsc --noEmit"
 	},
 	"dependencies": {
 		"@infinum/ui": "workspace:*",

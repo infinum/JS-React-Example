@@ -61,6 +61,11 @@
 				"!./packages/configs/src/jest-config/**"
 			]
 		},
+		"typecheck": {
+			"dependsOn": ["^typecheck"],
+			"inputs": ["$TURBO_DEFAULT$", "!.next/**", "!**/*.tsbuildinfo"],
+			"outputs": [".next/types/**", ".next/dev/types/**", "next-env.d.ts"]
+		},
 		"prettier:check": {},
 		"prettier:fix": {},
 		"//#prettier:check:root": {

@@ -13,3 +13,9 @@ Dockerfile
 .next/
 dist/
 build/
+
+# Tools
+.remarkignore
+
+# Misc
+.gitkeep

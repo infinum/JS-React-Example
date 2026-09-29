@@ -10,7 +10,8 @@
 		"lint": "eslint . --cache",
 		"lint:fix": "eslint . --cache --fix",
 		"prettier:check": "prettier --check .",
-		"prettier:fix": "prettier --write ."
+		"prettier:fix": "prettier --write .",
+		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
 		"@infinum/ui": "workspace:*",
@@ -23,6 +24,7 @@
 		"@storybook/addon-a11y": "catalog:",
 		"@storybook/addon-designs": "catalog:",
 		"@storybook/addon-docs": "catalog:",
+		"@storybook/addon-mcp": "catalog:",
 		"@storybook/addon-themes": "catalog:",
 		"@storybook/nextjs": "catalog:",
 		"@tailwindcss/postcss": "catalog:",
@@ -32,6 +34,7 @@
 		"prettier": "catalog:",
 		"prettier-plugin-sh": "catalog:",
 		"prettier-plugin-tailwindcss": "catalog:",
-		"storybook": "catalog:"
+		"storybook": "catalog:",
+		"typescript": "catalog:"
 	}
 }

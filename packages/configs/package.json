@@ -15,6 +15,10 @@
 		"./playwright/base": {
 			"types": "./src/playwright-config/base.d.ts",
 			"default": "./src/playwright-config/base.js"
+		},
+		"./playwright/apps": {
+			"types": "./src/playwright-config/apps.d.ts",
+			"default": "./src/playwright-config/apps.js"
 		}
 	},
 	"scripts": {

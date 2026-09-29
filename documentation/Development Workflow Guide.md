@@ -85,6 +85,22 @@ git fetch origin && git rebase origin/main
 git push origin feature/PROJ-123-your-feature-name
 ```
 
+### Claude Code Hooks
+
+`.claude/settings.json` gives Claude Code a feedback loop. Checks run automatically, and their failures are sent back to Claude so it can fix them itself.
+
+| Hook          | When                   | What it runs                                                                                                        |
+| ------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `PreToolUse`  | Before a shell command | Blocks commands that update visual baselines (`--update-snapshots`, `e2e:update`, `playwright test -u`).            |
+| `PostToolUse` | After each file edit   | Prettier and `eslint --fix` on the edited file, or `remark --output` for Markdown.                                  |
+| `Stop`        | When Claude finishes   | `pnpm turbo run lint typecheck test --affected`. Only packages changed compared to `main` run, the rest are cached. |
+
+A hook sends feedback to Claude only when it exits with code `2`. Its stderr becomes Claude's input. Any other non-zero exit code is only shown to you. The `Stop` hook lets Claude stop on the second attempt (`stop_hook_active`), so a failure it cannot fix does not loop forever.
+
+The hooks need `jq`, which `mise install` provides from `mise.toml`.
+
+To turn a hook off for yourself only, override `hooks` in `.claude/settings.local.json`. That file is not committed. Run `/hooks` in Claude Code to see which hooks are active.
+
 ## Code Review Process
 
 **Review Focus Areas:**

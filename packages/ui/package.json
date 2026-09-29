@@ -13,7 +13,8 @@
 		"test": "jest --passWithNoTests",
 		"test:watch": "jest --watch",
 		"test:coverage": "jest --coverage",
-		"test:coverage:watch": "jest --coverage --watch"
+		"test:coverage:watch": "jest --coverage --watch",
+		"typecheck": "tsc --noEmit"
 	},
 	"exports": {
 		"./*": "./src/components/*.tsx",
