@@ -1,6 +1,7 @@
 steps=(
 	"create-env-overrides.sh"
 	"install-playwright-harness.sh"
+	"install-test-browsers.sh"
 )
 
 echo "🚀 Bootstrapping the project..."
