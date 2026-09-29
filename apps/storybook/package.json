@@ -27,7 +27,6 @@
 		"@storybook/addon-mcp": "catalog:",
 		"@storybook/addon-themes": "catalog:",
 		"@storybook/addon-vitest": "catalog:",
-		"@storybook/nextjs": "catalog:",
 		"@storybook/nextjs-vite": "catalog:",
 		"@tailwindcss/postcss": "catalog:",
 		"@types/react": "catalog:",

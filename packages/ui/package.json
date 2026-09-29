@@ -28,7 +28,6 @@
 	],
 	"devDependencies": {
 		"@infinum/configs": "workspace:*",
-		"@storybook/nextjs": "catalog:",
 		"@storybook/nextjs-vite": "catalog:",
 		"@testing-library/dom": "catalog:",
 		"@testing-library/jest-dom": "catalog:",
