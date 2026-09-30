@@ -47,3 +47,6 @@ pnpm-debug.log*
 !/.agents/skills/repo-*
 /.claude/skills/*
 !/.claude/skills/repo-*
+
+# Plans / PRDs
+.agents/plans/*
