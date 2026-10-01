@@ -1,0 +1,33 @@
+# Docker Sandbox for this repository (local development only, not part of the production setup).
+# Start or reattach with `pnpm sandbox`. Per-developer overrides: sbxenv.local.example.yaml.
+schemaVersion: '1'
+name: js-react-example
+agent: claude
+workspace:
+  path: ../.. # relative to this file: the repository root
+  clone: true # private copy only: the host repo is mounted read-only
+
+args:
+  memory: { default: '8g', description: 'Sandbox memory (E2E with both dev servers peaks at ~5 GB)' }
+  cpus: { default: '0', description: '0 = all host CPUs' }
+  frontendPort: { default: '3000', description: 'Host port for the frontend dev server' }
+  storybookPort: { default: '6006', description: 'Host port for Storybook' }
+
+kits:
+  # Org baseline, pinned to a reviewed commit. Review its hosts and plugins before bumping.
+  - git+https://github.com/infinum/ai.git#ref=cd0efb3d23e8581aa3d92d6d623dce97af3aa948&dir=sandbox-kits/infinum-full
+  - ./kit
+
+# Ports and resources are args, because merged env files concatenate lists: an override file
+# can't replace a port, and sbx refuses one declared twice.
+ports:
+  - sandbox: 3000
+    host: ${{ env.args.frontendPort }} # integer field, unquoted on purpose
+    hostIP: 127.0.0.1 # loopback only, never the network
+  - sandbox: 6006
+    host: ${{ env.args.storybookPort }}
+    hostIP: 127.0.0.1
+
+sandboxOptions:
+  memory: ${{ env.args.memory }}
+  cpus: ${{ env.args.cpus }}

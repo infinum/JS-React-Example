@@ -1,0 +1,149 @@
+schemaVersion: '2'
+kind: mixin
+name: js-react-example
+displayName: JS React Example
+description: >-
+  Toolchain (Node/pnpm from the repo's mise pins), Chromium and its OS deps for
+  Vitest browser mode and Playwright, dev ports, and project notes.
+# No requires.agent: nothing here is Claude-specific.
+
+permissions:
+  network:
+    # Grown from V3's policy log under a deny-all global policy. The org kit already allows
+    # github.com, api.github.com and registry.npmjs.org.
+    allow:
+      - release-assets.githubusercontent.com # GitHub release downloads: mise itself, then pnpm and jq via mise.lock
+      - archive.ubuntu.com:80 # base image apt source (plain HTTP): libatomic1, Chromium OS deps (amd64)
+      - security.ubuntu.com:80 # base image apt source (plain HTTP), security updates (amd64)
+      - ports.ubuntu.com:80 # the arm64 equivalent of the two above (pending: confirm on a Mac)
+      - download.docker.com # base image's Docker apt source; every apt-get update fails without it
+      - nodejs.org # Node download (mise.lock)
+      - cdn.playwright.dev # Chromium for Playwright and Vitest browser mode
+      - storage.googleapis.com # amd64 Chromium: cdn.playwright.dev redirects to Chrome for Testing here (arm64 is served directly)
+      - fonts.googleapis.com # next/font/google (Geist) at build and dev time
+      - fonts.gstatic.com # the font files next/font/google downloads
+    # No deny: the org kit's otlp-gateway-prod-eu-west-2.grafana.net is Infinum's AI Stats
+    # analytics endpoint, so it stays allowed.
+
+environment:
+  variables:
+    # V1: the base PATH, with mise's shims first so Node/pnpm come from mise.lock, not /usr/bin/node (22)
+    PATH: '/home/agent/.local/share/mise/shims:/home/agent/.local/bin:/usr/local/share/npm-global/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    MISE_YES: '1'
+    SUPERPOWERS_DISABLE_TELEMETRY: '1'
+    # V3: next calls telemetry.vercel.com. This only reaches next when run directly: turbo's strict
+    # env mode drops it under `pnpm build/dev`, where the host stays blocked instead (not allowed here or in balanced).
+    NEXT_TELEMETRY_DISABLED: '1'
+
+ports:
+  - container: 3000
+    name: frontend
+  - container: 6006
+    name: storybook
+
+setup:
+  install:
+    # V1: the base image has no mise and Node 22. Install a pinned mise and verify it.
+    - user: '1000'
+      description: 'toolchain: pinned mise 2026.9.7 (sha256-verified) into ~/.local/bin'
+      command: |
+        set -eu
+        v=2026.9.7
+        case "$(uname -m)" in
+          x86_64)  a=x64;   sum=d479d7c0df37652ddfd6d1887ef92a67a17effc7ec4ac612f46845099f814c6f ;;
+          aarch64) a=arm64; sum=1227565aeff505b0b0735d91b63109e1e1e44a237c06dc9aa274f2f3bf732af7 ;;
+          *) echo "unsupported arch $(uname -m)" >&2; exit 1 ;;
+        esac
+        mkdir -p "$HOME/.local/bin"
+        if ! "$HOME/.local/bin/mise" --version 2>/dev/null | grep -q "^$v "; then
+          tmp=$(mktemp)
+          curl -fsSL -o "$tmp" "https://github.com/jdx/mise/releases/download/v$v/mise-v$v-linux-$a"
+          echo "$sum  $tmp" | sha256sum -c -
+          install -m 0755 "$tmp" "$HOME/.local/bin/mise"
+          rm -f "$tmp"
+        fi
+    # V1: apt runs in the background at startup (claude kit), so wait for its lock instead of failing.
+    # V4: mise.lock's standalone pnpm binary needs libatomic1, which the base image lacks.
+    - user: '0'
+      description: 'apt: wait for the dpkg lock; libatomic1 for the standalone pnpm binary'
+      command: |
+        set -eu
+        echo 'DPkg::Lock::Timeout "600";' > /etc/apt/apt.conf.d/90-js-react-example-lock
+        dpkg -s libatomic1 >/dev/null 2>&1 || { apt-get update -qq && apt-get install -y -qq --no-install-recommends libatomic1; }
+
+  # V2: the sandbox always runs on a private clone, and the clone is still empty
+  # during install, so everything that needs the repo runs at startup, guarded so later
+  # starts are cheap.
+  # V4: startup runs through `su`, which resets PATH (so set it here), and a failing startup
+  # wedges the sandbox (exec/cp stop working), so these steps log failures and always exit 0.
+  # The subshell's status is checked with $?, not `||`, which would switch off `set -e` inside it.
+  startup:
+    # Runs first, as root: create the log the agent-user step appends to. A root-owned log
+    # would make that step's redirect fail and skip the install silently (V12).
+    - user: '0'
+      command:
+        [
+          'sh',
+          '-c',
+          'touch /tmp/js-react-example-startup.log && chown agent:agent /tmp/js-react-example-startup.log; exit 0',
+        ]
+    - user: '1000'
+      command:
+        - sh
+        - -c
+        - |
+          log=/tmp/js-react-example-startup.log
+          (
+            set -eu
+            export PATH="$HOME/.local/share/mise/shims:$HOME/.local/bin:$PATH"
+            echo "== $(date -Is) toolchain+deps start"
+            cd "$WORKSPACE_DIR"
+            mise trust --quiet "$WORKSPACE_DIR/mise.toml"
+            mise install
+            sum=$(sha256sum pnpm-lock.yaml | cut -d' ' -f1)
+            if [ "$(cat node_modules/.sandbox-lock-sha 2>/dev/null)" != "$sum" ]; then
+              pnpm install --frozen-lockfile
+              echo "$sum" > node_modules/.sandbox-lock-sha
+            fi
+            # V8: a no-op install skips postinstall (bootstrap), so install the browser explicitly.
+            # No-op when this Chromium build is already present.
+            pnpm --filter @infinum/ui exec playwright install chromium
+            echo "== $(date -Is) toolchain+deps done"
+          ) >>"$log" 2>&1
+          rc=$?; [ "$rc" -eq 0 ] || echo "== $(date -Is) FAILED (exit $rc), see above" >>"$log"
+          exit 0
+    - user: '0'
+      command:
+        - sh
+        - -c
+        - |
+          log=/tmp/js-react-example-startup.log
+          (
+            set -eu
+            cd "$WORKSPACE_DIR"
+            nodebin=$(ls -d /home/agent/.local/share/mise/installs/node/*/bin 2>/dev/null | head -1)
+            [ -n "$nodebin" ] && [ -x node_modules/.bin/playwright ] || { echo "no node/playwright yet, skipping OS deps"; exit 0; }
+            export PATH="$nodebin:$PATH"
+            v=$(node_modules/.bin/playwright --version | awk '{print $2}')
+            m=/var/lib/js-react-example/os-deps-$v
+            [ -f "$m" ] && exit 0
+            echo "== $(date -Is) OS deps for playwright $v"
+            node_modules/.bin/playwright install-deps chromium
+            mkdir -p /var/lib/js-react-example && touch "$m"
+            echo "== $(date -Is) OS deps done"
+          ) >>"$log" 2>&1
+          rc=$?; [ "$rc" -eq 0 ] || echo "== $(date -Is) OS deps FAILED (exit $rc), see above" >>"$log"
+          exit 0
+
+agentInstructions:
+  content: |
+    ## JS React Example sandbox
+
+    - You are in a Docker Sandbox. A request blocked with "Blocked by network policy" means the
+      host isn't allowed. Report it and don't work around it. The allowed hosts are in
+      `docker/sandbox/kit/spec.yaml`.
+    - Dependencies install on first start (log: `/tmp/js-react-example-startup.log`).
+    - `pnpm e2e` needs the frontend dev server running locally (`pnpm dev`). CI uses a production
+      build instead (`CI=1`).
+    - Never update visual baselines. A human does that (see the guide).
+    - The dev servers are published to the host on ports 3000 and 6006.
