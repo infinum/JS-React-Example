@@ -20,7 +20,8 @@ env:
 jobs:
   e2e:
     runs-on: ubuntu-24.04
-    container: mcr.microsoft.com/playwright:v1.57.0-noble
+    # Must match the catalog's Playwright version, checked by scripts/check-playwright-image.sh
+    container: mcr.microsoft.com/playwright:v1.62.0-noble
     timeout-minutes: 60
     steps:
       - name: 📥 Checkout

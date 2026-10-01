@@ -44,6 +44,7 @@
 		"prettier:fix": "turbo run prettier:fix prettier:fix:root --parallel --log-order=grouped",
 		"prettier:fix:root": "prettier --write . '!apps/**' '!packages/**'",
 		"remark:fix": "remark . --quiet --output",
+		"sandbox": "bash ./scripts/sandbox.sh",
 		"skills:install": "skills experimental_install && pnpm skills:playwright",
 		"skills:playwright": "bash ./scripts/install-playwright-harness.sh",
 		"test": "turbo run test --parallel --log-order=grouped --continue",

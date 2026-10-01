@@ -1,0 +1,22 @@
+# Per-developer overrides for the sandbox. Nothing here is read until you copy it:
+#
+#   cp docker/sandbox/sbxenv.local.example.yaml docker/sandbox/sbxenv.local.yaml
+#
+# Both local files are git-ignored, and `pnpm sandbox` picks up whichever exists.
+#
+# Memory, CPUs and ports are args. Set them in docker/sandbox/sbxenv.local.args, one
+# name=value per line, with no spaces around "=" (spaces are kept in the value):
+#
+#   memory=12g
+#   cpus=4
+#   frontendPort=3100
+#   storybookPort=6106
+#
+# Or once, without a file: pnpm sandbox --env-arg memory=12g
+#
+# This YAML file is merged over sbxenv.yaml: scalars override, lists are appended.
+# It must not set `name:` or `workspace:` (pnpm sandbox refuses both), and it can't replace a port.
+# Resources only apply when the sandbox is created, so remove and recreate it after a change.
+
+# sandboxOptions:
+#   memory: 12g

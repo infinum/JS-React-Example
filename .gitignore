@@ -50,3 +50,10 @@ pnpm-debug.log*
 
 # Plans / PRDs
 .agents/plans/*
+
+## Docker Sandbox per-developer overrides (see docker/sandbox/sbxenv.local.example.yaml)
+docker/sandbox/*.local.yaml
+docker/sandbox/*.local.args
+
+## pnpm's store, when it lands in the repo (the sandbox clone is its own filesystem)
+/.pnpm-store/
