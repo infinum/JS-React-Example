@@ -1,6 +1,9 @@
+import '@testing-library/jest-dom';
+import 'jest-axe/extend-expect';
+
 Object.defineProperty(window, 'matchMedia', {
 	writable: true,
-	value: jest.fn().mockImplementation((query) => ({
+	value: jest.fn().mockImplementation((query: string) => ({
 		matches: false,
 		media: query,
 		onchange: null,
@@ -12,4 +15,8 @@ Object.defineProperty(window, 'matchMedia', {
 	})),
 });
 
-export {};
+global.ResizeObserver = jest.fn().mockImplementation(() => ({
+	observe: jest.fn(),
+	unobserve: jest.fn(),
+	disconnect: jest.fn(),
+}));

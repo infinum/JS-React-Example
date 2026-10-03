@@ -1,14 +1,17 @@
-import { render, screen } from '../scripts/test-utils';
-import Home from '@/pages/index';
+import { axe } from 'jest-axe';
+import { render, screen } from 'test-utils';
+import Home from '@/app/(todolist)/page';
 
 describe('Home', () => {
-	it('renders a heading', () => {
+	it('renders the todo lists placeholder', () => {
 		render(<Home />);
 
-		const heading = screen.getByRole('heading', {
-			name: 'Todo',
-		});
+		expect(screen.getByText('TODO')).toBeInTheDocument();
+	});
 
-		expect(heading).toBeInTheDocument();
+	it('has no accessibility violations', async () => {
+		const { container } = render(<Home />);
+
+		expect(await axe(container)).toHaveNoViolations();
 	});
 });

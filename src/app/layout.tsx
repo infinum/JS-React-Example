@@ -1,20 +1,10 @@
 import '@/lib/tailwind/index.css';
-import { getSafeLocale } from '@/utils/locale';
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
-
-const geistSans = Geist({
-	variable: '--font-geist-sans',
-	subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-	variable: '--font-geist-mono',
-	subsets: ['latin'],
-});
+import { ReactNode } from 'react';
 
 const gtHaptik = localFont({
+	variable: '--font-gt-haptik',
 	src: [
 		{ path: '../assets/fonts/GT-Haptik-Regular.woff', weight: '400', style: 'normal' },
 		{ path: '../assets/fonts/GT-Haptik-Bold.woff', weight: '700', style: 'normal' },
@@ -22,28 +12,18 @@ const gtHaptik = localFont({
 });
 
 export const metadata: Metadata = {
-	title: 'Infinum - React Example',
-	description: 'React Example project made by Infinum.',
-	icons: [
-		{
-			rel: 'icon',
-			url: '/assets/favicon.ico',
-		},
-	],
+	title: 'Just Todo It',
+	description: 'Infinum onboarding project.',
 };
 
-export default function RootLayout({
-	children,
-}: Readonly<{
-	children: React.ReactNode;
-}>) {
-	// const currentLocale = getSafeLocale(props['__NEXT_DATA__'].locale);
+type RootLayoutProps = Readonly<{
+	children: ReactNode;
+}>;
 
+export default function RootLayout({ children }: RootLayoutProps) {
 	return (
-		<html lang="en" data-theme="rainbow">
-			<body
-				className={`${geistSans.variable} ${geistMono.variable} bg-background text-foreground font-[family-name:var(--font-geist-mono)] antialiased`}
-			>
+		<html lang="en">
+			<body className={`${gtHaptik.variable} bg-background text-foreground font-sans antialiased`}>
 				<main>{children}</main>
 			</body>
 		</html>

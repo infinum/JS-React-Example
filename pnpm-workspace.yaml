@@ -1,6 +1,14 @@
 allowBuilds:
   '@swc/core': false
-  core-js: true
   esbuild: true
-  msw: true
+  fsevents: false
   sharp: true
+  unrs-resolver: true
+
+minimumReleaseAge: 10080
+
+peerDependencyRules:
+  allowedVersions:
+    # eslint-plugin-react 7.37.5 is the newest stable release and still caps its peer
+    # at eslint ^9.7, but it runs fine on eslint 10. Remove once 7.38+ ships.
+    eslint-plugin-react>eslint: '10'

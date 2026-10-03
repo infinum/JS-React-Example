@@ -2,16 +2,12 @@
 
 ## Technology
 
-- [Next.js](https://nextjs.org/)
+- [Next.js](https://nextjs.org/) with the App Router
 - [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/) and [shadcn/ui](https://ui.shadcn.com/) (components in `src/components/ui`, add more with `pnpm dlx shadcn@latest add <component>`)
 - [React Hook Form](https://react-hook-form.com/)
-- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) and [Jest](https://jestjs.io/) for unit and integration tests
-- [Storybook](https://storybook.js.org/)
-
-## Next.js plugins
-
-- [next-i18next](https://github.com/i18next/next-i18next)
-- [next-sitemap](https://github.com/iamvishnusankar/next-sitemap)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) and [Jest](https://jestjs.io/) for unit and integration tests, with [jest-axe](https://github.com/NickColley/jest-axe) for accessibility checks
+- ESLint, Prettier, and a husky + lint-staged pre-commit hook
 
 ## Project setup
 
@@ -19,8 +15,8 @@
 # Install dependencies
 pnpm i
 
-# create .env file from .env.example
-cp .env.example .env
+# create .env.local file from .env.example
+cp .env.example .env.local
 ```
 
 ## Development
@@ -28,6 +24,11 @@ cp .env.example .env
 ```bash
 # Start the dev server
 pnpm dev
+
+# Checks
+pnpm lint
+pnpm typecheck
+pnpm test
 ```
 
 ## Project Structure

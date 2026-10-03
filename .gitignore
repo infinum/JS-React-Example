@@ -34,12 +34,12 @@ yarn-error.log*
 .vercel
 .env
 
-# sitemaps
-public/sitemap*.xml
-public/robots.txt
+# typescript
+*.tsbuildinfo
+next-env.d.ts
 
-# storybook
-storybook-static
+# eslint
+.eslintcache
 
 # vscode
 .vscode/find-unused-exports.json

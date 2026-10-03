@@ -1,1 +1,10 @@
 @import 'tailwindcss';
+
+@import '../../themes/base.css';
+
+@import '../../themes/default/index.css';
+@import '../../themes/dark/index.css';
+
+@theme inline {
+	--font-sans: var(--font-gt-haptik), ui-sans-serif, system-ui, sans-serif;
+}

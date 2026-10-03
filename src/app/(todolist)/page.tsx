@@ -1,13 +1,10 @@
 import { TodoLists } from '@/app/(todolist)/_components/TodoLists/TodoLists';
 import { Layout } from '@/app/_components/Layout/Layout';
-import { NextPage } from 'next';
 
-const Home: NextPage = () => {
+export default function Home() {
 	return (
 		<Layout>
 			<TodoLists />
 		</Layout>
 	);
-};
-
-export default Home;
+}

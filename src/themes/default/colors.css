@@ -1,0 +1,21 @@
+@theme {
+	--color-background: var(--color-white);
+	--color-foreground: var(--color-slate-900);
+	--color-card: var(--color-white);
+	--color-card-foreground: var(--color-slate-900);
+	--color-popover: var(--color-white);
+	--color-popover-foreground: var(--color-slate-900);
+	--color-primary: var(--color-slate-900);
+	--color-primary-foreground: var(--color-slate-50);
+	--color-secondary: var(--color-slate-100);
+	--color-secondary-foreground: var(--color-slate-900);
+	--color-muted: var(--color-slate-100);
+	--color-muted-foreground: var(--color-slate-500);
+	--color-accent: var(--color-slate-100);
+	--color-accent-foreground: var(--color-slate-900);
+	--color-destructive: var(--color-rose-500);
+	--color-destructive-foreground: var(--color-slate-50);
+	--color-border: var(--color-slate-200);
+	--color-input: var(--color-slate-200);
+	--color-ring: var(--color-slate-400);
+}
