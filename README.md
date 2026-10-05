@@ -4,7 +4,7 @@
 
 - [Next.js](https://nextjs.org/) with the App Router
 - [TypeScript](https://www.typescriptlang.org/)
-- [Tailwind CSS](https://tailwindcss.com/) and [shadcn/ui](https://ui.shadcn.com/) (components in `src/components/ui`, add more with `pnpm dlx shadcn@latest add <component>`)
+- [Tailwind CSS](https://tailwindcss.com/) and [shadcn/ui](https://ui.shadcn.com/) (components in `src/components/ui`, add more with `pnpm exec shadcn add <component>`)
 - [React Hook Form](https://react-hook-form.com/)
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) and [Jest](https://jestjs.io/) for unit and integration tests, with [jest-axe](https://github.com/NickColley/jest-axe) for accessibility checks
 - ESLint, Prettier, and a husky + lint-staged pre-commit hook
