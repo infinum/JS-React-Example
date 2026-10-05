@@ -1,4 +1,5 @@
 const path = require('node:path');
+const fs = require('node:fs');
 
 const WORKSPACE_TOP_DIRS = ['apps', 'packages']; // customise if needed
 
@@ -7,6 +8,8 @@ const WORKSPACE_TOP_DIRS = ['apps', 'packages']; // customise if needed
  */
 module.exports = {
 	'*': (stagedAbsPaths) => {
+		const shouldFix = !process.env.DISABLE_LINTERS_AUTO_FIX;
+
 		/** @type {{[bucket: string]: string[]}} */
 		const buckets = {};
 		// For each staged file, we need to determine which bucket it belongs to.
@@ -28,16 +31,29 @@ module.exports = {
 		const commands = [];
 
 		for (const [bucket, files] of Object.entries(buckets)) {
-			const f = files.map((p) => `"${p}"`).join(' '); // quote every path
-
 			// Linting the root level files
 			if (bucket === '.') {
-				commands.push(`eslint --cache ${f}`);
-				commands.push(`prettier --check ${f}`);
-				// Linting the files in apps/packages (workspaces aka buckets)
+				const f = files.map((p) => `"${p}"`).join(' '); // quote every path
+				const eslintCmd = shouldFix ? `eslint --cache --fix ${f}` : `eslint --cache ${f}`;
+				const prettierMode = shouldFix ? '--write' : '--check';
+				commands.push(eslintCmd);
+				commands.push(`prettier ${prettierMode} ${f}`);
 			} else {
-				commands.push(`pnpm --filter ${bucket} exec eslint --cache ${f}`);
-				commands.push(`pnpm --filter ${bucket} exec prettier ${f}`);
+				// Run linting from the root directory with workspace-specific configs
+				const workspaceFiles = files.map((p) => `"${p}"`).join(' ');
+				const workspaceConfig = `${bucket}/eslint.config.mjs`;
+				const workspacePrettier = `${bucket}/.prettierrc.js`;
+
+				const eslintCmd = shouldFix
+					? `eslint --config ${workspaceConfig} --cache --fix ${workspaceFiles}`
+					: `eslint --config ${workspaceConfig} --cache ${workspaceFiles}`;
+				commands.push(eslintCmd);
+				const workspacePrettierIgnore = `${bucket}/.prettierignore`;
+				const prettierIgnorePath = fs.existsSync(workspacePrettierIgnore) ? workspacePrettierIgnore : '.prettierignore';
+				const prettierMode = shouldFix ? '--write' : '--check';
+				commands.push(
+					`prettier --config ${workspacePrettier} --ignore-path ${prettierIgnorePath} ${prettierMode} ${workspaceFiles}`
+				);
 			}
 		}
 
