@@ -10,6 +10,8 @@ allowBuilds:
   msw@2.12.7: true
   unrs-resolver@1.12.2: true
 
+catalogMode: strict
+
 catalog:
   '@actions/core': 3.0.1
   '@axe-core/playwright': 4.12.1
