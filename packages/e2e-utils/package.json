@@ -21,7 +21,8 @@
 		"lint": "eslint . --cache",
 		"lint:fix": "eslint . --cache --fix",
 		"prettier:check": "prettier --check .",
-		"prettier:fix": "prettier --write ."
+		"prettier:fix": "prettier --write .",
+		"typecheck": "tsc --noEmit"
 	},
 	"peerDependencies": {
 		"@playwright/test": "catalog:"

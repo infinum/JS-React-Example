@@ -22,8 +22,8 @@ pnpm install && pnpm dev
 
 **Access the applications:**
 
-- **Frontend**: http://localhost:3000
-- **Storybook**: http://localhost:6006
+- **Frontend**: <http://localhost:3000>
+- **Storybook**: <http://localhost:6006>
 
 ### Authentication
 
@@ -71,7 +71,7 @@ scripts/              # Automation and tooling
 - **Internationalization**: next-intl with 3 languages (EN, PL, HR)
 - **Theming**: Dark/light mode with next-themes
 - **Components**: shadcn/ui with custom design system
-- **Testing**: Jest + React Testing Library + Playwright
+- **Testing**: Vitest (jsdom and browser mode) + React Testing Library + Storybook story tests + Playwright
 
 ### Development Tools
 
@@ -88,7 +88,7 @@ The application uses Next.js Route Handlers for API endpoints:
 - **API routes**: Located in `apps/frontend/src/app/api/`
 - **Type-safe APIs**: Full TypeScript integration with Zod validation
 
-API patterns and development guide: [API Development Guide](documentation/API%20Development%20Guide.md) *(coming soon)*
+API patterns and development guide: [API Development Guide](documentation/API%20Development%20Guide.md) _(coming soon)_
 
 ## Third-Party Services
 
@@ -113,7 +113,7 @@ API patterns and development guide: [API Development Guide](documentation/API%20
 
 - **Standards**: WCAG 2.1 AA compliance target
 - **Components**: Built-in a11y with Radix UI primitives
-- **Testing**: Jest-axe integration for automated accessibility testing
+- **Testing**: Every Storybook story runs as a test with the a11y addon, and accessibility violations fail the test run
 - **Focus Management**: Proper keyboard navigation and focus indicators
 
 ### Performance
@@ -164,15 +164,20 @@ pnpm pre-commit
 ### Testing Strategy
 
 ```bash
-# Run all tests
+# Run all unit, component and story tests
 pnpm test
 
-# Component testing
+# Only the tests affected by your branch (what pre-push runs)
+pnpm test:affected
+
+# One package
 pnpm --filter @infinum/ui test
 
-# E2E testing (when configured)
-pnpm --filter frontend test:e2e
+# E2E tests
+pnpm e2e
 ```
+
+**Which test to write**: [Testing Guide](documentation/Testing%20Guide.md)
 
 **Detailed workflow**: [Development Workflow Guide](documentation/Development%20Workflow%20Guide.md)
 
@@ -234,6 +239,7 @@ New UI components should:
 - [Monorepo Structure](documentation/Monorepo%20Structure.md) - Project organization and architecture
 - [Development Workflow](documentation/Development%20Workflow%20Guide.md) - Git workflow, code review, releases
 - [UI Components](documentation/UI%20Components%20Guide.md) - ShadCN component generation and customization
+- [Testing](documentation/Testing%20Guide.md) - Which test to write, commands, pre-push and CI
 - [Semantic Tokens](documentation/Semantic%20Tokens%20Guide.md) - Design tokens and theming system
 - [Internationalization](documentation/Internationalization%20Guide.md) - next-intl setup and configuration
 - [Environment Variables](documentation/Environment%20variables.md) - Complete environment setup

@@ -1,0 +1,77 @@
+{
+	"version": 1,
+	"skills": {
+		"docker-build-strategies": {
+			"source": "docker/skills",
+			"sourceType": "github",
+			"skillPath": "skills/docker-build-strategies/SKILL.md",
+			"computedHash": "1eaa997fa0d9445a0842be8adb10e2c47a90675370690f5ce40d2a4a8e749f77"
+		},
+		"docker-compose-patterns": {
+			"source": "docker/skills",
+			"sourceType": "github",
+			"skillPath": "skills/docker-compose-patterns/SKILL.md",
+			"computedHash": "e1e9163047eeacfa74cbf6409ff7208cbaf7f33ad96e15a60ba63f1feaf8c00f"
+		},
+		"docker-destructive-guardrails": {
+			"source": "docker/skills",
+			"sourceType": "github",
+			"skillPath": "skills/docker-destructive-guardrails/SKILL.md",
+			"computedHash": "f6c72f2ba003b2d6dc480f97beb0e166a61b5acfb1f0f6f31af2fa21a66bd9f2"
+		},
+		"docker-project-foundations": {
+			"source": "docker/skills",
+			"sourceType": "github",
+			"skillPath": "skills/docker-project-foundations/SKILL.md",
+			"computedHash": "fc6394d4771cbb2acc644ca5c8ef263c33280bedd7d9444cf842436ac87d3185"
+		},
+		"docker-sandboxes-env": {
+			"source": "docker/skills",
+			"sourceType": "github",
+			"skillPath": "skills/docker-sandboxes-env/SKILL.md",
+			"computedHash": "3a8f7fcb3b555e7573e6d5f8958a99e388a6676c0cb425bfa44d3d6c78d68536"
+		},
+		"docker-sandboxes-kits": {
+			"source": "docker/skills",
+			"sourceType": "github",
+			"skillPath": "skills/docker-sandboxes-kits/SKILL.md",
+			"computedHash": "d47d99b4f71c0dc39313164f35248d327a2725ab06db97e300e70aa9610b3bdb"
+		},
+		"docker-sandboxes-lifecycle": {
+			"source": "docker/skills",
+			"sourceType": "github",
+			"skillPath": "skills/docker-sandboxes-lifecycle/SKILL.md",
+			"computedHash": "551fb87ea0e47c632a5cb23cb2f8c06c680226cd49699bc19c999fc820f5633f"
+		},
+		"docker-sandboxes-network-credentials": {
+			"source": "docker/skills",
+			"sourceType": "github",
+			"skillPath": "skills/docker-sandboxes-network-credentials/SKILL.md",
+			"computedHash": "a74622051cc1f6fae30d0adfc2dbd33f5a3d83b484929772ee9a8a298ca2586a"
+		},
+		"vercel-react-best-practices": {
+			"source": "vercel-labs/agent-skills",
+			"sourceType": "github",
+			"skillPath": "skills/react-best-practices/SKILL.md",
+			"computedHash": "ca7b0c0c6e5f2750043f7f0cd72d16ac4e2abc48f9b5500d047a4b77a2506212"
+		},
+		"vercel-react-view-transitions": {
+			"source": "vercel-labs/agent-skills",
+			"sourceType": "github",
+			"skillPath": "skills/react-view-transitions/SKILL.md",
+			"computedHash": "2033ef20681c90d4f93deee719e55e019c254e496d9bf80381c27cc539292001"
+		},
+		"web-design-guidelines": {
+			"source": "vercel-labs/agent-skills",
+			"sourceType": "github",
+			"skillPath": "skills/web-design-guidelines/SKILL.md",
+			"computedHash": "f3bc47f890f42a44db1007ab390709ec368e4b8c089baee6b0007182236ac474"
+		},
+		"writing-guidelines": {
+			"source": "vercel-labs/agent-skills",
+			"sourceType": "github",
+			"skillPath": "skills/writing-guidelines/SKILL.md",
+			"computedHash": "25aa3a33a97bddbcb1847ce4a6169106ec25e5b19b15b99c66e75ab383866ef2"
+		}
+	}
+}

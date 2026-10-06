@@ -1,0 +1,8 @@
+node_modules
+
+# Restored third-party skills. These are not ours to format: rewriting them creates
+# spurious diffs and changes content that skills-lock.json records a hash for.
+**/skills/*
+
+# Custom repository skills
+!**/skills/repo-*

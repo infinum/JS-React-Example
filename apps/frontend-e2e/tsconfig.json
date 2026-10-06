@@ -2,7 +2,8 @@
 	"extends": "../../tsconfig.base.json",
 	"compilerOptions": {
 		"allowJs": true,
-		"moduleResolution": "bundler"
+		"moduleResolution": "bundler",
+		"types": ["node"]
 	},
 	"include": ["**/*.ts", "**/*.tsx"],
 	"exclude": ["node_modules"]

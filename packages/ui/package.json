@@ -10,10 +10,12 @@
 		"lint:fix": "eslint . --cache --fix",
 		"prettier:check": "prettier --check .",
 		"prettier:fix": "prettier --write .",
-		"test": "jest --passWithNoTests",
-		"test:watch": "jest --watch",
-		"test:coverage": "jest --coverage",
-		"test:coverage:watch": "jest --coverage --watch"
+		"test": "vitest run",
+		"test:watch": "vitest",
+		"test:coverage": "vitest run --coverage",
+		"test:coverage:watch": "vitest --coverage",
+		"test:changed": "vitest run --changed ${TEST_CHANGED_BASE:-origin/main}",
+		"typecheck": "tsc --noEmit"
 	},
 	"exports": {
 		"./*": "./src/components/*.tsx",
@@ -27,19 +29,19 @@
 	],
 	"devDependencies": {
 		"@infinum/configs": "workspace:*",
-		"@storybook/nextjs": "catalog:",
+		"@storybook/nextjs-vite": "catalog:",
 		"@testing-library/dom": "catalog:",
 		"@testing-library/jest-dom": "catalog:",
 		"@testing-library/react": "catalog:",
 		"@testing-library/user-event": "catalog:",
-		"@types/jest": "catalog:",
 		"@types/node": "catalog:",
 		"@types/react": "catalog:",
 		"@types/react-dom": "catalog:",
+		"@vitest/browser-playwright": "catalog:",
+		"@vitest/coverage-v8": "catalog:",
 		"autoprefixer": "catalog:",
 		"eslint": "catalog:",
-		"jest": "catalog:",
-		"jest-environment-jsdom": "catalog:",
+		"playwright": "catalog:",
 		"postcss": "catalog:",
 		"prettier": "catalog:",
 		"prettier-plugin-sh": "catalog:",
@@ -49,8 +51,9 @@
 		"shadcn": "catalog:",
 		"storybook": "catalog:",
 		"tailwindcss": "catalog:",
-		"ts-jest": "catalog:",
-		"typescript": "catalog:"
+		"typescript": "catalog:",
+		"vite": "catalog:",
+		"vitest": "catalog:"
 	},
 	"dependencies": {
 		"@radix-ui/react-label": "catalog:",

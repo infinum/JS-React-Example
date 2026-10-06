@@ -25,5 +25,11 @@
 	},
 	"[shellscript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode" // Set Prettier as the formatter for shell scripts
-	}
+	},
+	/**
+	 * .claude/worktrees detection
+	 */
+	"git.autoRepositoryDetection": "subFolders",
+	"git.repositoryScanMaxDepth": 3,
+	"git.detectWorktrees": true
 }

@@ -1,2 +1,20 @@
+plugins:
+  # GFM tables, strikethrough, task lists and autolinks. Without this, remark
+  # reformats tables into plain paragraphs.
+  - remark-gfm
+
+  # YAML frontmatter. Without this, remark parses `---` as a thematic break and
+  # reformats the block as body text: closing `---` becomes `------------`, and a
+  # value like `allowed-tools: Bash(cmd:*)` has its `:*` read as emphasis and
+  # rewritten to `:_`. That silently alters a skill's permission declaration.
+  - remark-frontmatter
+
 settings:
   bullet: '-'
+  emphasis: '_'
+  strong: '*'
+  rule: '-'
+  fence: '`'
+  fences: true
+  listItemIndent: one
+  incrementListMarker: true

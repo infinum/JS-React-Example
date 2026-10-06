@@ -1,0 +1,85 @@
+{
+	"env": {
+		"CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+	},
+	"preferences": {
+		"tmuxSplitPanes": true
+	},
+	"permissions": {
+		"allow": [
+			"Read(apps/*/node_modules/next/dist/docs/**)",
+			"WebSearch",
+			"WebFetch(domain:github.com)",
+			"WebFetch(domain:docs.github.com)",
+			"WebFetch(domain:registry.npmjs.org)",
+			"WebFetch(domain:www.npmjs.com)",
+			"WebFetch(domain:pnpm.io)",
+			"WebFetch(domain:mise.jdx.dev)",
+			"WebFetch(domain:nodejs.org)"
+		]
+	},
+	"hooks": {
+		"PreToolUse": [
+			{
+				"matcher": "Bash",
+				"hooks": [
+					{
+						"type": "command",
+						"command": "jq -r '.tool_input.command // empty' | grep -qE 'update-snapshots|e2e:update|playwright test.* -u( |$)' && { echo 'Blocked: never update visual baselines to make a test pass. Report the diff instead; a human approves baseline changes.' >&2; exit 2; }; exit 0"
+					}
+				]
+			}
+		],
+		"PostToolUse": [
+			{
+				"matcher": "Edit|Write|MultiEdit",
+				"hooks": [
+					{
+						"type": "command",
+						"command": "cd \"$CLAUDE_PROJECT_DIR\" || exit 0; f=$(jq -r '.tool_input.file_path // empty'); [ -f \"$f\" ] || exit 0; case \"$f\" in *.md) pnpm exec remark \"$f\" --quiet --silently-ignore --output >&2 || exit 2 ;; *) pnpm exec prettier --write --ignore-unknown --log-level=warn \"$f\" >&2 || exit 2; case \"$f\" in *.js|*.jsx|*.ts|*.tsx|*.mjs|*.cjs) pnpm exec eslint --fix --no-warn-ignored \"$f\" >&2 || exit 2 ;; esac ;; esac",
+						"statusMessage": "Formatting and linting...",
+						"timeout": 60
+					}
+				]
+			}
+		],
+		"Stop": [
+			{
+				"hooks": [
+					{
+						"type": "command",
+						"command": "cd \"$CLAUDE_PROJECT_DIR\" || exit 0; jq -e '.stop_hook_active' >/dev/null && exit 0; out=$(pnpm turbo run lint typecheck test --affected --continue --output-logs=errors-only 2>&1) || { echo 'Lint, typecheck or tests failed in affected packages. Fix them before finishing:' >&2; printf '%s\\n' \"$out\" | tail -c 6000 >&2; exit 2; }",
+						"statusMessage": "Running lint, typecheck and tests on affected packages...",
+						"timeout": 600
+					}
+				]
+			}
+		]
+	},
+	"enabledPlugins": {
+		"claude-api@anthropic-agent-skills": true,
+		"context7@claude-plugins-official": true,
+		"create-prd@infinum-ai": true,
+		"pr-review-code-simplicity@infinum-ai": true,
+		"stack-essentials@infinum-ai": true,
+		"security-check@infinum-ai": true,
+		"ui-validation@infinum-ai": true,
+		"claude-setup-audit@infinum-ai": true
+	},
+	"extraKnownMarketplaces": {
+		"anthropic-agent-skills": {
+			"source": {
+				"source": "github",
+				"repo": "anthropics/skills"
+			}
+		},
+		"infinum-ai": {
+			"source": {
+				"source": "github",
+				"repo": "infinum/ai"
+			}
+		}
+	},
+	"autoMemoryEnabled": true,
+	"autoMemoryDirectory": ".claude/memory"
+}

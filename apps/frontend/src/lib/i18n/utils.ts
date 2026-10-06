@@ -11,7 +11,8 @@ export const safeImportNamespace = async (locale: string, ns: string): Promise<M
 		if (
 			code === 'MODULE_NOT_FOUND' || // Webpack/Node
 			code === 'ERR_MODULE_NOT_FOUND' || // pure ESM Node
-			/Cannot find module/i.test(msg ?? '') // fallback
+			/Cannot find module/i.test(msg ?? '') || // fallback
+			/Unknown variable dynamic import/i.test(msg ?? '') // Vite/Vitest
 		) {
 			throw new Error(`Missing translation namespace "${ns}" in locale "${locale}".`);
 		}

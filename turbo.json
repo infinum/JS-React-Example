@@ -29,37 +29,22 @@
 		},
 		"lint": {
 			"dependsOn": ["^lint"],
-			"inputs": [
-				"**/*.{js,ts,jsx,tsx,mjs,cjs}",
-				"../../packages/configs/**",
-				"!../../packages/configs/src/jest-config/**"
-			]
+			"inputs": ["**/*.{js,ts,jsx,tsx,mjs,cjs}", "../../packages/configs/**"]
 		},
 		"lint:fix": {
 			"dependsOn": ["^lint"],
-			"inputs": [
-				"**/*.{js,ts,jsx,tsx,mjs,cjs}",
-				"../../packages/configs/**",
-				"!../../packages/configs/src/jest-config/**"
-			]
+			"inputs": ["**/*.{js,ts,jsx,tsx,mjs,cjs}", "../../packages/configs/**"]
 		},
 		"//#lint:root": {
-			"inputs": [
-				"$TURBO_DEFAULT$",
-				"!apps/**",
-				"!packages/**",
-				"./packages/configs/**",
-				"!./packages/configs/src/jest-config/**"
-			]
+			"inputs": ["$TURBO_DEFAULT$", "!apps/**", "!packages/**", "./packages/configs/**"]
 		},
 		"//#lint:fix:root": {
-			"inputs": [
-				"$TURBO_DEFAULT$",
-				"!apps/**",
-				"!packages/**",
-				"./packages/configs/**",
-				"!./packages/configs/src/jest-config/**"
-			]
+			"inputs": ["$TURBO_DEFAULT$", "!apps/**", "!packages/**", "./packages/configs/**"]
+		},
+		"typecheck": {
+			"dependsOn": ["^typecheck"],
+			"inputs": ["$TURBO_DEFAULT$", "!.next/**", "!**/*.tsbuildinfo"],
+			"outputs": [".next/types/**", ".next/dev/types/**", "next-env.d.ts"]
 		},
 		"prettier:check": {},
 		"prettier:fix": {},
@@ -70,18 +55,54 @@
 			"inputs": ["$TURBO_DEFAULT$", "!apps/**", "!packages/**", "./packages/configs/**"]
 		},
 		"test": {
-			"inputs": ["**/*.test.{js,ts,jsx,tsx,mjs,cjs}", "../../packages/configs/src/jest-config/**"]
+			"inputs": ["$TURBO_DEFAULT$", "../../packages/configs/src/vitest-config/**"],
+			"env": ["TEST_REPORT"],
+			"outputs": ["../../test-results/**"]
+		},
+		"@infinum/frontend#test": {
+			"inputs": ["$TURBO_DEFAULT$", "../../packages/configs/src/vitest-config/**", "../../packages/ui/src/**"],
+			"env": ["TEST_REPORT"],
+			"outputs": ["../../test-results/frontend/**"]
+		},
+		"@infinum/ui#test": {
+			"inputs": ["$TURBO_DEFAULT$", "../../packages/configs/src/vitest-config/**"],
+			"env": ["TEST_REPORT"],
+			"outputs": ["../../test-results/ui/**"]
+		},
+		"@infinum/storybook#test": {
+			"inputs": ["$TURBO_DEFAULT$", "../../packages/configs/src/vitest-config/**", "../../packages/ui/src/**"],
+			"env": ["TEST_REPORT"],
+			"outputs": ["../../test-results/storybook/**"]
 		},
 		"test:watch": {
 			"cache": false,
 			"persistent": true
 		},
+		"test:changed": {
+			"cache": false,
+			"passThroughEnv": ["TEST_CHANGED_BASE", "TEST_REPORT"]
+		},
 		"test:coverage": {
-			"inputs": ["**/*.test.{js,ts,jsx,tsx,mjs,cjs}", "../../packages/configs/src/jest-config/**"],
-			"outputs": ["../../coverage/**"]
+			"inputs": ["$TURBO_DEFAULT$", "../../packages/configs/src/vitest-config/**"],
+			"env": ["TEST_REPORT"],
+			"outputs": ["../../test-results/**", "../../coverage/**"]
+		},
+		"@infinum/frontend#test:coverage": {
+			"inputs": ["$TURBO_DEFAULT$", "../../packages/configs/src/vitest-config/**", "../../packages/ui/src/**"],
+			"env": ["TEST_REPORT"],
+			"outputs": ["../../test-results/frontend/**", "../../coverage/frontend/**"]
+		},
+		"@infinum/ui#test:coverage": {
+			"inputs": ["$TURBO_DEFAULT$", "../../packages/configs/src/vitest-config/**"],
+			"env": ["TEST_REPORT"],
+			"outputs": ["../../test-results/ui/**", "../../coverage/ui/**"]
+		},
+		"@infinum/storybook#test:coverage": {
+			"inputs": ["$TURBO_DEFAULT$", "../../packages/configs/src/vitest-config/**", "../../packages/ui/src/**"],
+			"env": ["TEST_REPORT"],
+			"outputs": ["../../test-results/storybook/**", "../../coverage/storybook/**"]
 		},
 		"test:coverage:watch": {
-			"outputs": ["../../coverage/**"],
 			"cache": false,
 			"persistent": true
 		},

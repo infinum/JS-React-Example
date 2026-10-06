@@ -17,11 +17,26 @@ Automation and utility scripts for development and maintenance.
 
 ```
 scripts/
+├── aggregate-coverage-results.js   # Combines per-package coverage for CI
 ├── aggregate-license-results.js    # License compliance reporting
 ├── bootstrap.sh                    # Project setup automation
 ├── check-licenses-workspace.js     # License compliance checking
-└── create-env-overrides.sh         # Environment variable setup
+├── create-env-overrides.sh         # Environment variable setup
+├── install-test-browsers.sh        # Chromium for Vitest browser tests
+└── test-affected.sh                # Runs only affected tests (pre-push)
 ```
+
+## Tests
+
+Each workspace with tests has its own `vitest.config.mts`, built on the shared `@infinum/configs/vitest` config. Turbo runs them per package.
+
+| Workspace        | Environment             | Tests                         | Coverage             |
+| ---------------- | ----------------------- | ----------------------------- | -------------------- |
+| `apps/frontend`  | jsdom (Node.js)         | `*.test.ts(x)`, `__tests__/`  | `coverage/frontend`  |
+| `packages/ui`    | Chromium (browser mode) | `__tests__/`                  | `coverage/ui`        |
+| `apps/storybook` | Chromium (browser mode) | every story in `__stories__/` | `coverage/storybook` |
+
+See the [Testing Guide](Testing%20Guide.md).
 
 ## Docker Configuration (`docker/`)
 

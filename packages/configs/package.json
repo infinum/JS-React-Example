@@ -5,16 +5,23 @@
 	"exports": {
 		"./prettier": "./src/prettier-config/index.js",
 		"./eslint/base": "./src/eslint-config/base.mjs",
-		"./eslint/jest": "./src/eslint-config/jest.mjs",
 		"./eslint/nextjs": "./src/eslint-config/nextjs.mjs",
 		"./eslint/react": "./src/eslint-config/react.mjs",
 		"./eslint/storybook": "./src/eslint-config/storybook.mjs",
 		"./eslint/typescript": "./src/eslint-config/typescript.mjs",
+		"./eslint/vitest": "./src/eslint-config/vitest.mjs",
 		"./eslint/playwright": "./src/eslint-config/playwright.mjs",
-		"./jest": "./src/jest-config/index.js",
 		"./playwright/base": {
 			"types": "./src/playwright-config/base.d.ts",
 			"default": "./src/playwright-config/base.js"
+		},
+		"./playwright/apps": {
+			"types": "./src/playwright-config/apps.d.ts",
+			"default": "./src/playwright-config/apps.js"
+		},
+		"./vitest": {
+			"types": "./src/vitest-config/index.d.mts",
+			"default": "./src/vitest-config/index.mjs"
 		}
 	},
 	"scripts": {
@@ -31,19 +38,25 @@
 		"@next/eslint-plugin-next": "catalog:",
 		"@playwright/test": "catalog:",
 		"@typescript-eslint/eslint-plugin": "catalog:",
+		"@vitejs/plugin-react": "catalog:",
+		"@vitest/browser-playwright": "catalog:",
+		"@vitest/coverage-v8": "catalog:",
+		"@vitest/eslint-plugin": "catalog:",
 		"eslint": "catalog:",
 		"eslint-config-prettier": "catalog:",
-		"eslint-plugin-jest": "catalog:",
 		"eslint-plugin-playwright": "catalog:",
 		"eslint-plugin-prettier": "catalog:",
 		"eslint-plugin-react": "catalog:",
 		"eslint-plugin-react-hooks": "catalog:",
 		"eslint-plugin-storybook": "catalog:",
 		"globals": "catalog:",
+		"playwright": "catalog:",
 		"prettier": "catalog:",
 		"prettier-plugin-sh": "catalog:",
 		"prettier-plugin-tailwindcss": "catalog:",
 		"typescript": "catalog:",
-		"typescript-eslint": "catalog:"
+		"typescript-eslint": "catalog:",
+		"vite": "catalog:",
+		"vitest": "catalog:"
 	}
 }
