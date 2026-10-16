@@ -73,15 +73,15 @@ All other `.env*` files are ignored, including:
 
 Each application uses multiple environment files with different purposes and precedence:
 
-| File                          | Purpose                                                      | Tracked in Git? | Used Where |
-| ----------------------------- | ------------------------------------------------------------ | --------------- | ---------- |
-| `.env`                        | Host defaults (local dev on your machine)                    | **Yes**         | Host       |
-| `.env.local`                  | Host-only overrides & secrets for this developer             | **No**          | Host       |
-| `.env.development.local`      | Optional host-only overrides when `NODE_ENV=development`     | **No**          | Host       |
-| `.env.production.local`       | Optional host-only overrides when `NODE_ENV=production`      | **No**          | Host       |
-| `.env.test.local`             | Optional host-only overrides when `NODE_ENV=test`            | **No**          | Host       |
-| `.env.compose`                | Docker defaults (typically using service names)              | **Yes**         | Docker     |
-| `.env.compose.local`          | Docker-only overrides & secrets for this developer           | **No**          | Docker     |
+| File                     | Purpose                                                  | Tracked in Git? | Used Where |
+| ------------------------ | -------------------------------------------------------- | --------------- | ---------- |
+| `.env`                   | Host defaults (local dev on your machine)                | **Yes**         | Host       |
+| `.env.local`             | Host-only overrides & secrets for this developer         | **No**          | Host       |
+| `.env.development.local` | Optional host-only overrides when `NODE_ENV=development` | **No**          | Host       |
+| `.env.production.local`  | Optional host-only overrides when `NODE_ENV=production`  | **No**          | Host       |
+| `.env.test.local`        | Optional host-only overrides when `NODE_ENV=test`        | **No**          | Host       |
+| `.env.compose`           | Docker defaults (typically using service names)          | **Yes**         | Docker     |
+| `.env.compose.local`     | Docker-only overrides & secrets for this developer       | **No**          | Docker     |
 
 ### Host vs Docker Usage
 
