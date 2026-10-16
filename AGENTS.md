@@ -20,8 +20,8 @@ Never update visual baselines (`--update-snapshots`) to make a failing test pass
 
 `.claude/settings.json` runs these checks for you:
 
-- After every edit: Prettier and ESLint `--fix` on the edited file, or remark for Markdown. Lint errors come back to you. Fix them before moving on.
-- When you stop: `pnpm turbo run lint typecheck test --affected`. If it fails, you are asked to continue. Fix the failures instead of stopping again.
+- After every edit: Prettier on the edited file, Markdown included, then ESLint `--fix` on JS and TS files. Lint errors come back to you. Fix them before moving on.
+- When you stop: `pnpm turbo run lint typecheck test --affected` on packages with uncommitted changes. If it fails, you are asked to continue. Fix the failures instead of stopping again.
 - Commands that update visual baselines are blocked.
 
 Local URLs: frontend `http://localhost:3000`, Storybook `http://localhost:6006`.

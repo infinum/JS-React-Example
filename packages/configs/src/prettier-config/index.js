@@ -12,4 +12,12 @@ module.exports = {
 	trailingComma: 'es5',
 	plugins: ['prettier-plugin-tailwindcss', 'prettier-plugin-sh'], // Enables Tailwind classes sorting and shell script formatting
 	tailwindFunctions: ['cva', 'cn'], // Enables sorting of Tailwind classes in "cva" and "cn" functions, IntelliSense is configured in ".vscode/settings.json"
+	overrides: [
+		{
+			// Leave code inside fences and frontmatter as written. Formatting it rewrites examples in docs and skills,
+			// and prettier-plugin-sh crashes on ```dockerfile fences.
+			files: ['*.md', '*.mdx'],
+			options: { embeddedLanguageFormatting: 'off' },
+		},
+	],
 };

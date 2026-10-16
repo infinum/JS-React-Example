@@ -91,13 +91,15 @@ The `pre-push` hook runs lint, the Prettier check and `pnpm test:affected`, whic
 
 `.claude/settings.json` gives Claude Code a feedback loop. Checks run automatically, and their failures are sent back to Claude so it can fix them itself.
 
-| Hook          | When                   | What it runs                                                                                                        |
-| ------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `PreToolUse`  | Before a shell command | Blocks commands that update visual baselines (`--update-snapshots`, `e2e:update`, `playwright test -u`).            |
-| `PostToolUse` | After each file edit   | Prettier and `eslint --fix` on the edited file, or `remark --output` for Markdown.                                  |
-| `Stop`        | When Claude finishes   | `pnpm turbo run lint typecheck test --affected`. Only packages changed compared to `main` run, the rest are cached. |
+| Hook          | When                   | What it runs                                                                                                             |
+| ------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `PreToolUse`  | Before a shell command | Blocks commands that update visual baselines (`--update-snapshots`, `e2e:update`, `playwright test -u`).                 |
+| `PostToolUse` | After each file edit   | Prettier on the edited file, Markdown included, then `eslint --fix` on JS and TS. Files outside the project are skipped. |
+| `Stop`        | When Claude finishes   | `pnpm turbo run lint typecheck test --affected`. Only packages with uncommitted changes run, the rest are cached.        |
 
-A hook sends feedback to Claude only when it exits with code `2`. Its stderr becomes Claude's input. Any other non-zero exit code is only shown to you. The `Stop` hook lets Claude stop on the second attempt (`stop_hook_active`), so a failure it cannot fix does not loop forever.
+A hook sends feedback to Claude only when it exits with code `2`. Its stderr becomes Claude's input. Any other non-zero exit code is only shown to you. The `Stop` hook blocks every stop while checks fail. Claude Code ends the loop on its own after 8 blocks in a row without a tool call, so a failure Claude cannot fix does not loop forever.
+
+Markdown is formatted with Prettier, not remark. Claude Code reads skills, agents, `CLAUDE.md` and `AGENTS.md` as raw text and matches `${CLAUDE_SKILL_DIR}`, `@path/to_file.md` imports and `[[memory-link]]` links literally. remark escapes every `_` and `[` in text, which breaks them. Prettier keeps text as written. The shared config sets `embeddedLanguageFormatting: 'off'` for Markdown, so code inside fences and frontmatter is left alone. `.prettierignore` skips third-party skills, the generated Playwright agents and Playwright output.
 
 The hooks need `jq`, which `mise install` provides from `mise.toml`.
 
