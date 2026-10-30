@@ -3,6 +3,7 @@
  * Compares current PR coverage against base branch coverage.
  */
 
+const { execFileSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
@@ -19,6 +20,7 @@ const SINGLE_REPO_PACKAGE_NAME = 'root';
 const PERCENTAGE_DECIMAL_PLACES = 2;
 const IS_MONOREPO = process.env.MONOREPO === 'true';
 const BASE_BRANCH_NAME = process.env.BASE_BRANCH || 'main';
+const MAX_CHANGED_FILE_ROWS = 50;
 
 // ============================================================================
 // Configuration
@@ -79,7 +81,52 @@ function readCoveragePackages(rootDir) {
 	if (!data) {
 		return [];
 	}
-	return [{ packageName: SINGLE_REPO_PACKAGE_NAME, summary: data }];
+	const files = JSON.parse(fs.readFileSync(summaryPath, 'utf8'));
+	return [{ packageName: SINGLE_REPO_PACKAGE_NAME, summary: data, files }];
+}
+
+/**
+ * Lists the files the PR adds, modifies or renames, relative to the repository root.
+ * @returns {Set<string>|null} Changed files, or null when git can't tell (e.g. a shallow clone)
+ */
+function getChangedFiles() {
+	try {
+		const output = execFileSync(
+			'git',
+			['diff', '--name-only', '--diff-filter=AMR', `origin/${BASE_BRANCH_NAME}...HEAD`],
+			{ encoding: 'utf8' }
+		);
+		return new Set(output.split('\n').filter(Boolean));
+	} catch (err) {
+		console.warn(`⚠️  Could not list the changed files: ${err.message}`);
+		return null;
+	}
+}
+
+/**
+ * Picks the coverage of the changed files out of the per-file entries of the coverage summaries.
+ * A file measured by more than one package (Storybook also measures packages/ui) gets one row per package.
+ * @param {Array<object>} packages - Package coverage data, with the full summary under `files`
+ * @param {Set<string>} changedFiles - Changed files, relative to `repoRoot`
+ * @param {string} repoRoot - Absolute repository root, used to make the summary paths relative
+ * @returns {Array<{file: string, packageName: string, summary: object}>} Rows sorted by file
+ */
+function selectChangedFileCoverage(packages, changedFiles, repoRoot) {
+	const rows = [];
+
+	for (const { packageName, files } of packages) {
+		for (const [filePath, summary] of Object.entries(files || {})) {
+			if (filePath === 'total') {
+				continue;
+			}
+			const file = path.relative(repoRoot, filePath).replace(/\\/g, '/');
+			if (changedFiles.has(file)) {
+				rows.push({ file, packageName, summary });
+			}
+		}
+	}
+
+	return rows.sort((a, b) => a.file.localeCompare(b.file) || a.packageName.localeCompare(b.packageName));
 }
 
 // ============================================================================
@@ -199,14 +246,41 @@ function buildPerPackageTable(prPackages, basePackages) {
 }
 
 /**
+ * Builds the coverage table of the changed files. Report only: nothing fails on these numbers.
+ * @param {Array<{file: string, packageName: string, summary: object}>} rows - From selectChangedFileCoverage
+ * @returns {string} Markdown section
+ */
+function buildChangedFilesTable(rows) {
+	if (rows.length === 0) {
+		return '_No changed source files are measured by coverage._\n';
+	}
+
+	let md = '| File | Package | Lines | Branches | Functions |\n';
+	md += '| ---- | ------- | ---: | ---: | ---: |\n';
+
+	rows.slice(0, MAX_CHANGED_FILE_ROWS).forEach(({ file, packageName, summary }) => {
+		md += `| \`${file}\` | \`${packageName}\` | ${formatPercentage(summary.lines?.pct)} | ${formatPercentage(
+			summary.branches?.pct
+		)} | ${formatPercentage(summary.functions?.pct)} |\n`;
+	});
+
+	if (rows.length > MAX_CHANGED_FILE_ROWS) {
+		md += `\n_${rows.length - MAX_CHANGED_FILE_ROWS} more files not shown._\n`;
+	}
+
+	return md;
+}
+
+/**
  * Builds the complete comment body.
  * @param {object|null} headTotals - PR coverage totals
  * @param {object|null} baseTotals - Base branch coverage totals
  * @param {Array<object>} prPackages - PR package coverage data
  * @param {Array<object>} basePackages - Base branch package coverage data
+ * @param {Array<object>|null} [changedFileRows] - Coverage of the changed files, null to leave the section out
  * @returns {string} Complete markdown comment body
  */
-function buildCommentBody(headTotals, baseTotals, prPackages, basePackages) {
+function buildCommentBody(headTotals, baseTotals, prPackages, basePackages, changedFileRows = null) {
 	let body = '## Coverage diff\n\n';
 	body += buildDiffTable(headTotals, baseTotals);
 
@@ -222,6 +296,11 @@ function buildCommentBody(headTotals, baseTotals, prPackages, basePackages) {
 			body += perPackageDiff;
 			body += '\n</details>\n';
 		}
+	}
+
+	if (changedFileRows) {
+		body += '\n### Changed files\n\n';
+		body += buildChangedFilesTable(changedFileRows);
 	}
 
 	return body;
@@ -355,11 +434,18 @@ async function main() {
 	const prPackages = readCoveragePackages(prRoot);
 	const basePackages = readCoveragePackages(baseRoot);
 
-	const body = buildCommentBody(headTotals, baseTotals, prPackages, basePackages);
+	const changedFiles = getChangedFiles();
+	const changedFileRows = changedFiles ? selectChangedFileCoverage(prPackages, changedFiles, process.cwd()) : null;
+
+	const body = buildCommentBody(headTotals, baseTotals, prPackages, basePackages, changedFileRows);
 	await upsertComment(body, token, repo, prNumber);
 }
 
-main().catch((err) => {
-	console.error(err);
-	process.exit(1);
-});
+if (require.main === module) {
+	main().catch((err) => {
+		console.error(err);
+		process.exit(1);
+	});
+}
+
+module.exports = { selectChangedFileCoverage, buildChangedFilesTable, buildCommentBody };
