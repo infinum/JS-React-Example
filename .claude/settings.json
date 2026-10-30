@@ -36,7 +36,7 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "cd \"$CLAUDE_PROJECT_DIR\" || exit 0; f=$(jq -r '.tool_input.file_path // empty'); [ -f \"$f\" ] || exit 0; case \"$f\" in \"$CLAUDE_PROJECT_DIR\"/*) ;; *) exit 0 ;; esac; pnpm exec prettier --write --ignore-unknown --log-level=warn \"$f\" >&2 || exit 2; case \"$f\" in *.js|*.jsx|*.ts|*.tsx|*.mjs|*.cjs) pnpm exec eslint --fix --no-warn-ignored \"$f\" >&2 || exit 2 ;; esac",
+						"command": "cd \"$CLAUDE_PROJECT_DIR\" || exit 0; f=$(jq -r '.tool_input.file_path // empty'); [ -f \"$f\" ] || exit 0; case \"$f\" in \"$CLAUDE_PROJECT_DIR\"/*) ;; *) exit 0 ;; esac; pnpm exec prettier --write --ignore-unknown --log-level=warn \"$f\" >&2 || exit 2; case \"$f\" in *.js|*.jsx|*.ts|*.tsx|*.mjs|*.cjs) pnpm exec eslint --fix --no-warn-ignored --max-warnings 0 \"$f\" >&2 || exit 2 ;; esac",
 						"statusMessage": "Formatting and linting...",
 						"timeout": 60
 					}
@@ -48,8 +48,8 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "cd \"$CLAUDE_PROJECT_DIR\" || exit 0; out=$(TURBO_SCM_BASE=HEAD pnpm turbo run lint typecheck test --affected --continue --output-logs=errors-only 2>&1) || { echo 'Lint, typecheck or tests failed in affected packages. Fix them before finishing:' >&2; printf '%s\\n' \"$out\" | tail -c 6000 >&2; exit 2; }",
-						"statusMessage": "Running lint, typecheck and tests on affected packages...",
+						"command": "cd \"$CLAUDE_PROJECT_DIR\" || exit 0; out=$(bash scripts/verify.sh agent 2>&1) || { echo 'Repository checks failed for the changes on this branch. Fix them before finishing:' >&2; printf '%s\\n' \"$out\" | tail -c 6000 >&2; exit 2; }",
+						"statusMessage": "Running repository checks on the changes on this branch...",
 						"timeout": 600
 					}
 				]

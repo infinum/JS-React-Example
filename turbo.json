@@ -28,12 +28,17 @@
 			"persistent": true
 		},
 		"lint": {
-			"dependsOn": ["^lint"],
-			"inputs": ["**/*.{js,ts,jsx,tsx,mjs,cjs}", "../../packages/configs/**"]
+			"inputs": ["$TURBO_DEFAULT$", "../../packages/configs/src/eslint-config/**"]
+		},
+		"@infinum/frontend#lint": {
+			"dependsOn": ["typegen"],
+			"inputs": ["$TURBO_DEFAULT$", "../../packages/configs/src/eslint-config/**", "../../packages/ui/src/**"]
+		},
+		"@infinum/storybook#lint": {
+			"inputs": ["$TURBO_DEFAULT$", "../../packages/configs/src/eslint-config/**", "../../packages/ui/src/**"]
 		},
 		"lint:fix": {
-			"dependsOn": ["^lint"],
-			"inputs": ["**/*.{js,ts,jsx,tsx,mjs,cjs}", "../../packages/configs/**"]
+			"inputs": ["$TURBO_DEFAULT$", "../../packages/configs/src/eslint-config/**"]
 		},
 		"//#lint:root": {
 			"inputs": ["$TURBO_DEFAULT$", "!apps/**", "!packages/**", "./packages/configs/**"]
@@ -42,9 +47,21 @@
 			"inputs": ["$TURBO_DEFAULT$", "!apps/**", "!packages/**", "./packages/configs/**"]
 		},
 		"typecheck": {
-			"dependsOn": ["^typecheck"],
-			"inputs": ["$TURBO_DEFAULT$", "!.next/**", "!**/*.tsbuildinfo"],
+			"inputs": ["$TURBO_DEFAULT$", "!**/*.tsbuildinfo"]
+		},
+		"@infinum/frontend#typecheck": {
+			"dependsOn": ["typegen"],
+			"inputs": ["$TURBO_DEFAULT$", "!.next/**", "!**/*.tsbuildinfo", "../../packages/ui/src/**"]
+		},
+		"@infinum/storybook#typecheck": {
+			"inputs": ["$TURBO_DEFAULT$", "!**/*.tsbuildinfo", "../../packages/ui/src/**"]
+		},
+		"@infinum/frontend#typegen": {
+			"inputs": ["$TURBO_DEFAULT$", "!.next/**"],
 			"outputs": [".next/types/**", ".next/dev/types/**", "next-env.d.ts"]
+		},
+		"//#test:root": {
+			"inputs": ["scripts/**", "lint-staged.config.js"]
 		},
 		"prettier:check": {},
 		"prettier:fix": {},
@@ -101,6 +118,10 @@
 			"inputs": ["$TURBO_DEFAULT$", "../../packages/configs/src/vitest-config/**", "../../packages/ui/src/**"],
 			"env": ["TEST_REPORT"],
 			"outputs": ["../../test-results/storybook/**", "../../coverage/storybook/**"]
+		},
+		"test:coverage:changed": {
+			"cache": false,
+			"passThroughEnv": ["TEST_CHANGED_BASE", "TEST_REPORT"]
 		},
 		"test:coverage:watch": {
 			"cache": false,
