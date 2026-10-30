@@ -1,6 +1,7 @@
 import { getServerSession } from '@/lib/auth';
 import { render, screen } from '@/tests/utils';
 import { getTranslations } from 'next-intl/server';
+import type { ComponentProps } from 'react';
 import { beforeEach, describe, expect, it, vi, type MockedFunction } from 'vitest';
 import { HomePage } from './HomePage';
 
@@ -16,14 +17,14 @@ vi.mock('@/lib/auth', () => ({
 
 // Mock Next.js components
 vi.mock('next/image', () => ({
-	default: ({ alt, src, width, height, priority, ...props }: any) => (
+	default: ({ alt, src, width, height, priority, ...props }: ComponentProps<'img'> & { priority?: boolean }) => (
 		// eslint-disable-next-line @next/next/no-img-element
 		<img alt={alt} src={src} width={width} height={height} data-priority={priority} {...props} />
 	),
 }));
 
 vi.mock('next/link', () => ({
-	default: ({ href, children, ...props }: any) => (
+	default: ({ href, children, ...props }: ComponentProps<'a'>) => (
 		<a href={href} {...props}>
 			{children}
 		</a>
@@ -32,7 +33,7 @@ vi.mock('next/link', () => ({
 
 // Mock UI components
 vi.mock('@infinum/ui/components/example', () => ({
-	ExampleComponent: ({ text, className }: any) => (
+	ExampleComponent: ({ text, className }: { text: string; className?: string }) => (
 		<div className={className} data-testid="example-component">
 			{text}
 		</div>
@@ -48,8 +49,13 @@ vi.mock('@/app/_components/ThemeToggle/ThemeToggle', () => ({
 	ThemeToggle: () => <button data-testid="theme-toggle">Theme Toggle</button>,
 }));
 
-const mockGetTranslations = vi.mocked(getTranslations) as MockedFunction<any>;
-const mockGetServerSession = vi.mocked(getServerSession) as MockedFunction<any>;
+// Typed loosely: the tests return a plain translate function and a partial session
+const mockGetTranslations = getTranslations as unknown as MockedFunction<
+	(namespace: string) => Promise<(key: string) => string>
+>;
+const mockGetServerSession = getServerSession as unknown as MockedFunction<
+	() => Promise<{ user: { id: string; name: string } } | null>
+>;
 
 describe('HomePage', () => {
 	beforeEach(() => {

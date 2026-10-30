@@ -1,0 +1,13 @@
+{
+	// Gives ESLint type information for the JavaScript configs (no-deprecated). Nothing is type-checked: no checkJs.
+	"compilerOptions": {
+		"allowJs": true,
+		"noEmit": true,
+		"module": "esnext",
+		"moduleResolution": "bundler",
+		"target": "esnext",
+		"skipLibCheck": true,
+		"types": ["node"]
+	},
+	"include": ["src/**/*", "*.mjs", ".prettierrc.js"]
+}

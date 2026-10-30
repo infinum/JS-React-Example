@@ -6,6 +6,6 @@
 			"@infinum/ui/*": ["../../packages/ui/src/*"]
 		}
 	},
-	"include": ["**/*.ts", "**/*.tsx", "src/tests/**/*"],
+	"include": ["**/*.ts", "**/*.tsx", "src/tests/**/*", "*.mts", "*.mjs", ".prettierrc.js"],
 	"exclude": ["node_modules", ".next"]
 }

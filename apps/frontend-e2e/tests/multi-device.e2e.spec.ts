@@ -12,12 +12,8 @@ async function createContext(
 	const page = await context.newPage();
 
 	// Test basic connectivity
-	try {
-		await gotoWithRetry(page, '/');
-		await page.title();
-	} catch (error) {
-		throw error;
-	}
+	await gotoWithRetry(page, '/');
+	await page.title();
 
 	const login = new LoginPage(page);
 	await login.goto();

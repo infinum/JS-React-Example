@@ -5,6 +5,6 @@
 		"moduleResolution": "bundler",
 		"types": ["node"]
 	},
-	"include": ["**/*.ts", "**/*.tsx"],
+	"include": ["**/*.ts", "**/*.tsx", "*.mjs", ".prettierrc.js"],
 	"exclude": ["node_modules"]
 }

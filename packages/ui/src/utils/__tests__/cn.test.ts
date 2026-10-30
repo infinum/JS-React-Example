@@ -9,7 +9,9 @@ describe('cn utility', () => {
 	});
 
 	it('handles conditional classes', () => {
-		const result = cn('base', true && 'conditional', false && 'not-included');
+		const classes = (isActive: boolean, isDisabled: boolean) =>
+			cn('base', isActive && 'conditional', isDisabled && 'not-included');
+		const result = classes(true, false);
 		expect(result).toContain('base');
 		expect(result).toContain('conditional');
 		expect(result).not.toContain('not-included');

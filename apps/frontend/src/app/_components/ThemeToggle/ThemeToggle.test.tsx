@@ -12,7 +12,7 @@ vi.mock('next-themes', () => ({
 
 // Mock UI components
 vi.mock('@infinum/ui/components/button', () => ({
-	Button: ({ children, onClick, ...props }: any) => (
+	Button: ({ children, onClick, ...props }: React.ComponentProps<'button'>) => (
 		<button onClick={onClick} {...props}>
 			{children}
 		</button>
@@ -20,9 +20,9 @@ vi.mock('@infinum/ui/components/button', () => ({
 }));
 
 vi.mock('@infinum/ui/components/tooltip', () => ({
-	Tooltip: ({ children }: any) => <div data-testid="tooltip">{children}</div>,
-	TooltipTrigger: ({ children }: any) => <div data-testid="tooltip-trigger">{children}</div>,
-	TooltipContent: ({ children }: any) => <div data-testid="tooltip-content">{children}</div>,
+	Tooltip: ({ children }: React.PropsWithChildren) => <div data-testid="tooltip">{children}</div>,
+	TooltipTrigger: ({ children }: React.PropsWithChildren) => <div data-testid="tooltip-trigger">{children}</div>,
+	TooltipContent: ({ children }: React.PropsWithChildren) => <div data-testid="tooltip-content">{children}</div>,
 }));
 
 const mockUseTheme = vi.mocked(useTheme);
@@ -73,19 +73,19 @@ describe('ThemeToggle Component', () => {
 		beforeEach(() => {
 			// Mock useEffect to simulate mounted state
 			const mockUseEffect = vi.spyOn(React, 'useEffect');
-			mockUseEffect.mockImplementation((effect: any) => {
+			mockUseEffect.mockImplementation((effect: React.EffectCallback) => {
 				if (typeof effect === 'function') {
 					effect();
 				}
 			});
 
 			const mockUseState = vi.spyOn(React, 'useState');
-			mockUseState.mockImplementation(((initial: any) => {
+			mockUseState.mockImplementation(((initial?: unknown) => {
 				if (initial === false) {
 					return [true, vi.fn()]; // mounted = true
 				}
 				return [initial, vi.fn()];
-			}) as any);
+			}) as typeof React.useState);
 		});
 
 		afterEach(() => {
@@ -157,19 +157,19 @@ describe('ThemeToggle Component', () => {
 		beforeEach(() => {
 			// Mock mounted state
 			const mockUseEffect = vi.spyOn(React, 'useEffect');
-			mockUseEffect.mockImplementation((effect: any) => {
+			mockUseEffect.mockImplementation((effect: React.EffectCallback) => {
 				if (typeof effect === 'function') {
 					effect();
 				}
 			});
 
 			const mockUseState = vi.spyOn(React, 'useState');
-			mockUseState.mockImplementation(((initial: any) => {
+			mockUseState.mockImplementation(((initial?: unknown) => {
 				if (initial === false) {
 					return [true, vi.fn()]; // mounted = true
 				}
 				return [initial, vi.fn()];
-			}) as any);
+			}) as typeof React.useState);
 		});
 
 		afterEach(() => {
@@ -269,19 +269,19 @@ describe('ThemeToggle Component', () => {
 		it('handles theme switching when mounted', () => {
 			// Mock mounted state
 			const mockUseEffect = vi.spyOn(React, 'useEffect');
-			mockUseEffect.mockImplementation((effect: any) => {
+			mockUseEffect.mockImplementation((effect: React.EffectCallback) => {
 				if (typeof effect === 'function') {
 					effect();
 				}
 			});
 
 			const mockUseState = vi.spyOn(React, 'useState');
-			mockUseState.mockImplementation(((initial: any) => {
+			mockUseState.mockImplementation(((initial?: unknown) => {
 				if (initial === false) {
 					return [true, vi.fn()]; // mounted = true
 				}
 				return [initial, vi.fn()];
-			}) as any);
+			}) as typeof React.useState);
 
 			// Ensure the mock is properly set up for this test
 			mockUseTheme.mockReturnValue({
