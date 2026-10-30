@@ -10,6 +10,7 @@ The config has two presets. Pick the one that gives the most reliable signal for
 | ----------- | --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
 | `jsdom`     | Node.js with a simulated DOM. Fast, and module mocking is easy.       | Code that needs Node-only mocks (server modules, `next-intl/server`) and `async` Server Components.            |
 | `browser`   | Headless Chromium through Playwright (Vitest browser mode). Real DOM. | Client components that rely on real layout, focus, pointer events or browser APIs. Also Storybook story tests. |
+| `node`      | Plain Node.js, no DOM.                                                | Server code. The `integration` option uses it for `*.integration.test.ts` files.                               |
 
 jsdom has no layout, CSS, real focus, `matchMedia` or observers. If a component needs these, test it in `browser` instead of faking them.
 
@@ -22,7 +23,8 @@ The `browser` preset always uses Chromium, headless, with a 1280×720 viewport (
 - **No globals:** import `describe`, `it`, `expect` and `vi` from `vitest` in every test file.
 - **Isolation:** `clearMocks`, `unstubGlobals` and `unstubEnvs` are on, so tests don't leak state into each other.
 - **`passWithNoTests`:** a package with no test files still passes.
-- **Coverage:** V8 provider, `src/**/*.{ts,tsx}` without tests, stories and `src/tests/**`. Written to `coverage/<name>` at the repo root with the `json`, `lcov`, `text`, `clover`, `html` and `json-summary` reporters. The thresholds are 7% for branches, functions, lines and statements.
+- **Coverage:** V8 provider, `src/**/*.{ts,tsx}` without tests, stories and `src/tests/**`. Written to `coverage/<name>` at the repo root with the `json`, `lcov`, `text`, `clover`, `html` and `json-summary` reporters. The default thresholds are 7% for branches, functions, lines and statements. Packages set their own, at the floor of their current coverage, and only raise them.
+- **Changed-file coverage:** with `COVERAGE_CHANGED=<git ref>`, coverage only measures the files changed since that ref and the thresholds are off. The `test:coverage:changed` script sets it.
 - **Reporters:** `default`, plus `github-actions` in CI. With `TEST_REPORT=true`, the tests also write `test-results/<name>/results.json` and `junit.xml` at the repo root.
 - **`--changed`:** a change to a setup file (`src/tests/**`), `.storybook/**`, a `tsconfig*.json` or this config makes `vitest --changed` run the whole suite.
 
@@ -53,7 +55,8 @@ export default createTestConfig({
 | `environment`        | required                | `jsdom` or `browser`.                                                     |
 | `include`            | `TEST_INCLUDE`          | Replaces the test file patterns.                                          |
 | `coverageInclude`    | `['src/**/*.{ts,tsx}']` | Replaces the files that coverage measures.                                |
-| `coverageThresholds` | 7% for all four metrics | Coverage thresholds, or `false` to only report (Storybook does this).     |
+| `coverageThresholds` | 7% for all four metrics | Coverage thresholds, or `false` to only report.                           |
+| `integration`        | `false`                 | Adds the `unit` and `integration` projects, see below.                    |
 | `overrides`          | `{}`                    | Any other Vitest/Vite config, merged last.                                |
 
 ### Setup file
@@ -68,6 +71,26 @@ import { afterEach } from 'vitest';
 
 afterEach(() => cleanup());
 ```
+
+### Integration tests
+
+`integration: true` splits the package into two Vitest projects:
+
+- `unit` runs the usual test files in `environment`, with `overrides` (setup files and so on),
+- `integration` runs `*.integration.test.ts` files (`INTEGRATION_TEST_INCLUDE`) in plain Node.js, without the unit setup files.
+
+Pass a config object instead of `true` to merge it into the `integration` project. Coverage stays one report for both.
+
+```ts
+export default createTestConfig({
+	name: 'frontend',
+	environment: 'jsdom',
+	integration: { test: { server: { deps: { inline: ['next-intl'] } } } },
+	overrides: { test: { setupFiles: ['./src/tests/vitest.setup.tsx'] } },
+});
+```
+
+Run one project with `vitest run --project integration`.
 
 ### Using both environments in one package
 
@@ -96,6 +119,7 @@ Each workspace uses the same scripts:
 	"test": "vitest run",
 	"test:watch": "vitest",
 	"test:coverage": "vitest run --coverage",
+	"test:coverage:changed": "COVERAGE_CHANGED=${TEST_CHANGED_BASE:-origin/main} vitest run --coverage",
 	"test:coverage:watch": "vitest --coverage",
 	"test:changed": "vitest run --changed ${TEST_CHANGED_BASE:-origin/main}"
 }

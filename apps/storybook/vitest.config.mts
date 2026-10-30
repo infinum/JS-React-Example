@@ -11,8 +11,8 @@ export default createTestConfig({
 	// on purpose: it matches the ui files that stories load, but Vitest doesn't list ui files that no story
 	// loads, because it can't transform files outside this package's root.
 	coverageInclude: ['**/packages/ui/src/**/*.{ts,tsx}'],
-	// Report only, no thresholds yet
-	coverageThresholds: false,
+	// Ratchet: the floor of the current coverage. Raise it when coverage goes up, never lower it to make a run pass.
+	coverageThresholds: { statements: 100, lines: 100, branches: 66, functions: 100 },
 	overrides: {
 		// Turns every story into a test: render, play function and a11y checks
 		plugins: [storybookTest({ configDir: path.join(import.meta.dirname, '.storybook') })],
