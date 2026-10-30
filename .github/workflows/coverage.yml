@@ -25,6 +25,7 @@ permissions:
 jobs:
   coverage:
     runs-on: ubuntu-24.04
+    timeout-minutes: 20
     permissions:
       actions: read # download base coverage artifact via workflow run APIs
       contents: read # checkout
@@ -35,9 +36,14 @@ jobs:
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        with:
+          fetch-depth: 0 # the coverage comment lists the files changed since origin/main
 
       - name: 💻 Node setup
         uses: ./.github/actions/node-setup
+
+      - name: 🧪 Test browsers setup
+        uses: ./.github/actions/test-browsers-setup
 
       - name: 🧪 Test
         run: pnpm test:coverage

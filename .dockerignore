@@ -26,7 +26,7 @@
 # Ignore test coverage & reports
 **/coverage/
 **/coverage-summary
-**/jest.config.js
+**/test-results/
 **/.nyc_output/
 **/reports/
 

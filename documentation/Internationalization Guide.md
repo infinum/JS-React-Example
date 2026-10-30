@@ -23,6 +23,7 @@ The internationalization system is organized into several key files:
 ### Translation Files (`locales/`)
 
 Translation files are organized by locale (`en/`, `pl/`, `hr/`) with each locale containing JSON files per namespace:
+
 - `common.json` - Shared translations across the app
 - `navigation.json` - Navigation-specific translations
 - `example.json` - Example page translations
@@ -36,6 +37,7 @@ The current setup uses localized pathnames which creates URLs like `/en/example`
 **Remove pathnames configuration** - Delete the `pathnames` object from `routing.ts` and keep only `locales` and `defaultLocale`. This switches from pathname-based routing to locale detection via other methods.
 
 **Alternative locale detection** - Without URL prefixes, next-intl will detect locale through:
+
 - Accept-Language headers from the browser
 - Previously set locale cookies
 - Manual locale switching that persists in cookies
@@ -45,4 +47,3 @@ The current setup uses localized pathnames which creates URLs like `/en/example`
 **Locale switching** - Implement a locale switcher that updates the locale cookie rather than changing the URL structure. The page content will re-render in the new locale while maintaining the same URL.
 
 This approach provides a cleaner URL structure for the default locale while still supporting multiple languages through cookie-based locale persistence.
-

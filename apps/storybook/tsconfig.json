@@ -24,6 +24,6 @@
 			"@infinum/ui/*": ["../../packages/ui/src/*"]
 		}
 	},
-	"include": ["**/*.ts", "**/*.tsx", ".storybook/**/*.ts"],
+	"include": ["**/*.ts", "**/*.tsx", ".storybook/**/*.ts", "*.mts", "*.mjs", ".prettierrc.js"],
 	"exclude": ["dist", "build", "node_modules"]
 }

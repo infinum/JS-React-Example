@@ -1,34 +1,35 @@
 import { useTheme } from 'next-themes';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import React from 'react';
 import { ThemeToggle } from './ThemeToggle';
 import { render, screen, fireEvent } from '@/tests/utils';
 
 // Mock next-themes
-const mockSetTheme = jest.fn();
-jest.mock('next-themes', () => ({
-	useTheme: jest.fn(),
+const mockSetTheme = vi.fn();
+vi.mock('next-themes', () => ({
+	useTheme: vi.fn(),
 }));
 
 // Mock UI components
-jest.mock('@infinum/ui/components/button', () => ({
-	Button: ({ children, onClick, ...props }: any) => (
+vi.mock('@infinum/ui/components/button', () => ({
+	Button: ({ children, onClick, ...props }: React.ComponentProps<'button'>) => (
 		<button onClick={onClick} {...props}>
 			{children}
 		</button>
 	),
 }));
 
-jest.mock('@infinum/ui/components/tooltip', () => ({
-	Tooltip: ({ children }: any) => <div data-testid="tooltip">{children}</div>,
-	TooltipTrigger: ({ children }: any) => <div data-testid="tooltip-trigger">{children}</div>,
-	TooltipContent: ({ children }: any) => <div data-testid="tooltip-content">{children}</div>,
+vi.mock('@infinum/ui/components/tooltip', () => ({
+	Tooltip: ({ children }: React.PropsWithChildren) => <div data-testid="tooltip">{children}</div>,
+	TooltipTrigger: ({ children }: React.PropsWithChildren) => <div data-testid="tooltip-trigger">{children}</div>,
+	TooltipContent: ({ children }: React.PropsWithChildren) => <div data-testid="tooltip-content">{children}</div>,
 }));
 
-const mockUseTheme = useTheme as jest.MockedFunction<typeof useTheme>;
+const mockUseTheme = vi.mocked(useTheme);
 
 describe('ThemeToggle Component', () => {
 	beforeEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 		mockSetTheme.mockClear();
 	});
 
@@ -71,24 +72,24 @@ describe('ThemeToggle Component', () => {
 	describe('After mounted state', () => {
 		beforeEach(() => {
 			// Mock useEffect to simulate mounted state
-			const mockUseEffect = jest.spyOn(React, 'useEffect');
-			mockUseEffect.mockImplementation((effect: any) => {
+			const mockUseEffect = vi.spyOn(React, 'useEffect');
+			mockUseEffect.mockImplementation((effect: React.EffectCallback) => {
 				if (typeof effect === 'function') {
 					effect();
 				}
 			});
 
-			const mockUseState = jest.spyOn(React, 'useState');
-			mockUseState.mockImplementation(((initial: any) => {
+			const mockUseState = vi.spyOn(React, 'useState');
+			mockUseState.mockImplementation(((initial?: unknown) => {
 				if (initial === false) {
-					return [true, jest.fn()]; // mounted = true
+					return [true, vi.fn()]; // mounted = true
 				}
-				return [initial, jest.fn()];
-			}) as any);
+				return [initial, vi.fn()];
+			}) as typeof React.useState);
 		});
 
 		afterEach(() => {
-			jest.restoreAllMocks();
+			vi.restoreAllMocks();
 		});
 
 		it('displays light theme icon correctly', () => {
@@ -155,24 +156,24 @@ describe('ThemeToggle Component', () => {
 	describe('Theme switching functionality', () => {
 		beforeEach(() => {
 			// Mock mounted state
-			const mockUseEffect = jest.spyOn(React, 'useEffect');
-			mockUseEffect.mockImplementation((effect: any) => {
+			const mockUseEffect = vi.spyOn(React, 'useEffect');
+			mockUseEffect.mockImplementation((effect: React.EffectCallback) => {
 				if (typeof effect === 'function') {
 					effect();
 				}
 			});
 
-			const mockUseState = jest.spyOn(React, 'useState');
-			mockUseState.mockImplementation(((initial: any) => {
+			const mockUseState = vi.spyOn(React, 'useState');
+			mockUseState.mockImplementation(((initial?: unknown) => {
 				if (initial === false) {
-					return [true, jest.fn()]; // mounted = true
+					return [true, vi.fn()]; // mounted = true
 				}
-				return [initial, jest.fn()];
-			}) as any);
+				return [initial, vi.fn()];
+			}) as typeof React.useState);
 		});
 
 		afterEach(() => {
-			jest.restoreAllMocks();
+			vi.restoreAllMocks();
 		});
 
 		it('switches from light to dark theme', () => {
@@ -267,20 +268,20 @@ describe('ThemeToggle Component', () => {
 
 		it('handles theme switching when mounted', () => {
 			// Mock mounted state
-			const mockUseEffect = jest.spyOn(React, 'useEffect');
-			mockUseEffect.mockImplementation((effect: any) => {
+			const mockUseEffect = vi.spyOn(React, 'useEffect');
+			mockUseEffect.mockImplementation((effect: React.EffectCallback) => {
 				if (typeof effect === 'function') {
 					effect();
 				}
 			});
 
-			const mockUseState = jest.spyOn(React, 'useState');
-			mockUseState.mockImplementation(((initial: any) => {
+			const mockUseState = vi.spyOn(React, 'useState');
+			mockUseState.mockImplementation(((initial?: unknown) => {
 				if (initial === false) {
-					return [true, jest.fn()]; // mounted = true
+					return [true, vi.fn()]; // mounted = true
 				}
-				return [initial, jest.fn()];
-			}) as any);
+				return [initial, vi.fn()];
+			}) as typeof React.useState);
 
 			// Ensure the mock is properly set up for this test
 			mockUseTheme.mockReturnValue({

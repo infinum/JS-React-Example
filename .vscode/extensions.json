@@ -8,7 +8,6 @@
 		"esbenp.prettier-vscode",
 		"jonnythemonke.tw-breakpoint",
 		"bradlc.vscode-tailwindcss",
-		"stivo.tailwind-fold",
-		"unifiedjs.vscode-remark"
+		"stivo.tailwind-fold"
 	]
 }

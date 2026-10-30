@@ -1,0 +1,15 @@
+{
+	"$schema": "https://unpkg.com/knip@6/schema.json",
+	"workspaces": {
+		"apps/frontend": {
+			// Loaded by the next-intl plugin through `requestConfig` in next.config.ts
+			"entry": ["src/lib/i18n/request.ts"],
+		},
+		"packages/ui": {
+			// CLI for adding shadcn/ui components (components.json), run by hand
+			"ignoreDependencies": ["shadcn"],
+		},
+	},
+	// Started by the chrome-devtools MCP server in .mcp.json
+	"ignoreDependencies": ["chrome-devtools-mcp"],
+}

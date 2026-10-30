@@ -29,6 +29,8 @@ All commands can be run only for a specific package with Turbo filtering, for ex
 ## Adding E2E for a new app
 
 - Create a sibling E2E app `apps/<app>-e2e` for each new app.
+- Register it in `packages/configs/src/playwright-config/apps.js` (name, dir, pnpm filter, port). The package config reads its port from there with `getE2eApp('<app>')`, and the root `playwright.config.ts` picks it up as a project for the Playwright agents.
+- Add a `tests/seed.spec.ts` with the app's setup (login, locale) and exclude it with `testIgnore: '**/seed.spec.ts'` in the package config.
 - Point `playwright.config.ts` to the shared base: `@infinum/configs/playwright/base`.
 - Reuse helpers from `@infinum/e2e-utils` (fixtures, waits, viewports, reports).
 - Keep snapshots and app-specific page objects inside that E2E app.
@@ -39,6 +41,12 @@ All commands can be run only for a specific package with Turbo filtering, for ex
 
 - Generate and validate snapshots in headless for stable rendering; if you must use headed, regenerate and stay consistent.
 - Ensure `E2E_BASE_URL` is set when not using `http://localhost:3000`.
+
+## Playwright agents
+
+The root `playwright.config.ts` combines every E2E app as a project. It's used only by the `playwright-test` MCP server (`.mcp.json`) and the Playwright agents. CI and `pnpm e2e` keep using each package's own config.
+
+The Playwright skills and agents are generated from the installed `@playwright/test` version on every `pnpm install` (`scripts/install-playwright-harness.sh`) and are gitignored. Skills go to `.agents/skills/` with symlinks in `.claude/skills/` (same as the `skills` CLI), agents to `.claude/agents/`. After a Playwright upgrade they update on the next install. Rerun manually with `pnpm skills:playwright`.
 
 ## Testing with Act
 
