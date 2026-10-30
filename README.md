@@ -153,6 +153,9 @@ pnpm dev
 
 # Quality checks
 pnpm pre-commit
+
+# Every check on every package: lint, typecheck, tests, builds, Knip, licenses, audit, changesets
+pnpm verify
 ```
 
 ### Code Quality
@@ -167,7 +170,7 @@ pnpm pre-commit
 # Run all unit, component and story tests
 pnpm test
 
-# Only the tests affected by your branch (what pre-push runs)
+# Only the tests affected by your branch
 pnpm test:affected
 
 # One package

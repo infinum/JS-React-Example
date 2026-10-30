@@ -21,9 +21,13 @@ scripts/
 ├── aggregate-license-results.js    # License compliance reporting
 ├── bootstrap.sh                    # Project setup automation
 ├── check-licenses-workspace.js     # License compliance checking
+├── comment-coverage-diff.js        # Coverage comment on pull requests
 ├── create-env-overrides.sh         # Environment variable setup
 ├── install-test-browsers.sh        # Chromium for Vitest browser tests
-└── test-affected.sh                # Runs only affected tests (pre-push)
+├── lint-staged-commands.js         # Pre-commit commands per workspace package
+├── test-affected.sh                # Runs only the tests affected by the branch
+├── test-coverage-changed.sh        # Coverage of the files changed on the branch
+└── verify.sh                       # Every check, for the Stop hook, pre-push and `pnpm verify`
 ```
 
 ## Tests
@@ -33,6 +37,7 @@ Each workspace with tests has its own `vitest.config.mts`, built on the shared `
 | Workspace        | Environment             | Tests                         | Coverage             |
 | ---------------- | ----------------------- | ----------------------------- | -------------------- |
 | `apps/frontend`  | jsdom (Node.js)         | `*.test.ts(x)`, `__tests__/`  | `coverage/frontend`  |
+| `apps/frontend`  | Node.js (integration)   | `*.integration.test.ts`       | `coverage/frontend`  |
 | `packages/ui`    | Chromium (browser mode) | `__tests__/`                  | `coverage/ui`        |
 | `apps/storybook` | Chromium (browser mode) | every story in `__stories__/` | `coverage/storybook` |
 

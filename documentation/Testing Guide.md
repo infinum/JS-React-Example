@@ -2,9 +2,9 @@
 
 ## TL;DR
 
-- Unit, component and story tests run on **Vitest**. End-to-end tests run on **Playwright** ([E2E Testing](E2E%20Testing.md)).
-- `pnpm test` runs every unit, component and story test in the repo. It exits with a non-zero code if any test fails, including an accessibility violation in a story.
-- `pre-push` runs only the tests affected by your branch. CI always runs the full suite.
+- Unit, integration, component and story tests run on **Vitest**. End-to-end tests run on **Playwright** ([E2E Testing](E2E%20Testing.md)).
+- `pnpm test` runs every unit, integration, component and story test in the repo. It exits with a non-zero code if any test fails, including an accessibility violation in a story.
+- `pre-push` runs the tests of the packages your branch changed. CI always runs the full suite, with coverage thresholds.
 
 ## Which test should I write?
 
@@ -12,6 +12,7 @@
 | ------------------------------------------------------------------------------------------------- | ------------------------ | -------------------------------- | ----------------------------------------- |
 | Logic with no DOM (utils, formatting, i18n helpers)                                               | Unit test                | the package's environment        | `__tests__/*.test.ts` next to the code    |
 | An `apps/frontend` component, including code that uses server-only modules                        | Unit test (jsdom)        | Node.js with a simulated DOM     | `*.test.tsx` next to the component        |
+| `apps/frontend` server code working together: the proxy, auth callbacks, env validation, i18n     | Integration test         | Node.js, no DOM                  | `*.integration.test.ts` next to the code  |
 | A `packages/ui` component: behavior, props, events                                                | Component test (browser) | Headless Chromium                | `packages/ui/src/components/__tests__/`   |
 | What a `packages/ui` component looks like in its variants, and its accessibility                  | Story                    | Headless Chromium                | `packages/ui/src/components/__stories__/` |
 | A page, a user flow, routing, auth, real data, or an `async` Server Component with async children | E2E test                 | Real Next.js server + Playwright | `apps/frontend-e2e/`                      |
@@ -35,6 +36,17 @@ Use `renderServer` only when **all** of these are true:
 - it doesn't need real request APIs (`cookies()`, `headers()`), `server-only` imports, Suspense and streaming, or Server Actions.
 
 Test everything else with an E2E test.
+
+### Integration tests (Node.js) — `apps/frontend`
+
+Integration tests check that the app's modules and the libraries they configure work together: the proxy with the next-intl middleware, the NextAuth callbacks with the credentials provider, the env validators with `envsafe`, the i18n request config with the translation files. They run in the `integration` Vitest project, in plain Node.js. They don't load the jsdom setup file, so `next-intl/server` and `next/link` are real.
+
+- Name the file `*.integration.test.ts` and put it next to the code it tests.
+- Mock only what can't run outside Next.js, and say why in a comment. For example, `server-only` throws outside a React Server Components build, and in the server build next-intl's `getRequestConfig` returns its callback unchanged.
+- When a module reads the environment once at import time, stub the variable with `vi.stubEnv`, call `vi.resetModules()` and import the module again. `src/proxy.integration.test.ts` does this.
+- When the app starts calling external HTTP APIs, mock the network with [MSW](https://mswjs.io/) at the request level instead of mocking the fetching modules.
+
+`src/lib/i18n/request.integration.test.ts` also checks that every locale has the same translation keys as the default locale, so a string added only to `en` fails the tests.
 
 ### Component tests (browser) — `packages/ui`
 
@@ -69,15 +81,17 @@ Mocks, stubbed globals and stubbed env variables are reset between tests. ESLint
 
 ## Commands
 
-| Command                                                       | What it does                                                                 |
-| ------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| `pnpm test`                                                   | All tests in all packages                                                    |
-| `pnpm test:watch`                                             | Watch mode                                                                   |
-| `pnpm test:coverage`                                          | All tests with coverage, written to `coverage/<package>`                     |
-| `pnpm test:affected`                                          | Only the tests affected by changes since the branch split from `origin/main` |
-| `pnpm --filter @infinum/ui test`                              | One package                                                                  |
-| `pnpm --filter @infinum/ui exec vitest related <file…> --run` | Only the tests related to specific files                                     |
-| `TEST_REPORT=true pnpm test`                                  | Also writes `test-results/<package>/results.json` and `junit.xml`            |
+| Command                                                                 | What it does                                                                 |
+| ----------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `pnpm test`                                                             | All tests in all packages                                                    |
+| `pnpm test:watch`                                                       | Watch mode                                                                   |
+| `pnpm test:coverage`                                                    | All tests with coverage, written to `coverage/<package>`                     |
+| `pnpm test:affected`                                                    | Only the tests affected by changes since the branch split from `origin/main` |
+| `pnpm test:coverage:changed`                                            | Coverage of the files changed since the branch split from `origin/main`      |
+| `pnpm --filter @infinum/frontend exec vitest run --project integration` | Only the frontend integration tests                                          |
+| `pnpm --filter @infinum/ui test`                                        | One package                                                                  |
+| `pnpm --filter @infinum/ui exec vitest related <file…> --run`           | Only the tests related to specific files                                     |
+| `TEST_REPORT=true pnpm test`                                            | Also writes `test-results/<package>/results.json` and `junit.xml`            |
 
 Story tests can also run from the Storybook UI: open Storybook (`pnpm --filter @infinum/storybook dev`) and click **Run tests** at the bottom of the sidebar.
 
@@ -93,8 +107,14 @@ It's the same Playwright version as the E2E tests, so the browser download is sh
 
 ## Pre-push and CI
 
-- **pre-push** runs `pnpm test:affected`. Turbo picks the packages that changed (and the packages that depend on them), and Vitest runs only the tests related to the changed files. If the shared test setup changed (the shared Vitest config, a setup file, `.storybook/`, a `tsconfig`) or there's no `origin/main` to compare with, it runs the full suite instead. Pre-push doesn't collect coverage.
-- **CI** (`coverage.yml`) always runs the full suite with `pnpm test:coverage` and posts the coverage diff on the pull request. `storybook` is a separate entry in that comment and has no threshold yet.
+- **pre-push** runs `scripts/verify.sh push`. Turbo picks the packages that changed since the branch split from `origin/main` (and the packages that depend on them) and runs their tests, next to lint, typecheck and builds. Without `origin/main` to compare with, it runs every package. Pre-push doesn't collect coverage. `pnpm test:affected` narrows a run further, to the tests related to the changed files.
+- **CI** (`coverage.yml`) always runs the full suite with `pnpm test:coverage` and posts a comment on the pull request: the coverage diff with `main`, per package, and the coverage of every file the pull request changes.
+
+## Coverage
+
+Each package's `vitest.config.mts` sets coverage thresholds at the floor of its current coverage. `pnpm test:coverage` fails when coverage drops below them. The thresholds are a ratchet: raise them when coverage goes up, and never lower them to make a run pass.
+
+`pnpm test:coverage:changed` prints the coverage of only the files changed on your branch. Use it after changing logic to find the new code that no test runs. It is a report: the thresholds don't apply to it, and the "Changed files" table in the pull request comment doesn't fail CI.
 
 Turbo caches test results. A package's tests re-run when any of its source, test, story or config files change, and when `packages/ui/src` changes for `frontend` and `storybook`.
 

@@ -16,12 +16,38 @@ Your training data is outdated — these docs are the source of truth.
 
 Never update visual baselines (`--update-snapshots`) to make a failing test pass. Report the diff instead, a human approves baseline changes.
 
+# Feedback loop
+
+Every check has one command, and the hooks run them for you at the right moment. All of them are in `scripts/verify.sh`.
+
+| Signal                                    | Command                                     | Edit |   Stop   | pre-commit | pre-push | CI  |
+| ----------------------------------------- | ------------------------------------------- | :--: | :------: | :--------: | :------: | :-: |
+| Formatting                                | `pnpm prettier:check`                       |  ✅  |    ✅    |     ✅     |    ✅    | ✅  |
+| Lint (type-aware, a11y, imports)          | `pnpm lint`                                 |  ✅  |    ✅    |     ✅     |    ✅    | ✅  |
+| Types                                     | `pnpm typecheck`                            |      |    ✅    |            |    ✅    | ✅  |
+| Unit, integration, component, story tests | `pnpm test`                                 |      |    ✅    |            |    ✅    | ✅  |
+| Builds                                    | `pnpm build`                                |      |          |            |    ✅    | ✅  |
+| Unused files, exports, dependencies       | `pnpm knip`                                 |      |    ✅    |            |    ✅    | ✅  |
+| Licenses                                  | `pnpm check-licenses`                       |      | lockfile |            | lockfile | ✅  |
+| Vulnerabilities                           | `pnpm audit --audit-level=high`             |      | lockfile |            | lockfile | ✅  |
+| Changesets                                | `pnpm changeset status --since=origin/main` |      |          |            |    ✅    | ✅  |
+| Coverage thresholds                       | `pnpm test:coverage`                        |      |          |            |          | ✅  |
+
+"lockfile" means only when `pnpm-lock.yaml` changed. The Stop hook and pre-push check the packages changed since the branch split from `origin/main`.
+
+- Before you call larger work done, run `pnpm verify`. It runs every check on every package.
+- After you change logic, run `pnpm test:coverage:changed` and add tests for the new code it shows as uncovered.
+- Lint warnings fail like errors. Disable a rule for a line only with a comment that says why.
+- When you change a package under `apps/` or `packages/`, add a changeset (`.changeset/*.md`).
+- Never lower a coverage threshold or add an audit exception to make a check pass. Report it instead.
+- To read a failed CI run, use `gh run view <run-id> --log-failed`.
+
 # Hooks
 
 `.claude/settings.json` runs these checks for you:
 
-- After every edit: Prettier on the edited file, Markdown included, then ESLint `--fix` on JS and TS files. Lint errors come back to you. Fix them before moving on.
-- When you stop: `pnpm turbo run lint typecheck test --affected` on packages with uncommitted changes. If it fails, you are asked to continue. Fix the failures instead of stopping again.
+- After every edit: Prettier on the edited file, Markdown included, then ESLint `--fix --max-warnings 0` on JS and TS files. Lint errors and warnings come back to you. Fix them before moving on.
+- When you stop: `scripts/verify.sh agent` (the Stop column above). If it fails, you are asked to continue. Fix the failures instead of stopping again.
 - Commands that update visual baselines are blocked.
 
 Local URLs: frontend `http://localhost:3000`, Storybook `http://localhost:6006`.
