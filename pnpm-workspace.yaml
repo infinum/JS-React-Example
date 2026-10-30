@@ -7,7 +7,6 @@ allowBuilds:
   '@swc/core@1.15.46': true
   core-js-pure@3.49.0: true
   esbuild@0.28.1: true
-  msw@2.12.7: true
   sharp: true
   unrs-resolver@1.12.2: true
 
@@ -17,21 +16,20 @@ catalog:
   '@changesets/cli': 2.31.1
   '@eslint/compat': 2.1.0
   '@eslint/js': 10.0.1
-  '@next/bundle-analyzer': 16.2.12
-  '@next/env': 16.2.12
-  '@next/eslint-plugin-next': 16.2.12
+  '@next/bundle-analyzer': 16.4.2
+  '@next/eslint-plugin-next': 16.4.2
   '@playwright/test': 1.62.0
   '@radix-ui/react-label': 2.1.15
   '@radix-ui/react-select': 2.3.7
   '@radix-ui/react-slot': 1.3.3
   '@radix-ui/react-tooltip': 1.2.16
-  '@storybook/addon-a11y': 10.6.0
+  '@storybook/addon-a11y': 10.6.2
   '@storybook/addon-designs': 11.1.4
-  '@storybook/addon-docs': 10.6.0
-  '@storybook/addon-mcp': 10.6.0
-  '@storybook/addon-themes': 10.6.0
-  '@storybook/addon-vitest': 10.6.0
-  '@storybook/nextjs-vite': 10.6.0
+  '@storybook/addon-docs': 10.6.2
+  '@storybook/addon-mcp': 10.6.2
+  '@storybook/addon-themes': 10.6.2
+  '@storybook/addon-vitest': 10.6.2
+  '@storybook/nextjs-vite': 10.6.2
   '@tailwindcss/postcss': 4.3.3
   '@testing-library/dom': 10.4.1
   '@testing-library/jest-dom': 7.0.0
@@ -42,11 +40,10 @@ catalog:
   '@types/react-dom': 19.2.3
   '@typescript-eslint/eslint-plugin': 8.65.0
   '@vitejs/plugin-react': 6.1.1
-  '@vitest/browser': 4.1.11
-  '@vitest/browser-playwright': 4.1.11
-  '@vitest/coverage-v8': 4.1.11
+  '@vitest/browser': 4.1.12
+  '@vitest/browser-playwright': 4.1.12
+  '@vitest/coverage-v8': 4.1.12
   '@vitest/eslint-plugin': 1.6.27
-  autoprefixer: 10.5.4
   axe-core: 4.12.1
   axe-html-reporter: 2.2.11
   class-variance-authority: 0.7.1
@@ -54,17 +51,20 @@ catalog:
   envsafe: 2.0.3
   eslint: 10.8.0
   eslint-config-prettier: 10.1.8
+  eslint-import-resolver-typescript: 4.4.5
+  eslint-plugin-import-x: 4.17.1
+  eslint-plugin-jsx-a11y: 6.10.2
   eslint-plugin-playwright: 2.11.0
   eslint-plugin-prettier: 5.5.6
   eslint-plugin-react: 7.37.5
   eslint-plugin-react-hooks: 7.1.1
-  eslint-plugin-storybook: 10.6.0
+  eslint-plugin-storybook: 10.6.2
   globals: 17.8.0
-  hono: 4.12.21
   jsdom: 30.1.1
+  knip: 6.42.1
   license-checker-rseidelsohn: 5.0.1
   lucide-react: 1.27.0
-  next: 16.2.12
+  next: 16.4.2
   next-auth: 4.24.15
   next-intl: 4.13.4
   next-themes: 0.4.6
@@ -75,37 +75,41 @@ catalog:
   prettier-plugin-tailwindcss: 0.8.1
   react: 19.2.8
   react-dom: 19.2.8
+  server-only: 0.0.1
   shadcn: 4.15.0
-  storybook: 10.6.0
+  storybook: 10.6.2
   tailwind-merge: 3.6.0
   tailwindcss: 4.3.3
   tw-animate-css: 1.4.0
   typescript: 6.0.3
   typescript-eslint: 8.65.0
-  vite: 8.3.0
-  vitest: 4.1.11
+  vite: 8.3.5
+  vitest: 4.1.12
 
-# Advisories with no published patch cannot be acted on, so they are dropped from the
-# report. NOTE: this is a blanket rule — a future unfixable high/critical would also be
-# hidden. The known cases are listed explicitly under auditConfig.ignoreGhsas below so
-# they stay reviewable; re-check that list on every dependency update.
-ignoreUnfixable: true
+# Report every advisory. `ignoreUnfixable: true` hid 118 advisories here, most of them with a
+# published patch (including critical Next.js RCEs), so `pnpm audit` passed while it shouldn't.
+# An advisory that really can't be fixed goes under auditConfig.ignoreGhsas, with a comment saying
+# why and when to re-check it, so every exception stays reviewable.
+ignoreUnfixable: false
 
-auditConfig: { ignoreGhsas: null }
+auditConfig:
+  ignoreGhsas:
+    # deepmerge 4.3.1 (low): prototype pollution. No patched release exists (4.3.1 is the latest).
+    # Dev-only, through the shadcn CLI, which never merges untrusted input. Re-check on shadcn updates.
+    - GHSA-gcqx-w48m-w2h4
 
 engineStrict: true
 
 minimumReleaseAge: 10080
-
-# Security fixes published more recently than minimumReleaseAge allows.
-minimumReleaseAgeExclude:
-  - brace-expansion@1.1.18 || 2.1.4
 
 peerDependencyRules:
   allowedVersions:
     # eslint-plugin-react 7.37.5 is the newest stable release and still caps its peer
     # at eslint ^9.7, but it runs fine on eslint 10. Remove once 7.38+ ships.
     eslint-plugin-react>eslint: '10'
+    # eslint-plugin-jsx-a11y 6.10.2 is the newest release and still caps its peer at eslint ^9,
+    # but it runs fine on eslint 10. Remove once a release allows eslint 10.
+    eslint-plugin-jsx-a11y>eslint: '10'
     # tsconfck 3.1.6 is the newest release and still caps its peer at typescript ^5. It comes in
     # through @storybook/nextjs-vite > vite-plugin-storybook-nextjs > vite-tsconfig-paths and only
     # needs TypeScript for parseNative, which vite-tsconfig-paths doesn't call.
@@ -113,17 +117,52 @@ peerDependencyRules:
     tsconfck>typescript: '6'
 
 overrides:
-  # GHSA-frvp-7c67-39w9: path traversal in serve-static on Windows
-  '@hono/node-server@<2.0.5': '>=2.0.5'
+  # GHSA-frvp-7c67-39w9: path traversal in serve-static on Windows; GHSA-rmxm-3fg6-px4f
+  '@hono/node-server@<2.1.3': '>=2.1.3 <3'
+  # GHSA-22jm-h49p-29qw, GHSA-46jr-4wx8-v453, GHSA-6qxp-vccf-f47h, GHSA-f897-62hf-6gxq, GHSA-6prh-2h8m-c8cw,
+  # GHSA-rvq5-wwqv-78pq: comes in through the shadcn CLI
+  '@modelcontextprotocol/sdk@<1.32.0': '>=1.32.0 <2'
+  # GHSA-27r3-jxmh-p828
+  body-parser@>=2.0.0 <2.4.0: '>=2.4.0 <3'
   # GHSA-mh99-v99m-4gvg: DoS via unbounded expansion length
-  brace-expansion@<1.1.17: 1.1.18
+  # GHSA-6j4f-fj2g-mc7p, GHSA-qhr7-859c-m2p7, GHSA-rgw5-rvv9-x895, GHSA-q2hr-2g5m-vwhr
+  brace-expansion@<1.1.21: 1.1.21
   brace-expansion@>=2.0.0 <2.1.3: 2.1.4
+  brace-expansion@>=4.0.0 <5.0.12: '>=5.0.12 <6'
   # GHSA-v2hh-gcrm-f6hx, GHSA-4c8g-83qw-93j6: host confusion via backslash authority / failed IDN canonicalization
-  fast-uri@>=3.0.0 <3.1.4: '>=3.1.4 <4'
+  # GHSA-5jgf-p345-68v8, GHSA-7p8r-x3mc-p8w7, GHSA-f65p-4m7j-42xc, GHSA-fph4-wmhf-6fwf, GHSA-jqff-g426-hqxp,
+  # GHSA-qw65-cvwx-89v3, GHSA-333x-w4r6-6crp, GHSA-xhq7-xmqj-769h, GHSA-hrr3-gc8f-f4qj, GHSA-w74x-v6f9-j3xg,
+  # GHSA-wjr9-j795-jxcr
+  fast-uri@>=3.0.0 <3.1.9: '>=3.1.9 <4'
+  # GHSA-79qm-7rj5-m7r9, GHSA-54fx-42gc-7vw4, GHSA-5r4p-p66f-jhc7, GHSA-8j4g-w8fx-2239, GHSA-crvj-82cr-hjcx,
+  # GHSA-f23p-vx2j-j53r, GHSA-g6gw-c38x-mqfc, GHSA-gqvv-2mrq-wpjv, GHSA-hxh3-vqpv-xpqv
+  hono@<4.13.11: '>=4.13.11 <5'
+  # GHSA-2vr4-cq9g-pvrc, GHSA-h3mg-xc3c-68pw, GHSA-j6r3-76f7-8jcv, GHSA-rpw4-54j3-4h4q, GHSA-rxp7-6hxx-x8q5
+  ip-address@<10.7.4: '>=10.7.4 <11'
+  # GHSA-2883-xcg3-v3hh, GHSA-5p4m-2wfm-xmqj
+  js-yaml@>=3.0.0 <3.15.2: '>=3.15.2 <4'
+  js-yaml@>=4.0.0 <4.3.2: '>=4.3.2 <5'
   # GHSA-qx2v-qp2m-jg93, GHSA-6g55-p6wh-862q, GHSA-r28c-9q8g-f849: sourceMappingURL arbitrary file read
   postcss@<8.5.18: '>=8.5.18'
+  # GHSA-rj75-hqrm-r3gf
+  postcss-selector-parser@>=7.0.0 <7.1.6: '>=7.1.6 <8'
+  # GHSA-jqcg-44mw-7w3h
+  proxy-addr@<2.0.8: '>=2.0.8 <3'
+  # GHSA-4mjr-xmp4-gh2g, GHSA-6pq8-jhm2-2vcw, GHSA-x5fp-wj9c-mxmx
+  qs@<6.16.1: '>=6.16.1 <7'
   # GHSA-f88m-g3jw-g9cj: inherited libvips vulnerabilities
   sharp@<0.35.0: '>=0.35.0'
+  # GHSA-68fv-2mgg-jv7q
+  source-map-js@<1.2.2: '>=1.2.2 <2'
+  # GHSA-3f7j-7jwc-fxfj, GHSA-4vjg-vx72-qq4g, GHSA-7648-jmwf-vw7j
+  systeminformation@<5.33.16: '>=5.33.16 <6'
+  # GHSA-2m5v-pch6-74hx, GHSA-4w7w-5xrc-9h26, GHSA-qq8j-7v2v-3rwp, GHSA-qrxm-fqhp-jwvm, GHSA-rfgv-xxqx-mfg5,
+  # GHSA-w293-vg96-wgc3, GHSA-xjj6-f33q-929c and lower-severity undici advisories
+  undici@>=4.0.0 <6.29.1: '>=6.29.1 <7'
+  undici@>=7.0.0 <7.30.1: '>=7.30.1 <8'
+  undici@>=8.0.0 <8.12.2: '>=8.12.2 <9'
+  # GHSA-mrhx-c7xc-m3w5: no 3.x patch; every zod consumer here accepts ^4
+  zod@<4.6.6: '>=4.6.6 <5'
 
 strictDepBuilds: true
 

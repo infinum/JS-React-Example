@@ -6,13 +6,14 @@
 	"scripts": {
 		"check-licenses": "node ../../scripts/check-licenses-workspace.js",
 		"clean": "rm -rf node_modules .turbo .eslintcache",
-		"lint": "eslint . --cache",
-		"lint:fix": "eslint . --cache --fix",
+		"lint": "eslint . --max-warnings 0",
+		"lint:fix": "eslint . --fix",
 		"prettier:check": "prettier --check .",
 		"prettier:fix": "prettier --write .",
 		"test": "vitest run",
 		"test:watch": "vitest",
 		"test:coverage": "vitest run --coverage",
+		"test:coverage:changed": "COVERAGE_CHANGED=${TEST_CHANGED_BASE:-origin/main} vitest run --coverage",
 		"test:coverage:watch": "vitest --coverage",
 		"test:changed": "vitest run --changed ${TEST_CHANGED_BASE:-origin/main}",
 		"typecheck": "tsc --noEmit"
@@ -30,6 +31,7 @@
 	"devDependencies": {
 		"@infinum/configs": "workspace:*",
 		"@storybook/nextjs-vite": "catalog:",
+		"@tailwindcss/postcss": "catalog:",
 		"@testing-library/dom": "catalog:",
 		"@testing-library/jest-dom": "catalog:",
 		"@testing-library/react": "catalog:",
@@ -39,7 +41,6 @@
 		"@types/react-dom": "catalog:",
 		"@vitest/browser-playwright": "catalog:",
 		"@vitest/coverage-v8": "catalog:",
-		"autoprefixer": "catalog:",
 		"eslint": "catalog:",
 		"playwright": "catalog:",
 		"postcss": "catalog:",

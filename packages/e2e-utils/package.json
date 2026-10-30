@@ -18,8 +18,8 @@
 	"scripts": {
 		"check-licenses": "node ../../scripts/check-licenses-workspace.js",
 		"clean": "rm -rf node_modules .turbo .eslintcache",
-		"lint": "eslint . --cache",
-		"lint:fix": "eslint . --cache --fix",
+		"lint": "eslint . --max-warnings 0",
+		"lint:fix": "eslint . --fix",
 		"prettier:check": "prettier --check .",
 		"prettier:fix": "prettier --write .",
 		"typecheck": "tsc --noEmit"

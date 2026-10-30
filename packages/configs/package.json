@@ -9,6 +9,7 @@
 		"./eslint/react": "./src/eslint-config/react.mjs",
 		"./eslint/storybook": "./src/eslint-config/storybook.mjs",
 		"./eslint/typescript": "./src/eslint-config/typescript.mjs",
+		"./eslint/import": "./src/eslint-config/import.mjs",
 		"./eslint/vitest": "./src/eslint-config/vitest.mjs",
 		"./eslint/playwright": "./src/eslint-config/playwright.mjs",
 		"./playwright/base": {
@@ -27,8 +28,8 @@
 	"scripts": {
 		"check-licenses": "node ../../scripts/check-licenses-workspace.js",
 		"clean": "rm -rf node_modules .turbo .eslintcache",
-		"lint": "eslint . --cache",
-		"lint:fix": "eslint . --cache --fix",
+		"lint": "eslint . --max-warnings 0",
+		"lint:fix": "eslint . --fix",
 		"prettier:check": "prettier --check .",
 		"prettier:fix": "prettier --write ."
 	},
@@ -37,6 +38,7 @@
 		"@eslint/js": "catalog:",
 		"@next/eslint-plugin-next": "catalog:",
 		"@playwright/test": "catalog:",
+		"@types/node": "catalog:",
 		"@typescript-eslint/eslint-plugin": "catalog:",
 		"@vitejs/plugin-react": "catalog:",
 		"@vitest/browser-playwright": "catalog:",
@@ -44,6 +46,9 @@
 		"@vitest/eslint-plugin": "catalog:",
 		"eslint": "catalog:",
 		"eslint-config-prettier": "catalog:",
+		"eslint-import-resolver-typescript": "catalog:",
+		"eslint-plugin-import-x": "catalog:",
+		"eslint-plugin-jsx-a11y": "catalog:",
 		"eslint-plugin-playwright": "catalog:",
 		"eslint-plugin-prettier": "catalog:",
 		"eslint-plugin-react": "catalog:",
