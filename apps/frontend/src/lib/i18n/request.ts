@@ -1,4 +1,4 @@
-import { hasLocale } from 'next-intl';
+import { hasLocale, type Messages } from 'next-intl';
 import { getRequestConfig } from 'next-intl/server';
 import { routing } from './routing';
 import { safeImportNamespace } from './utils';
@@ -11,7 +11,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
 
 	const loadedNamespaces = await Promise.all(translationNamespaces.map((ns) => safeImportNamespace(locale, ns)));
 
-	const messages = Object.assign({}, ...loadedNamespaces);
+	const messages = loadedNamespaces.reduce<Messages>((all, namespace) => ({ ...all, ...namespace }), {} as Messages);
 
 	return {
 		locale,

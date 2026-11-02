@@ -7,10 +7,12 @@ Semantic tokens define design intent rather than specific values, enabling consi
 ## Token Structure
 
 ### Location
+
 - **UI Package**: `packages/ui/src/themes/`
 - **Frontend App**: Imports themes from UI package
 
 ### Organization
+
 ```
 packages/ui/src/themes/
 ├── base.css              # Shared tokens (radius, spacing)
@@ -28,6 +30,7 @@ packages/ui/src/themes/
 ## Semantic Token Categories
 
 ### Color Tokens
+
 ```css
 /* Semantic meaning, not specific colors */
 --color-background       /* Main background */
@@ -40,6 +43,7 @@ packages/ui/src/themes/
 ```
 
 ### Layout Tokens
+
 ```css
 /* Base shared tokens */
 --radius                 /* Default border radius */
@@ -51,12 +55,14 @@ packages/ui/src/themes/
 ## Creating New Themes
 
 ### 1. Create Theme Directory
+
 ```bash
 mkdir packages/ui/src/themes/brand
 cd packages/ui/src/themes/brand
 ```
 
 ### 2. Define Color Mapping
+
 ```css
 /* packages/ui/src/themes/brand/colors.css */
 @theme {
@@ -71,6 +77,7 @@ cd packages/ui/src/themes/brand
 ```
 
 ### 3. Export Theme
+
 ```css
 /* packages/ui/src/themes/brand/index.css */
 @import './colors.css';
@@ -79,6 +86,7 @@ cd packages/ui/src/themes/brand
 ## Using Tokens in Components
 
 ### In UI Components
+
 ```typescript
 // packages/ui/src/components/button.tsx
 const buttonVariants = cva(
@@ -96,6 +104,7 @@ const buttonVariants = cva(
 ```
 
 ### In Frontend App
+
 ```typescript
 // apps/frontend/src/app/layout.tsx
 import '@infinum/ui/themes/base.css';
@@ -106,6 +115,7 @@ import '@infinum/ui/themes/dark';
 ## Theme Switching
 
 ### With next-themes
+
 ```typescript
 // Frontend theme provider handles switching between:
 // - "light" → uses default theme tokens
@@ -121,11 +131,13 @@ import '@infinum/ui/themes/dark';
 ## Best Practices
 
 ### Token Naming
+
 - **Use semantic names**: `--color-destructive` not `--color-red-500`
 - **Be consistent**: All themes must define the same semantic tokens
 - **Group logically**: Related tokens like `primary` and `primary-foreground`
 
 ### Theme Development
+
 ```css
 /* ✅ Good: Semantic meaning */
 --color-success: var(--color-green-600);
@@ -137,6 +149,7 @@ import '@infinum/ui/themes/dark';
 ```
 
 ### Component Usage
+
 ```typescript
 // ✅ Good: Use semantic classes
 className="bg-background text-foreground border-border"
@@ -148,6 +161,7 @@ className="bg-white text-black border-gray-200"
 ## Examples
 
 ### Light vs Dark Mapping
+
 ```css
 /* Light theme */
 @theme {
@@ -163,6 +177,7 @@ className="bg-white text-black border-gray-200"
 ```
 
 ### Custom Brand Theme
+
 ```css
 /* Brand theme */
 @theme {
@@ -172,4 +187,3 @@ className="bg-white text-black border-gray-200"
   --color-accent: var(--color-amber-500);
 }
 ```
-

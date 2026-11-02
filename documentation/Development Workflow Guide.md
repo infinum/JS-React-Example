@@ -85,6 +85,26 @@ git fetch origin && git rebase origin/main
 git push origin feature/PROJ-123-your-feature-name
 ```
 
+The `pre-commit` hook runs ESLint and the Prettier check on the staged files, with each package's own config. The `pre-push` hook runs `scripts/verify.sh push`: lint, the Prettier check, typecheck, tests and builds of the packages your branch changed, Knip, and the changeset check. When `pnpm-lock.yaml` changed, it also runs the license check and `pnpm audit`. Run `pnpm verify` to run all of it on every package. CI runs the same checks and the full test suite with coverage. See the [Testing Guide](Testing%20Guide.md) and the feedback loop table in [AGENTS.md](../AGENTS.md#feedback-loop).
+
+### Claude Code Hooks
+
+`.claude/settings.json` gives Claude Code a feedback loop. Checks run automatically, and their failures are sent back to Claude so it can fix them itself.
+
+| Hook          | When                   | What it runs                                                                                                                                                                                                                                                                      |
+| ------------- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PreToolUse`  | Before a shell command | Blocks commands that update visual baselines (`--update-snapshots`, `e2e:update`, `playwright test -u`).                                                                                                                                                                          |
+| `PostToolUse` | After each file edit   | Prettier on the edited file, Markdown included, then `eslint --fix --max-warnings 0` on JS and TS. Files outside the project are skipped.                                                                                                                                         |
+| `Stop`        | When Claude finishes   | `scripts/verify.sh agent`: lint, the Prettier check, typecheck and tests of the packages changed since the branch split from `origin/main`, committed or not, and Knip. License and audit checks run when `pnpm-lock.yaml` changed. Unchanged packages come from the Turbo cache. |
+
+A hook sends feedback to Claude only when it exits with code `2`. Its stderr becomes Claude's input. Any other non-zero exit code is only shown to you. The `Stop` hook blocks every stop while checks fail. Claude Code ends the loop on its own after 8 blocks in a row without a tool call, so a failure Claude cannot fix does not loop forever.
+
+Markdown is formatted with Prettier, not remark. Claude Code reads skills, agents, `CLAUDE.md` and `AGENTS.md` as raw text and matches `${CLAUDE_SKILL_DIR}`, `@path/to_file.md` imports and `[[memory-link]]` links literally. remark escapes every `_` and `[` in text, which breaks them. Prettier keeps text as written. The shared config sets `embeddedLanguageFormatting: 'off'` for Markdown, so code inside fences and frontmatter is left alone. `.prettierignore` skips third-party skills, the generated Playwright agents and Playwright output.
+
+The hooks need `jq`, which `mise install` provides from `mise.toml`.
+
+To turn a hook off for yourself only, override `hooks` in `.claude/settings.local.json`. That file is not committed. Run `/hooks` in Claude Code to see which hooks are active.
+
 ## Code Review Process
 
 **Review Focus Areas:**

@@ -1,7 +1,7 @@
 import { CUSTOM_VIEWPORTS } from '@/src/constants/custom-viewports';
 import { loadThemeStyles } from '@/src/utils/loadThemeStyles';
 import { withThemeByClassName } from '@storybook/addon-themes';
-import type { Preview } from '@storybook/nextjs';
+import type { Preview } from '@storybook/nextjs-vite';
 import { MINIMAL_VIEWPORTS } from 'storybook/viewport';
 import '../src/lib/tailwind/index.css';
 
@@ -23,6 +23,11 @@ const preview: Preview = {
 			},
 		},
 		layout: 'centered',
+		a11y: {
+			// Accessibility violations fail story tests. To opt out a single story, set `a11y: { test: 'todo' }`
+			// on it with a comment explaining why.
+			test: 'error',
+		},
 	},
 	decorators: [
 		withThemeByClassName({

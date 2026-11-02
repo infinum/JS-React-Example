@@ -93,26 +93,44 @@ console.info(
 );
 
 // Create temp directory for results aggregation
-const tempDir = path.join(os.tmpdir(), 'license-check-results');
+// Shared with aggregate-license-results.js. LICENSE_RESULTS_DIR overrides it (used by the tests).
+const tempDir = process.env.LICENSE_RESULTS_DIR || path.join(os.tmpdir(), 'license-check-results');
 if (!fs.existsSync(tempDir)) {
 	fs.mkdirSync(tempDir, { recursive: true });
+}
+
+/**
+ * Lists the dependencies whose license isn't allowed. Same rule as license-checker's `onlyAllow`, see the
+ * NOTE above ALLOWED_LICENSES. `onlyAllow` itself exits the process on the first match, before the result
+ * file is written, so the summary would never show the failure.
+ *
+ * @param {Record<string, {licenses?: string | string[]}>} dependencies Result of license-checker
+ * @returns {string[]} One `name@version (license)` entry per disallowed dependency
+ */
+function findDisallowed(dependencies) {
+	return Object.entries(dependencies)
+		.map(([nameWithVersion, info]) => [nameWithVersion, [].concat(info.licenses ?? 'UNKNOWN').join(' OR ')])
+		.filter(([, license]) => !ALLOWED_LICENSES.some((allowed) => license.includes(allowed)))
+		.map(([nameWithVersion, license]) => `${nameWithVersion} (${license})`);
 }
 
 licenseChecker.init(
 	{
 		start: process.cwd(),
 		excludePackages: [...workspaceProjects, ...excludedPackages],
-		onlyAllow: ALLOWED_LICENSES.join(';'),
 		showLegend: true,
 		json: true,
 		summary: true,
 		unknown: true,
 	},
 	(err, result) => {
+		const disallowed = err ? [] : findDisallowed(result);
+		const error = err?.message || (disallowed.length ? `Not allowed: ${disallowed.join(', ')}` : null);
+
 		const packageResult = {
 			packageName: name,
-			success: !err,
-			error: err?.message || null,
+			success: !error,
+			error,
 			result: result || null,
 			timestamp: new Date().toISOString(),
 		};
@@ -121,12 +139,11 @@ licenseChecker.init(
 		const resultFile = path.join(tempDir, `${name.replace('@', '').replace('/', '-')}.json`);
 		fs.writeFileSync(resultFile, JSON.stringify(packageResult, null, 2));
 
-		if (err) {
-			console.error(`❌ ${name}: License check failed.`, err);
+		if (error) {
+			console.error(`❌ ${name}: License check failed. ${error}`);
 			process.exit(1);
 		}
-		console.info(`✅ ${name}: License check passed.\n\n`);
-
-		console.info(JSON.stringify(result, null, 2));
+		// One line per package: the full list goes to the GitHub job summary, and long output would bury failures
+		console.info(`✅ ${name}: License check passed for ${Object.keys(result).length} dependencies.`);
 	}
 );

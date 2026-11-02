@@ -7,7 +7,8 @@ export default [
 	...typescriptConfig,
 	...playwrightConfig,
 	{
-		files: ['**/*.ts', '**/*.tsx'],
+		// Config files included: no-deprecated needs type information everywhere
+		files: ['**/*.{ts,tsx,mts,cts,js,mjs,cjs}'],
 		languageOptions: {
 			parserOptions: {
 				project: './tsconfig.json',

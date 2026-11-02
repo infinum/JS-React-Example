@@ -1,6 +1,7 @@
 import { fixupPluginRules } from '@eslint/compat';
 import pluginReact from 'eslint-plugin-react';
 import pluginReactHooks from 'eslint-plugin-react-hooks';
+import pluginJsxA11y from 'eslint-plugin-jsx-a11y';
 
 export default [
 	{
@@ -18,5 +19,9 @@ export default [
 			...pluginReact.configs['jsx-runtime'].rules,
 			...pluginReactHooks.configs.recommended.rules,
 		},
+	},
+	{
+		files: ['**/*.tsx', '**/*.jsx'],
+		...pluginJsxA11y.flatConfigs.recommended,
 	},
 ];

@@ -20,7 +20,8 @@ try {
 	// Ignore if not available
 }
 
-const tempDir = path.join(os.tmpdir(), 'license-check-results');
+// Shared with check-licenses-workspace.js. LICENSE_RESULTS_DIR overrides it (used by the tests).
+const tempDir = process.env.LICENSE_RESULTS_DIR || path.join(os.tmpdir(), 'license-check-results');
 
 function readAllResults() {
 	if (!fs.existsSync(tempDir)) {
@@ -174,16 +175,18 @@ function main() {
 		}
 
 		// Check if any packages failed and exit with error code
+		// Set the exit code instead of calling process.exit(), so `finally` still removes this run's results
 		const hasFailures = results.some((r) => !r.success);
 		if (hasFailures) {
 			console.error('\n❌ License check failed for one or more packages');
-			process.exit(1);
+			process.exitCode = 1;
+			return;
 		}
 
 		console.info('\n✅ All license checks passed');
 	} catch (error) {
 		console.error('Failed to aggregate license results:', error);
-		process.exit(1);
+		process.exitCode = 1;
 	} finally {
 		cleanup();
 	}

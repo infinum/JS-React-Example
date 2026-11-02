@@ -13,7 +13,7 @@ export const LoginForm = () => {
 	const [error, setError] = useState('');
 	const locale = useLocale();
 
-	const handleSubmit = async (e: React.FormEvent) => {
+	const handleSubmit = async (e: React.SubmitEvent) => {
 		e.preventDefault();
 		setError('');
 
@@ -36,7 +36,7 @@ export const LoginForm = () => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit} className="space-y-6">
+		<form onSubmit={(event) => void handleSubmit(event)} className="space-y-6">
 			<div>
 				<Label htmlFor="email">Email</Label>
 				<Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />

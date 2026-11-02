@@ -13,7 +13,6 @@ export default [
 		rules: {
 			'no-console': ['warn', { allow: ['warn', 'error', 'info', 'debug'] }],
 			'no-debugger': 'error',
-			'no-return-await': 'error',
 			'require-await': 'error',
 		},
 	},

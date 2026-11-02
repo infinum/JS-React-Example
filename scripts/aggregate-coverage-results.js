@@ -1,5 +1,5 @@
 /**
- * Aggregates Jest coverage-summary.json files from all workspace packages.
+ * Aggregates Vitest coverage-summary.json files from all workspace packages.
  *
  * Generates:
  * 1. GitHub Actions Job Summary (if running in CI)
@@ -291,7 +291,7 @@ function calculateMetricTotal(metric, results) {
 }
 
 /**
- * Generates a combined coverage-summary.json matching Jest's format.
+ * Generates a combined coverage-summary.json in the istanbul json-summary format.
  * @param {Array<object>} results - Coverage results
  * @returns {object|null} Combined coverage data or null if no results
  */

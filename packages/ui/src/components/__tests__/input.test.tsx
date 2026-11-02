@@ -1,3 +1,4 @@
+import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -13,7 +14,7 @@ describe('Input component', () => {
 	});
 
 	it('accepts user input and forwards native props', async () => {
-		const handleChange = jest.fn();
+		const handleChange = vi.fn();
 		const user = userEvent.setup();
 
 		render(<Input aria-invalid="true" onChange={handleChange} />);

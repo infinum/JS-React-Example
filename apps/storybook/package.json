@@ -7,10 +7,17 @@
 		"check-licenses": "node ../../scripts/check-licenses-workspace.js",
 		"clean": "rm -rf node_modules .turbo storybook-static .eslintcache",
 		"dev": "storybook dev -p 6006",
-		"lint": "eslint . --cache",
-		"lint:fix": "eslint . --cache --fix",
+		"lint": "eslint . --max-warnings 0",
+		"lint:fix": "eslint . --fix",
 		"prettier:check": "prettier --check .",
-		"prettier:fix": "prettier --write ."
+		"prettier:fix": "prettier --write .",
+		"test": "vitest run",
+		"test:watch": "vitest",
+		"test:coverage": "vitest run --coverage",
+		"test:coverage:changed": "COVERAGE_CHANGED=${TEST_CHANGED_BASE:-origin/main} vitest run --coverage",
+		"test:coverage:watch": "vitest --coverage",
+		"test:changed": "vitest run --changed ${TEST_CHANGED_BASE:-origin/main}",
+		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
 		"@infinum/ui": "workspace:*",
@@ -23,15 +30,24 @@
 		"@storybook/addon-a11y": "catalog:",
 		"@storybook/addon-designs": "catalog:",
 		"@storybook/addon-docs": "catalog:",
+		"@storybook/addon-mcp": "catalog:",
 		"@storybook/addon-themes": "catalog:",
-		"@storybook/nextjs": "catalog:",
+		"@storybook/addon-vitest": "catalog:",
+		"@storybook/nextjs-vite": "catalog:",
 		"@tailwindcss/postcss": "catalog:",
 		"@types/react": "catalog:",
 		"@types/react-dom": "catalog:",
-		"eslint-plugin-storybook": "catalog:",
+		"@vitest/browser": "catalog:",
+		"@vitest/browser-playwright": "catalog:",
+		"@vitest/coverage-v8": "catalog:",
+		"next": "catalog:",
+		"playwright": "catalog:",
 		"prettier": "catalog:",
 		"prettier-plugin-sh": "catalog:",
 		"prettier-plugin-tailwindcss": "catalog:",
-		"storybook": "catalog:"
+		"storybook": "catalog:",
+		"typescript": "catalog:",
+		"vite": "catalog:",
+		"vitest": "catalog:"
 	}
 }

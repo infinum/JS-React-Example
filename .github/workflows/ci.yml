@@ -15,9 +15,12 @@ concurrency:
 jobs:
   lint:
     runs-on: ubuntu-24.04
+    timeout-minutes: 15
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        with:
+          fetch-depth: 0 # the changeset check compares with origin/main
 
       - name: 💻 Node setup
         uses: ./.github/actions/node-setup
@@ -25,8 +28,15 @@ jobs:
       - name: 👁️‍🗨️ Code Analysis
         uses: ./.github/actions/code-analysis
 
-  licenses:
+      - name: 🦋 Changesets
+        # Release PRs consume the changesets instead of adding them
+        if: ${{ !startsWith(github.head_ref, 'changeset-release/') }}
+        run: pnpm changeset status --since=origin/main
+        shell: bash
+
+  dependencies:
     runs-on: ubuntu-24.04
+    timeout-minutes: 10
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
@@ -37,8 +47,13 @@ jobs:
       - name: 🗳️ Check Licenses
         uses: ./.github/actions/check-licenses
 
+      - name: 🛡️ Audit dependencies
+        run: pnpm audit --audit-level=high
+        shell: bash
+
   build:
     runs-on: ubuntu-24.04
+    timeout-minutes: 20
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5

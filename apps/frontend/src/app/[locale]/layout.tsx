@@ -1,4 +1,5 @@
 import { routing } from '@/lib/i18n/routing';
+import { hasLocale } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { ReactNode } from 'react';
 
@@ -12,7 +13,7 @@ type LocalizedLayoutProps = Readonly<{
 const LocalizedLayout = async ({ children, params }: LocalizedLayoutProps) => {
 	const { locale } = await params;
 
-	if (!routing.locales.includes(locale as any)) {
+	if (!hasLocale(routing.locales, locale)) {
 		notFound();
 	}
 

@@ -3,6 +3,3 @@ node_modules/
 
 # Cache
 .turbo/
-
-# Docs
-*.md

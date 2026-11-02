@@ -1,28 +1,30 @@
+import { getServerSession } from '@/lib/auth';
 import { render, screen } from '@/tests/utils';
+import { getTranslations } from 'next-intl/server';
+import type { ComponentProps } from 'react';
+import { beforeEach, describe, expect, it, vi, type MockedFunction } from 'vitest';
 import { HomePage } from './HomePage';
 
 // Mock next-intl server function
-jest.mock('next-intl/server', () => ({
-	getTranslations: jest.fn(),
+vi.mock('next-intl/server', () => ({
+	getTranslations: vi.fn(),
 }));
 
 // Mock auth
-jest.mock('@/lib/auth', () => ({
-	getServerSession: jest.fn(),
+vi.mock('@/lib/auth', () => ({
+	getServerSession: vi.fn(),
 }));
 
 // Mock Next.js components
-jest.mock('next/image', () => ({
-	__esModule: true,
-	default: ({ alt, src, width, height, priority, ...props }: any) => (
+vi.mock('next/image', () => ({
+	default: ({ alt, src, width, height, priority, ...props }: ComponentProps<'img'> & { priority?: boolean }) => (
 		// eslint-disable-next-line @next/next/no-img-element
 		<img alt={alt} src={src} width={width} height={height} data-priority={priority} {...props} />
 	),
 }));
 
-jest.mock('next/link', () => ({
-	__esModule: true,
-	default: ({ href, children, ...props }: any) => (
+vi.mock('next/link', () => ({
+	default: ({ href, children, ...props }: ComponentProps<'a'>) => (
 		<a href={href} {...props}>
 			{children}
 		</a>
@@ -30,8 +32,8 @@ jest.mock('next/link', () => ({
 }));
 
 // Mock UI components
-jest.mock('@infinum/ui/components/example', () => ({
-	ExampleComponent: ({ text, className }: any) => (
+vi.mock('@infinum/ui/components/example', () => ({
+	ExampleComponent: ({ text, className }: { text: string; className?: string }) => (
 		<div className={className} data-testid="example-component">
 			{text}
 		</div>
@@ -39,20 +41,25 @@ jest.mock('@infinum/ui/components/example', () => ({
 }));
 
 // Mock app components
-jest.mock('@/app/_components/LocaleSwitcher/LocaleSwitcher', () => ({
+vi.mock('@/app/_components/LocaleSwitcher/LocaleSwitcher', () => ({
 	LocaleSwitcher: () => <div data-testid="locale-switcher">Locale Switcher</div>,
 }));
 
-jest.mock('@/app/_components/ThemeToggle/ThemeToggle', () => ({
+vi.mock('@/app/_components/ThemeToggle/ThemeToggle', () => ({
 	ThemeToggle: () => <button data-testid="theme-toggle">Theme Toggle</button>,
 }));
 
-const mockGetTranslations = require('next-intl/server').getTranslations as jest.MockedFunction<any>;
-const mockGetServerSession = require('@/lib/auth').getServerSession as jest.MockedFunction<any>;
+// Typed loosely: the tests return a plain translate function and a partial session
+const mockGetTranslations = getTranslations as unknown as MockedFunction<
+	(namespace: string) => Promise<(key: string) => string>
+>;
+const mockGetServerSession = getServerSession as unknown as MockedFunction<
+	() => Promise<{ user: { id: string; name: string } } | null>
+>;
 
 describe('HomePage', () => {
 	beforeEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 
 		// Mock translations - getTranslations returns a function
 		mockGetTranslations.mockResolvedValue((key: string) => {

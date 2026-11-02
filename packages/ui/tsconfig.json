@@ -12,11 +12,10 @@
 		"moduleResolution": "bundler",
 		"resolveJsonModule": true,
 		"isolatedModules": true,
-		"rootDir": "./src",
 		"paths": {
 			"@infinum/ui/*": ["./src/*"]
 		}
 	},
-	"include": ["src"],
+	"include": ["src", "*.mts", "*.mjs", ".prettierrc.js"],
 	"exclude": ["node_modules"]
 }

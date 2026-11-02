@@ -1,0 +1,14 @@
+{
+	// Gives ESLint type information for the root JavaScript files (no-deprecated). Nothing is type-checked: no checkJs.
+	// The apps and packages have their own tsconfig.json.
+	"compilerOptions": {
+		"allowJs": true,
+		"noEmit": true,
+		"module": "nodenext",
+		"moduleResolution": "nodenext",
+		"target": "esnext",
+		"skipLibCheck": true,
+		"types": ["node"]
+	},
+	"include": ["*.js", "*.mjs", ".prettierrc.js", "scripts/**/*.js"]
+}

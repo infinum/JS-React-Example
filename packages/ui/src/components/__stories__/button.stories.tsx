@@ -1,5 +1,5 @@
 import { Button } from '@infinum/ui/components/button';
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { fn } from 'storybook/test';
 

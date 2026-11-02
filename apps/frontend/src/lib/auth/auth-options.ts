@@ -9,15 +9,12 @@ const MOCK_USER = {
 	role: 'user',
 };
 
-const findUserByEmail = (_email: string) => {
-	return MOCK_USER;
+// Async like a real database lookup
+const findUserByEmail = (_email: string): Promise<typeof MOCK_USER | null> => {
+	return Promise.resolve(MOCK_USER);
 };
-const verifyPassword = (_password: string, _hashedPassword: string) => {
-	if (_password === 'invalid') {
-		return false;
-	}
-
-	return true;
+const verifyPassword = (_password: string, _hashedPassword: string): Promise<boolean> => {
+	return Promise.resolve(_password !== 'invalid');
 };
 
 export const authOptions: NextAuthOptions = {

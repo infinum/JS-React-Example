@@ -3,8 +3,6 @@
 import { ThemeProvider as ThemeProviderBase } from 'next-themes';
 import { PropsWithChildren } from 'react';
 
-export type AppTheme = 'light' | 'dark' | 'rainbow' | 'system';
-
 interface ThemeProviderProps extends PropsWithChildren {
 	nonce?: string;
 }

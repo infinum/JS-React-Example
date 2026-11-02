@@ -1,0 +1,24 @@
+{
+	"mcpServers": {
+		"playwright-test": {
+			"command": "pnpm",
+			"args": ["exec", "playwright", "run-test-mcp-server", "-c", "playwright.config.ts"]
+		},
+		"chrome-devtools": {
+			"command": "pnpm",
+			"args": [
+				"exec",
+				"chrome-devtools-mcp",
+				"--isolated",
+				"--redact-network-headers",
+				"--no-performance-crux",
+				"--no-usage-statistics",
+				"--screenshot-max-width=1280"
+			]
+		},
+		"storybook": {
+			"type": "http",
+			"url": "http://localhost:6006/mcp"
+		}
+	}
+}

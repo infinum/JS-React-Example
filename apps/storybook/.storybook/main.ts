@@ -1,4 +1,4 @@
-import type { StorybookConfig } from '@storybook/nextjs';
+import type { StorybookConfig } from '@storybook/nextjs-vite';
 
 const config: StorybookConfig = {
 	stories: [
@@ -6,9 +6,16 @@ const config: StorybookConfig = {
 		'../src/stories/**/*.stories.@(js|jsx|mjs|ts|tsx)',
 		'../../../packages/ui/src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
 	],
-	addons: ['@storybook/addon-themes', '@storybook/addon-docs', '@storybook/addon-a11y', '@storybook/addon-designs'],
+	addons: [
+		'@storybook/addon-themes',
+		'@storybook/addon-docs',
+		'@storybook/addon-a11y',
+		'@storybook/addon-designs',
+		'@storybook/addon-mcp',
+		'@storybook/addon-vitest',
+	],
 	framework: {
-		name: '@storybook/nextjs',
+		name: '@storybook/nextjs-vite',
 		options: {},
 	},
 	core: {

@@ -31,10 +31,7 @@ export * from '@testing-library/react';
 export { customRender as render };
 
 // add renderServer method for async server components
-export async function renderServer<T extends (...args: any[]) => Promise<ReactElement>>(
-	comp: T,
-	props?: Parameters<T>[0]
-) {
+export async function renderServer<P>(comp: (props: P) => Promise<ReactElement>, props: P) {
 	const tree = await comp(props);
 	return customRender(tree);
 }

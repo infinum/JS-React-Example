@@ -11,3 +11,15 @@ runs:
     - name: 🫣 Lint
       run: pnpm lint
       shell: bash
+
+    - name: 🔤 Typecheck
+      run: pnpm typecheck
+      shell: bash
+
+    - name: ✂️ Unused files, exports and dependencies
+      run: pnpm knip
+      shell: bash
+
+    - name: 🧰 Repository script tests
+      run: pnpm test:root
+      shell: bash

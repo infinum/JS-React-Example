@@ -1,0 +1,29 @@
+name: 🧪 Test browsers setup
+description: 'Install Chromium for Vitest browser mode, cached by Playwright version'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: 🔢 Read Playwright version
+      id: playwright
+      run: echo "version=$(pnpm --filter @infinum/ui exec playwright --version | awk '{print $2}')" >> "$GITHUB_OUTPUT"
+      shell: bash
+
+    - name: 💾 Cache Playwright Chromium
+      id: cache
+      uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+      with:
+        path: ~/.cache/ms-playwright
+        # Keyed by the Playwright version, so unrelated dependency updates keep the cache
+        key: ${{ runner.os }}-playwright-chromium-${{ steps.playwright.outputs.version }}
+
+    - name: 🎭 Install Chromium
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: pnpm --filter @infinum/ui exec playwright install --with-deps chromium
+      shell: bash
+
+    - name: 📦 Install Chromium system dependencies
+      # The OS libraries aren't part of the cache
+      if: steps.cache.outputs.cache-hit == 'true'
+      run: pnpm --filter @infinum/ui exec playwright install-deps chromium
+      shell: bash
