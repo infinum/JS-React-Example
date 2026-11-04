@@ -54,16 +54,16 @@ catalog:
   eslint-plugin-prettier: 5.5.6
   eslint-plugin-react: 7.37.5
   eslint-plugin-react-hooks: 7.1.1
-  eslint-plugin-storybook: 10.5.4
+  eslint-plugin-storybook: 10.6.2
   globals: 17.8.0
-  hono: 4.12.21
+  hono: 4.13.11
   husky: 9.1.7
   jest: 30.4.2
   jest-environment-jsdom: 30.4.1
   license-checker-rseidelsohn: 5.0.1
   lint-staged: 17.2.0
   lucide-react: 1.27.0
-  next: 16.2.12
+  next: 16.4.1
   next-auth: 4.24.15
   next-intl: 4.13.4
   next-themes: 0.4.6
@@ -76,7 +76,7 @@ catalog:
   remark: 15.0.1
   remark-cli: 12.0.1
   shadcn: 4.15.0
-  storybook: 10.5.4
+  storybook: 10.6.2
   tailwind-merge: 3.6.0
   tailwindcss: 4.3.3
   ts-jest: 29.4.12
