@@ -19,7 +19,6 @@
 				"name": "next"
 			}
 		],
-		"baseUrl": "./",
 		"paths": {
 			"@/*": ["./src/*"],
 			"@infinum/ui/*": ["../../packages/ui/src/*"]

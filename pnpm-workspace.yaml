@@ -18,19 +18,19 @@ catalog:
   '@changesets/cli': 2.31.1
   '@eslint/compat': 2.1.0
   '@eslint/js': 10.0.1
-  '@next/bundle-analyzer': 16.2.12
-  '@next/env': 16.2.12
-  '@next/eslint-plugin-next': 16.2.12
+  '@next/bundle-analyzer': 16.4.5
+  '@next/env': 16.4.5
+  '@next/eslint-plugin-next': 16.4.5
   '@playwright/test': 1.62.0
   '@radix-ui/react-label': 2.1.15
   '@radix-ui/react-select': 2.3.7
   '@radix-ui/react-slot': 1.3.3
   '@radix-ui/react-tooltip': 1.2.16
-  '@storybook/addon-a11y': 10.5.4
+  '@storybook/addon-a11y': 10.6.6
   '@storybook/addon-designs': 11.1.4
-  '@storybook/addon-docs': 10.5.4
-  '@storybook/addon-themes': 10.5.4
-  '@storybook/nextjs': 10.5.4
+  '@storybook/addon-docs': 10.6.6
+  '@storybook/addon-themes': 10.6.6
+  '@storybook/nextjs': 10.6.6
   '@tailwindcss/postcss': 4.3.3
   '@testing-library/dom': 10.4.1
   '@testing-library/jest-dom': 7.0.0
@@ -54,7 +54,7 @@ catalog:
   eslint-plugin-prettier: 5.5.6
   eslint-plugin-react: 7.37.5
   eslint-plugin-react-hooks: 7.1.1
-  eslint-plugin-storybook: 10.5.4
+  eslint-plugin-storybook: 10.6.6
   globals: 17.8.0
   hono: 4.12.21
   husky: 9.1.7
@@ -63,7 +63,7 @@ catalog:
   license-checker-rseidelsohn: 5.0.1
   lint-staged: 17.2.0
   lucide-react: 1.27.0
-  next: 16.2.12
+  next: 16.4.5
   next-auth: 4.24.15
   next-intl: 4.13.4
   next-themes: 0.4.6
@@ -75,8 +75,8 @@ catalog:
   react-dom: 19.2.8
   remark: 15.0.1
   remark-cli: 12.0.1
-  shadcn: 4.15.0
-  storybook: 10.5.4
+  shadcn: 4.23.0
+  storybook: 10.6.6
   tailwind-merge: 3.6.0
   tailwindcss: 4.3.3
   ts-jest: 29.4.12
@@ -105,10 +105,6 @@ engineStrict: true
 
 minimumReleaseAge: 10080
 
-# Security fixes published more recently than minimumReleaseAge allows.
-minimumReleaseAgeExclude:
-  - brace-expansion@1.1.18 || 2.1.4
-
 peerDependencyRules:
   allowedVersions:
     # eslint-plugin-react 7.37.5 is the newest stable release and still caps its peer
@@ -118,11 +114,21 @@ peerDependencyRules:
 overrides:
   # GHSA-frvp-7c67-39w9: path traversal in serve-static on Windows
   '@hono/node-server@<2.0.5': '>=2.0.5'
-  # GHSA-mh99-v99m-4gvg: DoS via unbounded expansion length
-  brace-expansion@<1.1.17: 1.1.18
-  brace-expansion@>=2.0.0 <2.1.3: 2.1.4
-  # GHSA-v2hh-gcrm-f6hx, GHSA-4c8g-83qw-93j6: host confusion via backslash authority / failed IDN canonicalization
-  fast-uri@>=3.0.0 <3.1.4: '>=3.1.4 <4'
+  # GHSA-mh99-v99m-4gvg, GHSA-6j4f-fj2g-mc7p, GHSA-qhr7-859c-m2p7, GHSA-rgw5-rvv9-x895: DoS via
+  # unbounded expansion / uncontrolled recursion; 1.1.21, 2.1.7, 5.0.12 also fix the quadratic `{a},b}` rewrite
+  brace-expansion@<1.1.21: 1.1.21
+  brace-expansion@>=2.0.0 <2.1.7: 2.1.7
+  brace-expansion@>=4.0.0 <5.0.12: 5.0.12
+  # GHSA-qw65-cvwx-89v3, GHSA-7p8r-x3mc-p8w7, GHSA-f65p-4m7j-42xc, GHSA-fph4-wmhf-6fwf, GHSA-jqff-g426-hqxp,
+  # GHSA-5jgf-p345-68v8 and earlier: host confusion / SSRF / authority injection
+  fast-uri@>=3.0.0 <3.1.9: '>=3.1.9 <4'
+  # GHSA-2883-xcg3-v3hh, GHSA-5p4m-2wfm-xmqj: CPU DoS via merge keys / !!omap.
+  # Reached through @istanbuljs/load-nyc-config (jest coverage), which allows ^3.13.1.
+  js-yaml@>=3.0.0 <3.15.2: '>=3.15.2 <4'
+  # GHSA-g84c-rxfj-3j2c: path traversal via non-slash-terminated publicPath. No 6.x fix exists;
+  # @storybook/builder-webpack5 10.6.x still declares ^6.1.2. Dev-only (Storybook dev server).
+  # Drop once Storybook moves to webpack-dev-middleware 7.
+  webpack-dev-middleware@<7.4.6: 7.4.6
   # GHSA-qx2v-qp2m-jg93, GHSA-6g55-p6wh-862q, GHSA-r28c-9q8g-f849: sourceMappingURL arbitrary file read
   postcss@<8.5.18: '>=8.5.18'
   # GHSA-f88m-g3jw-g9cj: inherited libvips vulnerabilities
